@@ -14,8 +14,6 @@ const Home = () => {
 
 		if (redirectAfterLogin) {
 			console.log('redirecting');
-		} else {
-			console.log('not redirecting');
 		}
 	}, []);
 
