@@ -48,7 +48,7 @@ const LoginForm = () => {
 					</button>
 				</form>
 				<p className="text-center">
-					Pas encore inscrit ?
+					Pas encore inscrit ?{' '}
 					<a href="#" id="signup-link">
 						S'inscrire
 					</a>

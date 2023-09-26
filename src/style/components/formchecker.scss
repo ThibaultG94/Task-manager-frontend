@@ -1,0 +1,62 @@
+#signup-form span {
+	margin-bottom: 20px;
+	display: block;
+	font-size: 0.8rem;
+	visibility: hidden;
+	opacity: 0;
+	transition: 0.3s;
+	color: red;
+}
+
+.error input {
+	color: red;
+	border: 1px solid rgba(255, 0, 0, 0.527);
+}
+
+.error span {
+	visibility: visible;
+	opacity: 1;
+	color: red;
+}
+
+.success span {
+	visibility: visible;
+	opacity: 1;
+	color: #51df91;
+}
+
+#progress-bar {
+	margin-top: 10px;
+}
+
+.progressRed {
+	background: red;
+	width: 33%;
+	visibility: visible;
+}
+
+.progressBlue {
+	background: #16d9e7;
+	width: 67%;
+	visibility: visible;
+}
+
+.progressGreen {
+	background: #5ef9a4;
+	width: 100%;
+	visibility: visible;
+}
+
+#security span {
+	display: inline;
+}
+
+form p {
+	background: red;
+	width: 33%;
+	height: 6px;
+	margin: 4px 0 2px;
+	border-radius: 50px;
+	visibility: hidden;
+	transition: 0.3s;
+}
