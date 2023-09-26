@@ -11,44 +11,44 @@ const SignupModal = () => {
 
 				<form id="signup-form" className="mx-auto">
 					<div>
-						<label for="pseudo">Nom d'utilisateur</label>
+						<label htmlFor="pseudo">Nom d'utilisateur</label>
 						<input
 							type="text"
 							id="pseudo"
 							name="pseudo"
 							required
-							minlength="3"
-							maxlength="30"
-							autocomplete="off"
+							minLength="3"
+							maxLength="30"
+							autoComplete="off"
 							placeholder="Entrez votre nom d'utilisateur"
 						/>
 					</div>
 
 					<div>
-						<label for="email">Email</label>
+						<label htmlFor="email">Email</label>
 						<input
 							type="email"
 							name="email"
 							id="email"
-							maxlength="254"
-							minlength="6"
+							maxLength="254"
+							minLength="6"
 							required
-							autocomplete="off"
+							autoComplete="off"
 							placeholder="prenom.nom@email.fr"
 						/>
 					</div>
 
 					<div className="password-container">
-						<label for="password">Mot de passe</label>
+						<label htmlFor="password">Mot de passe</label>
 						<input
 							type="password"
 							name="password"
 							id="password"
 							className="mt-3 mb-[-3px]"
 							placeholder="Entrez votre mot de passe"
-							minlength="8"
-							maxlength="128"
-							autocomplete="off"
+							minLength="8"
+							maxLength="128"
+							autoComplete="off"
 							required
 						/>
 						<p id="progress-bar"></p>
@@ -56,7 +56,7 @@ const SignupModal = () => {
 					</div>
 
 					<div className="confirm-container">
-						<label for="passwordConfirm">
+						<label htmlFor="passwordConfirm">
 							Confirmez le mot de passe
 						</label>
 						<input
@@ -64,9 +64,9 @@ const SignupModal = () => {
 							name="passwordConfirm"
 							id="confirm"
 							placeholder="Confirmez votre mot de passe"
-							minlength="8"
-							maxlength="128"
-							autocomplete="off"
+							minLength="8"
+							maxLength="128"
+							autoComplete="off"
 							required
 						/>
 						<span></span>

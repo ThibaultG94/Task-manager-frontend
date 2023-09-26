@@ -9,14 +9,14 @@ const LoginForm = () => {
 					id="login-form"
 					className="flex flex-col items-start mb-24">
 					<div className="flex flex-col">
-						<label for="email">Email</label>
+						<label htmlFor="email">Email</label>
 						<input
 							type="email"
 							id="emailLog"
 							name="email"
-							minlength="6"
-							maxlength="254"
-							autocomplete="off"
+							minLength="6"
+							maxLength="254"
+							autoComplete="off"
 							required
 						/>
 						<span id="email-error" className="error-message"></span>
@@ -25,7 +25,7 @@ const LoginForm = () => {
 					<div>
 						<div>
 							<div className="flex justify-between">
-								<label for="password">Mot de passe</label>
+								<label htmlFor="password">Mot de passe</label>
 								{/* <a href="./auth/forgetPassword.html">
 											Mot de passe oublié
 										</a> */}
@@ -34,13 +34,15 @@ const LoginForm = () => {
 								type="password"
 								id="passwordLog"
 								name="password"
-								minlength="8"
-								maxlength="128"
-								autocomplete="off"
+								minLength="8"
+								maxLength="128"
+								autoComplete="off"
 								required
 							/>
 						</div>
-						<span id="password-error" class="error-message"></span>
+						<span
+							id="password-error"
+							className="error-message"></span>
 					</div>
 
 					<button className="button" type="submit">
