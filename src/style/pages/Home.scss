@@ -69,7 +69,7 @@ input[type='password']:focus {
 
 .button {
 	display: inline-block;
-	background: #3d395a;
+	background-color: #3d395a !important;
 	color: #ffffff;
 	padding: 10px 20px;
 	font-size: 1.2rem;
@@ -78,7 +78,7 @@ input[type='password']:focus {
 }
 
 .button:hover {
-	background-color: #67557c;
+	background-color: #67557c !important;
 	text-decoration: none;
 }
 

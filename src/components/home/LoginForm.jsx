@@ -1,4 +1,5 @@
 import React from 'react';
+import SignupLink from './SignupLink';
 
 const LoginForm = () => {
 	return (
@@ -49,12 +50,7 @@ const LoginForm = () => {
 						Se connecter
 					</button>
 				</form>
-				<p className="text-center">
-					Pas encore inscrit ?{' '}
-					<a href="#" id="signup-link">
-						S'inscrire
-					</a>
-				</p>
+				<SignupLink />
 			</div>
 		</section>
 	);

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import LoginForm from '../components/home/LoginForm';
 import Welcome from '../components/home/Welcome';
-import SignupModal from '../components/home/SignupModal';
 import '../style/pages/Home.scss';
 import '../style/components/formchecker.scss';
-import '../style/components/modal.scss';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
 
 const Home = () => {
@@ -19,7 +17,6 @@ const Home = () => {
 			<main className="min-w-full min-h-screen grid grid-cols-[45%_55%]">
 				<LoginForm />
 				<Welcome />
-				<SignupModal />
 				{!redirectAfterLogin ? <CheckAuthentication /> : null}
 			</main>
 		</div>
