@@ -1,11 +1,14 @@
 import React from 'react';
 import '../../style/components/modal.scss';
 
-const SignupModal = () => {
+const SignupModal = ({ closeModal, modalRef }) => {
 	return (
 		<section className="modal" id="signup-modal">
-			<div className="modal-content">
-				<span className="close-button" id="close-button">
+			<div className="modal-content" ref={modalRef}>
+				<span
+					className="close-button"
+					id="close-button"
+					onClick={closeModal}>
 					&times;
 				</span>
 				<h2>Inscription</h2>
