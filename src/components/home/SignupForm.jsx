@@ -1,5 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../style/components/modal.scss';
+
+const useDebounce = (func, delay) => {
+	let timer;
+	return function (...args) {
+		return new Promise((resolve) => {
+			clearTimeout(timer);
+			timer = setTimeout(async () => {
+				const result = await func.apply(this, args);
+				resolve(result);
+			}, delay);
+		});
+	};
+};
 
 const SignupForm = ({ closeModal, modalRef }) => {
 	const [formData, setFormData] = useState({
@@ -8,24 +21,104 @@ const SignupForm = ({ closeModal, modalRef }) => {
 		password: '',
 		passwordConfirm: '',
 	});
+	const [errors, setErrors] = useState({
+		pseudo: null,
+		email: null,
+		password: null,
+		passwordConfirm: null,
+	});
 
 	const [progressBar, setProgressBar] = useState('');
 	const [isSuccess, setIsSuccess] = useState(false);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const values = '';
+	const confirmPseudo = (value) => {
+		if (value.length < 3) {
+			return 'Pseudo must be at least 3 characters long';
+		}
+		return '';
+	};
 
-		if (values.pseudo && values.email && values.password) {
-			console.log(values);
+	const confirmEmail = (value) => {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(value)) {
+			return 'Invalid email address';
+		}
+		return '';
+	};
+
+	const passwordChecker = (value) => {
+		const regex =
+			/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
+
+		if (!value.match(regex)) {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				password:
+					'Minimum de 8 caractères, une majuscule, un chiffre et un caractère spécial',
+			}));
+			setProgressBar('progressRed');
+		} else if (value.length < 12) {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				password: 'Sécurité moyenne',
+			}));
+			setProgressBar('progressBlue');
 		} else {
-			alert('Veuillez remplir tous les champs');
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				password: null,
+			}));
+			setProgressBar('progressGreen');
 		}
 	};
+
+	const confirmChecker = (value, password) => {
+		if (value !== password) {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				passwordConfirm: 'Les mots de passe ne correspondent pas',
+			}));
+		} else {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				passwordConfirm: null,
+			}));
+		}
+	};
+
+	const debouncedPasswordChecker = useDebounce(passwordChecker, 400);
+	const debouncedConfirmChecker = useDebounce(confirmChecker, 500);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
+
+		if (name === 'password') {
+			debouncedPasswordChecker(value);
+		}
+
+		if (name === 'passwordConfirm') {
+			debouncedConfirmChecker(value, formData.password);
+		}
+	};
+
+	useEffect(() => {
+		setErrors({
+			pseudo: confirmPseudo(formData.pseudo),
+			email: confirmEmail(formData.email),
+			password: validatePassword(formData.password),
+			passwordConfirm: validatePasswordConfirm(formData.passwosrdConfirm),
+		});
+	}, [formData]);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		if (formData.pseudo && formData.email && formData.password) {
+			console.log(formData);
+		} else {
+			alert('Veuillez remplir tous les champs');
+		}
 	};
 
 	return (
@@ -84,8 +177,8 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							required
 							onChange={(e) => handleChange(e)}
 						/>
-						<p id="progress-bar"></p>
-						<span></span>
+						<p id="progress-bar" className={progressBar}></p>
+						{errors.password && <span>{errors.password}</span>}
 					</div>
 
 					<div className="confirm-container">
@@ -103,7 +196,9 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							required
 							onChange={(e) => handleChange(e)}
 						/>
-						<span></span>
+						{errors.passwordConfirm && (
+							<span>{errors.passwordConfirm}</span>
+						)}
 					</div>
 
 					<button type="submit" onClick={(e) => handleSubmit(e)}>
