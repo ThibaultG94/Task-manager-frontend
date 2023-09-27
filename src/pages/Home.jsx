@@ -12,12 +12,7 @@ const Home = () => {
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
-	}, []);
-	// if (!redirectAfterLogin) {
-	// 	<CheckAuthentication />;
-	// } else {
-	// 	console.log('Nope');
-	// }
+	}, [redirectAfterLogin]);
 
 	return (
 		<div className="flex items-center justify-center">
@@ -25,7 +20,7 @@ const Home = () => {
 				<LoginForm />
 				<Welcome />
 				<SignupModal />
-				{redirectAfterLogin ? <div>Nope</div> : <CheckAuthentication />}
+				{!redirectAfterLogin ? <CheckAuthentication /> : null}
 			</main>
 		</div>
 	);
