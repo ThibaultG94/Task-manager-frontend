@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import SignupModal from './SignupModal';
+import SignupForm from './SignupForm';
 
 const SignupLink = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,7 +38,7 @@ const SignupLink = () => {
 			</p>
 
 			{isModalOpen && (
-				<SignupModal closeModal={closeModal} modalRef={modalRef} />
+				<SignupForm closeModal={closeModal} modalRef={modalRef} />
 			)}
 		</>
 	);

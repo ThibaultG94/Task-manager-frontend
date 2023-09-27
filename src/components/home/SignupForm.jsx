@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../style/components/modal.scss';
 
-const SignupModal = ({ closeModal, modalRef }) => {
+const SignupForm = ({ closeModal, modalRef }) => {
+	const [formData, setFormData] = useState({
+		pseudo: '',
+		email: '',
+		password: '',
+		passwordConfirm: '',
+	});
+
+	const [progressBar, setProgressBar] = useState('');
+	const [isSuccess, setIsSuccess] = useState(false);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const values = '';
+
+		if (values.pseudo && values.email && values.password) {
+			console.log(values);
+		} else {
+			alert('Veuillez remplir tous les champs');
+		}
+	};
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setFormData({ ...formData, [name]: value });
+	};
+
 	return (
 		<section className="modal" id="signup-modal">
 			<div className="modal-content" ref={modalRef}>
@@ -25,6 +51,7 @@ const SignupModal = ({ closeModal, modalRef }) => {
 							maxLength="30"
 							autoComplete="off"
 							placeholder="Entrez votre nom d'utilisateur"
+							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 
@@ -39,6 +66,7 @@ const SignupModal = ({ closeModal, modalRef }) => {
 							required
 							autoComplete="off"
 							placeholder="prenom.nom@email.fr"
+							onChange={(e) => handleChange(e)}
 						/>
 					</div>
 
@@ -54,6 +82,7 @@ const SignupModal = ({ closeModal, modalRef }) => {
 							maxLength="128"
 							autoComplete="off"
 							required
+							onChange={(e) => handleChange(e)}
 						/>
 						<p id="progress-bar"></p>
 						<span></span>
@@ -72,11 +101,14 @@ const SignupModal = ({ closeModal, modalRef }) => {
 							maxLength="128"
 							autoComplete="off"
 							required
+							onChange={(e) => handleChange(e)}
 						/>
 						<span></span>
 					</div>
 
-					<button type="submit">S'inscrire</button>
+					<button type="submit" onClick={(e) => handleSubmit(e)}>
+						S'inscrire
+					</button>
 					<div className="success-container">
 						<span id="success-register">Inscription validée !</span>
 					</div>
@@ -86,4 +118,4 @@ const SignupModal = ({ closeModal, modalRef }) => {
 	);
 };
 
-export default SignupModal;
+export default SignupForm;
