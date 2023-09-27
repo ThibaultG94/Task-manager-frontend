@@ -5,17 +5,19 @@ import SignupModal from '../components/home/SignupModal';
 import '../style/pages/Home.scss';
 import '../style/components/formchecker.scss';
 import '../style/components/modal.scss';
+import CheckAuthentication from '../components/utils/CheckAuthentication';
 
 const Home = () => {
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
-
-		if (redirectAfterLogin) {
-			console.log('redirecting');
-		}
 	}, []);
+	// if (!redirectAfterLogin) {
+	// 	<CheckAuthentication />;
+	// } else {
+	// 	console.log('Nope');
+	// }
 
 	return (
 		<div className="flex items-center justify-center">
@@ -23,6 +25,7 @@ const Home = () => {
 				<LoginForm />
 				<Welcome />
 				<SignupModal />
+				{redirectAfterLogin ? <div>Nope</div> : <CheckAuthentication />}
 			</main>
 		</div>
 	);
