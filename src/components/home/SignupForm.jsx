@@ -31,14 +31,14 @@ const SignupForm = ({ closeModal, modalRef }) => {
 	const [progressBar, setProgressBar] = useState('');
 	const [isSuccess, setIsSuccess] = useState(false);
 
-	const confirmPseudo = (value) => {
+	const pseudoChecker = (value) => {
 		if (value.length < 3) {
 			return 'Pseudo must be at least 3 characters long';
 		}
 		return '';
 	};
 
-	const confirmEmail = (value) => {
+	const emailChecker = (value) => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		if (!emailRegex.test(value)) {
 			return 'Invalid email address';
@@ -104,10 +104,10 @@ const SignupForm = ({ closeModal, modalRef }) => {
 
 	useEffect(() => {
 		setErrors({
-			pseudo: confirmPseudo(formData.pseudo),
-			email: confirmEmail(formData.email),
-			password: validatePassword(formData.password),
-			passwordConfirm: validatePasswordConfirm(formData.passwosrdConfirm),
+			pseudo: pseudoChecker(formData.pseudo),
+			email: emailChecker(formData.email),
+			password: passwordChecker(formData.password),
+			passwordConfirm: confirmChecker(formData.confirmChecker),
 		});
 	}, [formData]);
 
