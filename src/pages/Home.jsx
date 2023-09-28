@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import LoginForm from '../components/home/LoginForm';
 import Welcome from '../components/home/Welcome';
-import '../style/pages/Home.scss';
-import '../style/components/formchecker.scss';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
 
 const Home = () => {

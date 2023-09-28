@@ -1,18 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../style/components/modal.scss';
-
-const useDebounce = (func, delay) => {
-	let timer;
-	return function (...args) {
-		return new Promise((resolve) => {
-			clearTimeout(timer);
-			timer = setTimeout(async () => {
-				const result = await func.apply(this, args);
-				resolve(result);
-			}, delay);
-		});
-	};
-};
+import { useDebounce } from '../utils/useDebounce';
 
 const SignupForm = ({ closeModal, modalRef }) => {
 	const [formData, setFormData] = useState({
@@ -28,12 +15,13 @@ const SignupForm = ({ closeModal, modalRef }) => {
 		passwordConfirm: null,
 	});
 
+	const [isTypingPassword, setIsTypingPassword] = useState(false);
 	const [progressBar, setProgressBar] = useState('');
 	const [isSuccess, setIsSuccess] = useState(false);
 
 	const pseudoChecker = (value) => {
 		if (value.length < 3) {
-			return 'Pseudo must be at least 3 characters long';
+			return 'Le pseudo doit comporter au moins 3 caractères';
 		}
 		return '';
 	};
@@ -41,7 +29,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 	const emailChecker = (value) => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		if (!emailRegex.test(value)) {
-			return 'Invalid email address';
+			return 'Adresse e-mail invalide';
 		}
 		return '';
 	};
@@ -95,6 +83,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 
 		if (name === 'password') {
 			debouncedPasswordChecker(value);
+			setIsTypingPassword(true);
 		}
 
 		if (name === 'passwordConfirm') {
@@ -109,7 +98,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 			password: passwordChecker(formData.password),
 			passwordConfirm: confirmChecker(formData.confirmChecker),
 		});
-	}, [formData]);
+	}, [formData.password, formData.passwordConfirm]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -177,8 +166,18 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							required
 							onChange={(e) => handleChange(e)}
 						/>
-						<p id="progress-bar" className={progressBar}></p>
-						{errors.password && <span>{errors.password}</span>}
+						{isTypingPassword ? (
+							isTypingPassword && (
+								<p
+									id="progress-bar"
+									className={progressBar}></p>
+							)
+						) : (
+							<p id="no-bar"></p>
+						)}
+						<span className="error-password">
+							{errors.password}
+						</span>
 					</div>
 
 					<div className="confirm-container">
@@ -196,9 +195,9 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							required
 							onChange={(e) => handleChange(e)}
 						/>
-						{errors.passwordConfirm && (
-							<span>{errors.passwordConfirm}</span>
-						)}
+						<span className="error-password">
+							{errors.passwordConfirm}
+						</span>
 					</div>
 
 					<button type="submit" onClick={(e) => handleSubmit(e)}>

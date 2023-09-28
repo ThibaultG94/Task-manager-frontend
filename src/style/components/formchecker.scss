@@ -1,5 +1,5 @@
 #signup-form span {
-	margin-bottom: 20px;
+	// margin-bottom: 20px;
 	display: block;
 	font-size: 0.8rem;
 	visibility: hidden;
@@ -26,7 +26,11 @@
 }
 
 #progress-bar {
-	margin-top: 10px;
+	height: 5px;
+}
+
+#no-bar {
+	height: 5px;
 }
 
 .progressRed {
@@ -59,4 +63,10 @@ form p {
 	border-radius: 50px;
 	visibility: hidden;
 	transition: 0.3s;
+}
+
+.error-password {
+	min-height: 20px;
+	display: block;
+	font-size: 0.8rem;
 }
