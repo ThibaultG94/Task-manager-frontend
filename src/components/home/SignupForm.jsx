@@ -63,17 +63,13 @@ const SignupForm = ({ closeModal, modalRef }) => {
 	};
 
 	const confirmChecker = (value, password) => {
+		if (value === '') {
+			return null;
+		}
 		if (value !== password) {
-			console.log(value, password);
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				passwordConfirm: 'Les mots de passe ne correspondent pas',
-			}));
+			return 'Les mots de passe ne correspondent pas';
 		} else {
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				passwordConfirm: null,
-			}));
+			return null;
 		}
 	};
 
@@ -89,10 +85,17 @@ const SignupForm = ({ closeModal, modalRef }) => {
 			if (name === 'password') {
 				debouncedPasswordChecker(value);
 				setIsTypingPassword(true);
+				setErrors((prevErrors) => ({
+					...prevErrors,
+					passwordConfirm: confirmChecker(
+						updatedFormData.passwordConfirm,
+						value
+					),
+				}));
 			}
 
-			if (name === 'passwordConfirm') {
-				debouncedConfirmChecker(value, updatedFormData.password);
+			if (name === 'passwordConfirm' && value !== '') {
+				confirmChecker(value, formData.password);
 				setIsTypingPasswordConfirm(true);
 			}
 
@@ -124,8 +127,31 @@ const SignupForm = ({ closeModal, modalRef }) => {
 					formData.password
 				),
 			});
+			setIsTypingPassword(false);
+			setIsTypingPasswordConfirm(false);
+		} else if (!isTypingPassword) {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				passwordConfirm: confirmChecker(
+					formData.passwordConfirm,
+					formData.password
+				),
+			}));
+			setIsTypingPassword(false);
 		}
 	}, [formData, isTypingPassword, isTypingPasswordConfirm]);
+
+	useEffect(() => {
+		if (isTypingPasswordConfirm && !isTypingPassword) {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				passwordConfirm: confirmChecker(
+					formData.passwordConfirm,
+					formData.password
+				),
+			}));
+		}
+	}, [formData.password, formData.passwordConfirm, isTypingPassword]);
 
 	return (
 		<section className="modal" id="signup-modal">
