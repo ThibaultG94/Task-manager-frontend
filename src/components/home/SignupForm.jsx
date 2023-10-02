@@ -16,6 +16,8 @@ const SignupForm = ({ closeModal, modalRef }) => {
 	});
 
 	const [isTypingPassword, setIsTypingPassword] = useState(false);
+	const [isTypingPasswordConfirm, setIsTypingPasswordConfirm] =
+		useState(false);
 	const [progressBar, setProgressBar] = useState('');
 	const [isSuccess, setIsSuccess] = useState(false);
 
@@ -62,6 +64,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 
 	const confirmChecker = (value, password) => {
 		if (value !== password) {
+			console.log(value, password);
 			setErrors((prevErrors) => ({
 				...prevErrors,
 				passwordConfirm: 'Les mots de passe ne correspondent pas',
@@ -79,26 +82,26 @@ const SignupForm = ({ closeModal, modalRef }) => {
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setFormData({ ...formData, [name]: value });
 
-		if (name === 'password') {
-			debouncedPasswordChecker(value);
-			setIsTypingPassword(true);
-		}
+		setFormData((prevFormData) => {
+			const updatedFormData = { ...prevFormData, [name]: value };
 
-		if (name === 'passwordConfirm') {
-			debouncedConfirmChecker(value, formData.password);
-		}
-	};
+			if (name === 'password') {
+				debouncedPasswordChecker(value);
+				setIsTypingPassword(true);
+			}
 
-	useEffect(() => {
-		setErrors({
-			pseudo: pseudoChecker(formData.pseudo),
-			email: emailChecker(formData.email),
-			password: passwordChecker(formData.password),
-			passwordConfirm: confirmChecker(formData.confirmChecker),
+			if (name === 'passwordConfirm') {
+				debouncedConfirmChecker(value, updatedFormData.password);
+				setIsTypingPasswordConfirm(true);
+			}
+
+			return updatedFormData;
 		});
-	}, [formData.password, formData.passwordConfirm]);
+
+		setIsTypingPassword(false);
+		setIsTypingPasswordConfirm(false);
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -109,6 +112,20 @@ const SignupForm = ({ closeModal, modalRef }) => {
 			alert('Veuillez remplir tous les champs');
 		}
 	};
+
+	useEffect(() => {
+		if (!isTypingPassword && !isTypingPasswordConfirm) {
+			setErrors({
+				pseudo: pseudoChecker(formData.pseudo),
+				email: emailChecker(formData.email),
+				password: passwordChecker(formData.password),
+				passwordConfirm: confirmChecker(
+					formData.passwordConfirm,
+					formData.password
+				),
+			});
+		}
+	}, [formData, isTypingPassword, isTypingPasswordConfirm]);
 
 	return (
 		<section className="modal" id="signup-modal">
@@ -121,7 +138,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 				</span>
 				<h2>Inscription</h2>
 
-				<form id="signup-form" className="mx-auto">
+				<form id="signup-form" className="signup-form mx-auto">
 					<div>
 						<label htmlFor="pseudo">Nom d'utilisateur</label>
 						<input
@@ -152,7 +169,14 @@ const SignupForm = ({ closeModal, modalRef }) => {
 						/>
 					</div>
 
-					<div className="password-container">
+					<div
+						className={`password-container ${
+							errors.password
+								? 'error'
+								: isSuccess
+								? 'success'
+								: ''
+						}`}>
 						<label htmlFor="password">Mot de passe</label>
 						<input
 							type="password"
@@ -180,7 +204,14 @@ const SignupForm = ({ closeModal, modalRef }) => {
 						</span>
 					</div>
 
-					<div className="confirm-container">
+					<div
+						className={`confirm-container ${
+							errors.passwordConfirm
+								? 'error'
+								: isSuccess
+								? 'success'
+								: ''
+						}`}>
 						<label htmlFor="passwordConfirm">
 							Confirmez le mot de passe
 						</label>
