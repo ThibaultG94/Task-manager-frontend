@@ -221,6 +221,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							autoComplete="off"
 							placeholder="Entrez votre nom d'utilisateur"
 							onChange={(e) => handleChange(e)}
+							value={formData.pseudo}
 						/>
 					</div>
 
@@ -236,6 +237,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							autoComplete="off"
 							placeholder="prenom.nom@email.fr"
 							onChange={(e) => handleChange(e)}
+							value={formData.email}
 						/>
 					</div>
 
@@ -259,6 +261,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							autoComplete="off"
 							required
 							onChange={(e) => handleChange(e)}
+							value={formData.password}
 						/>
 						{isTypingPassword ? (
 							isTypingPassword && (
@@ -295,6 +298,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							autoComplete="off"
 							required
 							onChange={(e) => handleChange(e)}
+							value={formData.passwordConfirm}
 						/>
 						<span className="error-password">
 							{errors.passwordConfirm}
