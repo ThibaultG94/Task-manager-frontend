@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDebounce } from '../utils/useDebounce';
+import { useNavigate } from 'react-router-dom';
+import register from '../../api/registerUser';
+import ErrorUserId from '../utils/ErrorUserId';
 
 const SignupForm = ({ closeModal, modalRef }) => {
+	const API_URL = process.env.REACT_APP_API_URL;
+	const navigate = useNavigate();
+	const [errorCode, setErrorCode] = useState(null);
+
 	const [formData, setFormData] = useState({
 		pseudo: '',
 		email: '',
@@ -108,11 +115,48 @@ const SignupForm = ({ closeModal, modalRef }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		// Vérifie si le state 'errors' contient des erreurs
+		const hasErrors = Object.values(errors).some(
+			(error) => error !== null && error !== ''
+		);
 
-		if (formData.pseudo && formData.email && formData.password) {
-			console.log(formData);
+		if (hasErrors) {
+			alert('Corrigez les erreurs avant de soumettre le formulaire');
+			return;
+		}
+
+		if (
+			formData.pseudo &&
+			formData.email &&
+			formData.password &&
+			formData.passwordConfirm
+		) {
+			try {
+				await register(
+					API_URL,
+					formData.pseudo,
+					formData.email,
+					formData.password
+				);
+				// Reset les champs du formulaire
+				setFormData({
+					pseudo: '',
+					email: '',
+					password: '',
+					passwordConfirm: '',
+				});
+				setProgressBar('');
+				setIsSuccess(true); // Tu peux utiliser ce state pour afficher un message de succès
+			} catch (error) {
+				if (error.response) {
+					setErrorCode(error.response.status);
+				} else {
+					setErrorCode(null);
+				}
+				return <ErrorUserId errorCode={errorCode} />;
+			}
 		} else {
-			alert('Veuillez remplir tous les champs');
+			alert('Veuillez remplir correctement les champs');
 		}
 	};
 
