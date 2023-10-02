@@ -29,6 +29,19 @@ const SignupForm = ({ closeModal, modalRef }) => {
 	const [isSuccess, setIsSuccess] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
+	useEffect(() => {
+		const storedFormData = JSON.parse(
+			localStorage.getItem('signupFormData')
+		);
+		if (storedFormData) {
+			setFormData(storedFormData);
+		}
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem('signupFormData', JSON.stringify(formData));
+	}, [formData]);
+
 	const pseudoChecker = (value) => {
 		if (value.length < 3) {
 			return 'Le pseudo doit comporter au moins 3 caractères';
@@ -142,7 +155,8 @@ const SignupForm = ({ closeModal, modalRef }) => {
 					passwordConfirm: '',
 				});
 				setProgressBar('');
-				setIsSuccess(true); // Tu peux utiliser ce state pour afficher un message de succès
+				setIsSuccess(true);
+				localStorage.removeItem('signupFormData');
 			} catch (error) {
 				if (error.response) {
 					setErrorCode(error.response.status);
@@ -306,8 +320,12 @@ const SignupForm = ({ closeModal, modalRef }) => {
 						</span>
 					</div>
 
-					<button type="submit" onClick={(e) => handleSubmit(e)}>
-						S'inscrire
+					<button
+						type="submit"
+						className="button"
+						onClick={(e) => handleSubmit(e)}
+						disabled={isSubmitting}>
+						{isSubmitting ? 'En cours...' : "S'inscrire"}
 					</button>
 					<div
 						className={`success-container ${

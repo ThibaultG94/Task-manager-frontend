@@ -1,10 +1,29 @@
-.signup-form span {
-	display: block;
-	font-size: 0.8rem;
-	visibility: hidden;
-	opacity: 0;
-	transition: 0.3s;
-	color: red;
+.signup-form {
+	.error span {
+		visibility: visible;
+		opacity: 1;
+		color: red;
+		font-size: 0.8rem;
+	}
+
+	.success span {
+		visibility: visible;
+		opacity: 1;
+		color: #51df91;
+		font-size: 0.8rem;
+	}
+
+	.success-container span {
+		visibility: hidden;
+		opacity: 0;
+		transition: 0.3s;
+	}
+
+	.success span {
+		visibility: visible;
+		opacity: 1;
+		color: #51df91;
+	}
 }
 
 .error input {
