@@ -27,6 +27,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 		useState(false);
 	const [progressBar, setProgressBar] = useState('');
 	const [isSuccess, setIsSuccess] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const pseudoChecker = (value) => {
 		if (value.length < 3) {
@@ -116,21 +117,16 @@ const SignupForm = ({ closeModal, modalRef }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		// Vérifie si le state 'errors' contient des erreurs
-		const hasErrors = Object.values(errors).some(
-			(error) => error !== null && error !== ''
-		);
-
-		if (hasErrors) {
-			alert('Corrigez les erreurs avant de soumettre le formulaire');
-			return;
-		}
 
 		if (
 			formData.pseudo &&
 			formData.email &&
 			formData.password &&
-			formData.passwordConfirm
+			formData.passwordConfirm &&
+			!errors.password &&
+			!errors.passwordConfirm
 		) {
+			setIsSubmitting(true);
 			try {
 				await register(
 					API_URL,
@@ -154,6 +150,8 @@ const SignupForm = ({ closeModal, modalRef }) => {
 					setErrorCode(null);
 				}
 				return <ErrorUserId errorCode={errorCode} />;
+			} finally {
+				setIsSubmitting(false);
 			}
 		} else {
 			alert('Veuillez remplir correctement les champs');
@@ -182,6 +180,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 				),
 			}));
 			setIsTypingPassword(false);
+			setIsTypingPasswordConfirm(false);
 		}
 	}, [formData, isTypingPassword, isTypingPasswordConfirm]);
 
@@ -195,6 +194,8 @@ const SignupForm = ({ closeModal, modalRef }) => {
 				),
 			}));
 		}
+		setIsTypingPassword(false);
+		setIsTypingPasswordConfirm(false);
 	}, [formData.password, formData.passwordConfirm, isTypingPassword]);
 
 	return (
@@ -308,7 +309,10 @@ const SignupForm = ({ closeModal, modalRef }) => {
 					<button type="submit" onClick={(e) => handleSubmit(e)}>
 						S'inscrire
 					</button>
-					<div className="success-container">
+					<div
+						className={`success-container ${
+							isSuccess ? 'success' : ''
+						}`}>
 						<span id="success-register">Inscription validée !</span>
 					</div>
 				</form>
