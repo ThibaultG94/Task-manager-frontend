@@ -7,6 +7,7 @@ const CheckAuthentication = () => {
 	const API_URL = process.env.REACT_APP_API_URL;
 	const [error, setError] = useState(null);
 	const [errorCode, setErrorCode] = useState(null);
+	const [displayErrors, setDisplayErrors] = useState(false);
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -28,6 +29,7 @@ const CheckAuthentication = () => {
 				} else {
 					setErrorCode(null);
 				}
+				setDisplayErrors(true);
 			}
 		};
 
@@ -39,7 +41,7 @@ const CheckAuthentication = () => {
 		return <ErrorUserId errorCode={errorCode} />;
 	}
 
-	return null;
+	return displayErrors && <ErrorUserId errorCode={errorCode} />;
 };
 
 export default CheckAuthentication;
