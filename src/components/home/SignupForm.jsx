@@ -6,6 +6,7 @@ import ErrorApi from '../utils/ErrorApi';
 const SignupForm = ({ closeModal, modalRef }) => {
 	const API_URL = process.env.REACT_APP_API_URL;
 	const [errorCode, setErrorCode] = useState(null);
+	const [displayErrors, setDisplayErrors] = useState(false);
 
 	const [formData, setFormData] = useState({
 		pseudo: '',
@@ -160,7 +161,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 				} else {
 					setErrorCode(null);
 				}
-				return <ErrorApi errorCode={errorCode} />;
+				setDisplayErrors(true);
 			} finally {
 				setIsSubmitting(false);
 			}
@@ -316,6 +317,8 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							{errors.passwordConfirm}
 						</span>
 					</div>
+
+					{displayErrors && <ErrorApi errorCode={errorCode} />}
 
 					<button
 						type="submit"
