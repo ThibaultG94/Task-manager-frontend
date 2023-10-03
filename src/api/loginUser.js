@@ -6,13 +6,13 @@ export async function login(API_URL, email, password) {
 		password: password,
 	});
 
+	const token = res.data.token;
+	const refreshToken = res.data.refreshToken;
+	document.cookie = `token=${token}`;
+	document.cookie = `refreshToken=${refreshToken}`;
+
 	return res;
 	// .then(async (res) => {
-	// 	const token = res.data.token;
-	// 	const refreshToken = res.data.refreshToken;
-
-	// 	document.cookie = `token=${token}`;
-	// 	document.cookie = `refreshToken=${refreshToken}`;
 
 	// if (res.status === 200) {
 	// 	const userId = await res.data.user.id;

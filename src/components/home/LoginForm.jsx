@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import SignupLink from './SignupLink';
 import { login } from '../../api/loginUser';
 import ErrorLogin from '../utils/ErrorLogin';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
 	const API_URL = process.env.REACT_APP_API_URL;
 	const [errorCode, setErrorCode] = useState(null);
 	const [displayErrors, setDisplayErrors] = useState(false);
 	const [error, setError] = useState(null);
+	const navigate = useNavigate();
 
 	const [formData, setFormData] = useState({
 		email: '',
@@ -32,7 +34,14 @@ const LoginForm = () => {
 
 		try {
 			if (formData.email && formData.password) {
-				await login(API_URL, formData.email, formData.password);
+				const res = await login(
+					API_URL,
+					formData.email,
+					formData.password
+				);
+				res.status === 200
+					? navigate('/pages/dashboard')
+					: setError(res);
 			}
 		} catch (error) {
 			if (error.response) {
