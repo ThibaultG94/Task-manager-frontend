@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDebounce } from '../utils/useDebounce';
-import { useNavigate } from 'react-router-dom';
 import register from '../../api/registerUser';
-import ErrorUserId from '../utils/ErrorUserId';
+import ErrorApi from '../utils/ErrorApi';
 
 const SignupForm = ({ closeModal, modalRef }) => {
 	const API_URL = process.env.REACT_APP_API_URL;
-	const navigate = useNavigate();
 	const [errorCode, setErrorCode] = useState(null);
 
 	const [formData, setFormData] = useState({
@@ -129,7 +127,6 @@ const SignupForm = ({ closeModal, modalRef }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// Vérifie si le state 'errors' contient des erreurs
 
 		if (
 			formData.pseudo &&
@@ -147,7 +144,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 					formData.email,
 					formData.password
 				);
-				// Reset les champs du formulaire
+
 				setFormData({
 					pseudo: '',
 					email: '',
@@ -163,7 +160,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 				} else {
 					setErrorCode(null);
 				}
-				return <ErrorUserId errorCode={errorCode} />;
+				return <ErrorApi errorCode={errorCode} />;
 			} finally {
 				setIsSubmitting(false);
 			}
