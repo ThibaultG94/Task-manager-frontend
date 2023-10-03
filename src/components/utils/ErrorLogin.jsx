@@ -9,18 +9,16 @@ const ErrorLogin = ({ error, setErrors, errorCode }) => {
 			switch (errorCode) {
 				case 404:
 					if (error.response.data.message === 'User not found') {
-						setErrors((prevErrors) => ({
-							...prevErrors,
+						setErrors(() => ({
 							email: "L'email n'est pas enregistré.",
+							password: null,
 						}));
 					}
 					break;
 				case 401:
-					console.log('401');
 					if (error.response.data.message === 'Invalid password') {
-						console.log('Invalid password');
-						setErrors((prevErrors) => ({
-							...prevErrors,
+						setErrors(() => ({
+							email: null,
 							password: 'Le mot de passe est incorrect.',
 						}));
 					}
@@ -32,7 +30,7 @@ const ErrorLogin = ({ error, setErrors, errorCode }) => {
 		} else {
 			navigate('/pages/error-500');
 		}
-	}, []);
+	}, [error]);
 
 	return null;
 };

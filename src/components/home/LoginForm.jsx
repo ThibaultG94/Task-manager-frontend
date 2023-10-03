@@ -66,7 +66,7 @@ const LoginForm = () => {
 							onChange={handleChange}
 							value={formData.email}
 						/>
-						<span id="email-error" className="error-message">
+						<span id="email-error" className="error-message h-6">
 							{errors.email}
 						</span>
 					</div>
@@ -91,7 +91,7 @@ const LoginForm = () => {
 								value={formData.password}
 							/>
 						</div>
-						<span id="password-error" className="error-message">
+						<span id="password-error" className="error-message h-6">
 							{errors.password}
 						</span>
 					</div>
