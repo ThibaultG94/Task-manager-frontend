@@ -15,11 +15,11 @@ const CheckAuthentication = () => {
 		const fetchData = async () => {
 			try {
 				const userId = await getUserId(API_URL);
-				const currentPath = location.pathname.split('/').pop();
+				const currentPath = location.pathname;
 
-				if (userId && currentPath === 'home') {
-					navigate('/dashboard');
-				} else if (!userId && currentPath !== 'home') {
+				if (userId && currentPath === '/') {
+					navigate('/pages/dashboard');
+				} else if (!userId && currentPath !== '/') {
 					navigate('/home');
 				}
 			} catch (error) {
