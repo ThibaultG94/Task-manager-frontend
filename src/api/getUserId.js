@@ -4,5 +4,7 @@ export default async function getUserId(API_URL) {
 	const res = await axios.get(`${API_URL}/users/my-account`, {
 		withCredentials: true,
 	});
-	return res.data.user._id;
+	const userId = res.data.user._id;
+	sessionStorage.setItem('userId', userId);
+	return userId;
 }

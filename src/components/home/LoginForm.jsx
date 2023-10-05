@@ -39,11 +39,13 @@ const LoginForm = () => {
 					formData.email,
 					formData.password
 				);
-				res.status === 200
-					? navigate('/pages/dashboard')
-					: setError(res);
-			} else {
-				console.log('test');
+				if (res.status === 200) {
+					const userId = await res.data.user.id;
+					sessionStorage.setItem('userId', userId);
+					navigate('/pages/dashboard');
+				} else {
+					setError(res);
+				}
 			}
 		} catch (error) {
 			if (error.response) {

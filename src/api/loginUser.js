@@ -12,15 +12,4 @@ export async function login(API_URL, email, password) {
 	document.cookie = `refreshToken=${refreshToken}`;
 
 	return res;
-	// .then(async (res) => {
-
-	// if (res.status === 200) {
-	// 	const userId = await res.data.user.id;
-	// 	try {
-	// 		window.location.href = '/pages/dashboard.html';
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-	// }
-	// });
 }
