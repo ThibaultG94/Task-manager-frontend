@@ -1,9 +1,12 @@
 import React from 'react';
+import SideBar from '../components/SideBar';
 
 const Dashboard = () => {
 	return (
-		<div>
-			<h1>Dashboard</h1>
+		<div className="flex">
+			<section className="bg-dark-blue text-white text-center">
+				<SideBar />
+			</section>
 		</div>
 	);
 };
