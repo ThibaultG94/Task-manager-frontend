@@ -42,6 +42,8 @@ const LoginForm = () => {
 				res.status === 200
 					? navigate('/pages/dashboard')
 					: setError(res);
+			} else {
+				console.log('test');
 			}
 		} catch (error) {
 			if (error.response) {
