@@ -1,0 +1,39 @@
+.tabs {
+	position: relative;
+}
+
+.tabs label {
+	display: inline-block;
+	padding: 10px;
+	text-align: left;
+	transition: background-color 0.3s;
+}
+
+.tabs input[type='radio'] {
+	display: none;
+}
+
+label {
+	font-size: 1.2rem;
+	color: #333;
+}
+
+label:hover {
+	color: #555;
+}
+
+input,
+textarea,
+select {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 1rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+	border-color: #5a385f;
+	box-shadow: 0 0 5px rgba(90, 56, 95, 0.2);
+}

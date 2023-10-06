@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import CreateTaskAndWorkspace from './CreateTaskAndWorkspace';
 
 const Navigation = () => {
+	const [button, setButton] = useState(false);
+
 	return (
 		<ul className="self-end flex flex-col justify-between h-[30vh]">
 			<NavLink
@@ -47,9 +50,12 @@ const Navigation = () => {
 
 			<li
 				id="addWorkspaceOrTaskButton"
-				className="cursor-pointer text-xl">
+				className="cursor-pointer text-xl"
+				onClick={() => setButton(true)}>
 				<i className="fas fa-plus-square"></i>
 			</li>
+
+			{button && <CreateTaskAndWorkspace />}
 		</ul>
 	);
 };
