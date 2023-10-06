@@ -8,6 +8,7 @@ import Activities from '../components/dashboard/Activities';
 import Coworkers from '../components/dashboard/Coworkers';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
 import getUserId from '../api/getUserId';
+import { useGetUser } from '../api/getUser';
 
 const Dashboard = () => {
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
@@ -18,9 +19,16 @@ const Dashboard = () => {
 		setUserId(id);
 	};
 
+	const getUser = useGetUser();
+
 	useEffect(() => {
-		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
-		getId();
+		const fetchDatas = async () => {
+			setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
+			await getId();
+			await getUser(userId);
+		};
+
+		fetchDatas();
 	}, [redirectAfterLogin]);
 
 	return (
