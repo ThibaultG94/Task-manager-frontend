@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ModalTasks from '../tasks/ModalTasks';
 
 const UrgentTasks = () => {
+	const [modal, setModal] = useState(false);
+
 	return (
 		<div className="tasks-container dashboard-card">
 			<h4 className="pl-4">Tâches urgentes</h4>
 			<div className="urgent-task-container">
-				<div className="urgent-task urgent-task-first">
+				<div
+					className="urgent-task urgent-task-first"
+					onClick={() => setModal(true)}>
 					<div className="urgent-task-todo">
 						<div id="check"></div>
 						<div id="firstTask"></div>
@@ -15,7 +20,9 @@ const UrgentTasks = () => {
 					</div>
 				</div>
 
-				<div className="urgent-task urgent-task-second">
+				<div
+					className="urgent-task urgent-task-second"
+					onClick={() => setModal(true)}>
 					<div className="urgent-task-todo">
 						<div id="check"></div>
 						<div id="secondTask"></div>
@@ -25,7 +32,9 @@ const UrgentTasks = () => {
 					</div>
 				</div>
 
-				<div className="urgent-task urgent-task-third">
+				<div
+					className="urgent-task urgent-task-third"
+					onClick={() => setModal(true)}>
 					<div className="urgent-task-todo">
 						<div id="check"></div>
 						<div id="thirdTask"></div>
@@ -39,6 +48,8 @@ const UrgentTasks = () => {
 					<p>Aucune tâche à afficher</p>
 				</div>
 			</div>
+
+			{modal && <ModalTasks />}
 		</div>
 	);
 };

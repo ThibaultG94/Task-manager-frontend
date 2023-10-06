@@ -7,7 +7,7 @@ const HeaderNav = () => {
 			<NavLink
 				to="/pages/dashboard"
 				className={(nav) =>
-					nav.isActive ? 'font-bold text-custom-orange' : ''
+					nav.isActive ? 'font-bold text-orange-primary' : ''
 				}>
 				<li className="cursor-pointer">
 					<h3 className="text-[1.3rem]">Dashboard</h3>
