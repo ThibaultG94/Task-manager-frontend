@@ -7,6 +7,7 @@ import Error500 from './pages/Error500';
 import Dashboard from './pages/Dashboard';
 import Workspaces from './pages/Workspaces';
 import ResetPassword from './pages/ResetPassword';
+import Tasks from './pages/Tasks';
 
 const App = () => {
 	return (
@@ -24,6 +25,7 @@ const App = () => {
 					/>
 					<Route path="/pages/dashboard" element={<Dashboard />} />
 					<Route path="/pages/workspaces" element={<Workspaces />} />
+					<Route path="/pages/tasks" element={<Tasks />} />
 				</Routes>
 			</BrowserRouter>
 		</div>

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const HeaderNav = () => {
 	return (
-		<nav className="flex items-center justify-between w-[350px] absolute left-[40%] top[25px]">
+		<nav className="flex items-center justify-between w-[350px] absolute left-[40%] top-[25px]">
 			<NavLink
 				to="/pages/dashboard"
 				className={(nav) =>
