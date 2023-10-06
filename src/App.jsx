@@ -6,6 +6,7 @@ import Error404 from './pages/Error404';
 import Error500 from './pages/Error500';
 import Dashboard from './pages/Dashboard';
 import Workspaces from './pages/Workspaces';
+import ResetPassword from './pages/ResetPassword';
 
 const App = () => {
 	return (
@@ -13,12 +14,16 @@ const App = () => {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="*" element={<Error404 />} />
 					<Route path="/pages/error" element={<Error />} />
 					<Route path="/pages/error-404" element={<Error404 />} />
 					<Route path="/pages/error-500" element={<Error500 />} />
+					<Route
+						path="/pages/reset-password"
+						element={<ResetPassword />}
+					/>
 					<Route path="/pages/dashboard" element={<Dashboard />} />
 					<Route path="/pages/workspaces" element={<Workspaces />} />
-					<Route path="*" element={<Error404 />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
