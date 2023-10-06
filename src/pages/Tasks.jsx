@@ -1,6 +1,7 @@
 import React from 'react';
 import SideBar from '../components/sidebar/SideBar';
 import Header from '../components/header/Header';
+import DisplayTasks from '../components/tasks/DisplayTasks';
 
 const Tasks = () => {
 	return (
@@ -10,6 +11,9 @@ const Tasks = () => {
 			</section>
 			<div className="w-full p-2.5">
 				<Header />
+				<main>
+					<DisplayTasks />
+				</main>
 			</div>
 		</div>
 	);
