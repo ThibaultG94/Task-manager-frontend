@@ -3,6 +3,7 @@ import SideBar from '../components/sidebar/SideBar';
 import Header from '../components/header/Header';
 import Calendar from '../components/dashboard/Calendar';
 import UrgentTasks from '../components/dashboard/UrgentTasks';
+import ListWorkspaces from '../components/dashboard/ListWorkspaces';
 
 const Dashboard = () => {
 	return (
@@ -15,6 +16,7 @@ const Dashboard = () => {
 				<main className="dashboard-container">
 					<Calendar />
 					<UrgentTasks />
+					<ListWorkspaces />
 				</main>
 			</div>
 		</div>
