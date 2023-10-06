@@ -37,3 +37,10 @@ select:focus {
 	border-color: #5a385f;
 	box-shadow: 0 0 5px rgba(90, 56, 95, 0.2);
 }
+
+.input-container {
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	margin: 0 auto;
+}

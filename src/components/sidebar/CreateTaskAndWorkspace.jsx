@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import CreateTaskForm from './CreateTaskForm';
+import CreateWorkspaceForm from './CreateWorkspaceForm';
 
 const CreateTaskAndWorkspace = () => {
 	const [activeTab, setActiveTab] = useState('tab1');
@@ -6,7 +8,7 @@ const CreateTaskAndWorkspace = () => {
 	return (
 		<section
 			id="modal-to-create"
-			className="modal bg-[rgba(0,0,0,0.8)] transition-all ease-in-out duration-300">
+			className="modal bg-[rgba(0,0,0,0.8)] transition-all ease-in-out duration-300 text-black">
 			<div className="modal-content rounded-lg bg-white shadow-md min-w-[400px] px-5">
 				<div className="tabs">
 					<input
@@ -47,27 +49,11 @@ const CreateTaskAndWorkspace = () => {
 						&times;
 					</span>
 
-					<div
-						id="tab-content1"
-						className={`${
-							activeTab === 'tab1' ? 'block' : 'hidden'
-						} p-5 border-t border-[#5a385f]`}>
-						<h2 className="text-xl mb-2.5 text-center">
-							Titre de l'onglet 1
-						</h2>
-						{/* Autre contenu */}
-					</div>
-
-					<div
-						id="tab-content2"
-						className={`${
-							activeTab === 'tab2' ? 'block' : 'hidden'
-						} p-5 border-t border-[#5a385f]`}>
-						<h2 className="text-xl mb-2.5 text-center">
-							Titre de l'onglet 2
-						</h2>
-						{/* Autre contenu */}
-					</div>
+					{activeTab === 'tab1' ? (
+						<CreateTaskForm />
+					) : (
+						<CreateWorkspaceForm />
+					)}
 				</div>
 			</div>
 		</section>
