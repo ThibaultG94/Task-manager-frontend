@@ -6,7 +6,7 @@ const Navigation = () => {
 	const [button, setButton] = useState(false);
 
 	return (
-		<ul className="self-end flex flex-col justify-between h-[30vh]">
+		<nav className="self-end flex flex-col justify-between h-[30vh]">
 			<NavLink
 				id="homelink"
 				to="/pages/dashboard"
@@ -56,7 +56,7 @@ const Navigation = () => {
 			</li>
 
 			{button && <CreateTaskAndWorkspace />}
-		</ul>
+		</nav>
 	);
 };
 
