@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { selectCurrentUser } from '../../store/selectors/userSelectors';
 
 const HeaderWelcome = () => {
 	const [message, setMessage] = useState();
 	const location = useLocation();
+	const currentUser = useSelector(selectCurrentUser);
 
 	useEffect(() => {
 		switch (location.pathname) {
@@ -25,7 +28,7 @@ const HeaderWelcome = () => {
 	return (
 		<div className="absolute left-0 top-[10px]">
 			<h2 className="mb-[5px] text-[1.3rem]">
-				Bonjour<span id="username"> !</span>
+				Bonjour {currentUser && currentUser?.username} !
 			</h2>
 			<p className="text-[1.1rem]">{message && message}</p>
 		</div>

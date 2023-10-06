@@ -10,11 +10,11 @@ const DisplayTasks = () => {
 				id="retard-tasks"
 				className="task-block"
 				onClick={() => setModal(true)}>
-				<div class="task-block-header">
+				<div className="task-block-header">
 					<h3>Retard</h3>
-					<button class="toggle-button">▶</button>
+					<button className="toggle-button">▶</button>
 				</div>
-				<div class="task-list"></div>
+				<div className="task-list"></div>
 			</div>
 
 			<div

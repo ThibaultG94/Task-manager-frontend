@@ -22,14 +22,13 @@ const Dashboard = () => {
 	const getUser = useGetUser();
 
 	useEffect(() => {
-		const fetchDatas = async () => {
-			setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
-			await getId();
-			await getUser(userId);
-		};
-
-		fetchDatas();
+		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
+		getId();
 	}, [redirectAfterLogin]);
+
+	useEffect(() => {
+		userId !== null && getUser(userId);
+	}, [userId]);
 
 	return (
 		<div className="flex">
