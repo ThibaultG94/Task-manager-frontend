@@ -1,0 +1,245 @@
+.task-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  min-width: 700px;
+}
+
+.task-modal-close {
+  cursor: pointer;
+  position: absolute;
+  transform: translate(50%, -50%);
+  top: 17px;
+  right: 17px;
+  font-size: 2.7rem;
+  transition: 0.4s ease;
+}
+
+.task-modal-close:hover {
+  font-size: 3.3rem;
+}
+
+.task-details {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #f9f9f9;
+}
+
+.task-details p {
+  margin-bottom: 15px;
+}
+
+.task-details h2:before,
+p:before {
+  position: absolute;
+  left: 0;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.title-icon::before {
+  content: "\f0e7";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  width: 30px;
+  font-size: 1.3rem;
+  padding-top: 5px;
+}
+
+.task-edit-title {
+  border: none;
+  outline: none;
+  background: transparent;
+  position: absolute;
+  left: 40px;
+  font-size: 24px;
+  font-weight: bold;
+  max-width: 400px;
+  padding-left: 41px;
+}
+
+.status-icon::before {
+  content: "\f110";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  width: 30px;
+}
+
+.priority-icon::before {
+  content: "\f3fd";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  width: 30px;
+}
+
+.deadline-icon::before {
+  content: "\f073";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  width: 30px;
+}
+
+.description-icon::before {
+  content: "\f15c";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  width: 30px;
+}
+
+.comments-icon::before {
+  content: "\f086";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  width: 30px;
+}
+
+.workspace-icon::before {
+  content: "\f0b1";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  width: 30px;
+}
+
+.assigned-icon::before {
+  content: "\f007";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  width: 30px;
+}
+
+.title-icon {
+  display: flex;
+}
+
+button {
+  background: #3d395a;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: #171f39;
+}
+
+.save-button {
+  background-color: #648cf6;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.edit-icon {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 10px 0px 10px 10px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.edit-icon:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-icon::before {
+  content: "\f040";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 10px;
+}
+
+.task-modal-content {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  background-color: #171f39;
+}
+
+.element-icon {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+}
+
+.save-button,
+.delete-button {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in;
+}
+
+.delete-button {
+  background: #e1786a;
+}
+
+.delete-button:hover {
+  background: #98000d;
+}
+
+.fas {
+  margin-right: 5px;
+}
+
+.save-title {
+  margin-left: 400px;
+}
+
+.task-edit-select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  margin-left: -4px;
+}
+
+.task-edit-date {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  padding-left: 3px;
+}
+
+.task-edit-description {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1rem;
+  min-width: 400px;
+  resize: vertical;
+  overflow: hidden;
+}
+
+.task-edit-description-span {
+  max-width: 500px;
+}/*# sourceMappingURL=taskModal.css.map */

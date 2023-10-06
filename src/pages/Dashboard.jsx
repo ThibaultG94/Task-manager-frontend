@@ -7,12 +7,20 @@ import ListWorkspaces from '../components/dashboard/ListWorkspaces';
 import Activities from '../components/dashboard/Activities';
 import Coworkers from '../components/dashboard/Coworkers';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
+import getUserId from '../api/getUserId';
 
 const Dashboard = () => {
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
+	const [userId, setUserId] = useState(null);
+
+	const getId = async () => {
+		const id = await getUserId();
+		setUserId(id);
+	};
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
+		getId();
 	}, [redirectAfterLogin]);
 
 	return (
