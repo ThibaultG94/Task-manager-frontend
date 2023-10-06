@@ -1,0 +1,169 @@
+.dashboard-container {
+	width: 100%;
+	height: 80%;
+	display: grid;
+	grid-template-areas:
+		'cal task task'
+		'work act cow';
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 15px;
+	padding: 10px 2% 15px;
+	max-height: calc(100vh - 10%);
+	overflow: hidden;
+	justify-content: center;
+}
+
+.dashboard-card {
+	background: #ffffff;
+	border-radius: 10px;
+	padding: 10px;
+	overflow: hidden;
+}
+
+.dashboard-card h4 {
+	font-size: 1.2rem;
+	margin-bottom: 10px;
+}
+
+.calendar-container {
+	grid-area: cal;
+}
+
+.tasks-container {
+	grid-area: task;
+	padding: 15px 0;
+}
+
+.workspaces-container {
+	grid-area: work;
+}
+
+.activities-container {
+	grid-area: act;
+}
+
+.coworkers-container {
+	grid-area: cow;
+}
+
+/************************ Calendar ****************/
+
+.month-year {
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+}
+
+.calendar-header,
+.calendar-days {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.calendar-day {
+	width: 13%;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	padding: 5px 0;
+	font-size: 0.9rem;
+}
+
+.calendar-day-today {
+	margin-bottom: -5px;
+}
+
+.today {
+	color: white;
+	font-weight: bold;
+	background: #ffb360;
+	border-radius: 50%;
+	width: 26px;
+	height: 26px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: -5px;
+}
+
+.other-month {
+	color: gray;
+}
+
+/************************** URGENT TASKS ************************/
+
+.urgent-task-container {
+	height: 80%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.urgent-task {
+	display: flex;
+	padding: 10px 0;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+	transition: 0.1s ease;
+}
+
+.urgent-task:hover {
+	background: #171f39;
+	color: white;
+}
+
+.urgent-task-todo {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 15px;
+	height: 40px;
+}
+
+#check {
+	border-radius: 50px;
+	border: 1px solid black;
+	height: 20px;
+	width: 20px;
+	margin-right: 10px;
+}
+
+.date-container {
+	position: relative;
+	min-width: 100px;
+}
+
+.date {
+	color: #e1786a;
+	text-align: left;
+}
+
+.date::before {
+	content: '';
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #e1786a;
+	position: absolute;
+	left: -20px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.task-overdue {
+	background-color: #e1786a;
+	color: #98000d;
+	font-weight: bold;
+}
+
+.task-overdue .date {
+	color: #98000d;
+}
+
+.no-urgent-tasks {
+	position: absolute;
+	left: 60%;
+	font-size: 1.2rem;
+}
