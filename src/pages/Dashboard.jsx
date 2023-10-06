@@ -8,9 +8,9 @@ const Dashboard = () => {
 			<section className="bg-dark-blue text-white text-center">
 				<SideBar />
 			</section>
-			<main className="w-full p-2.5">
+			<div className="w-full p-2.5">
 				<Header />
-			</main>
+			</div>
 		</div>
 	);
 };
