@@ -36,7 +36,7 @@ const Dashboard = () => {
 			<section className="bg-dark-blue text-white text-center">
 				<SideBar />
 			</section>
-			<div className="w-full p-2.5">
+			<div className="w-full p-2.5 bg-light-blue">
 				<Header />
 				<main className="dashboard-container">
 					<Calendar />
