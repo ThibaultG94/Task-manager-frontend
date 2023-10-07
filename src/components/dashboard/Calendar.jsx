@@ -20,7 +20,32 @@ const Calendar = () => {
 	const [currentDate, setCurrentDate] = useState(new Date());
 	const [calendarDays, setCalendarDays] = useState([]);
 
-	const generateDays = () => {};
+	const generateDays = (currentDate) => {
+		const month = currentDate.getMonth();
+		const year = currentDate.getFullYear();
+		const firstDayOfThisMonth = new Date(year, month, 1).getDay();
+		const lastDayOfLastMonth = new Date(year, month, 0).getDate();
+		const lastDate = new Date(year, month + 1, 0).getDate();
+
+		const prevMonthDays = Array.from(
+			{ length: firstDayOfThisMonth - 1 },
+			(_, i) => ({ date: lastDayOfLastMonth - i, isOtherMonth: true })
+		);
+		const currentMonthDays = Array.from({ length: lastDate }, (_, i) => ({
+			date: i + 1,
+			isOtherMonth: false,
+		}));
+		const nextMonthDays = Array.from(
+			{ length: 42 - (prevMonthDays.length + currentMonthDays.length) },
+			(_, i) => ({ date: i + 1, isOtherMonth: true })
+		);
+
+		setCalendarDays([
+			...prevMonthDays.reverse(),
+			...currentMonthDays,
+			...nextMonthDays,
+		]);
+	};
 
 	useEffect(() => {
 		generateDays(currentDate);
@@ -34,7 +59,24 @@ const Calendar = () => {
 						months[currentDate.getMonth()]
 					} ${currentDate.getFullYear()}`}
 				</div>
-				<div className="calendar-header"></div>
+				<div className="calendar-header">
+					{days.map((day) => (
+						<div className="calendar-day" key={day}>
+							{day}
+						</div>
+					))}
+				</div>
+				<div className="calendar-days">
+					{calendarDays.map((day, index) => (
+						<div
+							className={`calendar-day ${
+								day.isOtherMonth ? 'other-month' : ''
+							}`}
+							key={index}>
+							{day.date}
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	);

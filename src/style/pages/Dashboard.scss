@@ -28,6 +28,7 @@
 
 .calendar-container {
 	grid-area: cal;
+	position: relative;
 }
 
 .tasks-container {
@@ -48,6 +49,11 @@
 }
 
 /************************ Calendar ****************/
+
+#calendar {
+	position: absolute;
+	top: 0.2rem;
+}
 
 .month-year {
 	font-weight: bold;
