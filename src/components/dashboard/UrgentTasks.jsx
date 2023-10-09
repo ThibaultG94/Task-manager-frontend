@@ -3,6 +3,9 @@ import ModalTask from '../tasks/ModalTask';
 import { useSelector } from 'react-redux';
 import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
+import { convertStatus } from '../utils/convertStatus';
+import { convertPriority } from '../utils/convertPriority';
+import { frenchFormattedDate } from '../utils/frenchFormattedDate';
 
 const UrgentTasks = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,6 +40,17 @@ const UrgentTasks = () => {
 					updatedTasks.push({
 						title: urgentTasks[i].title,
 						date: formattedDate,
+						status: await convertStatus(urgentTasks[i].status),
+						priority: await convertPriority(
+							urgentTasks[i].priority
+						),
+						deadline: await frenchFormattedDate(
+							urgentTasks[i].deadline
+						),
+						description: urgentTasks[i].description,
+						comments: urgentTasks[i].comments,
+						workspace: urgentTasks[i].workspaceId,
+						assignedTo: urgentTasks[i].assignedTo,
 						isOverdue: formattedDate === 'En retard',
 					});
 				}
