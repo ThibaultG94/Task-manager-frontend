@@ -1,14 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ModalTask from '../tasks/ModalTask';
 import { useSelector } from 'react-redux';
 import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
 
 const UrgentTasks = () => {
-	const [modal, setModal] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const modalRef = useRef(null);
 	const urgentTasks = useSelector(selectUrgentTasks);
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
+
+	const openModal = (e) => {
+		e.stopPropagation();
+		setIsModalOpen(true);
+	};
+
+	const closeModal = () => {
+		setIsModalOpen(false);
+	};
+
+	const handleClickOutside = (e) => {
+		if (modalRef.current && !modalRef.current.contains(e.target)) {
+			closeModal();
+		}
+	};
 
 	useEffect(() => {
 		const updateDisplayTasks = async () => {
@@ -31,6 +47,14 @@ const UrgentTasks = () => {
 		updateDisplayTasks();
 	}, [urgentTasks]);
 
+	useEffect(() => {
+		if (isModalOpen) {
+			window.addEventListener('click', handleClickOutside);
+		} else {
+			window.removeEventListener('click', handleClickOutside);
+		}
+	}, [isModalOpen]);
+
 	return (
 		<div className="tasks-container dashboard-card">
 			<h4 className="pl-4">Tâches urgentes</h4>
@@ -42,8 +66,8 @@ const UrgentTasks = () => {
 								task ? 'task-overdue' : ''
 							}`}
 							key={index}
-							onClick={() => {
-								setModal(true);
+							onClick={(e) => {
+								openModal(e);
 								setSelectedTask(task);
 							}}>
 							<div className="urgent-task-todo">
@@ -62,7 +86,13 @@ const UrgentTasks = () => {
 				)}
 			</div>
 
-			{modal && <ModalTask task={selectedTask} />}
+			{isModalOpen && (
+				<ModalTask
+					closeModal={closeModal}
+					modalRef={modalRef}
+					task={selectedTask}
+				/>
+			)}
 		</div>
 	);
 };
