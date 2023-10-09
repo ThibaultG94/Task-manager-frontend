@@ -7,40 +7,39 @@ import { formatDateForDisplay } from '../utils/formatDateForDisplay';
 const UrgentTasks = () => {
 	const [modal, setModal] = useState(false);
 	const urgentTasks = useSelector(selectUrgentTasks);
-	const [displayTasks, setDisplayTasks] = useState([]);
+	// const [displayTasks, setDisplayTasks] = useState([]);
 
-	useEffect(() => {
-		const updateDisplayTasks = async () => {
-			const updatedTasks = [];
-			for (let i = 0; i < 3; i++) {
-				if (urgentTasks[i]) {
-					const formattedDate = await formatDateForDisplay(
-						urgentTasks[i].deadline
-					);
-					updatedTasks.push({
-						title: urgentTasks[i].title,
-						date: formattedDate,
-						isOverdue: formattedDate === 'En retard',
-					});
-				} else {
-					updatedTasks.push(null);
-				}
-			}
-			setDisplayTasks(updatedTasks);
-		};
+	// useEffect(() => {
+	// 	const updateDisplayTasks = async () => {
+	// 		console.log(urgentTasks?.length);
+	// 		const updatedTasks = [];
+	// 		for (let i = 0; i < 3; i++) {
+	// 			if (urgentTasks && urgentTasks[i]) {
+	// 				const formattedDate = await formatDateForDisplay(
+	// 					urgentTasks[i].deadline
+	// 				);
+	// 				updatedTasks.push({
+	// 					title: urgentTasks[i].title,
+	// 					date: formattedDate,
+	// 					// isOverdue: formattedDate === 'En retard',
+	// 				});
+	// 			}
+	// 		}
+	// 		setDisplayTasks(updatedTasks);
+	// 	};
 
-		updateDisplayTasks();
-	}, [urgentTasks]);
+	// 	updateDisplayTasks();
+	// }, [urgentTasks]);
 
 	return (
 		<div className="tasks-container dashboard-card">
 			<h4 className="pl-4">Tâches urgentes</h4>
 			<div className="urgent-task-container">
-				{displayTasks.map((task, index) =>
-					task ? (
+				{urgentTasks?.length > 0 ? (
+					urgentTasks.map((task, index) => (
 						<div
 							className={`urgent-task ${
-								task.isOverdue ? 'task-overdue' : ''
+								task ? 'task-overdue' : ''
 							}`}
 							key={index}
 							onClick={() => setModal(true)}>
@@ -52,11 +51,11 @@ const UrgentTasks = () => {
 								<div className="date">{task.date}</div>
 							</div>
 						</div>
-					) : (
-						<div className="no-urgent-tasks" key={index}>
-							<p>Aucune tâche à afficher</p>
-						</div>
-					)
+					))
+				) : (
+					<div className="no-urgent-tasks">
+						<p>Aucune tâche à afficher</p>
+					</div>
 				)}
 			</div>
 
