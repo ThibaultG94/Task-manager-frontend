@@ -6,6 +6,9 @@ import { formatDateForDisplay } from '../utils/formatDateForDisplay';
 import { convertStatus } from '../utils/convertStatus';
 import { convertPriority } from '../utils/convertPriority';
 import { frenchFormattedDate } from '../utils/frenchFormattedDate';
+import { useGetWorkspace } from '../../api/getWorkspace';
+import { selectSingleWorkspace } from '../../store/selectors/workspaceSelectors';
+import { useGetUser } from '../../api/getUser';
 
 const UrgentTasks = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,6 +16,9 @@ const UrgentTasks = () => {
 	const urgentTasks = useSelector(selectUrgentTasks);
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
+
+	const getWorkspace = useGetWorkspace();
+	const getUser = useGetUser();
 
 	const openModal = (e) => {
 		e.stopPropagation();
@@ -34,6 +40,11 @@ const UrgentTasks = () => {
 			const updatedTasks = [];
 			for (let i = 0; i < 3; i++) {
 				if (urgentTasks && urgentTasks[i]) {
+					const workspace = await getWorkspace(
+						urgentTasks[i].workspaceId
+					);
+					const user = await getUser(urgentTasks[i].assignedTo);
+
 					const formattedDate = await formatDateForDisplay(
 						urgentTasks[i].deadline
 					);
@@ -49,8 +60,8 @@ const UrgentTasks = () => {
 						),
 						description: urgentTasks[i].description,
 						comments: urgentTasks[i].comments,
-						workspace: urgentTasks[i].workspaceId,
-						assignedTo: urgentTasks[i].assignedTo,
+						workspace: workspace?.title,
+						assignedTo: user?.username,
 						isOverdue: formattedDate === 'En retard',
 					});
 				}

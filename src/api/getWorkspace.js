@@ -1,28 +1,30 @@
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
-	setUserData,
-	setUserDataFailed,
-	setUserDataSuccess,
-} from '../store/feature/users.slice';
+	setSingleWorkspace,
+	setSingleWorkspaceFailed,
+	setSingleWorkspaceSuccess,
+} from '../store/feature/workspaces.slice';
+import axios from 'axios';
 
-export const useGetUser = () => {
+export const useGetWorkspace = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const getUser = async (userId) => {
-		dispatch(setUserData());
-
+	const getWorkspace = async (workspaceId) => {
+		dispatch(setSingleWorkspace());
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.get(`${API_URL}/users/${userId}/account`, {
-				withCredentials: true,
-			});
-			dispatch(setUserDataSuccess(res.data.user));
-			return res.data.user;
+			const res = await axios.get(
+				`${API_URL}/workspaces/${workspaceId}`,
+				{
+					withCredentials: true,
+				}
+			);
+			dispatch(setSingleWorkspaceSuccess(res.data));
+			return res.data;
 		} catch (error) {
-			dispatch(setUserDataFailed(error));
+			dispatch(setSingleWorkspaceFailed(error));
 			const errorCode = error.response ? error.response.status : 500;
 			switch (errorCode) {
 				case 404:
@@ -38,5 +40,5 @@ export const useGetUser = () => {
 		}
 	};
 
-	return getUser;
+	return getWorkspace;
 };
