@@ -10,6 +10,7 @@ import CheckAuthentication from '../components/utils/CheckAuthentication';
 import getUserId from '../api/getUserId';
 import { useGetUser } from '../api/getUser';
 import { useGetUrgentTasks } from '../api/getUrgentTasks';
+import { useGetWorkspaces } from '../api/getWorkspaces';
 
 const Dashboard = () => {
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
@@ -22,6 +23,7 @@ const Dashboard = () => {
 
 	const getUser = useGetUser();
 	const getUrgentTasks = useGetUrgentTasks();
+	const getWorkspaces = useGetWorkspaces();
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
@@ -31,6 +33,7 @@ const Dashboard = () => {
 	useEffect(() => {
 		userId !== null && getUser(userId);
 		userId !== null && getUrgentTasks(userId);
+		userId !== null && getWorkspaces(userId);
 	}, [userId]);
 
 	return (

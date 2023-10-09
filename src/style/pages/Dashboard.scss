@@ -39,6 +39,7 @@
 
 .workspaces-container {
 	grid-area: work;
+	position: relative;
 }
 
 .activities-container {
@@ -175,4 +176,9 @@
 	left: 50%;
 	top: 52%;
 	font-size: 1.2rem;
+}
+
+.noWorkspace {
+	position: absolute;
+	top: 45%;
 }

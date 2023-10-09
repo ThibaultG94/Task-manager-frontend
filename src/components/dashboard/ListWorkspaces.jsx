@@ -1,68 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 
 const ListWorkspaces = () => {
+	const workspaces = useSelector(selectWorkspaces);
+	const [displayWorkspaces, setDisplayWorkspaces] = useState([]);
+
+	useEffect(() => {
+		const updateDisplayWorkspaces = () => {
+			const updatedWorkspaces = [];
+			for (let i = 0; i < 4; i++) {
+				if (workspaces && workspaces[i]) {
+					updatedWorkspaces.push({
+						title: workspaces[i].title,
+						// coworkers: workspaces[i].coworkers,
+					});
+				}
+			}
+			setDisplayWorkspaces(updatedWorkspaces);
+		};
+
+		updateDisplayWorkspaces();
+	}, [workspaces]);
+
 	return (
 		<div className="workspaces-container dashboard-card">
 			<h4>Workspaces</h4>
 			<div className="h-[80%] flex flex-col justify-between">
-				<div
-					id="first-workspace-container"
-					className="flex p-2 items-center justify-between">
-					<div className="flex">
-						<div className="mr-3">
-							<i className="fa-solid fa-share-nodes"></i>
+				{displayWorkspaces.map((workspace, index) => (
+					<div
+						key={index}
+						className="flex p-2 items-center justify-between"
+						style={{ opacity: workspace ? '1' : '0' }}>
+						<div className="flex">
+							<div className="mr-3">
+								<i className="fa-solid fa-share-nodes"></i>
+							</div>
+							<div>{workspace.title}</div>
 						</div>
-						<div id="firstWorkspace"></div>
-					</div>
-					<div>
-						<div id="firstCoworker"></div>
-					</div>
-				</div>
-
-				<div
-					id="second-workspace-container"
-					className="flex p-2 items-center justify-between">
-					<div className="flex">
-						<div className="mr-3">
-							<i className="fa-solid fa-share-nodes"></i>
+						<div>
+							<div>{workspace.coworkersCount}</div>
 						</div>
-						<div id="secondWorkspace"></div>
 					</div>
-					<div>
-						<div id="secondCoworker"></div>
+				))}
+				{displayWorkspaces.length === 0 && (
+					<div className="noWorkspace">
+						Vous n'avez aucun espace de travail actuellement
 					</div>
-				</div>
-
-				<div
-					id="third-workspace-container"
-					className="flex p-2 items-center justify-between">
-					<div className="flex">
-						<div className="mr-3">
-							<i className="fa-solid fa-share-nodes"></i>
-						</div>
-						<div id="thirdWorkspace"></div>
-					</div>
-					<div>
-						<div id="thirdCoworker"></div>
-					</div>
-				</div>
-
-				<div
-					id="fourth-workspace-container"
-					className="flex p-2 items-center justify-between">
-					<div className="flex">
-						<div className="mr-3">
-							<i className="fa-solid fa-share-nodes"></i>
-						</div>
-						<div id="fourthWorkspace"></div>
-					</div>
-					<div>
-						<div id="fourthCoworker"></div>
-					</div>
-				</div>
+				)}
 			</div>
-
-			<p id="noWorkspace"></p>
 		</div>
 	);
 };
