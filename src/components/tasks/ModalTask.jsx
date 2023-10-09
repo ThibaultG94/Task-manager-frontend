@@ -18,7 +18,6 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 
 	const handleEditElement = (e, field) => {
 		e.stopPropagation();
-		console.log('test');
 		setEditedTask({
 			editedTask,
 			[field]: !editedTask[field],
@@ -32,16 +31,29 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					&times;
 				</span>
 				<div className="task-details">
-					<div className="title-icon">
-						<h2>{task.title}</h2>
+					<div className="title-icon relative">
+						{!editedTask.title && (
+							<h2 className="pt-2 text-2xl font-bold">
+								{task.title}
+							</h2>
+						)}
 						{editedTask.title && (
 							<>
 								<input
 									type="text"
 									className="task-edit-title"
+									defaultValue={task.title}
 								/>
-								<button className="save-title">Valider</button>
-								<button>Annuler</button>
+								<button className="save-title absolute right-20">
+									Valider
+								</button>
+								<button
+									className="absolute right-0"
+									onClick={(e) =>
+										handleEditElement(e, 'title')
+									}>
+									Annuler
+								</button>
 							</>
 						)}
 						{!editedTask.title && (
