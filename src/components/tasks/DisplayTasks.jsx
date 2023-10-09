@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ModalTasks from './ModalTasks';
+import ModalTask from './ModalTask';
 
 const DisplayTasks = () => {
 	const [modal, setModal] = useState(false);
@@ -149,7 +149,7 @@ const DisplayTasks = () => {
 				<div className="task-list"></div>
 			</div>
 
-			{modal && <ModalTasks />}
+			{modal && <ModalTask />}
 		</section>
 	);
 };

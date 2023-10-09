@@ -9,7 +9,7 @@ const ListWorkspaces = () => {
 	useEffect(() => {
 		const updateDisplayWorkspaces = () => {
 			const updatedWorkspaces = [];
-			for (let i = 0; i < 4; i++) {
+			for (let i = 0; i < 6; i++) {
 				if (workspaces && workspaces[i]) {
 					updatedWorkspaces.push({
 						title: workspaces[i].title,

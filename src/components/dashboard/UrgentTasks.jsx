@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ModalTasks from '../tasks/ModalTasks';
+import ModalTask from '../tasks/ModalTask';
 import { useSelector } from 'react-redux';
 import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
@@ -8,6 +8,7 @@ const UrgentTasks = () => {
 	const [modal, setModal] = useState(false);
 	const urgentTasks = useSelector(selectUrgentTasks);
 	const [displayTasks, setDisplayTasks] = useState([]);
+	const [selectedTask, setSelectedTask] = useState(null);
 
 	useEffect(() => {
 		const updateDisplayTasks = async () => {
@@ -41,7 +42,10 @@ const UrgentTasks = () => {
 								task ? 'task-overdue' : ''
 							}`}
 							key={index}
-							onClick={() => setModal(true)}>
+							onClick={() => {
+								setModal(true);
+								setSelectedTask(task);
+							}}>
 							<div className="urgent-task-todo">
 								<div id="check"></div>
 								<div>{task.title}</div>
@@ -58,7 +62,7 @@ const UrgentTasks = () => {
 				)}
 			</div>
 
-			{modal && <ModalTasks />}
+			{modal && <ModalTask task={selectedTask} />}
 		</div>
 	);
 };
