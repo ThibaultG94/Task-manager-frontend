@@ -51,7 +51,7 @@ const UrgentTasks = () => {
 					updatedTasks.push({
 						title: urgentTasks[i].title,
 						date: formattedDate,
-						status: await convertStatus(urgentTasks[i].status),
+						status: urgentTasks[i].status,
 						priority: await convertPriority(
 							urgentTasks[i].priority
 						),

@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { convertStatus } from '../utils/convertStatus';
+import EditTitle from './EditTitle';
 
 const ModalTask = ({ closeModal, modalRef, task }) => {
 	const [editState, setEditState] = useState({
 		isEditing: false,
 		hasEdited: false,
 	});
-	const [editedTask, setEditedTask] = useState({
+	const [isEditingFields, setIsEditingFields] = useState({
 		title: false,
 		status: false,
 		priority: false,
@@ -15,24 +17,45 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		workspace: false,
 		assignedTo: false,
 	});
+	const [editedTask, setEditedTask] = useState({
+		title: task.title,
+		status: task.status,
+		priority: task.priority,
+		deadline: task.deadline,
+		description: task.description,
+		comments: task.comments,
+		workspace: task.workspace,
+		assignedTo: task.assignedTo,
+	});
+	const [convertedStatus, setConvertedStatus] = useState('');
+
 	const inputRefs = useRef([]);
 
 	useEffect(() => {
-		if (editedTask.title || editedTask.description) {
+		if (isEditingFields.title || isEditingFields.description) {
 			const firstInput = inputRefs.current.find((el) => el);
 			if (firstInput) {
 				firstInput.focus();
 			}
 		}
-	}, [editedTask]);
+	}, [isEditingFields]);
 
 	const handleEditElement = (e, field) => {
 		e.stopPropagation();
-		setEditedTask({
-			editedTask,
-			[field]: !editedTask[field],
+		setIsEditingFields({
+			isEditingFields,
+			[field]: !isEditingFields[field],
 		});
 	};
+
+	useEffect(() => {
+		const fetchConvertedStatus = async () => {
+			const status = await convertStatus(editedTask.status);
+			setConvertedStatus(status);
+		};
+
+		fetchConvertedStatus();
+	}, [editedTask.status]);
 
 	return (
 		<section className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10">
@@ -41,46 +64,23 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					&times;
 				</span>
 				<div className="task-details">
-					<div className="title-icon relative">
-						{!editedTask.title && (
-							<h2 className="pt-2 text-2xl font-bold">
-								{task.title}
-							</h2>
-						)}
-						{editedTask.title && (
-							<>
-								<input
-									type="text"
-									className="task-edit-title pt-2 text-2xl"
-									defaultValue={task.title}
-									ref={(el) => (inputRefs.current[0] = el)}
-								/>
-								<button className="save-title absolute right-20">
-									Valider
-								</button>
-								<button
-									className="absolute right-0"
-									onClick={(e) =>
-										handleEditElement(e, 'title')
-									}>
-									Annuler
-								</button>
-							</>
-						)}
-						{!editedTask.title && (
-							<span
-								className="edit-icon"
-								onClick={(e) =>
-									handleEditElement(e, 'title')
-								}></span>
-						)}
-					</div>
+					<EditTitle
+						editState={editState}
+						setEditState={setEditState}
+						editedTitle={editedTask.title}
+						setEditedTitle={setEditedTask.title}
+						inputRefs={inputRefs}
+					/>
 
 					<div className="status-icon element-icon">
-						{!editedTask.status && <span>{task.status}</span>}
-						{editedTask.status && (
+						{!isEditingFields.status && (
+							<span>{convertedStatus}</span>
+						)}
+						{isEditingFields.status && (
 							<>
-								<select className="task-edit-select">
+								<select
+									className="task-edit-select"
+									defaultValue={editedTask.status}>
 									<option value="Pending">À faire</option>
 									<option value="In Progress">
 										En cours
@@ -97,7 +97,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 								</button>
 							</>
 						)}
-						{!editedTask.status && (
+						{!isEditingFields.status && (
 							<span
 								className="edit-icon"
 								onClick={(e) =>
@@ -107,10 +107,14 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					</div>
 
 					<div className="priority-icon element-icon">
-						{!editedTask.priority && <span>{task.priority}</span>}
-						{editedTask.priority && (
+						{!isEditingFields.priority && (
+							<span>{task.priority}</span>
+						)}
+						{isEditingFields.priority && (
 							<>
-								<select className="task-edit-select">
+								<select
+									className="task-edit-select"
+									defaultValue={task.priority}>
 									<option value="Low">Faible</option>
 									<option value="Medium">Moyenne</option>
 									<option value="High">Haute</option>
@@ -125,7 +129,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 								</button>
 							</>
 						)}
-						{!editedTask.priority && (
+						{!isEditingFields.priority && (
 							<span
 								className="edit-icon"
 								onClick={(e) =>
@@ -135,8 +139,10 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					</div>
 
 					<div className="deadline-icon element-icon">
-						{!editedTask.deadline && <span>{task.deadline}</span>}
-						{editedTask.deadline && (
+						{!isEditingFields.deadline && (
+							<span>{task.deadline}</span>
+						)}
+						{isEditingFields.deadline && (
 							<>
 								<input type="date" class="task-edit-date" />
 								<button>Valider</button>
@@ -148,7 +154,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 								</button>
 							</>
 						)}
-						{!editedTask.deadline && (
+						{!isEditingFields.deadline && (
 							<span
 								className="edit-icon"
 								onClick={(e) =>
@@ -158,10 +164,10 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					</div>
 
 					<div className="description-icon element-icon">
-						{!editedTask.description && (
+						{!isEditingFields.description && (
 							<span>{task.description}</span>
 						)}
-						{editedTask.description && (
+						{isEditingFields.description && (
 							<>
 								<textarea
 									className="task-edit-description"
@@ -176,7 +182,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 								</button>
 							</>
 						)}
-						{!editedTask.description && (
+						{!isEditingFields.description && (
 							<span
 								className="edit-icon"
 								onClick={(e) =>
@@ -185,10 +191,10 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 						)}
 					</div>
 
-					{editedTask.comments && (
+					{isEditingFields.comments && (
 						<div className="comments-icon element-icon">
 							<span>{task.comments}</span>
-							{editedTask.comments && (
+							{isEditingFields.comments && (
 								<>
 									<textarea class="task-edit-comments"></textarea>
 									<button>Valider</button>
@@ -200,7 +206,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 									</button>
 								</>
 							)}
-							{!editedTask.comments && (
+							{!isEditingFields.comments && (
 								<span
 									className="edit-icon"
 									onClick={(e) =>
@@ -211,8 +217,10 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					)}
 
 					<div className="workspace-icon element-icon">
-						{!editedTask.workspace && <span>{task.workspace}</span>}
-						{editedTask.workspace && (
+						{!isEditingFields.workspace && (
+							<span>{task.workspace}</span>
+						)}
+						{isEditingFields.workspace && (
 							<>
 								<select className="task-edit-select"></select>
 								<button>Valider</button>
@@ -224,7 +232,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 								</button>
 							</>
 						)}
-						{!editedTask.workspace && (
+						{!isEditingFields.workspace && (
 							<span
 								className="edit-icon"
 								onClick={(e) =>
@@ -234,10 +242,10 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					</div>
 
 					<div className="assigned-icon element-icon">
-						{!editedTask.assignedTo && (
+						{!isEditingFields.assignedTo && (
 							<span>{task.assignedTo}</span>
 						)}
-						{editedTask.assignedTo && (
+						{isEditingFields.assignedTo && (
 							<>
 								<select className="task-edit-select"></select>
 								<button>Valider</button>
@@ -249,7 +257,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 								</button>
 							</>
 						)}
-						{!editedTask.assignedTo && (
+						{!isEditingFields.assignedTo && (
 							<span
 								className="edit-icon"
 								onClick={(e) =>
