@@ -72,6 +72,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 				</span>
 				<div className="task-details">
 					<EditTitle
+						editState={editState}
 						setEditState={setEditState}
 						editedTitle={editedTask.title}
 						setEditedTitle={updateEditedTitle}

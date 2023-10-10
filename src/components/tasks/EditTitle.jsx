@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const EditTitle = ({ setEditState, editedTitle, setEditedTitle }) => {
+const EditTitle = ({
+	editState,
+	setEditState,
+	editedTitle,
+	setEditedTitle,
+}) => {
 	const [isEditingTitle, setIsEditingTitle] = useState(false);
 	const handleEditTitle = (e) => {
 		e.stopPropagation();
@@ -17,12 +22,17 @@ const EditTitle = ({ setEditState, editedTitle, setEditedTitle }) => {
 	const handleValidTitle = (e) => {
 		e.stopPropagation();
 		const newTitle = inputTitleRef.current.value;
+		editedTitle !== newTitle
+			? setEditState({
+					isEditing: false,
+					hasEdited: true,
+			  })
+			: setEditState({
+					isEditing: false,
+					hasEdited: editState.hasEdited,
+			  });
 		setEditedTitle(newTitle);
 		setIsEditingTitle(false);
-		setEditState({
-			isEditing: false,
-			hasEdited: true,
-		});
 	};
 
 	return (
