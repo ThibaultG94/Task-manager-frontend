@@ -78,7 +78,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 									<option value="Archived">Archivé</option>
 								</select>
 								<button>Valider</button>
-								<button>Annuler</button>
+								<button
+									onClick={(e) =>
+										handleEditElement(e, 'status')
+									}>
+									Annuler
+								</button>
 							</>
 						)}
 						{!editedTask.status && (
@@ -101,7 +106,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 									<option value="Urgent">Urgent</option>
 								</select>
 								<button>Valider</button>
-								<button>Annuler</button>
+								<button
+									onClick={(e) =>
+										handleEditElement(e, 'priority')
+									}>
+									Annuler
+								</button>
 							</>
 						)}
 						{!editedTask.priority && (
@@ -119,7 +129,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 							<>
 								<input type="date" class="task-edit-date" />
 								<button>Valider</button>
-								<button>Annuler</button>
+								<button
+									onClick={(e) =>
+										handleEditElement(e, 'deadline')
+									}>
+									Annuler
+								</button>
 							</>
 						)}
 						{!editedTask.deadline && (
@@ -137,7 +152,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 							<>
 								<textarea class="task-edit-description"></textarea>
 								<button>Valider</button>
-								<button>Annuler</button>
+								<button
+									onClick={(e) =>
+										handleEditElement(e, 'description')
+									}>
+									Annuler
+								</button>
 							</>
 						)}
 						{!editedTask.description && (
@@ -156,7 +176,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 								<>
 									<textarea class="task-edit-comments"></textarea>
 									<button>Valider</button>
-									<button>Annuler</button>
+									<button
+										onClick={(e) =>
+											handleEditElement(e, 'comments')
+										}>
+										Annuler
+									</button>
 								</>
 							)}
 							{!editedTask.comments && (
@@ -175,7 +200,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 							<>
 								<select className="task-edit-select"></select>
 								<button>Valider</button>
-								<button>Annuler</button>
+								<button
+									onClick={(e) =>
+										handleEditElement(e, 'workspace')
+									}>
+									Annuler
+								</button>
 							</>
 						)}
 						{!editedTask.workspace && (
@@ -193,7 +223,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 							<>
 								<select className="task-edit-select"></select>
 								<button>Valider</button>
-								<button>Annuler</button>
+								<button
+									onClick={(e) =>
+										handleEditElement(e, 'assignedTo')
+									}>
+									Annuler
+								</button>
 							</>
 						)}
 						{!editedTask.assignedTo && (
