@@ -1,12 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const EditTitle = ({
-	editState,
-	setEditState,
-	editedTitle,
-	setEditedTitle,
-	inputRefs,
-}) => {
+const EditTitle = ({ setEditState, editedTitle, setEditedTitle }) => {
 	const [isEditingTitle, setIsEditingTitle] = useState(false);
 	const handleEditTitle = (e) => {
 		e.stopPropagation();
@@ -19,6 +13,17 @@ const EditTitle = ({
 			inputTitleRef.current.focus();
 		}
 	}, [isEditingTitle]);
+
+	const handleValidTitle = (e) => {
+		e.stopPropagation();
+		const newTitle = inputTitleRef.current.value;
+		setEditedTitle(newTitle);
+		setIsEditingTitle(false);
+		setEditState({
+			isEditing: false,
+			hasEdited: true,
+		});
+	};
 
 	return (
 		<div className="title-icon relative">
@@ -33,7 +38,9 @@ const EditTitle = ({
 						defaultValue={editedTitle}
 						ref={inputTitleRef}
 					/>
-					<button className="save-title absolute right-20">
+					<button
+						className="save-title absolute right-20"
+						onClick={(e) => handleValidTitle(e)}>
 						Valider
 					</button>
 					<button

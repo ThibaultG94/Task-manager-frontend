@@ -57,6 +57,13 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		fetchConvertedStatus();
 	}, [editedTask.status]);
 
+	const updateEditedTitle = (newTitle) => {
+		setEditedTask((prevTask) => ({
+			...prevTask,
+			title: newTitle,
+		}));
+	};
+
 	return (
 		<section className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10">
 			<div className="task-modal" ref={modalRef}>
@@ -65,10 +72,9 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 				</span>
 				<div className="task-details">
 					<EditTitle
-						editState={editState}
 						setEditState={setEditState}
 						editedTitle={editedTask.title}
-						setEditedTitle={setEditedTask.title}
+						setEditedTitle={updateEditedTitle}
 						inputRefs={inputRefs}
 					/>
 
