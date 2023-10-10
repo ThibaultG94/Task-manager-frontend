@@ -3,8 +3,6 @@ import ModalTask from '../tasks/ModalTask';
 import { useSelector } from 'react-redux';
 import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
-import { frenchFormattedDate } from '../utils/frenchFormattedDate';
-import { useGetWorkspace } from '../../api/getWorkspace';
 import { useGetUser } from '../../api/getUser';
 
 const UrgentTasks = () => {
@@ -14,7 +12,6 @@ const UrgentTasks = () => {
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
 
-	const getWorkspace = useGetWorkspace();
 	const getUser = useGetUser();
 
 	const openModal = (e) => {
@@ -37,9 +34,6 @@ const UrgentTasks = () => {
 			const updatedTasks = [];
 			for (let i = 0; i < 3; i++) {
 				if (urgentTasks && urgentTasks[i]) {
-					const workspace = await getWorkspace(
-						urgentTasks[i].workspaceId
-					);
 					const user = await getUser(urgentTasks[i].assignedTo);
 
 					const formattedDate = await formatDateForDisplay(
@@ -53,7 +47,8 @@ const UrgentTasks = () => {
 						deadline: urgentTasks[i].deadline,
 						description: urgentTasks[i].description,
 						comments: urgentTasks[i].comments,
-						workspace: workspace?.title,
+						// workspace: workspace?.title,
+						workspace: urgentTasks[i].workspaceId,
 						assignedTo: user?.username,
 						isOverdue: formattedDate === 'En retard',
 					});

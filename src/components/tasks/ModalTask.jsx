@@ -5,6 +5,7 @@ import EditPriority from './EditPriority';
 import EditDeadline from './EditDeadline';
 import EditDescription from './EditDescription';
 import EditComments from './EditComments';
+import EditWorkspace from './EditWorkspace';
 
 const ModalTask = ({ closeModal, modalRef, task }) => {
 	const [editState, setEditState] = useState({
@@ -82,6 +83,13 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		}));
 	};
 
+	const updateEditedWorkspace = (newWorkspace) => {
+		setEditedTask((prevTask) => ({
+			...prevTask,
+			workspace: newWorkspace,
+		}));
+	};
+
 	return (
 		<section className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10">
 			<div className="task-modal" ref={modalRef}>
@@ -131,30 +139,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 						setEditedComments={updateEditedComments}
 					/> */}
 
-					<div className="workspace-icon element-icon">
-						{!isEditingFields.workspace && (
-							<span>{task.workspace}</span>
-						)}
-						{isEditingFields.workspace && (
-							<>
-								<select className="task-edit-select"></select>
-								<button>Valider</button>
-								<button
-									onClick={(e) =>
-										handleEditElement(e, 'workspace')
-									}>
-									Annuler
-								</button>
-							</>
-						)}
-						{!isEditingFields.workspace && (
-							<span
-								className="edit-icon"
-								onClick={(e) =>
-									handleEditElement(e, 'workspace')
-								}></span>
-						)}
-					</div>
+					<EditWorkspace
+						editState={editState}
+						setEditState={setEditState}
+						editedWorkspace={editedTask.workspace}
+						setEditedWorkspace={updateEditedWorkspace}
+					/>
 
 					<div className="assigned-icon element-icon">
 						{!isEditingFields.assignedTo && (
