@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { convertStatus } from '../utils/convertStatus';
+import React, { useRef, useState } from 'react';
 import EditTitle from './EditTitle';
 import EditStatus from './EditStatus';
+import EditPriority from './EditPriority';
 
 const ModalTask = ({ closeModal, modalRef, task }) => {
 	const [editState, setEditState] = useState({
@@ -9,8 +9,6 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		hasEdited: false,
 	});
 	const [isEditingFields, setIsEditingFields] = useState({
-		title: false,
-		status: false,
 		priority: false,
 		deadline: false,
 		description: false,
@@ -53,6 +51,13 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		}));
 	};
 
+	const updateEditedPriority = (newPriority) => {
+		setEditedTask((prevTask) => ({
+			...prevTask,
+			priority: newPriority,
+		}));
+	};
+
 	return (
 		<section className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10">
 			<div className="task-modal" ref={modalRef}>
@@ -65,7 +70,6 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 						setEditState={setEditState}
 						editedTitle={editedTask.title}
 						setEditedTitle={updateEditedTitle}
-						inputRefs={inputRefs}
 					/>
 
 					<EditStatus
@@ -75,37 +79,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 						setEditedStatus={updateEditedStatus}
 					/>
 
-					<div className="priority-icon element-icon">
-						{!isEditingFields.priority && (
-							<span>{task.priority}</span>
-						)}
-						{isEditingFields.priority && (
-							<>
-								<select
-									className="task-edit-select"
-									defaultValue={task.priority}>
-									<option value="Low">Faible</option>
-									<option value="Medium">Moyenne</option>
-									<option value="High">Haute</option>
-									<option value="Urgent">Urgent</option>
-								</select>
-								<button>Valider</button>
-								<button
-									onClick={(e) =>
-										handleEditElement(e, 'priority')
-									}>
-									Annuler
-								</button>
-							</>
-						)}
-						{!isEditingFields.priority && (
-							<span
-								className="edit-icon"
-								onClick={(e) =>
-									handleEditElement(e, 'priority')
-								}></span>
-						)}
-					</div>
+					<EditPriority
+						editState={editState}
+						setEditState={setEditState}
+						editedPriority={editedTask.priority}
+						setEditedPriority={updateEditedPriority}
+					/>
 
 					<div className="deadline-icon element-icon">
 						{!isEditingFields.deadline && (
