@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import EditTitle from './EditTitle';
 import EditStatus from './EditStatus';
 import EditPriority from './EditPriority';
+import EditDeadline from './EditDeadline';
 
 const ModalTask = ({ closeModal, modalRef, task }) => {
 	const [editState, setEditState] = useState({
@@ -58,6 +59,13 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		}));
 	};
 
+	const updateEditedDeadline = (newDeadline) => {
+		setEditedTask((prevTask) => ({
+			...prevTask,
+			deadline: newDeadline,
+		}));
+	};
+
 	return (
 		<section className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10">
 			<div className="task-modal" ref={modalRef}>
@@ -86,30 +94,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 						setEditedPriority={updateEditedPriority}
 					/>
 
-					<div className="deadline-icon element-icon">
-						{!isEditingFields.deadline && (
-							<span>{task.deadline}</span>
-						)}
-						{isEditingFields.deadline && (
-							<>
-								<input type="date" class="task-edit-date" />
-								<button>Valider</button>
-								<button
-									onClick={(e) =>
-										handleEditElement(e, 'deadline')
-									}>
-									Annuler
-								</button>
-							</>
-						)}
-						{!isEditingFields.deadline && (
-							<span
-								className="edit-icon"
-								onClick={(e) =>
-									handleEditElement(e, 'deadline')
-								}></span>
-						)}
-					</div>
+					<EditDeadline
+						editState={editState}
+						setEditState={setEditState}
+						editedDeadline={editedTask.deadline}
+						setEditedDeadline={updateEditedDeadline}
+					/>
 
 					<div className="description-icon element-icon">
 						{!isEditingFields.description && (

@@ -5,7 +5,6 @@ import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
 import { frenchFormattedDate } from '../utils/frenchFormattedDate';
 import { useGetWorkspace } from '../../api/getWorkspace';
-import { selectSingleWorkspace } from '../../store/selectors/workspaceSelectors';
 import { useGetUser } from '../../api/getUser';
 
 const UrgentTasks = () => {
@@ -51,9 +50,7 @@ const UrgentTasks = () => {
 						date: formattedDate,
 						status: urgentTasks[i].status,
 						priority: urgentTasks[i].priority,
-						deadline: await frenchFormattedDate(
-							urgentTasks[i].deadline
-						),
+						deadline: urgentTasks[i].deadline,
 						description: urgentTasks[i].description,
 						comments: urgentTasks[i].comments,
 						workspace: workspace?.title,
