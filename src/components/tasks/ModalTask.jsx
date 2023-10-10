@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const ModalTask = ({ closeModal, modalRef, task }) => {
 	const [editState, setEditState] = useState({
@@ -15,6 +15,16 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		workspace: false,
 		assignedTo: false,
 	});
+	const inputRefs = useRef([]);
+
+	useEffect(() => {
+		if (editedTask.title || editedTask.description) {
+			const firstInput = inputRefs.current.find((el) => el);
+			if (firstInput) {
+				firstInput.focus();
+			}
+		}
+	}, [editedTask]);
 
 	const handleEditElement = (e, field) => {
 		e.stopPropagation();
@@ -43,6 +53,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 									type="text"
 									className="task-edit-title pt-2 text-2xl"
 									defaultValue={task.title}
+									ref={(el) => (inputRefs.current[0] = el)}
 								/>
 								<button className="save-title absolute right-20">
 									Valider
@@ -66,7 +77,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					</div>
 
 					<div className="status-icon element-icon">
-						<span>{task.status}</span>
+						{!editedTask.status && <span>{task.status}</span>}
 						{editedTask.status && (
 							<>
 								<select className="task-edit-select">
@@ -96,7 +107,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					</div>
 
 					<div className="priority-icon element-icon">
-						<span>{task.priority}</span>
+						{!editedTask.priority && <span>{task.priority}</span>}
 						{editedTask.priority && (
 							<>
 								<select className="task-edit-select">
@@ -124,7 +135,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					</div>
 
 					<div className="deadline-icon element-icon">
-						<span>{task.deadline}</span>
+						{!editedTask.deadline && <span>{task.deadline}</span>}
 						{editedTask.deadline && (
 							<>
 								<input type="date" class="task-edit-date" />
@@ -147,10 +158,15 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					</div>
 
 					<div className="description-icon element-icon">
-						<span>{task.description}</span>
+						{!editedTask.description && (
+							<span>{task.description}</span>
+						)}
 						{editedTask.description && (
 							<>
-								<textarea class="task-edit-description"></textarea>
+								<textarea
+									className="task-edit-description"
+									ref={(el) => (inputRefs.current[1] = el)}
+								/>
 								<button>Valider</button>
 								<button
 									onClick={(e) =>
@@ -195,7 +211,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					)}
 
 					<div className="workspace-icon element-icon">
-						<span>{task.workspace}</span>
+						{!editedTask.workspace && <span>{task.workspace}</span>}
 						{editedTask.workspace && (
 							<>
 								<select className="task-edit-select"></select>
@@ -218,7 +234,9 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					</div>
 
 					<div className="assigned-icon element-icon">
-						<span>{task.assignedTo}</span>
+						{!editedTask.assignedTo && (
+							<span>{task.assignedTo}</span>
+						)}
 						{editedTask.assignedTo && (
 							<>
 								<select className="task-edit-select"></select>
