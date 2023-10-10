@@ -41,7 +41,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 							<>
 								<input
 									type="text"
-									className="task-edit-title"
+									className="task-edit-title pt-2 text-2xl"
 									defaultValue={task.title}
 								/>
 								<button className="save-title absolute right-20">
