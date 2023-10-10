@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useGetWorkspace } from '../../api/getWorkspace';
+import { useSelector } from 'react-redux';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 
 const EditWorkspace = ({
 	editState,
@@ -14,7 +16,9 @@ const EditWorkspace = ({
 	};
 	const inputWorkspaceRef = useRef(null);
 	const [convertedWorkspace, setConvertedWorkspace] = useState('');
+	const [workspaces, setWorkspaces] = useState([]);
 
+	const userWorkspaces = useSelector(selectWorkspaces);
 	const getWorkspace = useGetWorkspace();
 
 	const handleValidWorkspace = (e) => {
@@ -42,6 +46,10 @@ const EditWorkspace = ({
 		fetchConvertedWorkspace();
 	}, [editedWorkspace]);
 
+	useEffect(() => {
+		setWorkspaces(userWorkspaces);
+	}, [userWorkspaces]);
+
 	return (
 		<div className="workspace-icon element-icon">
 			{!isEditingWorkspace && <span>{convertedWorkspace}</span>}
@@ -49,7 +57,17 @@ const EditWorkspace = ({
 				<>
 					<select
 						className="task-edit-select"
-						ref={inputWorkspaceRef}></select>
+						defaultValue={editedWorkspace}
+						ref={inputWorkspaceRef}>
+						{workspaces &&
+							workspaces.map((workspace) => (
+								<option
+									value={workspace._id}
+									key={workspace._id}>
+									{workspace.title}
+								</option>
+							))}
+					</select>
 					<button onClick={(e) => handleValidWorkspace(e)}>
 						Valider
 					</button>
