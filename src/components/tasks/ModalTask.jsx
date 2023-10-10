@@ -3,6 +3,8 @@ import EditTitle from './EditTitle';
 import EditStatus from './EditStatus';
 import EditPriority from './EditPriority';
 import EditDeadline from './EditDeadline';
+import EditDescription from './EditDescription';
+import EditComments from './EditComments';
 
 const ModalTask = ({ closeModal, modalRef, task }) => {
 	const [editState, setEditState] = useState({
@@ -66,6 +68,20 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		}));
 	};
 
+	const updateEditedDescription = (newDescription) => {
+		setEditedTask((prevTask) => ({
+			...prevTask,
+			description: newDescription,
+		}));
+	};
+
+	const updateEditedComments = (newComments) => {
+		setEditedTask((prevTask) => ({
+			...prevTask,
+			comments: newComments,
+		}));
+	};
+
 	return (
 		<section className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10">
 			<div className="task-modal" ref={modalRef}>
@@ -101,58 +117,19 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 						setEditedDeadline={updateEditedDeadline}
 					/>
 
-					<div className="description-icon element-icon">
-						{!isEditingFields.description && (
-							<span>{task.description}</span>
-						)}
-						{isEditingFields.description && (
-							<>
-								<textarea
-									className="task-edit-description"
-									ref={(el) => (inputRefs.current[1] = el)}
-								/>
-								<button>Valider</button>
-								<button
-									onClick={(e) =>
-										handleEditElement(e, 'description')
-									}>
-									Annuler
-								</button>
-							</>
-						)}
-						{!isEditingFields.description && (
-							<span
-								className="edit-icon"
-								onClick={(e) =>
-									handleEditElement(e, 'description')
-								}></span>
-						)}
-					</div>
+					<EditDescription
+						editState={editState}
+						setEditState={setEditState}
+						editedDescription={editedTask.description}
+						setEditedDescription={updateEditedDescription}
+					/>
 
-					{isEditingFields.comments && (
-						<div className="comments-icon element-icon">
-							<span>{task.comments}</span>
-							{isEditingFields.comments && (
-								<>
-									<textarea class="task-edit-comments"></textarea>
-									<button>Valider</button>
-									<button
-										onClick={(e) =>
-											handleEditElement(e, 'comments')
-										}>
-										Annuler
-									</button>
-								</>
-							)}
-							{!isEditingFields.comments && (
-								<span
-									className="edit-icon"
-									onClick={(e) =>
-										handleEditElement(e, 'comments')
-									}></span>
-							)}
-						</div>
-					)}
+					{/* <EditComments
+						editState={editState}
+						setEditState={setEditState}
+						editedComments={editedTask.comments}
+						setEditedComments={updateEditedComments}
+					/> */}
 
 					<div className="workspace-icon element-icon">
 						{!isEditingFields.workspace && (
