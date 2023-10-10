@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { convertStatus } from '../utils/convertStatus';
 import EditTitle from './EditTitle';
+import EditStatus from './EditStatus';
 
 const ModalTask = ({ closeModal, modalRef, task }) => {
 	const [editState, setEditState] = useState({
@@ -27,18 +28,8 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		workspace: task.workspace,
 		assignedTo: task.assignedTo,
 	});
-	const [convertedStatus, setConvertedStatus] = useState('');
 
 	const inputRefs = useRef([]);
-
-	useEffect(() => {
-		if (isEditingFields.title || isEditingFields.description) {
-			const firstInput = inputRefs.current.find((el) => el);
-			if (firstInput) {
-				firstInput.focus();
-			}
-		}
-	}, [isEditingFields]);
 
 	const handleEditElement = (e, field) => {
 		e.stopPropagation();
@@ -48,19 +39,17 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		});
 	};
 
-	useEffect(() => {
-		const fetchConvertedStatus = async () => {
-			const status = await convertStatus(editedTask.status);
-			setConvertedStatus(status);
-		};
-
-		fetchConvertedStatus();
-	}, [editedTask.status]);
-
 	const updateEditedTitle = (newTitle) => {
 		setEditedTask((prevTask) => ({
 			...prevTask,
 			title: newTitle,
+		}));
+	};
+
+	const updateEditedStatus = (newStatus) => {
+		setEditedTask((prevTask) => ({
+			...prevTask,
+			status: newStatus,
 		}));
 	};
 
@@ -79,39 +68,12 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 						inputRefs={inputRefs}
 					/>
 
-					<div className="status-icon element-icon">
-						{!isEditingFields.status && (
-							<span>{convertedStatus}</span>
-						)}
-						{isEditingFields.status && (
-							<>
-								<select
-									className="task-edit-select"
-									defaultValue={editedTask.status}>
-									<option value="Pending">À faire</option>
-									<option value="In Progress">
-										En cours
-									</option>
-									<option value="Completed">Terminé</option>
-									<option value="Archived">Archivé</option>
-								</select>
-								<button>Valider</button>
-								<button
-									onClick={(e) =>
-										handleEditElement(e, 'status')
-									}>
-									Annuler
-								</button>
-							</>
-						)}
-						{!isEditingFields.status && (
-							<span
-								className="edit-icon"
-								onClick={(e) =>
-									handleEditElement(e, 'status')
-								}></span>
-						)}
-					</div>
+					<EditStatus
+						editState={editState}
+						setEditState={setEditState}
+						editedStatus={editedTask.status}
+						setEditedStatus={updateEditedStatus}
+					/>
 
 					<div className="priority-icon element-icon">
 						{!isEditingFields.priority && (
