@@ -166,6 +166,14 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 						editedWorkspace={editedTask.workspace}
 					/>
 				</div>
+				<div className="action-buttons">
+					<button className="delete-button">
+						<i className="fas fa-trash-alt"></i> Supprimer
+					</button>
+					<button className="save-button">
+						<i class="fas fa-save"></i> Sauvegarder
+					</button>
+				</div>
 			</div>
 		</section>
 	);

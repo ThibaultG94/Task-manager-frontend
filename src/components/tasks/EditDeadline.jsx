@@ -47,7 +47,7 @@ const EditDeadline = ({
 				<>
 					<input
 						type="date"
-						class="task-edit-date"
+						className="task-edit-date"
 						defaultValue={editedDeadline}
 						ref={inputDeadlineRef}
 					/>

@@ -57,7 +57,6 @@ const EditAssignedTo = ({
 		const fetchConvertedMember = async () => {
 			const user = await getUser(editedMember);
 			setConvertedMember(user.username);
-			console.log('editedMember', editedMember);
 		};
 
 		fetchConvertedMember();
