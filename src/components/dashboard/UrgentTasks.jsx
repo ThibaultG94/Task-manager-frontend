@@ -1,8 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ModalTask from '../tasks/ModalTask';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
+import {
+	selectHasEdited,
+	selectIsEditing,
+} from '../../store/selectors/editStateSelectors';
+import { resetEditState } from '../../store/feature/editState.slice';
 
 const UrgentTasks = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,20 +15,42 @@ const UrgentTasks = () => {
 	const urgentTasks = useSelector(selectUrgentTasks);
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
+	const dispatch = useDispatch();
+	const isEditing = useSelector(selectIsEditing);
+	const hasEdited = useSelector(selectHasEdited);
+	const [editState, setEditState] = useState({
+		isEditing: false,
+		hasEdited: false,
+	});
 
 	const openModal = (e) => {
 		e.stopPropagation();
 		setIsModalOpen(true);
 	};
 
-	const closeModal = () => {
-		setIsModalOpen(false);
-	};
+	const closeModal = async () => {
+		const checkIfEdited = async () => {
+			if (isEditing || hasEdited) {
+				let message;
+				if (isEditing) {
+					message = window.confirm(
+						"Vous êtes en train d'éditer. Voulez-vous vraiment quitter sans sauvegarder ?"
+					);
+				} else if (hasEdited) {
+					message = window.confirm(
+						'Vous avez des changements non sauvegardés. Voulez-vous vraiment quitter sans sauvegarder ?'
+					);
+				}
+				const userResponse = window.confirm(message);
+				if (!userResponse) {
+					return;
+				}
+			}
+			setIsModalOpen(false);
+			dispatch(resetEditState());
+		};
 
-	const handleClickOutside = (e) => {
-		if (modalRef.current && !modalRef.current.contains(e.target)) {
-			closeModal();
-		}
+		await checkIfEdited();
 	};
 
 	useEffect(() => {
@@ -53,14 +80,6 @@ const UrgentTasks = () => {
 
 		updateDisplayTasks();
 	}, [urgentTasks]);
-
-	useEffect(() => {
-		if (isModalOpen) {
-			window.addEventListener('click', handleClickOutside);
-		} else {
-			window.removeEventListener('click', handleClickOutside);
-		}
-	}, [isModalOpen]);
 
 	return (
 		<div className="tasks-container dashboard-card">
@@ -98,6 +117,8 @@ const UrgentTasks = () => {
 					closeModal={closeModal}
 					modalRef={modalRef}
 					task={selectedTask}
+					editState={editState}
+					setEditState={setEditState}
 				/>
 			)}
 		</div>

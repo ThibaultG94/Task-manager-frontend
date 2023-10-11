@@ -8,19 +8,7 @@ import EditComments from './EditComments';
 import EditWorkspace from './EditWorkspace';
 import EditAssignedTo from './EditAssignedTo';
 
-const ModalTask = ({ closeModal, modalRef, task }) => {
-	const [editState, setEditState] = useState({
-		isEditing: false,
-		hasEdited: false,
-	});
-	const [isEditingFields, setIsEditingFields] = useState({
-		priority: false,
-		deadline: false,
-		description: false,
-		comments: false,
-		workspace: false,
-		assignedTo: false,
-	});
+const ModalTask = ({ closeModal, modalRef, task, editState, setEditState }) => {
 	const [editedTask, setEditedTask] = useState({
 		title: task.title,
 		status: task.status,
@@ -31,16 +19,6 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		workspace: task.workspace,
 		assignedTo: task.assignedTo,
 	});
-
-	const inputRefs = useRef([]);
-
-	const handleEditElement = (e, field) => {
-		e.stopPropagation();
-		setIsEditingFields({
-			isEditingFields,
-			[field]: !isEditingFields[field],
-		});
-	};
 
 	const updateEditedTitle = (newTitle) => {
 		setEditedTask((prevTask) => ({
@@ -99,64 +77,53 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 	};
 
 	return (
-		<section className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10">
-			<div className="task-modal" ref={modalRef}>
+		<section
+			className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10"
+			onClick={closeModal}>
+			<div
+				className="task-modal z-100"
+				ref={modalRef}
+				onClick={(e) => e.stopPropagation()}>
 				<span className="task-modal-close" onClick={closeModal}>
 					&times;
 				</span>
 				<div className="task-details">
 					<EditTitle
-						editState={editState}
-						setEditState={setEditState}
 						editedTitle={editedTask.title}
 						setEditedTitle={updateEditedTitle}
 					/>
 
 					<EditStatus
-						editState={editState}
-						setEditState={setEditState}
 						editedStatus={editedTask.status}
 						setEditedStatus={updateEditedStatus}
 					/>
 
 					<EditPriority
-						editState={editState}
-						setEditState={setEditState}
 						editedPriority={editedTask.priority}
 						setEditedPriority={updateEditedPriority}
 					/>
 
 					<EditDeadline
-						editState={editState}
-						setEditState={setEditState}
 						editedDeadline={editedTask.deadline}
 						setEditedDeadline={updateEditedDeadline}
 					/>
 
 					<EditDescription
-						editState={editState}
-						setEditState={setEditState}
 						editedDescription={editedTask.description}
 						setEditedDescription={updateEditedDescription}
 					/>
 
 					{/* <EditComments
-						editState={editState}
-						setEditState={setEditState}
 						editedComments={editedTask.comments}
 						setEditedComments={updateEditedComments}
 					/> */}
 
 					<EditWorkspace
-						editState={editState}
-						setEditState={setEditState}
 						editedWorkspace={editedTask.workspace}
 						setEditedWorkspace={updateEditedWorkspace}
 					/>
 
 					<EditAssignedTo
-						editState={editState}
-						setEditState={setEditState}
 						editedMember={
 							editedTask.assignedTo.length < 2
 								? editedTask.assignedTo[0]
@@ -171,7 +138,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 						<i className="fas fa-trash-alt"></i> Supprimer
 					</button>
 					<button className="save-button">
-						<i class="fas fa-save"></i> Sauvegarder
+						<i className="fas fa-save"></i> Sauvegarder
 					</button>
 				</div>
 			</div>

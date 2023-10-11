@@ -28,6 +28,9 @@ export const useGetWorkspaces = () => {
 			dispatch(setWorkspacesFailed(error));
 			const errorCode = error.response ? error.response.status : 500;
 			switch (errorCode) {
+				case 401:
+					navigate('/');
+					break;
 				case 404:
 					navigate('/pages/error-404');
 					break;

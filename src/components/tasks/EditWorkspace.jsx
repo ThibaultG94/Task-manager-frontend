@@ -1,46 +1,42 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useGetWorkspace } from '../../api/getWorkspace';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { selectIsEditing } from '../../store/selectors/editStateSelectors';
+import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
 
-const EditWorkspace = ({
-	editState,
-	setEditState,
-	editedWorkspace,
-	setEditedWorkspace,
-}) => {
+const EditWorkspace = ({ editedWorkspace, setEditedWorkspace }) => {
+	const dispatch = useDispatch();
+	const isEditing = useSelector(selectIsEditing);
 	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
+	const inputWorkspaceRef = useRef(null);
+	const [convertedWorkspace, setConvertedWorkspace] = useState('');
+
+	const [workspaces, setWorkspaces] = useState([]);
+	const userWorkspaces = useSelector(selectWorkspaces);
+	const getWorkspace = useGetWorkspace();
+
 	const handleEditWorkspace = (e) => {
 		e.stopPropagation();
 		setIsEditingWorkspace(!isEditingWorkspace);
+		dispatch(setEditing(!isEditing));
 	};
-	const inputWorkspaceRef = useRef(null);
-	const [convertedWorkspace, setConvertedWorkspace] = useState('');
-	const [workspaces, setWorkspaces] = useState([]);
-
-	const userWorkspaces = useSelector(selectWorkspaces);
-	const getWorkspace = useGetWorkspace();
 
 	const handleValidWorkspace = (e) => {
 		e.stopPropagation();
 		const newWorkspace = inputWorkspaceRef.current.value;
-		editedWorkspace !== newWorkspace
-			? setEditState({
-					isEditing: false,
-					hasEdited: true,
-			  })
-			: setEditState({
-					isEditing: false,
-					hasEdited: editState.hasEdited,
-			  });
+		if (editedWorkspace !== newWorkspace) {
+			dispatch(setHasEdited(true));
+		}
 		setEditedWorkspace(newWorkspace);
 		setIsEditingWorkspace(false);
+		dispatch(setEditing(false));
 	};
 
 	useEffect(() => {
 		const fetchConvertedWorkspace = async () => {
 			const workspace = await getWorkspace(editedWorkspace);
-			setConvertedWorkspace(workspace.title);
+			setConvertedWorkspace(workspace?.title);
 		};
 
 		fetchConvertedWorkspace();

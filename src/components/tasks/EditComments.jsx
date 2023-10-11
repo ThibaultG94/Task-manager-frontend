@@ -1,32 +1,29 @@
 import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsEditing } from '../../store/selectors/editStateSelectors';
+import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
 
-const EditComments = ({
-	editState,
-	setEditState,
-	editedComments,
-	setEditedComments,
-}) => {
+const EditComments = ({ editedComments, setEditedComments }) => {
+	const dispatch = useDispatch();
+	const isEditing = useSelector(selectIsEditing);
 	const [isEditingComments, setIsEditingComments] = useState(false);
+	const inputCommentsRef = useRef(null);
+
 	const handleEditComments = (e) => {
 		e.stopPropagation();
 		setIsEditingComments(!isEditingComments);
+		dispatch(setEditing(!isEditing));
 	};
-	const inputCommentsRef = useRef(null);
 
 	const handleValidComments = (e) => {
 		e.stopPropagation();
 		const newComments = inputCommentsRef.current.value;
-		editedComments !== newComments
-			? setEditState({
-					isEditing: false,
-					hasEdited: true,
-			  })
-			: setEditState({
-					isEditing: false,
-					hasEdited: editState.hasEdited,
-			  });
+		if (editedComments !== newComments) {
+			dispatch(setHasEdited(true));
+		}
 		setEditedComments(newComments);
 		setIsEditingComments(false);
+		dispatch(setEditing(false));
 	};
 
 	return (

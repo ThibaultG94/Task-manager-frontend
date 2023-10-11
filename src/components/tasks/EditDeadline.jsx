@@ -1,34 +1,31 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { frenchFormattedDate } from '../utils/frenchFormattedDate';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsEditing } from '../../store/selectors/editStateSelectors';
+import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
 
-const EditDeadline = ({
-	editState,
-	setEditState,
-	editedDeadline,
-	setEditedDeadline,
-}) => {
+const EditDeadline = ({ editedDeadline, setEditedDeadline }) => {
+	const dispatch = useDispatch();
+	const isEditing = useSelector(selectIsEditing);
 	const [isEditingDeadline, setIsEditingDeadline] = useState(false);
+	const inputDeadlineRef = useRef(null);
+	const [convertedDeadline, setConvertedDeadline] = useState('');
+
 	const handleEditDeadline = (e) => {
 		e.stopPropagation();
 		setIsEditingDeadline(!isEditingDeadline);
+		dispatch(setEditing(!isEditing));
 	};
-	const inputDeadlineRef = useRef(null);
-	const [convertedDeadline, setConvertedDeadline] = useState('');
 
 	const handleValidDeadline = (e) => {
 		e.stopPropagation();
 		const newDeadline = inputDeadlineRef.current.value;
-		editedDeadline !== newDeadline
-			? setEditState({
-					isEditing: false,
-					hasEdited: true,
-			  })
-			: setEditState({
-					isEditing: false,
-					hasEdited: editState.hasEdited,
-			  });
+		if (editedDeadline !== newDeadline) {
+			dispatch(setHasEdited(true));
+		}
 		setEditedDeadline(newDeadline);
 		setIsEditingDeadline(false);
+		dispatch(setEditing(false));
 	};
 
 	useEffect(() => {

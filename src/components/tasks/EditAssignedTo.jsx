@@ -1,47 +1,39 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useGetUser } from '../../api/getUser';
-import { useSelector } from 'react-redux';
-import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetWorkspace } from '../../api/getWorkspace';
+import { selectIsEditing } from '../../store/selectors/editStateSelectors';
+import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
 
-const EditAssignedTo = ({
-	editState,
-	setEditState,
-	editedMember,
-	setEditedMember,
-	editedWorkspace,
-}) => {
+const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
+	const dispatch = useDispatch();
+	const isEditing = useSelector(selectIsEditing);
 	const [isEditingMember, setIsEditingMember] = useState(false);
-	const handleEditAssignedTo = (e) => {
-		e.stopPropagation();
-		setIsEditingMember(!isEditingMember);
-	};
 	const inputMemberRef = useRef(null);
 	const [convertedMember, setConvertedMember] = useState('');
+
 	const [members, setMembers] = useState([]);
 	const [membersId, setMembersId] = useState([]);
 	const [membersName, setMembersName] = useState([]);
 
-	const workspace = useSelector(selectWorkspaces).find(
-		(workspace) => workspace._id === editedWorkspace
-	);
+	const handleEditAssignedTo = (e) => {
+		e.stopPropagation();
+		setIsEditingMember(!isEditingMember);
+		dispatch(setEditing(!isEditing));
+	};
+
 	const getUser = useGetUser();
 	const getWorkspace = useGetWorkspace();
 
 	const handleValidMember = (e) => {
 		e.stopPropagation();
 		const newMember = inputMemberRef.current.value;
-		editedMember !== newMember
-			? setEditState({
-					isEditing: false,
-					hasEdited: true,
-			  })
-			: setEditState({
-					isEditing: false,
-					hasEdited: editState.hasEdited,
-			  });
+		if (editedMember !== newMember) {
+			dispatch(setHasEdited(true));
+		}
 		setEditedMember(newMember);
 		setIsEditingMember(false);
+		dispatch(setEditing(false));
 	};
 
 	useEffect(() => {

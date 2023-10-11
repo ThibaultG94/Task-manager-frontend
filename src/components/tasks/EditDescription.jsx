@@ -1,17 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsEditing } from '../../store/selectors/editStateSelectors';
+import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
 
-const EditDescription = ({
-	editState,
-	setEditState,
-	editedDescription,
-	setEditedDescription,
-}) => {
+const EditDescription = ({ editedDescription, setEditedDescription }) => {
+	const dispatch = useDispatch();
+	const isEditing = useSelector(selectIsEditing);
 	const [isEditingDescription, setIsEditingDescription] = useState(false);
+	const inputDescriptionRef = useRef(null);
+
 	const handleEditDescription = (e) => {
 		e.stopPropagation();
 		setIsEditingDescription(!isEditingDescription);
+		dispatch(setEditing(!isEditing));
 	};
-	const inputDescriptionRef = useRef(null);
 
 	useEffect(() => {
 		if (isEditingDescription) {
@@ -22,17 +24,12 @@ const EditDescription = ({
 	const handleValidDescription = (e) => {
 		e.stopPropagation();
 		const newDescription = inputDescriptionRef.current.value;
-		editedDescription !== newDescription
-			? setEditState({
-					isEditing: false,
-					hasEdited: true,
-			  })
-			: setEditState({
-					isEditing: false,
-					hasEdited: editState.hasEdited,
-			  });
+		if (editedDescription !== newDescription) {
+			dispatch(setHasEdited(true));
+		}
 		setEditedDescription(newDescription);
 		setIsEditingDescription(false);
+		dispatch(setEditing(false));
 	};
 
 	return (
