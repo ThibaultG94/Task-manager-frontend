@@ -26,8 +26,7 @@ export const useGetUser = () => {
 			const errorCode = error.response ? error.response.status : 500;
 			switch (errorCode) {
 				case 401:
-					console.log('error 401:', errorCode);
-					navigate('/pages/error-404');
+					navigate('/');
 					break;
 				case 404:
 					navigate('/pages/error-404');

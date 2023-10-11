@@ -7,6 +7,7 @@ import EditDescription from './EditDescription';
 import EditComments from './EditComments';
 import EditWorkspace from './EditWorkspace';
 import EditAssignedTo from './EditAssignedTo';
+import SaveEditedTask from './SaveEditedTask';
 
 const ModalTask = ({ closeModal, modalRef, task }) => {
 	const [editedTask, setEditedTask] = useState({
@@ -137,9 +138,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					<button className="delete-button">
 						<i className="fas fa-trash-alt"></i> Supprimer
 					</button>
-					<button className="save-button">
-						<i className="fas fa-save"></i> Sauvegarder
-					</button>
+					<SaveEditedTask />
 				</div>
 			</div>
 		</section>
