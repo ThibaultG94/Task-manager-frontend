@@ -2,12 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useGetUser } from '../../api/getUser';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetWorkspace } from '../../api/getWorkspace';
-import { selectIsEditing } from '../../store/selectors/editStateSelectors';
-import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
+import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
+import {
+	setEditingField,
+	setHasEdited,
+} from '../../store/feature/editState.slice';
 
 const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
 	const dispatch = useDispatch();
-	const isEditing = useSelector(selectIsEditing);
+	const isEditingField = useSelector(selectIsEditingField);
 	const [isEditingMember, setIsEditingMember] = useState(false);
 	const inputMemberRef = useRef(null);
 	const [convertedMember, setConvertedMember] = useState('');
@@ -19,7 +22,12 @@ const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
 	const handleEditAssignedTo = (e) => {
 		e.stopPropagation();
 		setIsEditingMember(!isEditingMember);
-		dispatch(setEditing(!isEditing));
+		dispatch(
+			setEditingField({
+				field: 'assignedTo',
+				value: !isEditingField.assignedTo,
+			})
+		);
 	};
 
 	const getUser = useGetUser();
@@ -33,7 +41,7 @@ const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
 		}
 		setEditedMember(newMember);
 		setIsEditingMember(false);
-		dispatch(setEditing(false));
+		dispatch(setEditingField({ field: 'assignedTo', value: false }));
 	};
 
 	useEffect(() => {

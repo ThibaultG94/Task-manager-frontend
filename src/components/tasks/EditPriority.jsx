@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { convertPriority } from '../utils/convertPriority';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsEditing } from '../../store/selectors/editStateSelectors';
-import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
+import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
+import {
+	setEditingField,
+	setHasEdited,
+} from '../../store/feature/editState.slice';
 
 const EditPriority = ({ editedPriority, setEditedPriority }) => {
 	const dispatch = useDispatch();
-	const isEditing = useSelector(selectIsEditing);
+	const isEditingField = useSelector(selectIsEditingField);
 	const [isEditingPriority, setIsEditingPriority] = useState(false);
 	const inputPriorityRef = useRef(null);
 	const [convertedPriority, setConvertedPriority] = useState('');
@@ -14,7 +17,12 @@ const EditPriority = ({ editedPriority, setEditedPriority }) => {
 	const handleEditPriority = (e) => {
 		e.stopPropagation();
 		setIsEditingPriority(!isEditingPriority);
-		dispatch(setEditing(!isEditing));
+		dispatch(
+			setEditingField({
+				field: 'priority',
+				value: !isEditingField.priority,
+			})
+		);
 	};
 
 	const handleValidPriority = (e) => {
@@ -25,7 +33,7 @@ const EditPriority = ({ editedPriority, setEditedPriority }) => {
 		}
 		setEditedPriority(newPriority);
 		setIsEditingPriority(false);
-		dispatch(setEditing(false));
+		dispatch(setEditingField({ field: 'priority', value: false }));
 	};
 
 	useEffect(() => {

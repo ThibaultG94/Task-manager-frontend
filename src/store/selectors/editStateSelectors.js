@@ -7,6 +7,11 @@ export const selectIsEditing = createSelector(
 	(editState) => editState.isEditing
 );
 
+export const selectIsEditingField = createSelector(
+	[selectEditState],
+	(editState) => editState.isEditing
+);
+
 export const selectHasEdited = createSelector(
 	[selectEditState],
 	(editState) => editState.hasEdited

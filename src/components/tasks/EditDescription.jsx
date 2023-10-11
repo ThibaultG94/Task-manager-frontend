@@ -1,18 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsEditing } from '../../store/selectors/editStateSelectors';
-import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
+import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
+import {
+	setEditingField,
+	setHasEdited,
+} from '../../store/feature/editState.slice';
 
 const EditDescription = ({ editedDescription, setEditedDescription }) => {
 	const dispatch = useDispatch();
-	const isEditing = useSelector(selectIsEditing);
+	const isEditingField = useSelector(selectIsEditingField);
 	const [isEditingDescription, setIsEditingDescription] = useState(false);
 	const inputDescriptionRef = useRef(null);
 
 	const handleEditDescription = (e) => {
 		e.stopPropagation();
 		setIsEditingDescription(!isEditingDescription);
-		dispatch(setEditing(!isEditing));
+		dispatch(
+			setEditingField({
+				field: 'description',
+				value: !isEditingField.description,
+			})
+		);
 	};
 
 	useEffect(() => {
@@ -29,7 +37,7 @@ const EditDescription = ({ editedDescription, setEditedDescription }) => {
 		}
 		setEditedDescription(newDescription);
 		setIsEditingDescription(false);
-		dispatch(setEditing(false));
+		dispatch(setEditingField({ field: 'description', value: false }));
 	};
 
 	return (

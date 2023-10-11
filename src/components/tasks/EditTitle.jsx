@@ -1,18 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsEditing } from '../../store/selectors/editStateSelectors';
-import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
+import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
+import {
+	setEditingField,
+	setHasEdited,
+} from '../../store/feature/editState.slice';
 
 const EditTitle = ({ editedTitle, setEditedTitle }) => {
 	const dispatch = useDispatch();
-	const isEditing = useSelector(selectIsEditing);
+	const isEditingField = useSelector(selectIsEditingField);
+
 	const [isEditingTitle, setIsEditingTitle] = useState(false);
 	const inputTitleRef = useRef(null);
 
 	const handleEditTitle = (e) => {
 		e.stopPropagation();
 		setIsEditingTitle(!isEditingTitle);
-		dispatch(setEditing(!isEditing));
+		dispatch(
+			setEditingField({ field: 'title', value: !isEditingField.title })
+		);
 	};
 
 	useEffect(() => {
@@ -29,7 +35,7 @@ const EditTitle = ({ editedTitle, setEditedTitle }) => {
 		}
 		setEditedTitle(newTitle);
 		setIsEditingTitle(false);
-		dispatch(setEditing(false));
+		dispatch(setEditingField({ field: 'title', value: false }));
 	};
 
 	return (

@@ -2,12 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useGetWorkspace } from '../../api/getWorkspace';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { selectIsEditing } from '../../store/selectors/editStateSelectors';
-import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
+import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
+import {
+	setEditingField,
+	setHasEdited,
+} from '../../store/feature/editState.slice';
 
 const EditWorkspace = ({ editedWorkspace, setEditedWorkspace }) => {
 	const dispatch = useDispatch();
-	const isEditing = useSelector(selectIsEditing);
+	const isEditingField = useSelector(selectIsEditingField);
 	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
 	const inputWorkspaceRef = useRef(null);
 	const [convertedWorkspace, setConvertedWorkspace] = useState('');
@@ -19,7 +22,12 @@ const EditWorkspace = ({ editedWorkspace, setEditedWorkspace }) => {
 	const handleEditWorkspace = (e) => {
 		e.stopPropagation();
 		setIsEditingWorkspace(!isEditingWorkspace);
-		dispatch(setEditing(!isEditing));
+		dispatch(
+			setEditingField({
+				field: 'workspace',
+				value: !isEditingField.workspace,
+			})
+		);
 	};
 
 	const handleValidWorkspace = (e) => {
@@ -30,7 +38,7 @@ const EditWorkspace = ({ editedWorkspace, setEditedWorkspace }) => {
 		}
 		setEditedWorkspace(newWorkspace);
 		setIsEditingWorkspace(false);
-		dispatch(setEditing(false));
+		dispatch(setEditingField({ field: 'workspace', value: false }));
 	};
 
 	useEffect(() => {

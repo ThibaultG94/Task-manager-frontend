@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { convertStatus } from '../utils/convertStatus';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsEditing } from '../../store/selectors/editStateSelectors';
-import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
+import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
+import {
+	setEditingField,
+	setHasEdited,
+} from '../../store/feature/editState.slice';
 
 const EditStatus = ({ editedStatus, setEditedStatus }) => {
 	const dispatch = useDispatch();
-	const isEditing = useSelector(selectIsEditing);
+	const isEditingField = useSelector(selectIsEditingField);
 	const [isEditingStatus, setIsEditingStatus] = useState(false);
 	const inputStatusRef = useRef(null);
 	const [convertedStatus, setConvertedStatus] = useState('');
@@ -14,7 +17,9 @@ const EditStatus = ({ editedStatus, setEditedStatus }) => {
 	const handleEditStatus = (e) => {
 		e.stopPropagation();
 		setIsEditingStatus(!isEditingStatus);
-		dispatch(setEditing(!isEditing));
+		dispatch(
+			setEditingField({ field: 'status', value: !isEditingField.status })
+		);
 	};
 
 	const handleValidStatus = (e) => {
@@ -25,7 +30,7 @@ const EditStatus = ({ editedStatus, setEditedStatus }) => {
 		}
 		setEditedStatus(newStatus);
 		setIsEditingStatus(false);
-		dispatch(setEditing(false));
+		dispatch(setEditingField({ field: 'status', value: false }));
 	};
 
 	useEffect(() => {

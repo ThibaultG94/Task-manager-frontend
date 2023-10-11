@@ -1,18 +1,26 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsEditing } from '../../store/selectors/editStateSelectors';
-import { setEditing, setHasEdited } from '../../store/feature/editState.slice';
+import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
+import {
+	setEditingField,
+	setHasEdited,
+} from '../../store/feature/editState.slice';
 
 const EditComments = ({ editedComments, setEditedComments }) => {
 	const dispatch = useDispatch();
-	const isEditing = useSelector(selectIsEditing);
+	const isEditingField = useSelector(selectIsEditingField);
 	const [isEditingComments, setIsEditingComments] = useState(false);
 	const inputCommentsRef = useRef(null);
 
 	const handleEditComments = (e) => {
 		e.stopPropagation();
 		setIsEditingComments(!isEditingComments);
-		dispatch(setEditing(!isEditing));
+		dispatch(
+			setEditingField({
+				field: 'comments',
+				value: !isEditingField.comments,
+			})
+		);
 	};
 
 	const handleValidComments = (e) => {
@@ -23,7 +31,7 @@ const EditComments = ({ editedComments, setEditedComments }) => {
 		}
 		setEditedComments(newComments);
 		setIsEditingComments(false);
-		dispatch(setEditing(false));
+		dispatch(setEditingField({ field: 'comments', value: false }));
 	};
 
 	return (

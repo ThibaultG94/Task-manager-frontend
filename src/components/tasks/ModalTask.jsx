@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import EditTitle from './EditTitle';
 import EditStatus from './EditStatus';
 import EditPriority from './EditPriority';
@@ -8,7 +8,7 @@ import EditComments from './EditComments';
 import EditWorkspace from './EditWorkspace';
 import EditAssignedTo from './EditAssignedTo';
 
-const ModalTask = ({ closeModal, modalRef, task, editState, setEditState }) => {
+const ModalTask = ({ closeModal, modalRef, task }) => {
 	const [editedTask, setEditedTask] = useState({
 		title: task.title,
 		status: task.status,
