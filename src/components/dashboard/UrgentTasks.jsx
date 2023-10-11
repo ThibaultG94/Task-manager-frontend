@@ -3,7 +3,6 @@ import ModalTask from '../tasks/ModalTask';
 import { useSelector } from 'react-redux';
 import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
-import { useGetUser } from '../../api/getUser';
 
 const UrgentTasks = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,8 +10,6 @@ const UrgentTasks = () => {
 	const urgentTasks = useSelector(selectUrgentTasks);
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
-
-	const getUser = useGetUser();
 
 	const openModal = (e) => {
 		e.stopPropagation();
@@ -34,8 +31,6 @@ const UrgentTasks = () => {
 			const updatedTasks = [];
 			for (let i = 0; i < 3; i++) {
 				if (urgentTasks && urgentTasks[i]) {
-					const user = await getUser(urgentTasks[i].assignedTo);
-
 					const formattedDate = await formatDateForDisplay(
 						urgentTasks[i].deadline
 					);
@@ -47,9 +42,8 @@ const UrgentTasks = () => {
 						deadline: urgentTasks[i].deadline,
 						description: urgentTasks[i].description,
 						comments: urgentTasks[i].comments,
-						// workspace: workspace?.title,
 						workspace: urgentTasks[i].workspaceId,
-						assignedTo: user?.username,
+						assignedTo: urgentTasks[i].assignedTo,
 						isOverdue: formattedDate === 'En retard',
 					});
 				}

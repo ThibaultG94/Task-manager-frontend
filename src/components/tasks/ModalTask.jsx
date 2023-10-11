@@ -6,6 +6,7 @@ import EditDeadline from './EditDeadline';
 import EditDescription from './EditDescription';
 import EditComments from './EditComments';
 import EditWorkspace from './EditWorkspace';
+import EditAssignedTo from './EditAssignedTo';
 
 const ModalTask = ({ closeModal, modalRef, task }) => {
 	const [editState, setEditState] = useState({
@@ -90,6 +91,13 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		}));
 	};
 
+	const updateEditedAssignedTo = (newAssignedTo) => {
+		setEditedTask((prevTask) => ({
+			...prevTask,
+			assignedTo: newAssignedTo,
+		}));
+	};
+
 	return (
 		<section className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10">
 			<div className="task-modal" ref={modalRef}>
@@ -146,30 +154,17 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 						setEditedWorkspace={updateEditedWorkspace}
 					/>
 
-					<div className="assigned-icon element-icon">
-						{!isEditingFields.assignedTo && (
-							<span>{task.assignedTo}</span>
-						)}
-						{isEditingFields.assignedTo && (
-							<>
-								<select className="task-edit-select"></select>
-								<button>Valider</button>
-								<button
-									onClick={(e) =>
-										handleEditElement(e, 'assignedTo')
-									}>
-									Annuler
-								</button>
-							</>
-						)}
-						{!isEditingFields.assignedTo && (
-							<span
-								className="edit-icon"
-								onClick={(e) =>
-									handleEditElement(e, 'assignedTo')
-								}></span>
-						)}
-					</div>
+					<EditAssignedTo
+						editState={editState}
+						setEditState={setEditState}
+						editedMember={
+							editedTask.assignedTo.length < 2
+								? editedTask.assignedTo[0]
+								: editedTask.assignedTo
+						}
+						setEditedMember={updateEditedAssignedTo}
+						editedWorkspace={editedTask.workspace}
+					/>
 				</div>
 			</div>
 		</section>

@@ -1,18 +1,23 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-const selectUsers = (state) => state.users;
+const selectUsersState = (state) => state.users;
+
+export const selectUsers = createSelector(
+	[selectUsersState],
+	(users) => users.users
+);
 
 export const selectCurrentUser = createSelector(
-	[selectUsers],
+	[selectUsersState],
 	(users) => users.currentUser
 );
 
 export const selectLoading = createSelector(
-	[selectUsers],
+	[selectUsersState],
 	(users) => users.loading
 );
 
 export const selectError = createSelector(
-	[selectUsers],
+	[selectUsersState],
 	(users) => users.error
 );
