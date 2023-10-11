@@ -28,7 +28,6 @@ const UrgentTasks = () => {
 	const closeModal = async () => {
 		const checkIfEdited = async () => {
 			const anyFieldEditing = Object.values(isEditingField).some(Boolean);
-			console.log(anyFieldEditing);
 			if (anyFieldEditing || hasEdited) {
 				let message;
 				if (anyFieldEditing) {

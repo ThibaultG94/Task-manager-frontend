@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import {
@@ -9,12 +9,10 @@ import {
 const EditComments = ({ editedComments, setEditedComments }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
-	const [isEditingComments, setIsEditingComments] = useState(false);
 	const inputCommentsRef = useRef(null);
 
 	const handleEditComments = (e) => {
 		e.stopPropagation();
-		setIsEditingComments(!isEditingComments);
 		dispatch(
 			setEditingField({
 				field: 'comments',
@@ -30,16 +28,15 @@ const EditComments = ({ editedComments, setEditedComments }) => {
 			dispatch(setHasEdited(true));
 		}
 		setEditedComments(newComments);
-		setIsEditingComments(false);
 		dispatch(setEditingField({ field: 'comments', value: false }));
 	};
 
 	return (
 		<div>
-			{isEditingComments && (
+			{isEditingField.comments && (
 				<div className="comments-icon element-icon">
 					<span>{editedComments}</span>
-					{isEditingComments && (
+					{isEditingField.comments && (
 						<>
 							<textarea
 								class="task-edit-comments"
@@ -52,7 +49,7 @@ const EditComments = ({ editedComments, setEditedComments }) => {
 							</button>
 						</>
 					)}
-					{!isEditingComments && (
+					{!isEditingField.comments && (
 						<span
 							className="edit-icon"
 							onClick={(e) => handleEditComments(e)}></span>

@@ -10,13 +10,11 @@ import {
 const EditDeadline = ({ editedDeadline, setEditedDeadline }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
-	const [isEditingDeadline, setIsEditingDeadline] = useState(false);
 	const inputDeadlineRef = useRef(null);
 	const [convertedDeadline, setConvertedDeadline] = useState('');
 
 	const handleEditDeadline = (e) => {
 		e.stopPropagation();
-		setIsEditingDeadline(!isEditingDeadline);
 		dispatch(
 			setEditingField({
 				field: 'deadline',
@@ -32,7 +30,6 @@ const EditDeadline = ({ editedDeadline, setEditedDeadline }) => {
 			dispatch(setHasEdited(true));
 		}
 		setEditedDeadline(newDeadline);
-		setIsEditingDeadline(false);
 		dispatch(setEditingField({ field: 'deadline', value: false }));
 	};
 
@@ -47,8 +44,8 @@ const EditDeadline = ({ editedDeadline, setEditedDeadline }) => {
 
 	return (
 		<div className="deadline-icon element-icon">
-			{!isEditingDeadline && <span>{convertedDeadline}</span>}
-			{isEditingDeadline && (
+			{!isEditingField.deadline && <span>{convertedDeadline}</span>}
+			{isEditingField.deadline && (
 				<>
 					<input
 						type="date"
@@ -64,7 +61,7 @@ const EditDeadline = ({ editedDeadline, setEditedDeadline }) => {
 					</button>
 				</>
 			)}
-			{!isEditingDeadline && (
+			{!isEditingField.deadline && (
 				<span
 					className="edit-icon"
 					onClick={(e) => handleEditDeadline(e)}></span>

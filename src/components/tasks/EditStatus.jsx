@@ -10,13 +10,11 @@ import {
 const EditStatus = ({ editedStatus, setEditedStatus }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
-	const [isEditingStatus, setIsEditingStatus] = useState(false);
 	const inputStatusRef = useRef(null);
 	const [convertedStatus, setConvertedStatus] = useState('');
 
 	const handleEditStatus = (e) => {
 		e.stopPropagation();
-		setIsEditingStatus(!isEditingStatus);
 		dispatch(
 			setEditingField({ field: 'status', value: !isEditingField.status })
 		);
@@ -29,7 +27,6 @@ const EditStatus = ({ editedStatus, setEditedStatus }) => {
 			dispatch(setHasEdited(true));
 		}
 		setEditedStatus(newStatus);
-		setIsEditingStatus(false);
 		dispatch(setEditingField({ field: 'status', value: false }));
 	};
 
@@ -44,8 +41,8 @@ const EditStatus = ({ editedStatus, setEditedStatus }) => {
 
 	return (
 		<div className="status-icon element-icon">
-			{!isEditingStatus && <span>{convertedStatus}</span>}
-			{isEditingStatus && (
+			{!isEditingField.status && <span>{convertedStatus}</span>}
+			{isEditingField.status && (
 				<>
 					<select
 						className="task-edit-select"
@@ -64,7 +61,7 @@ const EditStatus = ({ editedStatus, setEditedStatus }) => {
 					</button>
 				</>
 			)}
-			{!isEditingStatus && (
+			{!isEditingField.status && (
 				<span
 					className="edit-icon"
 					onClick={(e) => handleEditStatus(e)}></span>

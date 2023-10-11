@@ -10,13 +10,11 @@ import {
 const EditPriority = ({ editedPriority, setEditedPriority }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
-	const [isEditingPriority, setIsEditingPriority] = useState(false);
 	const inputPriorityRef = useRef(null);
 	const [convertedPriority, setConvertedPriority] = useState('');
 
 	const handleEditPriority = (e) => {
 		e.stopPropagation();
-		setIsEditingPriority(!isEditingPriority);
 		dispatch(
 			setEditingField({
 				field: 'priority',
@@ -32,7 +30,6 @@ const EditPriority = ({ editedPriority, setEditedPriority }) => {
 			dispatch(setHasEdited(true));
 		}
 		setEditedPriority(newPriority);
-		setIsEditingPriority(false);
 		dispatch(setEditingField({ field: 'priority', value: false }));
 	};
 
@@ -47,8 +44,8 @@ const EditPriority = ({ editedPriority, setEditedPriority }) => {
 
 	return (
 		<div className="priority-icon element-icon">
-			{!isEditingPriority && <span>{convertedPriority}</span>}
-			{isEditingPriority && (
+			{!isEditingField.priority && <span>{convertedPriority}</span>}
+			{isEditingField.priority && (
 				<>
 					<select
 						className="task-edit-select"
@@ -67,7 +64,7 @@ const EditPriority = ({ editedPriority, setEditedPriority }) => {
 					</button>
 				</>
 			)}
-			{!isEditingPriority && (
+			{!isEditingField.priority && (
 				<span
 					className="edit-icon"
 					onClick={(e) => handleEditPriority(e)}></span>

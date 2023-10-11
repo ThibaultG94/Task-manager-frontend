@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import {
@@ -9,23 +9,20 @@ import {
 const EditTitle = ({ editedTitle, setEditedTitle }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
-
-	const [isEditingTitle, setIsEditingTitle] = useState(false);
 	const inputTitleRef = useRef(null);
 
 	const handleEditTitle = (e) => {
 		e.stopPropagation();
-		setIsEditingTitle(!isEditingTitle);
 		dispatch(
 			setEditingField({ field: 'title', value: !isEditingField.title })
 		);
 	};
 
 	useEffect(() => {
-		if (isEditingTitle) {
+		if (isEditingField.title) {
 			inputTitleRef.current.focus();
 		}
-	}, [isEditingTitle]);
+	}, [isEditingField.title]);
 
 	const handleValidTitle = (e) => {
 		e.stopPropagation();
@@ -34,16 +31,15 @@ const EditTitle = ({ editedTitle, setEditedTitle }) => {
 			dispatch(setHasEdited(true));
 		}
 		setEditedTitle(newTitle);
-		setIsEditingTitle(false);
 		dispatch(setEditingField({ field: 'title', value: false }));
 	};
 
 	return (
 		<div className="title-icon relative">
-			{!isEditingTitle && (
+			{!isEditingField.title && (
 				<h2 className="pt-2 text-2xl font-bold">{editedTitle}</h2>
 			)}
-			{isEditingTitle && (
+			{isEditingField.title && (
 				<>
 					<input
 						type="text"
@@ -63,7 +59,7 @@ const EditTitle = ({ editedTitle, setEditedTitle }) => {
 					</button>
 				</>
 			)}
-			{!isEditingTitle && (
+			{!isEditingField.title && (
 				<span
 					className="edit-icon"
 					onClick={(e) => handleEditTitle(e)}></span>

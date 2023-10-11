@@ -11,7 +11,6 @@ import {
 const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
-	const [isEditingMember, setIsEditingMember] = useState(false);
 	const inputMemberRef = useRef(null);
 	const [convertedMember, setConvertedMember] = useState('');
 
@@ -21,7 +20,6 @@ const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
 
 	const handleEditAssignedTo = (e) => {
 		e.stopPropagation();
-		setIsEditingMember(!isEditingMember);
 		dispatch(
 			setEditingField({
 				field: 'assignedTo',
@@ -40,7 +38,6 @@ const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
 			dispatch(setHasEdited(true));
 		}
 		setEditedMember(newMember);
-		setIsEditingMember(false);
 		dispatch(setEditingField({ field: 'assignedTo', value: false }));
 	};
 
@@ -86,8 +83,8 @@ const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
 
 	return (
 		<div className="assigned-icon element-icon">
-			{!isEditingMember && <span>{convertedMember}</span>}
-			{isEditingMember && (
+			{!isEditingField.assignedTo && <span>{convertedMember}</span>}
+			{isEditingField.assignedTo && (
 				<>
 					<select
 						className="task-edit-select"
@@ -110,7 +107,7 @@ const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
 					</button>
 				</>
 			)}
-			{!isEditingMember && (
+			{!isEditingField.assignedTo && (
 				<span
 					className="edit-icon"
 					onClick={(e) => handleEditAssignedTo(e)}></span>
