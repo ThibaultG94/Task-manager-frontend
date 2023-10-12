@@ -5,10 +5,13 @@ import {
 	setEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
+import { updateEditedTask } from '../../store/feature/tasks.slice';
 
-const EditTitle = ({ editedTitle, setEditedTitle }) => {
+const EditTitle = () => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
+	const editedTask = useSelector(selectEditedTask);
 	const inputTitleRef = useRef(null);
 
 	const handleEditTitle = (e) => {
@@ -27,24 +30,24 @@ const EditTitle = ({ editedTitle, setEditedTitle }) => {
 	const handleValidTitle = (e) => {
 		e.stopPropagation();
 		const newTitle = inputTitleRef.current.value;
-		if (editedTitle !== newTitle) {
+		if (editedTask.title !== newTitle) {
 			dispatch(setHasEdited(true));
+			dispatch(updateEditedTask({ title: newTitle }));
 		}
-		setEditedTitle(newTitle);
 		dispatch(setEditingField({ field: 'title', value: false }));
 	};
 
 	return (
 		<div className="title-icon relative">
 			{!isEditingField.title && (
-				<h2 className="pt-2 text-2xl font-bold">{editedTitle}</h2>
+				<h2 className="pt-2 text-2xl font-bold">{editedTask?.title}</h2>
 			)}
 			{isEditingField.title && (
 				<>
 					<input
 						type="text"
 						className="task-edit-title pt-2 text-2xl"
-						defaultValue={editedTitle}
+						defaultValue={editedTask?.title}
 						ref={inputTitleRef}
 					/>
 					<button

@@ -154,6 +154,9 @@ export const tasksSlice = createSlice({
 			state.loading = false;
 			state.error = action.payload;
 		},
+		setInitialEditedTask: (state, action) => {
+			state.editedTask = action.payload;
+		},
 		setEditedTask: (state, action) => {
 			state.editedTask = action.payload;
 		},
@@ -200,6 +203,7 @@ export const {
 	deleteTask,
 	deleteTaskSuccess,
 	deleteTaskFailed,
+	setInitialEditedTask,
 	setEditedTask,
 	updateEditedTask,
 	clearEditedTask,

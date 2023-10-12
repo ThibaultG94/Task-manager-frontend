@@ -8,6 +8,7 @@ import {
 	selectHasEdited,
 } from '../../store/selectors/editStateSelectors';
 import { resetEditState } from '../../store/feature/editState.slice';
+import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 
 const UrgentTasks = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,6 +20,12 @@ const UrgentTasks = () => {
 	const isEditingField = useSelector(selectIsEditingField);
 
 	const hasEdited = useSelector(selectHasEdited);
+
+	const formatTaskForEditing = async (task) => {
+		if (!task) return null;
+		const { date, workspace, taskId, isOverdue, ...rest } = task;
+		return { workspaceId: workspace, _id: taskId, ...rest };
+	};
 
 	const openModal = (e) => {
 		e.stopPropagation();
@@ -44,6 +51,8 @@ const UrgentTasks = () => {
 			}
 			setIsModalOpen(false);
 			dispatch(resetEditState());
+			const formattedTask = await formatTaskForEditing(selectedTask);
+			dispatch(setInitialEditedTask(formattedTask));
 		};
 
 		await checkIfEdited();
@@ -77,6 +86,16 @@ const UrgentTasks = () => {
 
 		updateDisplayTasks();
 	}, [urgentTasks]);
+
+	useEffect(() => {
+		const resetEditedTask = async () => {
+			const formattedTask = await formatTaskForEditing(selectedTask);
+			if (formattedTask) {
+				dispatch(setInitialEditedTask(formattedTask));
+			}
+		};
+		resetEditedTask();
+	}, [selectedTask]);
 
 	return (
 		<div className="tasks-container dashboard-card">

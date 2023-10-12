@@ -22,13 +22,6 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		taskId: task.taskId,
 	});
 
-	const updateEditedTitle = (newTitle) => {
-		setEditedTask((prevTask) => ({
-			...prevTask,
-			title: newTitle,
-		}));
-	};
-
 	const updateEditedStatus = (newStatus) => {
 		setEditedTask((prevTask) => ({
 			...prevTask,
@@ -90,10 +83,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					&times;
 				</span>
 				<div className="task-details">
-					<EditTitle
-						editedTitle={editedTask.title}
-						setEditedTitle={updateEditedTitle}
-					/>
+					<EditTitle />
 
 					<EditStatus
 						editedStatus={editedTask.status}

@@ -1,7 +1,5 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getCategoryDay } from '../components/utils/getCategoryDay';
-import { formatDateForDisplay } from '../components/utils/formatDateForDisplay';
 import {
 	editTaskAction,
 	editTaskFailed,
@@ -13,28 +11,15 @@ export const useEditTask = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const editTask = async (task, taskId) => {
-		const payload = {
-			task: task,
-			id: taskId,
-			category: task.deadline
-				? await getCategoryDay(
-						await formatDateForDisplay(task.deadline),
-						task.status,
-						task.deadline
-				  )
-				: null,
-		};
-
+	const editTask = async (task) => {
 		dispatch(editTaskAction());
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.put(`${API_URL}/task/${taskId}`, payload, {
+			const res = await axios.put(`${API_URL}/task/${task._id}`, task, {
 				withCredentials: true,
 			});
 			dispatch(editTaskSuccess(res.data.task));
-			console.log(res.data.task);
 			return res.data.task;
 		} catch (error) {
 			dispatch(editTaskFailed(error));
