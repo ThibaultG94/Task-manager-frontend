@@ -8,9 +8,11 @@ import EditComments from './EditComments';
 import EditWorkspace from './EditWorkspace';
 import EditAssignedTo from './EditAssignedTo';
 import SaveEditedTask from './SaveEditedTask';
+import DeleteTask from './DeleteTask';
 
 const ModalTask = ({ closeModal, modalRef, setIsModalOpen }) => {
 	const [saveMessage, setSaveMessage] = useState('');
+	const [deleteMessage, setDeleteMessage] = useState('');
 
 	return (
 		<section
@@ -41,9 +43,10 @@ const ModalTask = ({ closeModal, modalRef, setIsModalOpen }) => {
 					<EditAssignedTo />
 				</div>
 				<div className="action-buttons">
-					<button className="delete-button">
-						<i className="fas fa-trash-alt"></i> Supprimer
-					</button>
+					<DeleteTask
+						setIsModalOpen={setIsModalOpen}
+						setDeleteMessage={setDeleteMessage}
+					/>
 					<SaveEditedTask
 						setIsModalOpen={setIsModalOpen}
 						setSaveMessage={setSaveMessage}
@@ -51,6 +54,9 @@ const ModalTask = ({ closeModal, modalRef, setIsModalOpen }) => {
 				</div>
 				{saveMessage && (
 					<span id="message-after-saving">{saveMessage}</span>
+				)}
+				{deleteMessage && (
+					<span id="message-after-delete">{deleteMessage}</span>
 				)}
 			</div>
 		</section>

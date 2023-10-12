@@ -140,7 +140,7 @@ export const tasksSlice = createSlice({
 			state.loading = false;
 			state.error = action.payload;
 		},
-		deleteTask: (state) => {
+		deleteTaskAction: (state) => {
 			state.loading = true;
 		},
 		deleteTaskSuccess: (state, action) => {
@@ -200,7 +200,7 @@ export const {
 	editTaskAction,
 	editTaskSuccess,
 	editTaskFailed,
-	deleteTask,
+	deleteTaskAction,
 	deleteTaskSuccess,
 	deleteTaskFailed,
 	setInitialEditedTask,
