@@ -46,3 +46,8 @@ export const selectTasksError = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.error
 );
+
+export const selectEditedTask = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.editedTask
+);

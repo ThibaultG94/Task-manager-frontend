@@ -67,6 +67,7 @@ const UrgentTasks = () => {
 						comments: urgentTasks[i].comments,
 						workspace: urgentTasks[i].workspaceId,
 						assignedTo: urgentTasks[i].assignedTo,
+						taskId: urgentTasks[i]._id,
 						isOverdue: formattedDate === 'En retard',
 					});
 				}

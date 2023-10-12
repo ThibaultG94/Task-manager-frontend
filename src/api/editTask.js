@@ -34,6 +34,7 @@ export const useEditTask = () => {
 				withCredentials: true,
 			});
 			dispatch(editTaskSuccess(res.data.task));
+			console.log(res.data.task);
 			return res.data.task;
 		} catch (error) {
 			dispatch(editTaskFailed(error));

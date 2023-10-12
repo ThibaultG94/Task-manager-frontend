@@ -19,6 +19,7 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 		comments: task.comments,
 		workspace: task.workspace,
 		assignedTo: task.assignedTo,
+		taskId: task.taskId,
 	});
 
 	const updateEditedTitle = (newTitle) => {
@@ -138,7 +139,11 @@ const ModalTask = ({ closeModal, modalRef, task }) => {
 					<button className="delete-button">
 						<i className="fas fa-trash-alt"></i> Supprimer
 					</button>
-					<SaveEditedTask />
+					<SaveEditedTask
+						editedTask={editedTask}
+						taskId={editedTask.taskId}
+						closeModal={closeModal}
+					/>
 				</div>
 			</div>
 		</section>

@@ -10,6 +10,7 @@ export const tasksSlice = createSlice({
 		midTermTasks: [],
 		longTermTasks: [],
 		archivedTasks: [],
+		editedTask: null,
 		loading: false,
 		error: null,
 	},
@@ -153,6 +154,18 @@ export const tasksSlice = createSlice({
 			state.loading = false;
 			state.error = action.payload;
 		},
+		setEditedTask: (state, action) => {
+			state.editedTask = action.payload;
+		},
+		updateEditedTask: (state, action) => {
+			state.editedTask = {
+				...state.editedTask,
+				...action.payload,
+			};
+		},
+		clearEditedTask: (state) => {
+			state.editedTask = null;
+		},
 	},
 });
 
@@ -187,5 +200,8 @@ export const {
 	deleteTask,
 	deleteTaskSuccess,
 	deleteTaskFailed,
+	setEditedTask,
+	updateEditedTask,
+	clearEditedTask,
 } = tasksSlice.actions;
 export default tasksSlice.reducer;
