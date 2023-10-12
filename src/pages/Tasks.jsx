@@ -6,6 +6,9 @@ import CheckAuthentication from '../components/utils/CheckAuthentication';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectHasBeenUpdated } from '../store/selectors/editStateSelectors';
 import getUserId from '../api/getUserId';
+import { useGetUserTasks } from '../api/getUserTasks';
+import { useGetUser } from '../api/getUser';
+import { useGetWorkspaces } from '../api/getWorkspaces';
 
 const Tasks = () => {
 	const dispatch = useDispatch();
@@ -18,6 +21,10 @@ const Tasks = () => {
 		setUserId(id);
 	};
 
+	const getUser = useGetUser();
+	const getUserTasks = useGetUserTasks();
+	const getWorkspaces = useGetWorkspaces();
+
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
 		getId();
@@ -25,6 +32,9 @@ const Tasks = () => {
 
 	useEffect(() => {
 		if (userId !== null) {
+			getUser(userId);
+			getUserTasks(userId);
+			getWorkspaces(userId);
 		}
 	}, [userId]);
 
