@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
 import ModalTask from './ModalTask';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTasks } from '../../store/selectors/taskSelectors';
+import {
+	selectHasEdited,
+	selectIsEditingField,
+} from '../../store/selectors/editStateSelectors';
 
 const DisplayTasks = () => {
+	const dispatch = useDispatch();
+	const userTasks = useSelector(selectTasks);
+	const isEditingField = useSelector(selectIsEditingField);
+	const hasEdited = useSelector(selectHasEdited);
+	const [displayTasks, setDisplayTasks] = useState([]);
+	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (

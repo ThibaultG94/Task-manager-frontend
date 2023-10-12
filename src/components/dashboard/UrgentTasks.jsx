@@ -11,14 +11,13 @@ import { resetEditState } from '../../store/feature/editState.slice';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 
 const UrgentTasks = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const dispatch = useDispatch();
 	const urgentTasks = useSelector(selectUrgentTasks);
+	const isEditingField = useSelector(selectIsEditingField);
+	const hasEdited = useSelector(selectHasEdited);
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
-	const dispatch = useDispatch();
-	const isEditingField = useSelector(selectIsEditingField);
-
-	const hasEdited = useSelector(selectHasEdited);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const formatTaskForEditing = async (task) => {
 		if (!task) return null;
