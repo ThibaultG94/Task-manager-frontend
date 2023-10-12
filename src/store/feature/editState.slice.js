@@ -12,7 +12,7 @@ const initialState = {
 		assignedTo: false,
 	},
 	hasEdited: false,
-	hasBeenSaved: false,
+	hasBeenUpdated: false,
 };
 
 const editStateSlice = createSlice({
@@ -26,8 +26,8 @@ const editStateSlice = createSlice({
 		setHasEdited: (state, action) => {
 			state.hasEdited = action.payload;
 		},
-		setHasBeenSaved: (state, action) => {
-			state.hasBeenSaved = action.payload;
+		setHasBeenUpdated: (state, action) => {
+			state.hasBeenUpdated = action.payload;
 		},
 		resetEditState: (state) => {
 			state.isEditing = {
@@ -48,7 +48,7 @@ const editStateSlice = createSlice({
 export const {
 	setEditingField,
 	setHasEdited,
-	setHasBeenSaved,
+	setHasBeenUpdated,
 	resetEditState,
 } = editStateSlice.actions;
 

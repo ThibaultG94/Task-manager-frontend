@@ -3,7 +3,7 @@ import { useEditTask } from '../../api/editTask';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	resetEditState,
-	setHasBeenSaved,
+	setHasBeenUpdated,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
@@ -20,7 +20,7 @@ const SaveEditedTask = ({ setIsModalOpen, setSaveMessage }) => {
 			await editTask(editedTask);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
-			dispatch(setHasBeenSaved(true));
+			dispatch(setHasBeenUpdated(true));
 		} catch (error) {
 			setSaveMessage('Échec de la mise à jour de la tâche.');
 			console.error('Échec de la mise à jour de la tâche:', error);

@@ -4,7 +4,7 @@ import { useDeleteTask } from '../../api/deleteTask';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import {
 	resetEditState,
-	setHasBeenSaved,
+	setHasBeenUpdated,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 
@@ -18,7 +18,7 @@ const DeleteTask = ({ setIsModalOpen, setDeleteMessage }) => {
 			await deleteTask(editedTask._id);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
-			dispatch(setHasBeenSaved(true));
+			dispatch(setHasBeenUpdated(true));
 		} catch (error) {
 			setDeleteMessage('Échec de la suppression de la tâche.');
 			console.error('Échec de la suppression de la tâche:', error);

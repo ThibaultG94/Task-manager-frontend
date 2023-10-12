@@ -3,8 +3,10 @@ import SideBar from '../components/sidebar/SideBar';
 import Header from '../components/header/Header';
 import DisplayTasks from '../components/tasks/DisplayTasks';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
+import { useDispatch } from 'react-redux';
 
 const Tasks = () => {
+	const dispatch = useDispatch();
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 
 	useEffect(() => {

@@ -12,12 +12,12 @@ import { useGetUser } from '../api/getUser';
 import { useGetUrgentTasks } from '../api/getUrgentTasks';
 import { useGetWorkspaces } from '../api/getWorkspaces';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectHasBeenSaved } from '../store/selectors/editStateSelectors';
-import { setHasBeenSaved } from '../store/feature/editState.slice';
+import { selectHasBeenUpdated } from '../store/selectors/editStateSelectors';
+import { setHasBeenUpdated } from '../store/feature/editState.slice';
 
 const Dashboard = () => {
 	const dispatch = useDispatch();
-	const hasBeenSaved = useSelector(selectHasBeenSaved);
+	const hasBeenUpdated = useSelector(selectHasBeenUpdated);
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
 
@@ -42,11 +42,11 @@ const Dashboard = () => {
 	}, [userId]);
 
 	useEffect(() => {
-		if (hasBeenSaved) {
+		if (hasBeenUpdated) {
 			userId !== null && getUrgentTasks(userId);
-			dispatch(setHasBeenSaved(false));
+			dispatch(setHasBeenUpdated(false));
 		}
-	}, [hasBeenSaved]);
+	}, [hasBeenUpdated]);
 
 	return (
 		<div className="flex">
