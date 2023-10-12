@@ -9,6 +9,7 @@ import getUserId from '../api/getUserId';
 import { useGetUserTasks } from '../api/getUserTasks';
 import { useGetUser } from '../api/getUser';
 import { useGetWorkspaces } from '../api/getWorkspaces';
+import { setHasBeenUpdated } from '../store/feature/editState.slice';
 
 const Tasks = () => {
 	const dispatch = useDispatch();
@@ -37,6 +38,13 @@ const Tasks = () => {
 			getWorkspaces(userId);
 		}
 	}, [userId]);
+
+	useEffect(() => {
+		if (hasBeenUpdated) {
+			userId !== null && getUserTasks(userId);
+			dispatch(setHasBeenUpdated(false));
+		}
+	}, [hasBeenUpdated]);
 
 	return (
 		<div className="flex">

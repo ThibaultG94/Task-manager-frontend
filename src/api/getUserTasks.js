@@ -20,6 +20,7 @@ export const useGetUserTasks = () => {
 				withCredentials: true,
 			});
 			dispatch(setTaskSuccess(res.data.userTasks));
+			return res.data.userTasks;
 		} catch (error) {
 			dispatch(setTaskFailed(error));
 			const errorCode = error.response ? error.response.status : 500;

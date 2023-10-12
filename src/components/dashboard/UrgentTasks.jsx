@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ModalTask from '../tasks/ModalTask';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
@@ -9,6 +9,7 @@ import {
 } from '../../store/selectors/editStateSelectors';
 import { resetEditState } from '../../store/feature/editState.slice';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
+import { formatTaskForEditing } from '../utils/formatTaskForEditing';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();
@@ -19,12 +20,6 @@ const UrgentTasks = () => {
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	const formatTaskForEditing = async (task) => {
-		if (!task) return null;
-		const { date, workspace, taskId, isOverdue, ...rest } = task;
-		return { workspaceId: workspace, _id: taskId, ...rest };
-	};
-
 	const openModal = (e) => {
 		e.stopPropagation();
 		setIsModalOpen(true);
@@ -34,7 +29,6 @@ const UrgentTasks = () => {
 		const checkIfEdited = async () => {
 			const anyFieldEditing = Object.values(isEditingField).some(Boolean);
 			if (anyFieldEditing || hasEdited) {
-				console.log(anyFieldEditing, hasEdited);
 				let message;
 				if (anyFieldEditing) {
 					message =

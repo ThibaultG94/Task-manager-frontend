@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ModalTask from './ModalTask';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTasks } from '../../store/selectors/taskSelectors';
@@ -6,6 +6,9 @@ import {
 	selectHasEdited,
 	selectIsEditingField,
 } from '../../store/selectors/editStateSelectors';
+import { resetEditState } from '../../store/feature/editState.slice';
+import { formatTaskForEditing } from '../utils/formatTaskForEditing';
+import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();
@@ -16,12 +19,62 @@ const DisplayTasks = () => {
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
+	const openModal = (e) => {
+		e.stopPropagation();
+		setIsModalOpen(true);
+	};
+
+	const closeModal = async () => {
+		const checkIfEdited = async () => {
+			const anyFieldEditing = Object.values(isEditingField).some(Boolean);
+			if (anyFieldEditing || hasEdited) {
+				let message;
+				if (anyFieldEditing) {
+					message =
+						"Vous êtes en train d'éditer. Voulez-vous vraiment quitter sans sauvegarder ?";
+				} else if (hasEdited) {
+					message =
+						'Vous avez des changements non sauvegardés. Voulez-vous vraiment quitter sans sauvegarder ?';
+				}
+				const userResponse = window.confirm(message);
+				if (!userResponse) {
+					return;
+				}
+			}
+			setIsModalOpen(false);
+			dispatch(resetEditState());
+			const formattedTask = await formatTaskForEditing(selectedTask);
+			dispatch(setInitialEditedTask(formattedTask));
+		};
+
+		await checkIfEdited();
+	};
+
+	useEffect(() => {
+		const updateDisplayTasks = async () => {
+			const updatedTasks = [];
+			console.log(userTasks.length);
+		};
+
+		updateDisplayTasks();
+	}, [userTasks]);
+
+	useEffect(() => {
+		const resetEditedTask = async () => {
+			const formattedTask = await formatTaskForEditing(selectedTask);
+			if (formattedTask) {
+				dispatch(setInitialEditedTask(formattedTask));
+			}
+		};
+		resetEditedTask();
+	}, [selectedTask]);
+
 	return (
 		<section id="tasks">
 			<div
 				id="retard-tasks"
 				className="task-block"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Retard</h3>
 					<button className="toggle-button">▶</button>
@@ -32,7 +85,7 @@ const DisplayTasks = () => {
 			<div
 				id="today-tasks"
 				className="task-block"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Aujourd'hui</h3>
 					<button className="toggle-button">▶</button>
@@ -43,7 +96,7 @@ const DisplayTasks = () => {
 			<div
 				id="tomorrow-tasks"
 				className="task-block"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Demain</h3>
 					<button className="toggle-button">▶</button>
@@ -54,7 +107,7 @@ const DisplayTasks = () => {
 			<div
 				id="this-week-tasks"
 				className="task-block"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Cette semaine</h3>
 					<button className="toggle-button">▶</button>
@@ -65,7 +118,7 @@ const DisplayTasks = () => {
 			<div
 				id="this-weekend-tasks"
 				className="task-block"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Ce Weekend</h3>
 					<button className="toggle-button">▶</button>
@@ -76,7 +129,7 @@ const DisplayTasks = () => {
 			<div
 				id="next-week-tasks"
 				className="task-block"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Semaine prochaine</h3>
 					<button className="toggle-button">▶</button>
@@ -87,7 +140,7 @@ const DisplayTasks = () => {
 			<div
 				id="next-weekend-tasks"
 				className="task-block"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Weekend prochain</h3>
 					<button className="toggle-button">▶</button>
@@ -98,7 +151,7 @@ const DisplayTasks = () => {
 			<div
 				id="this-month-tasks"
 				className="task-block"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Ce mois-ci</h3>
 					<button className="toggle-button">▶</button>
@@ -109,7 +162,7 @@ const DisplayTasks = () => {
 			<div
 				id="next-month-tasks"
 				className="task-block"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Mois prochain</h3>
 					<button className="toggle-button">▶</button>
@@ -120,7 +173,7 @@ const DisplayTasks = () => {
 			<div
 				className="task-block"
 				id="this-year-tasks"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Cette année</h3>
 					<button className="toggle-button">▶</button>
@@ -131,7 +184,7 @@ const DisplayTasks = () => {
 			<div
 				className="task-block"
 				id="next-year-tasks"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Année prochaine</h3>
 					<button className="toggle-button">▶</button>
@@ -142,7 +195,7 @@ const DisplayTasks = () => {
 			<div
 				className="task-block"
 				id="becoming-tasks"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Prochaines années</h3>
 					<button className="toggle-button">▶</button>
@@ -153,7 +206,7 @@ const DisplayTasks = () => {
 			<div
 				className="task-block"
 				id="archived-tasks"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={(e) => openModal(e)}>
 				<div className="task-block-header">
 					<h3>Archives</h3>
 					<button className="toggle-button">▶</button>
@@ -161,7 +214,12 @@ const DisplayTasks = () => {
 				<div className="task-list"></div>
 			</div>
 
-			{isModalOpen && <ModalTask />}
+			{isModalOpen && (
+				<ModalTask
+					closeModal={closeModal}
+					setIsModalOpen={setIsModalOpen}
+				/>
+			)}
 		</section>
 	);
 };
