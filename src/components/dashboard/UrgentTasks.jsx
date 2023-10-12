@@ -106,7 +106,7 @@ const UrgentTasks = () => {
 					displayTasks.map((task, index) => (
 						<div
 							className={`urgent-task ${
-								task ? 'task-overdue' : ''
+								task.isOverdue ? 'task-overdue' : ''
 							}`}
 							key={index}
 							onClick={(e) => {
@@ -133,7 +133,6 @@ const UrgentTasks = () => {
 				<ModalTask
 					closeModal={closeModal}
 					modalRef={modalRef}
-					task={selectedTask}
 					setIsModalOpen={setIsModalOpen}
 				/>
 			)}

@@ -9,7 +9,7 @@ import EditWorkspace from './EditWorkspace';
 import EditAssignedTo from './EditAssignedTo';
 import SaveEditedTask from './SaveEditedTask';
 
-const ModalTask = ({ closeModal, modalRef, task, setIsModalOpen }) => {
+const ModalTask = ({ closeModal, modalRef, setIsModalOpen }) => {
 	const [saveMessage, setSaveMessage] = useState('');
 
 	return (
