@@ -9,13 +9,8 @@ import EditWorkspace from './EditWorkspace';
 import EditAssignedTo from './EditAssignedTo';
 import SaveEditedTask from './SaveEditedTask';
 
-const ModalTask = ({
-	closeModal,
-	modalRef,
-	task,
-	isModalOpen,
-	setIsModalOpen,
-}) => {
+const ModalTask = ({ closeModal, modalRef, task, setIsModalOpen }) => {
+	const [saveMessage, setSaveMessage] = useState('');
 	const [editedTask, setEditedTask] = useState({
 		title: task.title,
 		status: task.status,
@@ -135,8 +130,14 @@ const ModalTask = ({
 					<button className="delete-button">
 						<i className="fas fa-trash-alt"></i> Supprimer
 					</button>
-					<SaveEditedTask setIsModalOpen={setIsModalOpen} />
+					<SaveEditedTask
+						setIsModalOpen={setIsModalOpen}
+						setSaveMessage={setSaveMessage}
+					/>
 				</div>
+				{saveMessage && (
+					<span id="message-after-saving">{saveMessage}</span>
+				)}
 			</div>
 		</section>
 	);
