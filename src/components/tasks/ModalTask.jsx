@@ -23,20 +23,6 @@ const ModalTask = ({ closeModal, modalRef, task, setIsModalOpen }) => {
 		taskId: task.taskId,
 	});
 
-	const updateEditedDescription = (newDescription) => {
-		setEditedTask((prevTask) => ({
-			...prevTask,
-			description: newDescription,
-		}));
-	};
-
-	const updateEditedComments = (newComments) => {
-		setEditedTask((prevTask) => ({
-			...prevTask,
-			comments: newComments,
-		}));
-	};
-
 	const updateEditedWorkspace = (newWorkspace) => {
 		setEditedTask((prevTask) => ({
 			...prevTask,
@@ -71,15 +57,9 @@ const ModalTask = ({ closeModal, modalRef, task, setIsModalOpen }) => {
 
 					<EditDeadline />
 
-					<EditDescription
-						editedDescription={editedTask.description}
-						setEditedDescription={updateEditedDescription}
-					/>
+					<EditDescription />
 
-					{/* <EditComments
-						editedComments={editedTask.comments}
-						setEditedComments={updateEditedComments}
-					/> */}
+					{/* <EditComments /> */}
 
 					<EditWorkspace
 						editedWorkspace={editedTask.workspace}

@@ -5,10 +5,13 @@ import {
 	setEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
+import { updateEditedTask } from '../../store/feature/tasks.slice';
 
-const EditDescription = ({ editedDescription, setEditedDescription }) => {
+const EditDescription = () => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
+	const editedTask = useSelector(selectEditedTask);
 	const inputDescriptionRef = useRef(null);
 
 	const handleEditDescription = (e) => {
@@ -30,21 +33,23 @@ const EditDescription = ({ editedDescription, setEditedDescription }) => {
 	const handleValidDescription = (e) => {
 		e.stopPropagation();
 		const newDescription = inputDescriptionRef.current.value;
-		if (editedDescription !== newDescription) {
+		if (editedTask.description !== newDescription) {
 			dispatch(setHasEdited(true));
+			dispatch(updateEditedTask({ description: newDescription }));
 		}
-		setEditedDescription(newDescription);
 		dispatch(setEditingField({ field: 'description', value: false }));
 	};
 
 	return (
 		<div className="description-icon element-icon">
-			{!isEditingField.description && <span>{editedDescription}</span>}
+			{!isEditingField.description && (
+				<span>{editedTask?.description}</span>
+			)}
 			{isEditingField.description && (
 				<>
 					<textarea
 						className="task-edit-description"
-						defaultValue={editedDescription}
+						defaultValue={editedTask?.description}
 						ref={inputDescriptionRef}
 					/>
 					<button onClick={(e) => handleValidDescription(e)}>

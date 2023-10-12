@@ -5,10 +5,13 @@ import {
 	setEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
+import { updateEditedTask } from '../../store/feature/tasks.slice';
 
-const EditComments = ({ editedComments, setEditedComments }) => {
+const EditComments = () => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
+	const editedTask = useSelector(selectEditedTask);
 	const inputCommentsRef = useRef(null);
 
 	const handleEditComments = (e) => {
@@ -24,10 +27,10 @@ const EditComments = ({ editedComments, setEditedComments }) => {
 	const handleValidComments = (e) => {
 		e.stopPropagation();
 		const newComments = inputCommentsRef.current.value;
-		if (editedComments !== newComments) {
+		if (editedTask.comments !== newComments) {
 			dispatch(setHasEdited(true));
+			dispatch(updateEditedTask({ comments: newComments }));
 		}
-		setEditedComments(newComments);
 		dispatch(setEditingField({ field: 'comments', value: false }));
 	};
 
@@ -35,7 +38,7 @@ const EditComments = ({ editedComments, setEditedComments }) => {
 		<div>
 			{isEditingField.comments && (
 				<div className="comments-icon element-icon">
-					<span>{editedComments}</span>
+					<span>{editedTask?.comments}</span>
 					{isEditingField.comments && (
 						<>
 							<textarea
