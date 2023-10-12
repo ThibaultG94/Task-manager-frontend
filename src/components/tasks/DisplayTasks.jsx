@@ -9,6 +9,7 @@ import {
 import { resetEditState } from '../../store/feature/editState.slice';
 import { formatTaskForEditing } from '../utils/formatTaskForEditing';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
+import { formatDateForDisplay } from '../utils/formatDateForDisplay';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();
@@ -53,7 +54,27 @@ const DisplayTasks = () => {
 	useEffect(() => {
 		const updateDisplayTasks = async () => {
 			const updatedTasks = [];
-			console.log(userTasks.length);
+			for (let i = 0; i < userTasks.length; i++) {
+				if (userTasks && userTasks[i]) {
+					const formattedDate = await formatDateForDisplay(
+						userTasks[i].deadline
+					);
+					updatedTasks.push({
+						title: userTasks[i].title,
+						date: formattedDate,
+						status: userTasks[i].status,
+						priority: userTasks[i].priority,
+						deadline: userTasks[i].deadline,
+						description: userTasks[i].description,
+						comments: userTasks[i].comments,
+						workspace: userTasks[i].workspaceId,
+						assignedTo: userTasks[i].assignedTo,
+						taskId: userTasks[i]._id,
+						isOverdue: formattedDate === 'En retard',
+					});
+				}
+			}
+			setDisplayTasks(updatedTasks);
 		};
 
 		updateDisplayTasks();
