@@ -5,17 +5,18 @@ import {
 	deleteTaskFailed,
 	deleteTaskSuccess,
 } from '../store/feature/tasks.slice';
+import axios from 'axios';
 
 export const useDeleteTask = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const deleteTask = async (task) => {
+	const deleteTask = async (taskId) => {
 		dispatch(deleteTaskAction());
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.delete(`${API_URL}/task/${task._id}`, {
+			const res = await axios.delete(`${API_URL}/task/${taskId}`, {
 				withCredentials: true,
 			});
 			dispatch(deleteTaskSuccess(res.data));
