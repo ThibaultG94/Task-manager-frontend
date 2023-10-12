@@ -6,10 +6,13 @@ import {
 	setEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
+import { updateEditedTask } from '../../store/feature/tasks.slice';
 
-const EditStatus = ({ editedStatus, setEditedStatus }) => {
+const EditStatus = () => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
+	const editedTask = useSelector(selectEditedTask);
 	const inputStatusRef = useRef(null);
 	const [convertedStatus, setConvertedStatus] = useState('');
 
@@ -23,21 +26,21 @@ const EditStatus = ({ editedStatus, setEditedStatus }) => {
 	const handleValidStatus = (e) => {
 		e.stopPropagation();
 		const newStatus = inputStatusRef.current.value;
-		if (editedStatus !== newStatus) {
+		if (editedTask.status !== newStatus) {
 			dispatch(setHasEdited(true));
+			dispatch(updateEditedTask({ status: newStatus }));
 		}
-		setEditedStatus(newStatus);
 		dispatch(setEditingField({ field: 'status', value: false }));
 	};
 
 	useEffect(() => {
 		const fetchConvertedStatus = async () => {
-			const status = await convertStatus(editedStatus);
+			const status = await convertStatus(editedTask?.status);
 			setConvertedStatus(status);
 		};
 
 		fetchConvertedStatus();
-	}, [editedStatus]);
+	}, [editedTask]);
 
 	return (
 		<div className="status-icon element-icon">
@@ -46,7 +49,7 @@ const EditStatus = ({ editedStatus, setEditedStatus }) => {
 				<>
 					<select
 						className="task-edit-select"
-						defaultValue={editedStatus}
+						defaultValue={editedTask?.status}
 						ref={inputStatusRef}>
 						<option value="Pending">À faire</option>
 						<option value="In Progress">En cours</option>

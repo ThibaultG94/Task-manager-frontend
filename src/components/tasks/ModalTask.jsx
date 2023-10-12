@@ -23,13 +23,6 @@ const ModalTask = ({ closeModal, modalRef, task, setIsModalOpen }) => {
 		taskId: task.taskId,
 	});
 
-	const updateEditedStatus = (newStatus) => {
-		setEditedTask((prevTask) => ({
-			...prevTask,
-			status: newStatus,
-		}));
-	};
-
 	const updateEditedPriority = (newPriority) => {
 		setEditedTask((prevTask) => ({
 			...prevTask,
@@ -86,10 +79,7 @@ const ModalTask = ({ closeModal, modalRef, task, setIsModalOpen }) => {
 				<div className="task-details">
 					<EditTitle />
 
-					<EditStatus
-						editedStatus={editedTask.status}
-						setEditedStatus={updateEditedStatus}
-					/>
+					<EditStatus />
 
 					<EditPriority
 						editedPriority={editedTask.priority}
