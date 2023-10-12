@@ -36,6 +36,7 @@ const UrgentTasks = () => {
 		const checkIfEdited = async () => {
 			const anyFieldEditing = Object.values(isEditingField).some(Boolean);
 			if (anyFieldEditing || hasEdited) {
+				console.log(anyFieldEditing, hasEdited);
 				let message;
 				if (anyFieldEditing) {
 					message =
@@ -133,6 +134,7 @@ const UrgentTasks = () => {
 					closeModal={closeModal}
 					modalRef={modalRef}
 					task={selectedTask}
+					setIsModalOpen={setIsModalOpen}
 				/>
 			)}
 		</div>

@@ -16,3 +16,8 @@ export const selectHasEdited = createSelector(
 	[selectEditState],
 	(editState) => editState.hasEdited
 );
+
+export const selectHasBeenSaved = createSelector(
+	[selectEditState],
+	(editState) => editState.hasBeenSaved
+);
