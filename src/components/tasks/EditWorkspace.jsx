@@ -7,11 +7,14 @@ import {
 	setEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
+import { updateEditedTask } from '../../store/feature/tasks.slice';
 
-const EditWorkspace = ({ editedWorkspace, setEditedWorkspace }) => {
+const EditWorkspace = () => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
+	const editedTask = useSelector(selectEditedTask);
 	const inputWorkspaceRef = useRef(null);
 	const [convertedWorkspace, setConvertedWorkspace] = useState('');
 
@@ -33,22 +36,22 @@ const EditWorkspace = ({ editedWorkspace, setEditedWorkspace }) => {
 	const handleValidWorkspace = (e) => {
 		e.stopPropagation();
 		const newWorkspace = inputWorkspaceRef.current.value;
-		if (editedWorkspace !== newWorkspace) {
+		if (editedTask.workspaceId !== newWorkspace) {
 			dispatch(setHasEdited(true));
+			dispatch(updateEditedTask({ workspaceId: newWorkspace }));
 		}
-		setEditedWorkspace(newWorkspace);
 		setIsEditingWorkspace(false);
 		dispatch(setEditingField({ field: 'workspace', value: false }));
 	};
 
 	useEffect(() => {
 		const fetchConvertedWorkspace = async () => {
-			const workspace = await getWorkspace(editedWorkspace);
+			const workspace = await getWorkspace(editedTask?.workspaceId);
 			setConvertedWorkspace(workspace?.title);
 		};
 
-		fetchConvertedWorkspace();
-	}, [editedWorkspace]);
+		if (editedTask?.workspaceId) fetchConvertedWorkspace();
+	}, [editedTask]);
 
 	useEffect(() => {
 		setWorkspaces(userWorkspaces);
@@ -61,7 +64,7 @@ const EditWorkspace = ({ editedWorkspace, setEditedWorkspace }) => {
 				<>
 					<select
 						className="task-edit-select"
-						defaultValue={editedWorkspace}
+						defaultValue={editedTask?.workspaceId}
 						ref={inputWorkspaceRef}>
 						{workspaces &&
 							workspaces.map((workspace) => (

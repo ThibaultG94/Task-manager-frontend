@@ -7,10 +7,13 @@ import {
 	setEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
+import { updateEditedTask } from '../../store/feature/tasks.slice';
 
-const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
+const EditAssignedTo = () => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
+	const editedTask = useSelector(selectEditedTask);
 	const inputMemberRef = useRef(null);
 	const [convertedMember, setConvertedMember] = useState('');
 
@@ -34,30 +37,30 @@ const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
 	const handleValidMember = (e) => {
 		e.stopPropagation();
 		const newMember = inputMemberRef.current.value;
-		if (editedMember !== newMember) {
+		if (editedTask?.assignedTo !== newMember) {
 			dispatch(setHasEdited(true));
+			dispatch(updateEditedTask({ assignedTo: newMember }));
 		}
-		setEditedMember(newMember);
 		dispatch(setEditingField({ field: 'assignedTo', value: false }));
 	};
 
 	useEffect(() => {
 		const fetchGetMembers = async () => {
-			const workspace = await getWorkspace(editedWorkspace);
+			const workspace = await getWorkspace(editedTask?.workspaceId);
 			setMembersId(workspace.members);
 		};
 
-		fetchGetMembers();
-	}, [editedWorkspace]);
+		if (editedTask?.workspaceId) fetchGetMembers();
+	}, [editedTask]);
 
 	useEffect(() => {
 		const fetchConvertedMember = async () => {
-			const user = await getUser(editedMember);
+			const user = await getUser(editedTask?.assignedTo);
 			setConvertedMember(user.username);
 		};
 
-		fetchConvertedMember();
-	}, [editedMember]);
+		if (editedTask?.assignedTo) fetchConvertedMember();
+	}, [editedTask?.assignedTo]);
 
 	useEffect(() => {
 		const fetchMembers = async () => {
@@ -88,7 +91,11 @@ const EditAssignedTo = ({ editedMember, setEditedMember, editedWorkspace }) => {
 				<>
 					<select
 						className="task-edit-select"
-						defaultValue={editedMember ? editedMember : 'default'}
+						defaultValue={
+							editedTask?.assignedTo
+								? editedTask.assignedTo
+								: 'default'
+						}
 						ref={inputMemberRef}>
 						{members &&
 							members.map((member) => (

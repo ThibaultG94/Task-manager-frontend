@@ -11,31 +11,6 @@ import SaveEditedTask from './SaveEditedTask';
 
 const ModalTask = ({ closeModal, modalRef, task, setIsModalOpen }) => {
 	const [saveMessage, setSaveMessage] = useState('');
-	const [editedTask, setEditedTask] = useState({
-		title: task.title,
-		status: task.status,
-		priority: task.priority,
-		deadline: task.deadline,
-		description: task.description,
-		comments: task.comments,
-		workspace: task.workspace,
-		assignedTo: task.assignedTo,
-		taskId: task.taskId,
-	});
-
-	const updateEditedWorkspace = (newWorkspace) => {
-		setEditedTask((prevTask) => ({
-			...prevTask,
-			workspace: newWorkspace,
-		}));
-	};
-
-	const updateEditedAssignedTo = (newAssignedTo) => {
-		setEditedTask((prevTask) => ({
-			...prevTask,
-			assignedTo: newAssignedTo,
-		}));
-	};
 
 	return (
 		<section
@@ -61,20 +36,9 @@ const ModalTask = ({ closeModal, modalRef, task, setIsModalOpen }) => {
 
 					{/* <EditComments /> */}
 
-					<EditWorkspace
-						editedWorkspace={editedTask.workspace}
-						setEditedWorkspace={updateEditedWorkspace}
-					/>
+					<EditWorkspace />
 
-					<EditAssignedTo
-						editedMember={
-							editedTask.assignedTo.length < 2
-								? editedTask.assignedTo[0]
-								: editedTask.assignedTo
-						}
-						setEditedMember={updateEditedAssignedTo}
-						editedWorkspace={editedTask.workspace}
-					/>
+					<EditAssignedTo />
 				</div>
 				<div className="action-buttons">
 					<button className="delete-button">
