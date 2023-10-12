@@ -6,10 +6,13 @@ import {
 	setEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
+import { updateEditedTask } from '../../store/feature/tasks.slice';
 
-const EditPriority = ({ editedPriority, setEditedPriority }) => {
+const EditPriority = () => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
+	const editedTask = useSelector(selectEditedTask);
 	const inputPriorityRef = useRef(null);
 	const [convertedPriority, setConvertedPriority] = useState('');
 
@@ -26,21 +29,21 @@ const EditPriority = ({ editedPriority, setEditedPriority }) => {
 	const handleValidPriority = (e) => {
 		e.stopPropagation();
 		const newPriority = inputPriorityRef.current.value;
-		if (editedPriority !== newPriority) {
+		if (editedTask.priority !== newPriority) {
 			dispatch(setHasEdited(true));
+			dispatch(updateEditedTask({ priority: newPriority }));
 		}
-		setEditedPriority(newPriority);
 		dispatch(setEditingField({ field: 'priority', value: false }));
 	};
 
 	useEffect(() => {
 		const fetchConvertedPriority = async () => {
-			const priority = await convertPriority(editedPriority);
+			const priority = await convertPriority(editedTask?.priority);
 			setConvertedPriority(priority);
 		};
 
 		fetchConvertedPriority();
-	}, [editedPriority]);
+	}, [editedTask]);
 
 	return (
 		<div className="priority-icon element-icon">
@@ -49,7 +52,7 @@ const EditPriority = ({ editedPriority, setEditedPriority }) => {
 				<>
 					<select
 						className="task-edit-select"
-						defaultValue={editedPriority}
+						defaultValue={editedTask?.priority}
 						ref={inputPriorityRef}>
 						<option value="Low">Faible</option>
 						<option value="Medium">Moyenne</option>
