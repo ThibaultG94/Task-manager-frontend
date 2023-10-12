@@ -15,7 +15,7 @@ export const tasksSlice = createSlice({
 		error: null,
 	},
 	reducers: {
-		setTasks: (state) => {
+		setTasksAction: (state) => {
 			state.loading = true;
 		},
 		setTasksSuccess: (state, action) => {
@@ -173,7 +173,7 @@ export const tasksSlice = createSlice({
 });
 
 export const {
-	setTasks,
+	setTasksAction,
 	setTasksSuccess,
 	setTasksFailed,
 	setUrgentTasks,

@@ -36,9 +36,11 @@ const Dashboard = () => {
 	}, [redirectAfterLogin]);
 
 	useEffect(() => {
-		userId !== null && getUser(userId);
-		userId !== null && getUrgentTasks(userId);
-		userId !== null && getWorkspaces(userId);
+		if (userId !== null) {
+			getUser(userId);
+			getUrgentTasks(userId);
+			getWorkspaces(userId);
+		}
 	}, [userId]);
 
 	useEffect(() => {
