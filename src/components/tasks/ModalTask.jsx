@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import EditTitle from './EditTitle';
 import EditStatus from './EditStatus';
 import EditPriority from './EditPriority';
@@ -10,7 +10,8 @@ import EditAssignedTo from './EditAssignedTo';
 import SaveEditedTask from './SaveEditedTask';
 import DeleteTask from './DeleteTask';
 
-const ModalTask = ({ closeModal, modalRef, setIsModalOpen }) => {
+const ModalTask = ({ closeModal, setIsModalOpen }) => {
+	const modalRef = useRef(null);
 	const [saveMessage, setSaveMessage] = useState('');
 	const [deleteMessage, setDeleteMessage] = useState('');
 

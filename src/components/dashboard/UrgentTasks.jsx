@@ -12,7 +12,6 @@ import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 
 const UrgentTasks = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const modalRef = useRef(null);
 	const urgentTasks = useSelector(selectUrgentTasks);
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
@@ -132,7 +131,6 @@ const UrgentTasks = () => {
 			{isModalOpen && (
 				<ModalTask
 					closeModal={closeModal}
-					modalRef={modalRef}
 					setIsModalOpen={setIsModalOpen}
 				/>
 			)}
