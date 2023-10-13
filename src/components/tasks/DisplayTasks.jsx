@@ -16,6 +16,7 @@ import { convertPriority } from '../utils/convertPriority';
 import TaskItem from './TaskItem';
 import DisplayShortTermTasks from './DisplayShortTermTasks';
 import DisplayMidTermTasks from './DisplayMidTermTasks';
+import DisplayLongTermTasks from './DisplayLongTermTasks';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();
@@ -77,60 +78,10 @@ const DisplayTasks = () => {
 				openModal={openModal}
 			/>
 
-			<div
-				id="this-month-tasks"
-				className="task-block"
-				onClick={(e) => openModal(e)}>
-				<div className="task-block-header">
-					<h3>Ce mois-ci</h3>
-					<button className="toggle-button">▶</button>
-				</div>
-				<div className="task-list"></div>
-			</div>
-
-			<div
-				id="next-month-tasks"
-				className="task-block"
-				onClick={(e) => openModal(e)}>
-				<div className="task-block-header">
-					<h3>Mois prochain</h3>
-					<button className="toggle-button">▶</button>
-				</div>
-				<div className="task-list"></div>
-			</div>
-
-			<div
-				className="task-block"
-				id="this-year-tasks"
-				onClick={(e) => openModal(e)}>
-				<div className="task-block-header">
-					<h3>Cette année</h3>
-					<button className="toggle-button">▶</button>
-				</div>
-				<div className="task-list"></div>
-			</div>
-
-			<div
-				className="task-block"
-				id="next-year-tasks"
-				onClick={(e) => openModal(e)}>
-				<div className="task-block-header">
-					<h3>Année prochaine</h3>
-					<button className="toggle-button">▶</button>
-				</div>
-				<div className="task-list"></div>
-			</div>
-
-			<div
-				className="task-block"
-				id="becoming-tasks"
-				onClick={(e) => openModal(e)}>
-				<div className="task-block-header">
-					<h3>Prochaines années</h3>
-					<button className="toggle-button">▶</button>
-				</div>
-				<div className="task-list"></div>
-			</div>
+			<DisplayLongTermTasks
+				setSelectedTask={setSelectedTask}
+				openModal={openModal}
+			/>
 
 			<div
 				className="task-block"
