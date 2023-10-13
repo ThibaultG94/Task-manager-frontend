@@ -10,6 +10,8 @@ import { useGetUser } from '../api/getUser';
 import { useGetWorkspaces } from '../api/getWorkspaces';
 import { setHasBeenUpdated } from '../store/feature/editState.slice';
 import { useGetShortTermTasks } from '../api/getShortTermTasks';
+import { useGetMidTermTasks } from '../api/getMidTermTasks';
+import { useGetLongTermTasks } from '../api/getLongTermTasks';
 
 const Tasks = () => {
 	const dispatch = useDispatch();
@@ -24,6 +26,8 @@ const Tasks = () => {
 
 	const getUser = useGetUser();
 	const getShortTermTasks = useGetShortTermTasks();
+	const getMidTermTasks = useGetMidTermTasks();
+	const getLongTermTasks = useGetLongTermTasks();
 	const getWorkspaces = useGetWorkspaces();
 
 	useEffect(() => {
@@ -34,7 +38,13 @@ const Tasks = () => {
 	useEffect(() => {
 		if (userId !== null) {
 			getUser(userId);
-			getShortTermTasks(userId);
+			const shortTermTasks = getShortTermTasks(userId);
+			if (shortTermTasks.length === 0) {
+				const midTermTasks = getMidTermTasks(userId);
+				if (midTermTasks.length === 0) {
+					getLongTermTasks(userId);
+				}
+			}
 			getWorkspaces(userId);
 		}
 	}, [userId]);
