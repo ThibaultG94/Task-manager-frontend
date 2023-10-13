@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectMidTermTasks } from '../../store/selectors/taskSelectors';
-import { formatDateForDisplay } from '../utils/formatDateForDisplay';
-import { getCategoryDay } from '../utils/getCategoryDay';
-import { convertStatus } from '../utils/convertStatus';
-import { convertPriority } from '../utils/convertPriority';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 
 const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 	const userMidTermTasks = useSelector(selectMidTermTasks);
@@ -28,54 +25,13 @@ const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 	};
 
 	useEffect(() => {
-		console.log(workspaces && workspaces);
-	}, [workspaces]);
-
-	useEffect(() => {
 		const updateDisplayMidTermTasks = async () => {
 			const updatedTasks = [];
-			for (let i = 0; i < userMidTermTasks.length; i++) {
-				if (userMidTermTasks && userMidTermTasks[i]) {
-					const formattedDate = await formatDateForDisplay(
-						userMidTermTasks[i].deadline
-					);
-					const day = await formatDateForDisplay(
-						userMidTermTasks[i].deadline
-					);
-					const category = await getCategoryDay(
-						day,
-						userMidTermTasks[i].status,
-						userMidTermTasks[i].deadline
-					);
-					const convertedStatus = await convertStatus(
-						userMidTermTasks[i].status
-					);
-					const convertedPriority = await convertPriority(
-						userMidTermTasks[i].priority
-					);
-					const workspace = workspaces.find(
-						(singleWorkspace) =>
-							singleWorkspace._id ===
-							userMidTermTasks[i].workspaceId
-					);
-					updatedTasks.push({
-						title: userMidTermTasks[i].title,
-						date: formattedDate,
-						status: userMidTermTasks[i].status,
-						convertedStatus: convertedStatus,
-						priority: userMidTermTasks[i].priority,
-						convertedPriority: convertedPriority,
-						deadline: userMidTermTasks[i].deadline,
-						description: userMidTermTasks[i].description,
-						comments: userMidTermTasks[i].comments,
-						workspace: workspace?.title,
-						assignedTo: userMidTermTasks[i].assignedTo,
-						taskId: userMidTermTasks[i]._id,
-						category: category,
-						day: day,
-					});
-				}
-			}
+			await updateDisplayTasks(
+				userMidTermTasks,
+				workspaces,
+				updatedTasks
+			);
 			setDisplayMidTermTasks(updatedTasks);
 		};
 

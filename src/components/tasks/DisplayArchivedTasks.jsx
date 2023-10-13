@@ -3,11 +3,9 @@ import { useGetArchivedTasks } from '../../api/getArchivedTasks';
 import { useSelector } from 'react-redux';
 import { selectArchivedTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
-import { formatDateForDisplay } from '../utils/formatDateForDisplay';
-import { getCategoryDay } from '../utils/getCategoryDay';
-import { convertStatus } from '../utils/convertStatus';
-import { convertPriority } from '../utils/convertPriority';
 import getUserId from '../../api/getUserId';
+import { updateDisplayTasks } from '../utils/updateDisplayTasks';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 
 const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	const [userId, setUserId] = useState(null);
@@ -16,6 +14,7 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 		useState(false);
 	const userArchivedTasks = useSelector(selectArchivedTasks);
 	const [displayArchivedTasks, setDisplayArchivedTasks] = useState([]);
+	const workspaces = useSelector(selectWorkspaces);
 
 	const getId = async () => {
 		const id = await getUserId();
@@ -49,43 +48,11 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	useEffect(() => {
 		const updateDisplayArchivedTasks = async () => {
 			const updatedTasks = [];
-			for (let i = 0; i < userArchivedTasks.length; i++) {
-				if (userArchivedTasks && userArchivedTasks[i]) {
-					const formattedDate = await formatDateForDisplay(
-						userArchivedTasks[i].deadline
-					);
-					const day = await formatDateForDisplay(
-						userArchivedTasks[i].deadline
-					);
-					const category = await getCategoryDay(
-						day,
-						userArchivedTasks[i].status,
-						userArchivedTasks[i].deadline
-					);
-					const convertedStatus = await convertStatus(
-						userArchivedTasks[i].status
-					);
-					const convertedPriority = await convertPriority(
-						userArchivedTasks[i].priority
-					);
-					updatedTasks.push({
-						title: userArchivedTasks[i].title,
-						date: formattedDate,
-						status: userArchivedTasks[i].status,
-						convertedStatus: convertedStatus,
-						priority: userArchivedTasks[i].priority,
-						convertedPriority: convertedPriority,
-						deadline: userArchivedTasks[i].deadline,
-						description: userArchivedTasks[i].description,
-						comments: userArchivedTasks[i].comments,
-						workspace: userArchivedTasks[i].workspaceId,
-						assignedTo: userArchivedTasks[i].assignedTo,
-						taskId: userArchivedTasks[i]._id,
-						category: category,
-						day: day,
-					});
-				}
-			}
+			await updateDisplayTasks(
+				userArchivedTasks,
+				workspaces,
+				updatedTasks
+			);
 			setDisplayArchivedTasks(updatedTasks);
 		};
 

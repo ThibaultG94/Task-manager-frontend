@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectShortTermTasks } from '../../store/selectors/taskSelectors';
-import { formatDateForDisplay } from '../utils/formatDateForDisplay';
-import { getCategoryDay } from '../utils/getCategoryDay';
-import { convertStatus } from '../utils/convertStatus';
-import { convertPriority } from '../utils/convertPriority';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 
 const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 	const userShortTermTasks = useSelector(selectShortTermTasks);
@@ -29,47 +26,11 @@ const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 	useEffect(() => {
 		const updateDisplayShortTermTasks = async () => {
 			const updatedTasks = [];
-			for (let i = 0; i < userShortTermTasks.length; i++) {
-				if (userShortTermTasks && userShortTermTasks[i]) {
-					const formattedDate = await formatDateForDisplay(
-						userShortTermTasks[i].deadline
-					);
-					const day = await formatDateForDisplay(
-						userShortTermTasks[i].deadline
-					);
-					const category = await getCategoryDay(
-						day,
-						userShortTermTasks[i].status,
-						userShortTermTasks[i].deadline
-					);
-					const convertedStatus = await convertStatus(
-						userShortTermTasks[i].status
-					);
-					const convertedPriority = await convertPriority(
-						userShortTermTasks[i].priority
-					);
-					const workspace = workspaces.filter(
-						(workspace) =>
-							(workspace.id = userShortTermTasks[i].workspaceId)
-					);
-					updatedTasks.push({
-						title: userShortTermTasks[i].title,
-						date: formattedDate,
-						status: userShortTermTasks[i].status,
-						convertedStatus: convertedStatus,
-						priority: userShortTermTasks[i].priority,
-						convertedPriority: convertedPriority,
-						deadline: userShortTermTasks[i].deadline,
-						description: userShortTermTasks[i].description,
-						comments: userShortTermTasks[i].comments,
-						workspace: workspace.title,
-						assignedTo: userShortTermTasks[i].assignedTo,
-						taskId: userShortTermTasks[i]._id,
-						category: category,
-						day: day,
-					});
-				}
-			}
+			await updateDisplayTasks(
+				userShortTermTasks,
+				workspaces,
+				updatedTasks
+			);
 			setDisplayShortTermTasks(updatedTasks);
 		};
 
