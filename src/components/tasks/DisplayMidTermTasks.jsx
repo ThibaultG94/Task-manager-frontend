@@ -6,10 +6,12 @@ import { getCategoryDay } from '../utils/getCategoryDay';
 import { convertStatus } from '../utils/convertStatus';
 import { convertPriority } from '../utils/convertPriority';
 import TaskItem from './TaskItem';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 
 const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 	const userMidTermTasks = useSelector(selectMidTermTasks);
 	const [displayMidTermTasks, setDisplayMidTermTasks] = useState([]);
+	const workspaces = useSelector(selectWorkspaces);
 
 	const [expandedBlocks, setExpandedBlocks] = useState({
 		'this-week-tasks': false,
@@ -24,6 +26,10 @@ const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 			[blockId]: !expandedBlocks[blockId],
 		});
 	};
+
+	useEffect(() => {
+		console.log(workspaces && workspaces);
+	}, [workspaces]);
 
 	useEffect(() => {
 		const updateDisplayMidTermTasks = async () => {
@@ -47,6 +53,11 @@ const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 					const convertedPriority = await convertPriority(
 						userMidTermTasks[i].priority
 					);
+					const workspace = workspaces.find(
+						(singleWorkspace) =>
+							singleWorkspace._id ===
+							userMidTermTasks[i].workspaceId
+					);
 					updatedTasks.push({
 						title: userMidTermTasks[i].title,
 						date: formattedDate,
@@ -57,7 +68,7 @@ const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 						deadline: userMidTermTasks[i].deadline,
 						description: userMidTermTasks[i].description,
 						comments: userMidTermTasks[i].comments,
-						workspace: userMidTermTasks[i].workspaceId,
+						workspace: workspace?.title,
 						assignedTo: userMidTermTasks[i].assignedTo,
 						taskId: userMidTermTasks[i]._id,
 						category: category,

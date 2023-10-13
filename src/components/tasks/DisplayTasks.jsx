@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ModalTask from './ModalTask';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectShortTermTasks } from '../../store/selectors/taskSelectors';
 import {
 	selectHasEdited,
 	selectIsEditingField,
@@ -9,11 +8,6 @@ import {
 import { resetEditState } from '../../store/feature/editState.slice';
 import { formatTaskForEditing } from '../utils/formatTaskForEditing';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
-import { formatDateForDisplay } from '../utils/formatDateForDisplay';
-import { getCategoryDay } from '../utils/getCategoryDay';
-import { convertStatus } from '../utils/convertStatus';
-import { convertPriority } from '../utils/convertPriority';
-import TaskItem from './TaskItem';
 import DisplayShortTermTasks from './DisplayShortTermTasks';
 import DisplayMidTermTasks from './DisplayMidTermTasks';
 import DisplayLongTermTasks from './DisplayLongTermTasks';

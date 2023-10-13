@@ -6,10 +6,12 @@ import { getCategoryDay } from '../utils/getCategoryDay';
 import { convertStatus } from '../utils/convertStatus';
 import { convertPriority } from '../utils/convertPriority';
 import TaskItem from './TaskItem';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 
 const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 	const userShortTermTasks = useSelector(selectShortTermTasks);
 	const [displayShortTermTasks, setDisplayShortTermTasks] = useState([]);
+	const workspaces = useSelector(selectWorkspaces);
 
 	const [expandedBlocks, setExpandedBlocks] = useState({
 		'retard-tasks': true,
@@ -46,6 +48,10 @@ const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 					const convertedPriority = await convertPriority(
 						userShortTermTasks[i].priority
 					);
+					const workspace = workspaces.filter(
+						(workspace) =>
+							(workspace.id = userShortTermTasks[i].workspaceId)
+					);
 					updatedTasks.push({
 						title: userShortTermTasks[i].title,
 						date: formattedDate,
@@ -56,7 +62,7 @@ const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 						deadline: userShortTermTasks[i].deadline,
 						description: userShortTermTasks[i].description,
 						comments: userShortTermTasks[i].comments,
-						workspace: userShortTermTasks[i].workspaceId,
+						workspace: workspace.title,
 						assignedTo: userShortTermTasks[i].assignedTo,
 						taskId: userShortTermTasks[i]._id,
 						category: category,

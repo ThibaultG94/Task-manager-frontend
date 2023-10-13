@@ -25,10 +25,10 @@ const Tasks = () => {
 	};
 
 	const getUser = useGetUser();
+	const getWorkspaces = useGetWorkspaces();
 	const getShortTermTasks = useGetShortTermTasks();
 	const getMidTermTasks = useGetMidTermTasks();
 	const getLongTermTasks = useGetLongTermTasks();
-	const getWorkspaces = useGetWorkspaces();
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
