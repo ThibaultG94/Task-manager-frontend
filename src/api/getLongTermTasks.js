@@ -7,7 +7,7 @@ import {
 } from '../store/feature/tasks.slice';
 import axios from 'axios';
 
-export const useGetLongTermTasks = async () => {
+export const useGetLongTermTasks = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 

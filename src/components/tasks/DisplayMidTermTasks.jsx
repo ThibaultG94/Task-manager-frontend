@@ -5,6 +5,7 @@ import { formatDateForDisplay } from '../utils/formatDateForDisplay';
 import { getCategoryDay } from '../utils/getCategoryDay';
 import { convertStatus } from '../utils/convertStatus';
 import { convertPriority } from '../utils/convertPriority';
+import TaskItem from './TaskItem';
 
 const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 	const userMidTermTasks = useSelector(selectMidTermTasks);
@@ -77,13 +78,38 @@ const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 			).length > 0 && (
 				<div
 					id="this-week-tasks"
-					className="task-block"
-					onClick={(e) => openModal(e)}>
+					className={`task-block ${
+						expandedBlocks['this-week-tasks'] ? 'expanded' : ''
+					}`}
+					onClick={() => toggleBlock('this-week-tasks')}>
 					<div className="task-block-header">
 						<h3>Cette semaine</h3>
-						<button className="toggle-button">▶</button>
+						<button
+							className="toggle-button"
+							onClick={(e) => {
+								e.stopPropagation();
+								toggleBlock('this-week-tasks');
+							}}>
+							▶
+						</button>
 					</div>
-					<div className="task-list"></div>
+					<div className="task-list">
+						{displayMidTermTasks && displayMidTermTasks?.length > 0
+							? displayMidTermTasks
+									.filter(
+										(task) =>
+											task.category === 'this-week-tasks'
+									)
+									.map((task, index) => (
+										<TaskItem
+											task={task}
+											openModal={openModal}
+											key={index}
+											setSelectedTask={setSelectedTask}
+										/>
+									))
+							: null}
+					</div>
 				</div>
 			)}
 
@@ -92,13 +118,39 @@ const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 			).length > 0 && (
 				<div
 					id="this-weekend-tasks"
-					className="task-block"
-					onClick={(e) => openModal(e)}>
+					className={`task-block ${
+						expandedBlocks['this-weekend-tasks'] ? 'expanded' : ''
+					}`}
+					onClick={() => toggleBlock('this-weekend-tasks')}>
 					<div className="task-block-header">
 						<h3>Ce Weekend</h3>
-						<button className="toggle-button">▶</button>
+						<button
+							className="toggle-button"
+							onClick={(e) => {
+								e.stopPropagation();
+								toggleBlock('this-weekend-tasks');
+							}}>
+							▶
+						</button>
 					</div>
-					<div className="task-list"></div>
+					<div className="task-list">
+						{displayMidTermTasks && displayMidTermTasks?.length > 0
+							? displayMidTermTasks
+									.filter(
+										(task) =>
+											task.category ===
+											'this-weekend-tasks'
+									)
+									.map((task, index) => (
+										<TaskItem
+											task={task}
+											openModal={openModal}
+											key={index}
+											setSelectedTask={setSelectedTask}
+										/>
+									))
+							: null}
+					</div>
 				</div>
 			)}
 
@@ -107,13 +159,38 @@ const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 			).length > 0 && (
 				<div
 					id="next-week-tasks"
-					className="task-block"
-					onClick={(e) => openModal(e)}>
+					className={`task-block ${
+						expandedBlocks['next-week-tasks'] ? 'expanded' : ''
+					}`}
+					onClick={() => toggleBlock('next-week-tasks')}>
 					<div className="task-block-header">
 						<h3>Semaine prochaine</h3>
-						<button className="toggle-button">▶</button>
+						<button
+							className="toggle-button"
+							onClick={(e) => {
+								e.stopPropagation();
+								toggleBlock('next-week-tasks');
+							}}>
+							▶
+						</button>
 					</div>
-					<div className="task-list"></div>
+					<div className="task-list">
+						{displayMidTermTasks && displayMidTermTasks?.length > 0
+							? displayMidTermTasks
+									.filter(
+										(task) =>
+											task.category === 'next-week-tasks'
+									)
+									.map((task, index) => (
+										<TaskItem
+											task={task}
+											openModal={openModal}
+											key={index}
+											setSelectedTask={setSelectedTask}
+										/>
+									))
+							: null}
+					</div>
 				</div>
 			)}
 
@@ -122,13 +199,39 @@ const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 			).length > 0 && (
 				<div
 					id="next-weekend-tasks"
-					className="task-block"
-					onClick={(e) => openModal(e)}>
+					className={`task-block ${
+						expandedBlocks['next-weekend-tasks'] ? 'expanded' : ''
+					}`}
+					onClick={() => toggleBlock('next-weekend-tasks')}>
 					<div className="task-block-header">
 						<h3>Weekend prochain</h3>
-						<button className="toggle-button">▶</button>
+						<button
+							className="toggle-button"
+							onClick={(e) => {
+								e.stopPropagation();
+								toggleBlock('next-weekend-tasks');
+							}}>
+							▶
+						</button>
 					</div>
-					<div className="task-list"></div>
+					<div className="task-list">
+						{displayMidTermTasks && displayMidTermTasks?.length > 0
+							? displayMidTermTasks
+									.filter(
+										(task) =>
+											task.category ===
+											'next-weekend-tasks'
+									)
+									.map((task, index) => (
+										<TaskItem
+											task={task}
+											openModal={openModal}
+											key={index}
+											setSelectedTask={setSelectedTask}
+										/>
+									))
+							: null}
+					</div>
 				</div>
 			)}
 		</>
