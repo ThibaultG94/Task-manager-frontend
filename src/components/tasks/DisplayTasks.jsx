@@ -15,6 +15,7 @@ import { convertStatus } from '../utils/convertStatus';
 import { convertPriority } from '../utils/convertPriority';
 import TaskItem from './TaskItem';
 import DisplayShortTermTasks from './DisplayShortTermTasks';
+import DisplayMidTermTasks from './DisplayMidTermTasks';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();
@@ -71,49 +72,10 @@ const DisplayTasks = () => {
 				openModal={openModal}
 			/>
 
-			<div
-				id="this-week-tasks"
-				className="task-block"
-				onClick={(e) => openModal(e)}>
-				<div className="task-block-header">
-					<h3>Cette semaine</h3>
-					<button className="toggle-button">▶</button>
-				</div>
-				<div className="task-list"></div>
-			</div>
-
-			<div
-				id="this-weekend-tasks"
-				className="task-block"
-				onClick={(e) => openModal(e)}>
-				<div className="task-block-header">
-					<h3>Ce Weekend</h3>
-					<button className="toggle-button">▶</button>
-				</div>
-				<div className="task-list"></div>
-			</div>
-
-			<div
-				id="next-week-tasks"
-				className="task-block"
-				onClick={(e) => openModal(e)}>
-				<div className="task-block-header">
-					<h3>Semaine prochaine</h3>
-					<button className="toggle-button">▶</button>
-				</div>
-				<div className="task-list"></div>
-			</div>
-
-			<div
-				id="next-weekend-tasks"
-				className="task-block"
-				onClick={(e) => openModal(e)}>
-				<div className="task-block-header">
-					<h3>Weekend prochain</h3>
-					<button className="toggle-button">▶</button>
-				</div>
-				<div className="task-list"></div>
-			</div>
+			<DisplayMidTermTasks
+				setSelectedTask={setSelectedTask}
+				openModal={openModal}
+			/>
 
 			<div
 				id="this-month-tasks"
