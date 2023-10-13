@@ -6,10 +6,10 @@ import CheckAuthentication from '../components/utils/CheckAuthentication';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectHasBeenUpdated } from '../store/selectors/editStateSelectors';
 import getUserId from '../api/getUserId';
-import { useGetUserTasks } from '../api/getUserTasks';
 import { useGetUser } from '../api/getUser';
 import { useGetWorkspaces } from '../api/getWorkspaces';
 import { setHasBeenUpdated } from '../store/feature/editState.slice';
+import { useGetShortTermTasks } from '../api/getShortTermTasks';
 
 const Tasks = () => {
 	const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Tasks = () => {
 	};
 
 	const getUser = useGetUser();
-	const getUserTasks = useGetUserTasks();
+	const getShortTermTasks = useGetShortTermTasks();
 	const getWorkspaces = useGetWorkspaces();
 
 	useEffect(() => {
@@ -34,14 +34,14 @@ const Tasks = () => {
 	useEffect(() => {
 		if (userId !== null) {
 			getUser(userId);
-			getUserTasks(userId);
+			getShortTermTasks(userId);
 			getWorkspaces(userId);
 		}
 	}, [userId]);
 
 	useEffect(() => {
 		if (hasBeenUpdated) {
-			userId !== null && getUserTasks(userId);
+			userId !== null && getShortTermTasks(userId);
 			dispatch(setHasBeenUpdated(false));
 		}
 	}, [hasBeenUpdated]);

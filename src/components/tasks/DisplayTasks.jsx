@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ModalTask from './ModalTask';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTasks } from '../../store/selectors/taskSelectors';
+import { selectShortTermTasks } from '../../store/selectors/taskSelectors';
 import {
 	selectHasEdited,
 	selectIsEditingField,
@@ -10,15 +10,32 @@ import { resetEditState } from '../../store/feature/editState.slice';
 import { formatTaskForEditing } from '../utils/formatTaskForEditing';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
+import { getCategoryDay } from '../utils/getCategoryDay';
+import { convertStatus } from '../utils/convertStatus';
+import { convertPriority } from '../utils/convertPriority';
+import TaskItem from './TaskItem';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();
-	const userTasks = useSelector(selectTasks);
+	const userShortTermTasks = useSelector(selectShortTermTasks);
 	const isEditingField = useSelector(selectIsEditingField);
 	const hasEdited = useSelector(selectHasEdited);
-	const [displayTasks, setDisplayTasks] = useState([]);
+	const [displayShortTermTasks, setDisplayShortTermTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const [expandedBlocks, setExpandedBlocks] = useState({
+		'retard-tasks': true,
+		'today-tasks': true,
+		'tomorrow-tasks': true,
+	});
+
+	const toggleBlock = (blockId) => {
+		setExpandedBlocks({
+			...expandedBlocks,
+			[blockId]: !expandedBlocks[blockId],
+		});
+	};
 
 	const openModal = (e) => {
 		e.stopPropagation();
@@ -52,33 +69,50 @@ const DisplayTasks = () => {
 	};
 
 	useEffect(() => {
-		const updateDisplayTasks = async () => {
+		const updateDisplayShortTermTasks = async () => {
 			const updatedTasks = [];
-			for (let i = 0; i < userTasks.length; i++) {
-				if (userTasks && userTasks[i]) {
+			for (let i = 0; i < userShortTermTasks.length; i++) {
+				if (userShortTermTasks && userShortTermTasks[i]) {
 					const formattedDate = await formatDateForDisplay(
-						userTasks[i].deadline
+						userShortTermTasks[i].deadline
+					);
+					const day = await formatDateForDisplay(
+						userShortTermTasks[i].deadline
+					);
+					const category = await getCategoryDay(
+						day,
+						userShortTermTasks[i].status,
+						userShortTermTasks[i].deadline
+					);
+					const convertedStatus = await convertStatus(
+						userShortTermTasks[i].status
+					);
+					const convertedPriority = await convertPriority(
+						userShortTermTasks[i].priority
 					);
 					updatedTasks.push({
-						title: userTasks[i].title,
+						title: userShortTermTasks[i].title,
 						date: formattedDate,
-						status: userTasks[i].status,
-						priority: userTasks[i].priority,
-						deadline: userTasks[i].deadline,
-						description: userTasks[i].description,
-						comments: userTasks[i].comments,
-						workspace: userTasks[i].workspaceId,
-						assignedTo: userTasks[i].assignedTo,
-						taskId: userTasks[i]._id,
-						isOverdue: formattedDate === 'En retard',
+						status: userShortTermTasks[i].status,
+						convertedStatus: convertedStatus,
+						priority: userShortTermTasks[i].priority,
+						convertedPriority: convertedPriority,
+						deadline: userShortTermTasks[i].deadline,
+						description: userShortTermTasks[i].description,
+						comments: userShortTermTasks[i].comments,
+						workspace: userShortTermTasks[i].workspaceId,
+						assignedTo: userShortTermTasks[i].assignedTo,
+						taskId: userShortTermTasks[i]._id,
+						category: category,
+						day: day,
 					});
 				}
 			}
-			setDisplayTasks(updatedTasks);
+			setDisplayShortTermTasks(updatedTasks);
 		};
 
-		updateDisplayTasks();
-	}, [userTasks]);
+		updateDisplayShortTermTasks();
+	}, [userShortTermTasks]);
 
 	useEffect(() => {
 		const resetEditedTask = async () => {
@@ -94,35 +128,105 @@ const DisplayTasks = () => {
 		<section id="tasks">
 			<div
 				id="retard-tasks"
-				className="task-block"
-				onClick={(e) => openModal(e)}>
+				className={`task-block ${
+					expandedBlocks['retard-tasks'] ? 'expanded' : ''
+				}`}
+				onClick={() => toggleBlock('retard-tasks')}>
 				<div className="task-block-header">
 					<h3>Retard</h3>
-					<button className="toggle-button">▶</button>
+					<button
+						className="toggle-button"
+						onClick={(e) => {
+							e.stopPropagation();
+							toggleBlock('retard-tasks');
+						}}>
+						▶
+					</button>
 				</div>
-				<div className="task-list"></div>
+				<div className="task-list">
+					{displayShortTermTasks && displayShortTermTasks?.length > 0
+						? displayShortTermTasks
+								.filter(
+									(task) => task.category === 'retard-tasks'
+								)
+								.map((task, index) => (
+									<TaskItem
+										task={task}
+										openModal={openModal}
+										key={index}
+										setSelectedTask={setSelectedTask}
+									/>
+								))
+						: null}
+				</div>
 			</div>
 
 			<div
 				id="today-tasks"
-				className="task-block"
-				onClick={(e) => openModal(e)}>
+				className={`task-block ${
+					expandedBlocks['today-tasks'] ? 'expanded' : ''
+				}`}>
 				<div className="task-block-header">
 					<h3>Aujourd'hui</h3>
-					<button className="toggle-button">▶</button>
+					<button
+						className="toggle-button"
+						onClick={(e) => {
+							e.stopPropagation();
+							toggleBlock('today-tasks');
+						}}>
+						▶
+					</button>
 				</div>
-				<div className="task-list"></div>
+				<div className="task-list">
+					{displayShortTermTasks && displayShortTermTasks?.length > 0
+						? displayShortTermTasks
+								.filter(
+									(task) => task.category === 'today-tasks'
+								)
+								.map((task, index) => (
+									<TaskItem
+										task={task}
+										openModal={openModal}
+										key={index}
+										setSelectedTask={setSelectedTask}
+									/>
+								))
+						: null}
+				</div>
 			</div>
 
 			<div
 				id="tomorrow-tasks"
-				className="task-block"
-				onClick={(e) => openModal(e)}>
+				className={`task-block ${
+					expandedBlocks['tomorrow-tasks'] ? 'expanded' : ''
+				}`}>
 				<div className="task-block-header">
 					<h3>Demain</h3>
-					<button className="toggle-button">▶</button>
+					<button
+						className="toggle-button"
+						onClick={(e) => {
+							e.stopPropagation();
+							toggleBlock('tomorrow-tasks');
+						}}>
+						▶
+					</button>
 				</div>
-				<div className="task-list"></div>
+				<div className="task-list">
+					{displayShortTermTasks && displayShortTermTasks?.length > 0
+						? displayShortTermTasks
+								.filter(
+									(task) => task.category === 'tomorrow-tasks'
+								)
+								.map((task, index) => (
+									<TaskItem
+										task={task}
+										openModal={openModal}
+										key={index}
+										setSelectedTask={setSelectedTask}
+									/>
+								))
+						: null}
+				</div>
 			</div>
 
 			<div
