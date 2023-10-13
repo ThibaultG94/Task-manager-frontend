@@ -72,108 +72,126 @@ const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 
 	return (
 		<>
-			<div
-				id="retard-tasks"
-				className={`task-block ${
-					expandedBlocks['retard-tasks'] ? 'expanded' : ''
-				}`}
-				onClick={() => toggleBlock('retard-tasks')}>
-				<div className="task-block-header">
-					<h3>Retard</h3>
-					<button
-						className="toggle-button"
-						onClick={(e) => {
-							e.stopPropagation();
-							toggleBlock('retard-tasks');
-						}}>
-						▶
-					</button>
+			{displayShortTermTasks.filter(
+				(task) => task.category === 'retard-tasks'
+			).length > 0 && (
+				<div
+					id="retard-tasks"
+					className={`task-block ${
+						expandedBlocks['retard-tasks'] ? 'expanded' : ''
+					}`}
+					onClick={() => toggleBlock('retard-tasks')}>
+					<div className="task-block-header">
+						<h3>Retard</h3>
+						<button
+							className="toggle-button"
+							onClick={(e) => {
+								e.stopPropagation();
+								toggleBlock('retard-tasks');
+							}}>
+							▶
+						</button>
+					</div>
+					<div className="task-list">
+						{displayShortTermTasks &&
+						displayShortTermTasks?.length > 0
+							? displayShortTermTasks
+									.filter(
+										(task) =>
+											task.category === 'retard-tasks'
+									)
+									.map((task, index) => (
+										<TaskItem
+											task={task}
+											openModal={openModal}
+											key={index}
+											setSelectedTask={setSelectedTask}
+										/>
+									))
+							: null}
+					</div>
 				</div>
-				<div className="task-list">
-					{displayShortTermTasks && displayShortTermTasks?.length > 0
-						? displayShortTermTasks
-								.filter(
-									(task) => task.category === 'retard-tasks'
-								)
-								.map((task, index) => (
-									<TaskItem
-										task={task}
-										openModal={openModal}
-										key={index}
-										setSelectedTask={setSelectedTask}
-									/>
-								))
-						: null}
-				</div>
-			</div>
+			)}
 
-			<div
-				id="today-tasks"
-				className={`task-block ${
-					expandedBlocks['today-tasks'] ? 'expanded' : ''
-				}`}>
-				<div className="task-block-header">
-					<h3>Aujourd'hui</h3>
-					<button
-						className="toggle-button"
-						onClick={(e) => {
-							e.stopPropagation();
-							toggleBlock('today-tasks');
-						}}>
-						▶
-					</button>
+			{displayShortTermTasks.filter(
+				(task) => task.category === 'today-tasks'
+			).length > 0 && (
+				<div
+					id="today-tasks"
+					className={`task-block ${
+						expandedBlocks['today-tasks'] ? 'expanded' : ''
+					}`}>
+					<div className="task-block-header">
+						<h3>Aujourd'hui</h3>
+						<button
+							className="toggle-button"
+							onClick={(e) => {
+								e.stopPropagation();
+								toggleBlock('today-tasks');
+							}}>
+							▶
+						</button>
+					</div>
+					<div className="task-list">
+						{displayShortTermTasks &&
+						displayShortTermTasks?.length > 0
+							? displayShortTermTasks
+									.filter(
+										(task) =>
+											task.category === 'today-tasks'
+									)
+									.map((task, index) => (
+										<TaskItem
+											task={task}
+											openModal={openModal}
+											key={index}
+											setSelectedTask={setSelectedTask}
+										/>
+									))
+							: null}
+					</div>
 				</div>
-				<div className="task-list">
-					{displayShortTermTasks && displayShortTermTasks?.length > 0
-						? displayShortTermTasks
-								.filter(
-									(task) => task.category === 'today-tasks'
-								)
-								.map((task, index) => (
-									<TaskItem
-										task={task}
-										openModal={openModal}
-										key={index}
-										setSelectedTask={setSelectedTask}
-									/>
-								))
-						: null}
-				</div>
-			</div>
+			)}
 
-			<div
-				id="tomorrow-tasks"
-				className={`task-block ${
-					expandedBlocks['tomorrow-tasks'] ? 'expanded' : ''
-				}`}>
-				<div className="task-block-header">
-					<h3>Demain</h3>
-					<button
-						className="toggle-button"
-						onClick={(e) => {
-							e.stopPropagation();
-							toggleBlock('tomorrow-tasks');
-						}}>
-						▶
-					</button>
+			{displayShortTermTasks.filter(
+				(task) => task.category === 'today-tasks'
+			).length > 0 && (
+				<div
+					id="tomorrow-tasks"
+					className={`task-block ${
+						expandedBlocks['tomorrow-tasks'] ? 'expanded' : ''
+					}`}>
+					<div className="task-block-header">
+						<h3>Demain</h3>
+						<button
+							className="toggle-button"
+							onClick={(e) => {
+								e.stopPropagation();
+								toggleBlock('tomorrow-tasks');
+							}}>
+							▶
+						</button>
+					</div>
+					<div className="task-list">
+						{displayShortTermTasks &&
+						displayShortTermTasks?.length > 0
+							? displayShortTermTasks
+									.filter(
+										(task) =>
+											task.category === 'tomorrow-tasks'
+									)
+									.map((task, index) => (
+										<TaskItem
+											task={task}
+											openModal={openModal}
+											key={index}
+											setSelectedTask={setSelectedTask}
+										/>
+									))
+							: null}
+					</div>
 				</div>
-				<div className="task-list">
-					{displayShortTermTasks && displayShortTermTasks?.length > 0
-						? displayShortTermTasks
-								.filter(
-									(task) => task.category === 'tomorrow-tasks'
-								)
-								.map((task, index) => (
-									<TaskItem
-										task={task}
-										openModal={openModal}
-										key={index}
-										setSelectedTask={setSelectedTask}
-									/>
-								))
-						: null}
-				</div>
-			</div>
+			)}
 		</>
 	);
 };

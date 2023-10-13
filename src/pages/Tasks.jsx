@@ -36,17 +36,21 @@ const Tasks = () => {
 	}, [redirectAfterLogin]);
 
 	useEffect(() => {
-		if (userId !== null) {
-			getUser(userId);
-			const shortTermTasks = getShortTermTasks(userId);
-			if (shortTermTasks.length === 0) {
-				const midTermTasks = getMidTermTasks(userId);
-				if (midTermTasks.length === 0) {
-					getLongTermTasks(userId);
+		const getData = async () => {
+			if (userId !== null) {
+				await getUser(userId);
+				const shortTermTasks = await getShortTermTasks(userId);
+				if (shortTermTasks.length === 0) {
+					const midTermTasks = await getMidTermTasks(userId);
+					if (midTermTasks.length === 0) {
+						await getLongTermTasks(userId);
+					}
 				}
+				getWorkspaces(userId);
 			}
-			getWorkspaces(userId);
-		}
+		};
+
+		getData();
 	}, [userId]);
 
 	useEffect(() => {
