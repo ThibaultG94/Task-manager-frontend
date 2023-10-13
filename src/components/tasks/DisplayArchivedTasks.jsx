@@ -1,0 +1,135 @@
+import React, { useEffect, useState } from 'react';
+import { useGetArchivedTasks } from '../../api/getArchivedTasks';
+import { useSelector } from 'react-redux';
+import { selectArchivedTasks } from '../../store/selectors/taskSelectors';
+import TaskItem from './TaskItem';
+import { formatDateForDisplay } from '../utils/formatDateForDisplay';
+import { getCategoryDay } from '../utils/getCategoryDay';
+import { convertStatus } from '../utils/convertStatus';
+import { convertPriority } from '../utils/convertPriority';
+import getUserId from '../../api/getUserId';
+
+const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
+	const [userId, setUserId] = useState(null);
+	const getArchivedTasks = useGetArchivedTasks();
+	const [isArchivedTasksHasBeenCalled, setIsArchivedTasksHasBeenCalled] =
+		useState(false);
+	const userArchivedTasks = useSelector(selectArchivedTasks);
+	const [displayArchivedTasks, setDisplayArchivedTasks] = useState([]);
+
+	const getId = async () => {
+		const id = await getUserId();
+		setUserId(id);
+	};
+
+	const [expandedBlocks, setExpandedBlocks] = useState({
+		'archived-tasks': false,
+	});
+
+	const checkArchivedTasks = async () => {
+		if (!isArchivedTasksHasBeenCalled) {
+			await getId();
+			setIsArchivedTasksHasBeenCalled(true);
+		}
+	};
+
+	useEffect(() => {
+		if (userId) getArchivedTasks(userId);
+	}, [userId]);
+
+	const toggleBlock = (blockId) => {
+		setExpandedBlocks({
+			...expandedBlocks,
+			[blockId]: !expandedBlocks[blockId],
+		});
+
+		checkArchivedTasks();
+	};
+
+	useEffect(() => {
+		const updateDisplayArchivedTasks = async () => {
+			const updatedTasks = [];
+			for (let i = 0; i < userArchivedTasks.length; i++) {
+				if (userArchivedTasks && userArchivedTasks[i]) {
+					const formattedDate = await formatDateForDisplay(
+						userArchivedTasks[i].deadline
+					);
+					const day = await formatDateForDisplay(
+						userArchivedTasks[i].deadline
+					);
+					const category = await getCategoryDay(
+						day,
+						userArchivedTasks[i].status,
+						userArchivedTasks[i].deadline
+					);
+					const convertedStatus = await convertStatus(
+						userArchivedTasks[i].status
+					);
+					const convertedPriority = await convertPriority(
+						userArchivedTasks[i].priority
+					);
+					updatedTasks.push({
+						title: userArchivedTasks[i].title,
+						date: formattedDate,
+						status: userArchivedTasks[i].status,
+						convertedStatus: convertedStatus,
+						priority: userArchivedTasks[i].priority,
+						convertedPriority: convertedPriority,
+						deadline: userArchivedTasks[i].deadline,
+						description: userArchivedTasks[i].description,
+						comments: userArchivedTasks[i].comments,
+						workspace: userArchivedTasks[i].workspaceId,
+						assignedTo: userArchivedTasks[i].assignedTo,
+						taskId: userArchivedTasks[i]._id,
+						category: category,
+						day: day,
+					});
+				}
+			}
+			setDisplayArchivedTasks(updatedTasks);
+		};
+
+		updateDisplayArchivedTasks();
+	}, [userArchivedTasks]);
+
+	return (
+		<>
+			<div
+				id="archived-tasks"
+				className={`task-block ${
+					expandedBlocks['archived-tasks'] ? 'expanded' : ''
+				}`}
+				onClick={() => toggleBlock('archived-tasks')}>
+				<div className="task-block-header">
+					<h3>Archives</h3>
+					<button
+						className="toggle-button"
+						onClick={(e) => {
+							e.stopPropagation();
+							toggleBlock('archived-tasks');
+						}}>
+						▶
+					</button>
+				</div>
+				<div className="task-list">
+					{displayArchivedTasks && displayArchivedTasks?.length > 0
+						? displayArchivedTasks
+								.filter(
+									(task) => task.category === 'archived-tasks'
+								)
+								.map((task, index) => (
+									<TaskItem
+										task={task}
+										openModal={openModal}
+										key={index}
+										setSelectedTask={setSelectedTask}
+									/>
+								))
+						: null}
+				</div>
+			</div>
+		</>
+	);
+};
+
+export default DisplayArchivedTasks;

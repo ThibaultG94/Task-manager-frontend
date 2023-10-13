@@ -17,6 +17,7 @@ import TaskItem from './TaskItem';
 import DisplayShortTermTasks from './DisplayShortTermTasks';
 import DisplayMidTermTasks from './DisplayMidTermTasks';
 import DisplayLongTermTasks from './DisplayLongTermTasks';
+import DisplayArchivedTasks from './DisplayArchivedTasks';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();
@@ -83,16 +84,10 @@ const DisplayTasks = () => {
 				openModal={openModal}
 			/>
 
-			<div
-				className="task-block"
-				id="archived-tasks"
-				onClick={(e) => openModal(e)}>
-				<div className="task-block-header">
-					<h3>Archives</h3>
-					<button className="toggle-button">▶</button>
-				</div>
-				<div className="task-list"></div>
-			</div>
+			<DisplayArchivedTasks
+				setSelectedTask={setSelectedTask}
+				openModal={openModal}
+			/>
 
 			{isModalOpen && (
 				<ModalTask

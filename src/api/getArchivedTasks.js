@@ -7,7 +7,7 @@ import {
 } from '../store/feature/tasks.slice';
 import axios from 'axios';
 
-export const useGetArchivedTasks = async () => {
+export const useGetArchivedTasks = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -20,6 +20,7 @@ export const useGetArchivedTasks = async () => {
 				withCredentials: true,
 			});
 			dispatch(setArchivedTasksSuccess(res.data.archivedTasks));
+			console.log(res.data.archivedTasks);
 			return res.data.archivedTasks;
 		} catch (error) {
 			dispatch(setArchivedTasksFailed(error));
