@@ -13,8 +13,6 @@ export const useGetUsers = () => {
 					withCredentials: true,
 				}
 			);
-
-			console.log(res.data);
 			return res.data;
 		} catch (error) {
 			const errorCode = error.response ? error.response.status : 500;
