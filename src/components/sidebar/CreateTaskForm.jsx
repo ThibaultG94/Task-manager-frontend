@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetUser } from '../../api/getUser';
+import { useCreateTask } from '../../api/createTask';
 
-const CreateTaskForm = () => {
+const CreateTaskForm = ({ userId }) => {
 	const getUser = useGetUser();
+	const createTask = useCreateTask();
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const [status, setStatus] = useState('Pending');
 	const [priority, setPriority] = useState('Medium');
@@ -34,10 +36,27 @@ const CreateTaskForm = () => {
 		workspaceMembersIds && getMembers();
 	}, [workspaceMembersIds]);
 
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const task = {
+			title: document.getElementById('taskTitle').value,
+			userId,
+			description: document.getElementById('description').value,
+			status,
+			priority,
+			workspaceId: selectedWorkspace,
+			deadline: document.getElementById('deadline').value,
+			assignedTo: selectedMember,
+		};
+
+		await createTask(task);
+	};
+
 	return (
 		<div id="tab-content1" className="p-5 border-t border-[#5a385f]">
 			<h2 className="text-xl mb-2.5 text-center">Nouvelle Tâche</h2>
-			<form id="task-form">
+			<form id="task-form" onSubmit={handleSubmit}>
 				<div className="input-container title-container">
 					<label htmlFor="taskTitle">Nom de la tâche</label>
 					<input

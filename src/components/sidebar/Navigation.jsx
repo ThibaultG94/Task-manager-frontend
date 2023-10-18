@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import CreateTaskAndWorkspace from './CreateTaskAndWorkspace';
 
-const Navigation = () => {
+const Navigation = ({ userId }) => {
 	const [button, setButton] = useState(false);
 
 	return (
@@ -55,7 +55,7 @@ const Navigation = () => {
 				<i className="fas fa-plus-square"></i>
 			</li>
 
-			{button && <CreateTaskAndWorkspace />}
+			{button && <CreateTaskAndWorkspace userId={userId} />}
 		</nav>
 	);
 };
