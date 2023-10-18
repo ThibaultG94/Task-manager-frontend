@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import CreateTaskAndWorkspace from './CreateTaskAndWorkspace';
 
 const Navigation = ({ userId }) => {
-	const [button, setButton] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (
 		<nav className="self-end flex flex-col justify-between h-[30vh]">
@@ -51,11 +51,16 @@ const Navigation = ({ userId }) => {
 			<li
 				id="addWorkspaceOrTaskButton"
 				className="cursor-pointer text-xl"
-				onClick={() => setButton(true)}>
+				onClick={() => setIsModalOpen(true)}>
 				<i className="fas fa-plus-square"></i>
 			</li>
 
-			{button && <CreateTaskAndWorkspace userId={userId} />}
+			{isModalOpen && (
+				<CreateTaskAndWorkspace
+					userId={userId}
+					setIsModalOpen={setIsModalOpen}
+				/>
+			)}
 		</nav>
 	);
 };

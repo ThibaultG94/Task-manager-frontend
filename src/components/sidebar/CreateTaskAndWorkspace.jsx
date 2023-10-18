@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CreateTaskForm from './CreateTaskForm';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
 
-const CreateTaskAndWorkspace = ({ userId }) => {
+const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
 	const [activeTab, setActiveTab] = useState('tab1');
 
 	return (
@@ -50,7 +50,10 @@ const CreateTaskAndWorkspace = ({ userId }) => {
 					</span>
 
 					{activeTab === 'tab1' ? (
-						<CreateTaskForm userId={userId} />
+						<CreateTaskForm
+							userId={userId}
+							setIsModalOpen={setIsModalOpen}
+						/>
 					) : (
 						<CreateWorkspaceForm />
 					)}

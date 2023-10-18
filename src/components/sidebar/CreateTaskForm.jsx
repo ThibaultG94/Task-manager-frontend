@@ -4,7 +4,7 @@ import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetUser } from '../../api/getUser';
 import { useCreateTask } from '../../api/createTask';
 
-const CreateTaskForm = ({ userId }) => {
+const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const getUser = useGetUser();
 	const createTask = useCreateTask();
 	const userWorkspaces = useSelector(selectWorkspaces);
@@ -14,6 +14,7 @@ const CreateTaskForm = ({ userId }) => {
 	const [workspaceMembersIds, setWorkspaceMembersIds] = useState(null);
 	const [workspaceMembers, setWorkspaceMembers] = useState(null);
 	const [selectedMember, setSelectedMember] = useState('default');
+	const [message, setMessage] = useState(null);
 
 	useEffect(() => {
 		if (selectedWorkspace && userWorkspaces) {
@@ -50,7 +51,13 @@ const CreateTaskForm = ({ userId }) => {
 			assignedTo: selectedMember,
 		};
 
-		await createTask(task);
+		try {
+			await createTask(task);
+			setMessage('Tâche créée avec succès !');
+			setTimeout(() => setIsModalOpen(false), 500);
+		} catch (error) {
+			setMessage('Échec de la création de la tâche.');
+		}
 	};
 
 	return (
@@ -157,7 +164,7 @@ const CreateTaskForm = ({ userId }) => {
 				</button>
 			</form>
 
-			<span id="message-after-creating"></span>
+			<span id="message-after-creating">{message}</span>
 		</div>
 	);
 };
