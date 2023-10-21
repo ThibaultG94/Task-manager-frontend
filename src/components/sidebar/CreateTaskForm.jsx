@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetUser } from '../../api/getUser';
 import { useCreateTask } from '../../api/createTask';
+import { setHasBeenUpdated } from '../../store/feature/editState.slice';
 
 const CreateTaskForm = ({ userId, setIsModalOpen }) => {
+	const dispatch = useDispatch();
 	const getUser = useGetUser();
 	const createTask = useCreateTask();
 	const userWorkspaces = useSelector(selectWorkspaces);
@@ -53,6 +55,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 
 		try {
 			await createTask(task);
+			dispatch(setHasBeenUpdated(true));
 			setMessage('Tâche créée avec succès !');
 			setTimeout(() => setIsModalOpen(false), 500);
 		} catch (error) {
