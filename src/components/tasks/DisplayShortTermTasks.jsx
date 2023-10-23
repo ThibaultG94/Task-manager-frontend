@@ -4,6 +4,7 @@ import { selectShortTermTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
+import { sortTasks } from '../utils/sortTasks';
 
 const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 	const userShortTermTasks = useSelector(selectShortTermTasks);
@@ -31,7 +32,8 @@ const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 				workspaces,
 				updatedTasks
 			);
-			setDisplayShortTermTasks(updatedTasks);
+			const sortedTasks = await sortTasks(updatedTasks);
+			setDisplayShortTermTasks(sortedTasks);
 		};
 
 		updateDisplayShortTermTasks();

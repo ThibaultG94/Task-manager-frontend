@@ -6,6 +6,7 @@ import TaskItem from './TaskItem';
 import getUserId from '../../api/getUserId';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { sortTasks } from '../utils/sortTasks';
 
 const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	const [userId, setUserId] = useState(null);
@@ -53,7 +54,8 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 				workspaces,
 				updatedTasks
 			);
-			setDisplayArchivedTasks(updatedTasks);
+			const sortedTasks = await sortTasks(updatedTasks);
+			setDisplayArchivedTasks(sortedTasks);
 		};
 
 		updateDisplayArchivedTasks();

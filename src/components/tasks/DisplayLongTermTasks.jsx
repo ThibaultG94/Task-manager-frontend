@@ -4,6 +4,7 @@ import { selectLongTermTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { sortTasks } from '../utils/sortTasks';
 
 const DisplayLongTermTasks = ({ setSelectedTask, openModal }) => {
 	const userLongTermTasks = useSelector(selectLongTermTasks);
@@ -33,7 +34,8 @@ const DisplayLongTermTasks = ({ setSelectedTask, openModal }) => {
 				workspaces,
 				updatedTasks
 			);
-			setDisplayLongTermTasks(updatedTasks);
+			const sortedTasks = await sortTasks(updatedTasks);
+			setDisplayLongTermTasks(sortedTasks);
 		};
 
 		updateDisplayLongTermTasks();

@@ -39,20 +39,16 @@ export const useCreateTask = () => {
 			const errorCode = error.response ? error.response.status : 500;
 			switch (errorCode) {
 				case 401:
-					// navigate('/');
-					console.log('401');
+					navigate('/');
 					break;
 				case 404:
-					// navigate('/pages/error-404');
-					console.log('404');
+					navigate('/pages/error-404');
 					break;
 				case 500:
-					// navigate('/pages/error-500');
-					console.log('500');
+					navigate('/pages/error-500');
 					break;
 				default:
-					// navigate('/pages/error');
-					console.log('default');
+					navigate('/pages/error');
 					break;
 			}
 		}

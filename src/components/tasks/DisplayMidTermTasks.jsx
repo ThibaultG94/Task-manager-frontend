@@ -4,6 +4,7 @@ import { selectMidTermTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
+import { sortTasks } from '../utils/sortTasks';
 
 const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 	const userMidTermTasks = useSelector(selectMidTermTasks);
@@ -32,7 +33,8 @@ const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 				workspaces,
 				updatedTasks
 			);
-			setDisplayMidTermTasks(updatedTasks);
+			const sortedTasks = await sortTasks(updatedTasks);
+			setDisplayMidTermTasks(sortedTasks);
 		};
 
 		updateDisplayMidTermTasks();
