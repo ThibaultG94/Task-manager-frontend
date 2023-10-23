@@ -89,7 +89,8 @@ const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 					id="today-tasks"
 					className={`task-block ${
 						expandedBlocks['today-tasks'] ? 'expanded' : ''
-					}`}>
+					}`}
+					onClick={() => toggleBlock('today-tasks')}>
 					<div className="task-block-header">
 						<h3>Aujourd'hui</h3>
 						<button
@@ -129,7 +130,8 @@ const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 					id="tomorrow-tasks"
 					className={`task-block ${
 						expandedBlocks['tomorrow-tasks'] ? 'expanded' : ''
-					}`}>
+					}`}
+					onClick={() => toggleBlock('tomorrow-tasks')}>
 					<div className="task-block-header">
 						<h3>Demain</h3>
 						<button
