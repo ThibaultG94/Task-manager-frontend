@@ -19,16 +19,18 @@ const months = [
 const Calendar = () => {
 	const [currentDate, setCurrentDate] = useState(new Date());
 	const [calendarDays, setCalendarDays] = useState([]);
+	const today = new Date().getDate();
+	const currentMonth = new Date().getMonth();
+	const month = currentDate.getMonth();
 
 	const generateDays = (currentDate) => {
-		const month = currentDate.getMonth();
 		const year = currentDate.getFullYear();
 		const firstDayOfThisMonth = new Date(year, month, 1).getDay();
 		const lastDayOfLastMonth = new Date(year, month, 0).getDate();
 		const lastDate = new Date(year, month + 1, 0).getDate();
 
 		const prevMonthDays = Array.from(
-			{ length: firstDayOfThisMonth - 1 },
+			{ length: firstDayOfThisMonth === 0 ? 6 : firstDayOfThisMonth - 1 },
 			(_, i) => ({ date: lastDayOfLastMonth - i, isOtherMonth: true })
 		);
 		const currentMonthDays = Array.from({ length: lastDate }, (_, i) => ({
@@ -71,9 +73,13 @@ const Calendar = () => {
 						<div
 							className={`calendar-day ${
 								day.isOtherMonth ? 'other-month' : ''
-							}`}
+							} `}
 							key={index}>
-							{day.date}
+							{day.date === today && month === currentMonth ? (
+								<div className="today">{day.date}</div>
+							) : (
+								day.date
+							)}
 						</div>
 					))}
 				</div>
