@@ -65,7 +65,10 @@ const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
 							setIsModalOpen={setIsModalOpen}
 						/>
 					) : (
-						<CreateWorkspaceForm />
+						<CreateWorkspaceForm
+							userId={userId}
+							setIsModalOpen={setIsModalOpen}
+						/>
 					)}
 				</div>
 			</div>
