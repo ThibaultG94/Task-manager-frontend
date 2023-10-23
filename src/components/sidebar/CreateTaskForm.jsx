@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetUser } from '../../api/getUser';
 import { useCreateTask } from '../../api/createTask';
-import { setHasBeenUpdated } from '../../store/feature/editState.slice';
+import { useTasksHasBeenUpdated } from '../tasks/TasksHasBeenUpdated';
 
 const CreateTaskForm = ({ userId, setIsModalOpen }) => {
-	const dispatch = useDispatch();
 	const getUser = useGetUser();
 	const createTask = useCreateTask();
+	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const today = new Date();
 	const formattedToday = `${today.getFullYear()}-${String(
 		today.getMonth() + 1
@@ -59,7 +59,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 
 		try {
 			await createTask(task);
-			dispatch(setHasBeenUpdated(true));
+			await tasksHasBeenUpdated(task);
 			setMessage('Tâche créée avec succès !');
 			setTimeout(() => setIsModalOpen(false), 500);
 		} catch (error) {

@@ -4,13 +4,14 @@ import { useDeleteTask } from '../../api/deleteTask';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import {
 	resetEditState,
-	setHasBeenUpdated,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 
 const DeleteTask = ({ setIsModalOpen, setDeleteMessage }) => {
 	const dispatch = useDispatch();
 	const deleteTask = useDeleteTask();
+	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const editedTask = useSelector(selectEditedTask);
 
 	const removeTask = async () => {
@@ -18,7 +19,7 @@ const DeleteTask = ({ setIsModalOpen, setDeleteMessage }) => {
 			await deleteTask(editedTask._id);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
-			dispatch(setHasBeenUpdated(true));
+			await tasksHasBeenUpdated(editedTask, editedTask.category);
 		} catch (error) {
 			setDeleteMessage('Échec de la suppression de la tâche.');
 			console.error('Échec de la suppression de la tâche:', error);

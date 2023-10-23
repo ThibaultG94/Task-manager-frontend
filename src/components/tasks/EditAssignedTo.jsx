@@ -46,9 +46,8 @@ const EditAssignedTo = () => {
 
 	useEffect(() => {
 		const fetchGetMembers = async () => {
-			editedTask && console.log(editedTask);
-			// const workspace = await getWorkspace(editedTask?.workspaceId);
-			// setMembersId(workspace?.members);
+			const workspace = await getWorkspace(editedTask?.workspaceId);
+			setMembersId(workspace?.members);
 		};
 
 		if (editedTask && editedTask?.workspaceId) fetchGetMembers();

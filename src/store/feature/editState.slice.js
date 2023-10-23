@@ -13,6 +13,10 @@ const initialState = {
 	},
 	hasEdited: false,
 	hasBeenUpdated: false,
+	shortTermHasBeenUpdated: false,
+	midTermHasBeenUpdated: false,
+	longTermHasBeenUpdated: false,
+	archivedHasBeenUpdated: false,
 	workspacesHasBeenUpdated: false,
 };
 
@@ -29,6 +33,18 @@ const editStateSlice = createSlice({
 		},
 		setHasBeenUpdated: (state, action) => {
 			state.hasBeenUpdated = action.payload;
+		},
+		setShortTermHasBeenUpdated: (state, action) => {
+			state.shortTermHasBeenUpdated = action.payload;
+		},
+		setMidTermHasBeenUpdated: (state, action) => {
+			state.midTermHasBeenUpdated = action.payload;
+		},
+		setLongTermHasBeenUpdated: (state, action) => {
+			state.longTermHasBeenUpdated = action.payload;
+		},
+		setArchivedHasBeenUpdated: (state, action) => {
+			state.archivedHasBeenUpdated = action.payload;
 		},
 		setWorkspacesHasBeenUpdated: (state, action) => {
 			state.workspacesHasBeenUpdated = action.payload;
@@ -53,6 +69,11 @@ export const {
 	setEditingField,
 	setHasEdited,
 	setHasBeenUpdated,
+	setShortTermHasBeenUpdated,
+	setMidTermHasBeenUpdated,
+	setLongTermHasBeenUpdated,
+	setArchivedHasBeenUpdated,
+	setWorkspacesHasBeenUpdated,
 	resetEditState,
 } = editStateSlice.actions;
 

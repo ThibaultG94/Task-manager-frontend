@@ -3,15 +3,16 @@ import { useEditTask } from '../../api/editTask';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	resetEditState,
-	setHasBeenUpdated,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { selectHasEdited } from '../../store/selectors/editStateSelectors';
+import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 
 const SaveEditedTask = ({ setIsModalOpen, setSaveMessage }) => {
 	const dispatch = useDispatch();
 	const editTask = useEditTask();
+	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const editedTask = useSelector(selectEditedTask);
 	const hasEdited = useSelector(selectHasEdited);
 
@@ -20,7 +21,7 @@ const SaveEditedTask = ({ setIsModalOpen, setSaveMessage }) => {
 			await editTask(editedTask);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
-			dispatch(setHasBeenUpdated(true));
+			await tasksHasBeenUpdated(editedTask, editedTask.category);
 		} catch (error) {
 			setSaveMessage('Échec de la mise à jour de la tâche.');
 			console.error('Échec de la mise à jour de la tâche:', error);

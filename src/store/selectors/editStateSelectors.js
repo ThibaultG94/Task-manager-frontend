@@ -22,6 +22,26 @@ export const selectHasBeenUpdated = createSelector(
 	(editState) => editState.hasBeenUpdated
 );
 
+export const selectShortTermHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.shortTermHasBeenUpdated
+);
+
+export const selectMidTermHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.midTermHasBeenUpdated
+);
+
+export const selectLongTermHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.longTermHasBeenUpdated
+);
+
+export const selectArchivedHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.archivedHasBeenUpdated
+);
+
 export const selectWorkspacesHasBeenUpdated = createSelector(
 	[selectEditState],
 	(editState) => editState.workspacesHasBeenUpdated

@@ -4,18 +4,35 @@ import Header from '../components/header/Header';
 import DisplayTasks from '../components/tasks/DisplayTasks';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectHasBeenUpdated } from '../store/selectors/editStateSelectors';
+import {
+	selectArchivedHasBeenUpdated,
+	selectLongTermHasBeenUpdated,
+	selectMidTermHasBeenUpdated,
+	selectShortTermHasBeenUpdated,
+} from '../store/selectors/editStateSelectors';
 import getUserId from '../api/getUserId';
 import { useGetUser } from '../api/getUser';
 import { useGetWorkspaces } from '../api/getWorkspaces';
-import { setHasBeenUpdated } from '../store/feature/editState.slice';
+import {
+	setArchivedHasBeenUpdated,
+	setHasBeenUpdated,
+	setLongTermHasBeenUpdated,
+	setMidTermHasBeenUpdated,
+	setShortTermHasBeenUpdated,
+} from '../store/feature/editState.slice';
 import { useGetShortTermTasks } from '../api/getShortTermTasks';
 import { useGetMidTermTasks } from '../api/getMidTermTasks';
 import { useGetLongTermTasks } from '../api/getLongTermTasks';
+import { useGetArchivedTasks } from '../api/getArchivedTasks';
 
 const Tasks = () => {
 	const dispatch = useDispatch();
-	const hasBeenUpdated = useSelector(selectHasBeenUpdated);
+	const shortTermHasBeenUpdated = useSelector(selectShortTermHasBeenUpdated);
+	const midTermHasBeenUpdated = useSelector(selectMidTermHasBeenUpdated);
+	const longTermHasBeenUpdated = useSelector(selectLongTermHasBeenUpdated);
+	const archivedTermHasBeenUpdated = useSelector(
+		selectArchivedHasBeenUpdated
+	);
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
 
@@ -29,6 +46,7 @@ const Tasks = () => {
 	const getShortTermTasks = useGetShortTermTasks();
 	const getMidTermTasks = useGetMidTermTasks();
 	const getLongTermTasks = useGetLongTermTasks();
+	const getArchivedTasks = useGetArchivedTasks();
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
@@ -50,11 +68,30 @@ const Tasks = () => {
 	}, [userId]);
 
 	useEffect(() => {
-		if (hasBeenUpdated) {
+		if (shortTermHasBeenUpdated) {
 			userId !== null && getShortTermTasks(userId);
-			dispatch(setHasBeenUpdated(false));
+			dispatch(setShortTermHasBeenUpdated(false));
 		}
-	}, [hasBeenUpdated]);
+	}, [shortTermHasBeenUpdated]);
+
+	useEffect(() => {
+		if (midTermHasBeenUpdated) {
+			userId !== null && getMidTermTasks(userId);
+			dispatch(setMidTermHasBeenUpdated(false));
+		}
+	}, [midTermHasBeenUpdated]);
+	useEffect(() => {
+		if (longTermHasBeenUpdated) {
+			userId !== null && getLongTermTasks(userId);
+			dispatch(setLongTermHasBeenUpdated(false));
+		}
+	}, [longTermHasBeenUpdated]);
+	useEffect(() => {
+		if (archivedTermHasBeenUpdated) {
+			userId !== null && getArchivedTasks(userId);
+			dispatch(setArchivedHasBeenUpdated(false));
+		}
+	}, [archivedTermHasBeenUpdated]);
 
 	return (
 		<div className="flex">
