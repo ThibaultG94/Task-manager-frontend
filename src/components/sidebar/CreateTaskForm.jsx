@@ -9,6 +9,10 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const dispatch = useDispatch();
 	const getUser = useGetUser();
 	const createTask = useCreateTask();
+	const today = new Date();
+	const formattedToday = `${today.getFullYear()}-${String(
+		today.getMonth() + 1
+	).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const [status, setStatus] = useState('Pending');
 	const [priority, setPriority] = useState('Medium');
@@ -156,7 +160,12 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 
 				<div className="input-container deadline-container">
 					<label htmlFor="deadline">Échéance</label>
-					<input type="date" name="deadline" id="deadline" />
+					<input
+						type="date"
+						name="deadline"
+						id="deadline"
+						defaultValue={formattedToday}
+					/>
 				</div>
 
 				<button
