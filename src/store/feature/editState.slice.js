@@ -13,6 +13,7 @@ const initialState = {
 	},
 	hasEdited: false,
 	hasBeenUpdated: false,
+	workspacesHasBeenUpdated: false,
 };
 
 const editStateSlice = createSlice({
@@ -28,6 +29,9 @@ const editStateSlice = createSlice({
 		},
 		setHasBeenUpdated: (state, action) => {
 			state.hasBeenUpdated = action.payload;
+		},
+		setWorkspacesHasBeenUpdated: (state, action) => {
+			state.workspacesHasBeenUpdated = action.payload;
 		},
 		resetEditState: (state) => {
 			state.isEditing = {

@@ -21,3 +21,8 @@ export const selectHasBeenUpdated = createSelector(
 	[selectEditState],
 	(editState) => editState.hasBeenUpdated
 );
+
+export const selectWorkspacesHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.workspacesHasBeenUpdated
+);
