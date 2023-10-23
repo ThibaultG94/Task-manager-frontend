@@ -21,9 +21,9 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			<div className={`task-priority ` + task.convertedPriority}>
 				{task.convertedPriority}
 			</div>
-			<div className="task-workspace">{task.workspace}</div>
+			<div className="task-workspace">{task.workspaceTitle}</div>
 			<div className="task-assigned">
-				<span id="avatarLetterAssigned">{task.assignedTo}</span>
+				<span id="avatarLetterAssigned">{task.assignedToLetter}</span>
 			</div>
 		</div>
 	);

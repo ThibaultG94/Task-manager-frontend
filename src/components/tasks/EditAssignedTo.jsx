@@ -46,17 +46,18 @@ const EditAssignedTo = () => {
 
 	useEffect(() => {
 		const fetchGetMembers = async () => {
-			const workspace = await getWorkspace(editedTask?.workspaceId);
-			setMembersId(workspace.members);
+			editedTask && console.log(editedTask);
+			// const workspace = await getWorkspace(editedTask?.workspaceId);
+			// setMembersId(workspace?.members);
 		};
 
-		if (editedTask?.workspaceId) fetchGetMembers();
+		if (editedTask && editedTask?.workspaceId) fetchGetMembers();
 	}, [editedTask]);
 
 	useEffect(() => {
 		const fetchConvertedMember = async () => {
 			const user = await getUser(editedTask?.assignedTo);
-			setConvertedMember(user.username);
+			setConvertedMember(user?.username);
 		};
 
 		if (editedTask?.assignedTo) fetchConvertedMember();

@@ -121,7 +121,7 @@ const DisplayShortTermTasks = ({ setSelectedTask, openModal }) => {
 			)}
 
 			{displayShortTermTasks.filter(
-				(task) => task.category === 'today-tasks'
+				(task) => task.category === 'tomorrow-tasks'
 			).length > 0 && (
 				<div
 					id="tomorrow-tasks"
