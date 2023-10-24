@@ -5,7 +5,9 @@ import {
 	setHasBeenUpdated,
 	setLongTermHasBeenUpdated,
 	setMidTermHasBeenUpdated,
-	setShortTermHasBeenUpdated,
+	setOverdueTasksHasBeenUpdated,
+	setTodayTasksHasBeenUpdated,
+	setTomorrowTasksHasBeenUpdated,
 } from '../../store/feature/editState.slice';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
 import { getCategoryDay } from '../utils/getCategoryDay';
@@ -17,13 +19,13 @@ export const useTasksHasBeenUpdated = () => {
 	const updateCategory = (category) => {
 		switch (category) {
 			case 'retard-tasks':
-				dispatch(setShortTermHasBeenUpdated(true));
+				dispatch(setOverdueTasksHasBeenUpdated(true));
 				break;
 			case 'today-tasks':
-				dispatch(setShortTermHasBeenUpdated(true));
+				dispatch(setTodayTasksHasBeenUpdated(true));
 				break;
 			case 'tomorrow-tasks':
-				dispatch(setShortTermHasBeenUpdated(true));
+				dispatch(setTomorrowTasksHasBeenUpdated(true));
 				break;
 			case 'this-week-tasks':
 				dispatch(setMidTermHasBeenUpdated(true));

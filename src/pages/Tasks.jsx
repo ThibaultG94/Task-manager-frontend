@@ -8,7 +8,9 @@ import {
 	selectArchivedHasBeenUpdated,
 	selectLongTermHasBeenUpdated,
 	selectMidTermHasBeenUpdated,
-	selectShortTermHasBeenUpdated,
+	selectOverdueTasksHasBeenUpdated,
+	selectTodayTasksHasBeenUpdated,
+	selectTomorrowTasksHasBeenUpdated,
 } from '../store/selectors/editStateSelectors';
 import getUserId from '../api/getUserId';
 import { useGetUser } from '../api/getUser';
@@ -17,16 +19,28 @@ import {
 	setArchivedHasBeenUpdated,
 	setLongTermHasBeenUpdated,
 	setMidTermHasBeenUpdated,
-	setShortTermHasBeenUpdated,
+	setOverdueTasksHasBeenUpdated,
+	setTodayTasksHasBeenUpdated,
+	setTomorrowTasksHasBeenUpdated,
 } from '../store/feature/editState.slice';
-import { useGetShortTermTasks } from '../api/getShortTermTasks';
 import { useGetMidTermTasks } from '../api/getMidTermTasks';
 import { useGetLongTermTasks } from '../api/getLongTermTasks';
 import { useGetArchivedTasks } from '../api/getArchivedTasks';
+import { useGetOverdueTasks } from '../api/getOverdueTasks';
+import { useGetTodayTasks } from '../api/getTodayTasks';
+import { useGetTomorrowTasks } from '../api/getTomorrowTasks';
 
 const Tasks = () => {
 	const dispatch = useDispatch();
-	const shortTermHasBeenUpdated = useSelector(selectShortTermHasBeenUpdated);
+	const overdueTasksHasBeenUpdated = useSelector(
+		selectOverdueTasksHasBeenUpdated
+	);
+	const todayTasksHasBeenUpdated = useSelector(
+		selectTodayTasksHasBeenUpdated
+	);
+	const tomorrowTasksHasBeenUpdated = useSelector(
+		selectTomorrowTasksHasBeenUpdated
+	);
 	const midTermHasBeenUpdated = useSelector(selectMidTermHasBeenUpdated);
 	const longTermHasBeenUpdated = useSelector(selectLongTermHasBeenUpdated);
 	const archivedTermHasBeenUpdated = useSelector(
@@ -42,7 +56,9 @@ const Tasks = () => {
 
 	const getUser = useGetUser();
 	const getWorkspaces = useGetWorkspaces();
-	const getShortTermTasks = useGetShortTermTasks();
+	const getOverdueTasks = useGetOverdueTasks();
+	const getTodayTasks = useGetTodayTasks();
+	const getTomorrowTasks = useGetTomorrowTasks();
 	const getMidTermTasks = useGetMidTermTasks();
 	const getLongTermTasks = useGetLongTermTasks();
 	const getArchivedTasks = useGetArchivedTasks();
@@ -57,7 +73,9 @@ const Tasks = () => {
 			if (userId !== null) {
 				await getUser(userId);
 				await getWorkspaces(userId);
-				await getShortTermTasks(userId);
+				await getOverdueTasks(userId);
+				await getTodayTasks(userId);
+				await getTomorrowTasks(userId);
 				await getMidTermTasks(userId);
 				await getLongTermTasks(userId);
 			}
@@ -67,11 +85,25 @@ const Tasks = () => {
 	}, [userId]);
 
 	useEffect(() => {
-		if (shortTermHasBeenUpdated) {
-			userId !== null && getShortTermTasks(userId);
-			dispatch(setShortTermHasBeenUpdated(false));
+		if (overdueTasksHasBeenUpdated) {
+			userId !== null && getOverdueTasks(userId);
+			dispatch(setOverdueTasksHasBeenUpdated(false));
 		}
-	}, [shortTermHasBeenUpdated]);
+	}, [overdueTasksHasBeenUpdated]);
+
+	useEffect(() => {
+		if (todayTasksHasBeenUpdated) {
+			userId !== null && getTodayTasks(userId);
+			dispatch(setTodayTasksHasBeenUpdated(false));
+		}
+	}, [todayTasksHasBeenUpdated]);
+
+	useEffect(() => {
+		if (tomorrowTasksHasBeenUpdated) {
+			userId !== null && getTomorrowTasks(userId);
+			dispatch(setTomorrowTasksHasBeenUpdated(false));
+		}
+	}, [tomorrowTasksHasBeenUpdated]);
 
 	useEffect(() => {
 		if (midTermHasBeenUpdated) {

@@ -22,6 +22,21 @@ export const selectShortTermTasks = createSelector(
 	(tasks) => tasks.shortTermTasks
 );
 
+export const selectOverdueTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.overdueTasks
+);
+
+export const selectTodayTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.todayTasks
+);
+
+export const selectTomorrowTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.tomorrowTasks
+);
+
 export const selectMidTermTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.midTermTasks

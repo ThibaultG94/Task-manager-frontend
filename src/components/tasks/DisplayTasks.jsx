@@ -12,6 +12,9 @@ import DisplayShortTermTasks from './DisplayShortTermTasks';
 import DisplayMidTermTasks from './DisplayMidTermTasks';
 import DisplayLongTermTasks from './DisplayLongTermTasks';
 import DisplayArchivedTasks from './DisplayArchivedTasks';
+import DisplayOverdueTasks from './DisplayOverdueTasks';
+import DisplayTodayTasks from './DisplayTodayTasks';
+import DisplayTomorrowTasks from './DisplayTomorrowTasks';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();
@@ -63,10 +66,25 @@ const DisplayTasks = () => {
 
 	return (
 		<section id="tasks">
-			<DisplayShortTermTasks
+			<DisplayOverdueTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
 			/>
+
+			<DisplayTodayTasks
+				setSelectedTask={setSelectedTask}
+				openModal={openModal}
+			/>
+
+			<DisplayTomorrowTasks
+				setSelectedTask={setSelectedTask}
+				openModal={openModal}
+			/>
+
+			{/* <DisplayShortTermTasks
+				setSelectedTask={setSelectedTask}
+				openModal={openModal}
+			/> */}
 
 			<DisplayMidTermTasks
 				setSelectedTask={setSelectedTask}

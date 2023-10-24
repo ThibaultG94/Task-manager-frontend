@@ -22,9 +22,19 @@ export const selectHasBeenUpdated = createSelector(
 	(editState) => editState.hasBeenUpdated
 );
 
-export const selectShortTermHasBeenUpdated = createSelector(
+export const selectOverdueTasksHasBeenUpdated = createSelector(
 	[selectEditState],
-	(editState) => editState.shortTermHasBeenUpdated
+	(editState) => editState.overdueTasksHasBeenUpdated
+);
+
+export const selectTodayTasksHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.todayTasksHasBeenUpdated
+);
+
+export const selectTomorrowTasksHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.tomorrowTasksHasBeenUpdated
 );
 
 export const selectMidTermHasBeenUpdated = createSelector(

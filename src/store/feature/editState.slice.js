@@ -13,7 +13,9 @@ const initialState = {
 	},
 	hasEdited: false,
 	hasBeenUpdated: false,
-	shortTermHasBeenUpdated: false,
+	overdueTasksHasBeenUpdated: false,
+	todayTasksHasBeenUpdated: false,
+	tomorrowTasksHasBeenUpdated: false,
 	midTermHasBeenUpdated: false,
 	longTermHasBeenUpdated: false,
 	archivedHasBeenUpdated: false,
@@ -34,8 +36,14 @@ const editStateSlice = createSlice({
 		setHasBeenUpdated: (state, action) => {
 			state.hasBeenUpdated = action.payload;
 		},
-		setShortTermHasBeenUpdated: (state, action) => {
-			state.shortTermHasBeenUpdated = action.payload;
+		setOverdueTasksHasBeenUpdated: (state, action) => {
+			state.overdueTasksHasBeenUpdated = action.payload;
+		},
+		setTodayTasksHasBeenUpdated: (state, action) => {
+			state.todayTasksHasBeenUpdated = action.payload;
+		},
+		setTomorrowTasksHasBeenUpdated: (state, action) => {
+			state.tomorrowTasksHasBeenUpdated = action.payload;
 		},
 		setMidTermHasBeenUpdated: (state, action) => {
 			state.midTermHasBeenUpdated = action.payload;
@@ -69,7 +77,9 @@ export const {
 	setEditingField,
 	setHasEdited,
 	setHasBeenUpdated,
-	setShortTermHasBeenUpdated,
+	setOverdueTasksHasBeenUpdated,
+	setTodayTasksHasBeenUpdated,
+	setTomorrowTasksHasBeenUpdated,
 	setMidTermHasBeenUpdated,
 	setLongTermHasBeenUpdated,
 	setArchivedHasBeenUpdated,

@@ -6,7 +6,9 @@ export const tasksSlice = createSlice({
 		tasks: [],
 		urgentTasks: [],
 		singleTask: null,
-		shortTermTasks: [],
+		overdueTasks: [],
+		todayTasks: [],
+		tomorrowTasks: [],
 		midTermTasks: [],
 		longTermTasks: [],
 		archivedTasks: [],
@@ -51,15 +53,39 @@ export const tasksSlice = createSlice({
 			state.loading = false;
 			state.error = action.payload;
 		},
-		setShortTermTasks: (state) => {
+		setOverdueTasksAction: (state) => {
 			state.loading = true;
 		},
-		setShortTermTasksSuccess: (state, action) => {
+		setOverdueTasksSuccess: (state, action) => {
 			state.loading = false;
-			state.shortTermTasks = action.payload;
+			state.overdueTasks = action.payload;
 			state.error = null;
 		},
-		setShortTermTasksFailed: (state, action) => {
+		setOverdueTasksFailed: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		setTodayTasksAction: (state) => {
+			state.loading = true;
+		},
+		setTodayTasksSuccess: (state, action) => {
+			state.loading = false;
+			state.todayTasks = action.payload;
+			state.error = null;
+		},
+		setTodayTasksFailed: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		setTomorrowTasksAction: (state) => {
+			state.loading = true;
+		},
+		setTomorrowTasksSuccess: (state, action) => {
+			state.loading = false;
+			state.tomorrowTasks = action.payload;
+			state.error = null;
+		},
+		setTomorrowTasksFailed: (state, action) => {
 			state.loading = false;
 			state.error = action.payload;
 		},
@@ -182,9 +208,15 @@ export const {
 	setTask,
 	setTaskSuccess,
 	setTaskFailed,
-	setShortTermTasks,
-	setShortTermTasksSuccess,
-	setShortTermTasksFailed,
+	setOverdueTasksAction,
+	setOverdueTasksSuccess,
+	setOverdueTasksFailed,
+	setTodayTasksAction,
+	setTodayTasksSuccess,
+	setTodayTasksFailed,
+	setTomorrowTasksAction,
+	setTomorrowTasksSuccess,
+	setTomorrowTasksFailed,
 	setMidTermTasks,
 	setMidTermTasksSuccess,
 	setMidTermTasksFailed,
