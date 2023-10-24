@@ -16,6 +16,15 @@ const initialState = {
 	overdueTasksHasBeenUpdated: false,
 	todayTasksHasBeenUpdated: false,
 	tomorrowTasksHasBeenUpdated: false,
+	thisWeekTasksHasBeenUpdated: false,
+	thisWeekendTasksHasBeenUpdated: false,
+	nextWeekTasksHasBeenUpdated: false,
+	nextWeekendTasksHasBeenUpdated: false,
+	thisMonthTasksHasBeenUpdated: false,
+	nextMonthTasksHasBeenUpdated: false,
+	thisYearTasksHasBeenUpdated: false,
+	nextYearTasksHasBeenUpdated: false,
+	becomingTasksHasBeenUpdated: false,
 	midTermHasBeenUpdated: false,
 	longTermHasBeenUpdated: false,
 	archivedHasBeenUpdated: false,
@@ -44,6 +53,33 @@ const editStateSlice = createSlice({
 		},
 		setTomorrowTasksHasBeenUpdated: (state, action) => {
 			state.tomorrowTasksHasBeenUpdated = action.payload;
+		},
+		setThisWeekTasksHasBeenUpdated: (state, action) => {
+			state.thisWeekTasksHasBeenUpdated = action.payload;
+		},
+		setThisWeekendTasksHasBeenUpdated: (state, action) => {
+			state.thisWeekendTasksHasBeenUpdated = action.payload;
+		},
+		setNextWeekTasksHasBeenUpdated: (state, action) => {
+			state.nextWeekTasksHasBeenUpdated = action.payload;
+		},
+		setNextWeekendTasksHasBeenUpdated: (state, action) => {
+			state.nextWeekendTasksHasBeenUpdated = action.payload;
+		},
+		setThisMonthTasksHasBeenUpdated: (state, action) => {
+			state.thisMonthTasksHasBeenUpdated = action.payload;
+		},
+		setNextMonthTasksHasBeenUpdated: (state, action) => {
+			state.nextMonthTasksHasBeenUpdated = action.payload;
+		},
+		setThisYearTasksHasBeenUpdated: (state, action) => {
+			state.thisYearTasksHasBeenUpdated = action.payload;
+		},
+		setNextYearTasksHasBeenUpdated: (state, action) => {
+			state.nextYearTasksHasBeenUpdated = action.payload;
+		},
+		setBecomingTasksHasBeenUpdated: (state, action) => {
+			state.becomingTasksHasBeenUpdated = action.payload;
 		},
 		setMidTermHasBeenUpdated: (state, action) => {
 			state.midTermHasBeenUpdated = action.payload;
@@ -80,6 +116,15 @@ export const {
 	setOverdueTasksHasBeenUpdated,
 	setTodayTasksHasBeenUpdated,
 	setTomorrowTasksHasBeenUpdated,
+	setThisWeekTasksHasBeenUpdated,
+	setThisWeekendTasksHasBeenUpdated,
+	setNextWeekTasksHasBeenUpdated,
+	setNextWeekendTasksHasBeenUpdated,
+	setThisMonthTasksHasBeenUpdated,
+	setNextMonthTasksHasBeenUpdated,
+	setThisYearTasksHasBeenUpdated,
+	setNextYearTasksHasBeenUpdated,
+	setBecomingTasksHasBeenUpdated,
 	setMidTermHasBeenUpdated,
 	setLongTermHasBeenUpdated,
 	setArchivedHasBeenUpdated,
