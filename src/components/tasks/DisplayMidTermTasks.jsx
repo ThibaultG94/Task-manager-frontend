@@ -12,8 +12,6 @@ const DisplayMidTermTasks = ({ setSelectedTask, openModal }) => {
 	const workspaces = useSelector(selectWorkspaces);
 
 	const [expandedBlocks, setExpandedBlocks] = useState({
-		'this-week-tasks': false,
-		'this-weekend-tasks': false,
 		'next-week-tasks': false,
 		'next-weekend-tasks': false,
 	});
