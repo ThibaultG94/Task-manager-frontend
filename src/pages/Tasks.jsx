@@ -57,10 +57,10 @@ const Tasks = () => {
 		const getData = async () => {
 			if (userId !== null) {
 				await getUser(userId);
+				await getWorkspaces(userId);
 				await getShortTermTasks(userId);
 				await getMidTermTasks(userId);
 				await getLongTermTasks(userId);
-				await getWorkspaces(userId);
 			}
 		};
 

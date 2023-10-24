@@ -13,13 +13,13 @@ import { updateEditedTask } from '../../store/feature/tasks.slice';
 const EditWorkspace = () => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
-	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
 	const editedTask = useSelector(selectEditedTask);
-	const inputWorkspaceRef = useRef(null);
+	const userWorkspaces = useSelector(selectWorkspaces);
+	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
 	const [convertedWorkspace, setConvertedWorkspace] = useState('');
+	const inputWorkspaceRef = useRef(null);
 
 	const [workspaces, setWorkspaces] = useState([]);
-	const userWorkspaces = useSelector(selectWorkspaces);
 	const getWorkspace = useGetWorkspace();
 
 	const handleEditWorkspace = (e) => {
@@ -50,7 +50,7 @@ const EditWorkspace = () => {
 			setConvertedWorkspace(workspace?.title);
 		};
 
-		if (editedTask?.workspaceId) fetchConvertedWorkspace();
+		if (editedTask && editedTask?.workspaceId) fetchConvertedWorkspace();
 	}, [editedTask]);
 
 	useEffect(() => {
