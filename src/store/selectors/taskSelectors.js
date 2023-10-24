@@ -7,19 +7,19 @@ export const selectTasks = createSelector(
 	(tasks) => tasks.tasks
 );
 
+export const selectIsTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isTasksLoaded
+);
+
 export const selectUrgentTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.urgentTasks
 );
 
-export const selectSingleTask = createSelector(
+export const selectIsUrgentTasksLoaded = createSelector(
 	[selectTasksState],
-	(tasks) => tasks.singleTask
-);
-
-export const selectShortTermTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.shortTermTasks
+	(tasks) => tasks.isUrgentTasksLoaded
 );
 
 export const selectOverdueTasks = createSelector(
@@ -27,9 +27,19 @@ export const selectOverdueTasks = createSelector(
 	(tasks) => tasks.overdueTasks
 );
 
+export const selectIsOverdueTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isOverdueTasksLoaded
+);
+
 export const selectTodayTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.todayTasks
+);
+
+export const selectIsTodayTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isTodayTasksLoaded
 );
 
 export const selectTomorrowTasks = createSelector(
@@ -37,9 +47,19 @@ export const selectTomorrowTasks = createSelector(
 	(tasks) => tasks.tomorrowTasks
 );
 
+export const selectIsTomorrowTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isTomorrowTasksLoaded
+);
+
 export const selectThisWeekTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.thisWeekTasks
+);
+
+export const selectIsThisWeekTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isThisWeekTasksLoaded
 );
 
 export const selectThisWeekendTasks = createSelector(
@@ -47,9 +67,19 @@ export const selectThisWeekendTasks = createSelector(
 	(tasks) => tasks.thisWeekendTasks
 );
 
+export const selectIsThisWeekendTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isThisWeekendTasksLoaded
+);
+
 export const selectNextWeekTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.nextWeekTasks
+);
+
+export const selectIsNextWeekTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isNextWeekTasksLoaded
 );
 
 export const selectNextWeekendTasks = createSelector(
@@ -57,9 +87,19 @@ export const selectNextWeekendTasks = createSelector(
 	(tasks) => tasks.nextWeekendTasks
 );
 
+export const selectIsNextWeekendTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isNextWeekendTasksLoaded
+);
+
 export const selectThisMonthTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.thisMonthTasks
+);
+
+export const selectIsThisMonthTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isThisMonthTasksLoaded
 );
 
 export const selectNextMonthTasks = createSelector(
@@ -67,9 +107,19 @@ export const selectNextMonthTasks = createSelector(
 	(tasks) => tasks.nextMonthTasks
 );
 
+export const selectIsNextMonthTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isNextMonthTasksLoaded
+);
+
 export const selectThisYearTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.thisYearTasks
+);
+
+export const selectIsThisYearTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isThisYearTasksLoaded
 );
 
 export const selectNextYearTasks = createSelector(
@@ -77,14 +127,29 @@ export const selectNextYearTasks = createSelector(
 	(tasks) => tasks.nextYearTasks
 );
 
+export const selectIsNextYearTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isNextYearTasksLoaded
+);
+
 export const selectBecomingTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.becomingTasks
 );
 
+export const selectIsBecomingTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isBecomingTasksLoaded
+);
+
 export const selectArchivedTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.archivedTasks
+);
+
+export const selectIsArchivedTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isArchivedTasksLoaded
 );
 
 export const selectTasksLoading = createSelector(
