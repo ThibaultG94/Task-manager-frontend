@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useGetArchivedTasks } from '../../api/getArchivedTasks';
 import { useSelector } from 'react-redux';
-import { selectArchivedTasks } from '../../store/selectors/taskSelectors';
+import {
+	selectArchivedTasks,
+	selectIsArchivedTasksLoaded,
+} from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import getUserId from '../../api/getUserId';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
@@ -16,6 +19,7 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	const userArchivedTasks = useSelector(selectArchivedTasks);
 	const [displayArchivedTasks, setDisplayArchivedTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
+	const isArchivedTasksLoaded = useSelector(selectIsArchivedTasksLoaded);
 
 	const getId = async () => {
 		const id = await getUserId();
@@ -34,7 +38,9 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	};
 
 	useEffect(() => {
-		if (userId) getArchivedTasks(userId);
+		if (!isArchivedTasksLoaded) {
+			if (userId) getArchivedTasks(userId);
+		}
 	}, [userId]);
 
 	const toggleBlock = (blockId) => {

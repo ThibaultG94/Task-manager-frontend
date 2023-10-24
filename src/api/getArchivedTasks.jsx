@@ -20,7 +20,6 @@ export const useGetArchivedTasks = () => {
 				withCredentials: true,
 			});
 			dispatch(setArchivedTasksSuccess(res.data.archivedTasks));
-			console.log(res.data.archivedTasks);
 			return res.data.archivedTasks;
 		} catch (error) {
 			dispatch(setArchivedTasksFailed(error));
