@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDebounce } from '../utils/useDebounce';
-import register from '../../api/registerUser';
-import ErrorsApi from '../utils/ErrorsApi';
+import { useRegisterUser } from '../../api/registerUser';
 
 const SignupForm = ({ closeModal, modalRef }) => {
-	const API_URL = process.env.REACT_APP_API_URL;
-	const [errorCode, setErrorCode] = useState(null);
-	const [displayErrors, setDisplayErrors] = useState(false);
+	const registerUser = useRegisterUser();
 
 	const [formData, setFormData] = useState({
 		pseudo: '',
@@ -138,33 +135,16 @@ const SignupForm = ({ closeModal, modalRef }) => {
 			!errors.passwordConfirm
 		) {
 			setIsSubmitting(true);
-			try {
-				await register(
-					API_URL,
-					formData.pseudo,
-					formData.email,
-					formData.password
-				);
-
-				setFormData({
-					pseudo: '',
-					email: '',
-					password: '',
-					passwordConfirm: '',
-				});
-				setProgressBar('');
-				setIsSuccess(true);
-				localStorage.removeItem('signupFormData');
-			} catch (error) {
-				if (error.response) {
-					setErrorCode(error.response.status);
-				} else {
-					setErrorCode(null);
-				}
-				setDisplayErrors(true);
-			} finally {
-				setIsSubmitting(false);
-			}
+			registerUser(formData.pseudo, formData.email, formData.password);
+			setFormData({
+				pseudo: '',
+				email: '',
+				password: '',
+				passwordConfirm: '',
+			});
+			setProgressBar('');
+			setIsSuccess(true);
+			localStorage.removeItem('signupFormData');
 		} else {
 			alert('Veuillez remplir correctement les champs');
 		}
@@ -317,8 +297,6 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							{errors.passwordConfirm}
 						</span>
 					</div>
-
-					{displayErrors && <ErrorsApi errorCode={errorCode} />}
 
 					<button
 						type="submit"
