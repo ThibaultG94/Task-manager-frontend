@@ -50,6 +50,19 @@ import { useGetThisYearTasks } from '../api/getThisYearTasks';
 import { useGetNextYearTasks } from '../api/getNextYearTasks';
 import { useGetBecomingTasks } from '../api/getBecomingTasks';
 import { useGetNextMonthTasks } from '../api/getNextMonthTasks';
+import {
+	selectIsBecomingTasksLoaded,
+	selectIsNextMonthTasksLoaded,
+	selectIsNextWeekTasksLoaded,
+	selectIsNextYearTasksLoaded,
+	selectIsOverdueTasksLoaded,
+	selectIsThisMonthTasksLoaded,
+	selectIsThisWeekTasksLoaded,
+	selectIsThisWeekendTasksLoaded,
+	selectIsThisYearTasksLoaded,
+	selectIsTodayTasksLoaded,
+	selectIsTomorrowTasksLoaded,
+} from '../store/selectors/taskSelectors';
 
 const Tasks = () => {
 	const dispatch = useDispatch();
@@ -92,6 +105,22 @@ const Tasks = () => {
 	const archivedTasksHasBeenUpdated = useSelector(
 		selectArchivedTasksHasBeenUpdated
 	);
+	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);
+	const isTodayTasksLoaded = useSelector(selectIsTodayTasksLoaded);
+	const isTomorrowTasksLoaded = useSelector(selectIsTomorrowTasksLoaded);
+	const isThisWeekTasksLoaded = useSelector(selectIsThisWeekTasksLoaded);
+	const isThisWeekendTasksLoaded = useSelector(
+		selectIsThisWeekendTasksLoaded
+	);
+
+	const isNextWeekTasksLoaded = useSelector(selectIsNextWeekTasksLoaded);
+	const isNextWeekendTasksLoaded = useSelector(selectIsNextWeekTasksLoaded);
+	const isThisMonthTasksLoaded = useSelector(selectIsThisMonthTasksLoaded);
+	const isNextMonthTasksLoaded = useSelector(selectIsNextMonthTasksLoaded);
+	const isThisYearTasksLoaded = useSelector(selectIsThisYearTasksLoaded);
+	const isNextYearTasksLoaded = useSelector(selectIsNextYearTasksLoaded);
+	const isBecomingTasksLoaded = useSelector(selectIsBecomingTasksLoaded);
+
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
 
@@ -126,18 +155,20 @@ const Tasks = () => {
 			if (userId !== null) {
 				await getUser(userId);
 				await getWorkspaces(userId);
-				await getOverdueTasks(userId);
-				await getTodayTasks(userId);
-				await getTomorrowTasks(userId);
-				await getThisWeekTasks(userId);
-				await getThisWeekendTasks(userId);
-				await getNextWeekTasks(userId);
-				await getNextWeekendTasks(userId);
-				await getThisMonthTasks(userId);
-				await getNextMonthTasks(userId);
-				await getThisYearTasks(userId);
-				await getNextYearTasks(userId);
-				await getBecomingTasks(userId);
+				if (!isOverdueTasksLoaded) await getOverdueTasks(userId);
+				if (!isTodayTasksLoaded) await getTodayTasks(userId);
+				if (!isTomorrowTasksLoaded) await getTomorrowTasks(userId);
+				if (!isThisWeekTasksLoaded) await getThisWeekTasks(userId);
+				if (!isThisWeekendTasksLoaded)
+					await getThisWeekendTasks(userId);
+				if (!isNextWeekTasksLoaded) await getNextWeekTasks(userId);
+				if (!isNextWeekendTasksLoaded)
+					await getNextWeekendTasks(userId);
+				if (!isThisMonthTasksLoaded) await getThisMonthTasks(userId);
+				if (!isNextMonthTasksLoaded) await getNextMonthTasks(userId);
+				if (!isThisYearTasksLoaded) await getThisYearTasks(userId);
+				if (!isNextYearTasksLoaded) await getNextYearTasks(userId);
+				if (!isBecomingTasksLoaded) await getBecomingTasks(userId);
 			}
 		};
 
