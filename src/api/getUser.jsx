@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import {
 	setUserData,
 	setUserDataFailed,
 	setUserDataSuccess,
 } from '../store/feature/users.slice';
+import { useErrorApi } from '../components/utils/ErrorApi';
 
 export const useGetUser = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const errorApi = useErrorApi();
 
 	const getUser = async (userId) => {
 		dispatch(setUserData());
@@ -23,21 +23,7 @@ export const useGetUser = () => {
 			return res.data.user;
 		} catch (error) {
 			dispatch(setUserDataFailed(error));
-			const errorCode = error.response ? error.response.status : 500;
-			switch (errorCode) {
-				case 401:
-					navigate('/');
-					break;
-				case 404:
-					navigate('/pages/error-404');
-					break;
-				case 500:
-					navigate('/pages/error-500');
-					break;
-				default:
-					navigate('/pages/error');
-					break;
-			}
+			errorApi(error);
 		}
 	};
 

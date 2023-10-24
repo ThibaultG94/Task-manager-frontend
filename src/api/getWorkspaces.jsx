@@ -1,15 +1,15 @@
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import {
 	setWorkspaces,
 	setWorkspacesFailed,
 	setWorkspacesSuccess,
 } from '../store/feature/workspaces.slice';
 import axios from 'axios';
+import { useErrorApi } from '../components/utils/ErrorApi';
 
 export const useGetWorkspaces = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const errorApi = useErrorApi();
 
 	const getWorkspaces = async (userId) => {
 		dispatch(setWorkspaces());
@@ -26,21 +26,7 @@ export const useGetWorkspaces = () => {
 			dispatch(setWorkspacesSuccess(res.data));
 		} catch (error) {
 			dispatch(setWorkspacesFailed(error));
-			const errorCode = error.response ? error.response.status : 500;
-			switch (errorCode) {
-				case 401:
-					navigate('/');
-					break;
-				case 404:
-					navigate('/pages/error-404');
-					break;
-				case 500:
-					navigate('/pages/error-500');
-					break;
-				default:
-					navigate('/pages/error');
-					break;
-			}
+			errorApi(error);
 		}
 	};
 

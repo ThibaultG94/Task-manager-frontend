@@ -1,15 +1,15 @@
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import {
 	setShortTermTasks,
 	setShortTermTasksFailed,
 	setShortTermTasksSuccess,
 } from '../store/feature/tasks.slice';
 import axios from 'axios';
+import { useErrorApi } from '../components/utils/ErrorApi';
 
 export const useGetShortTermTasks = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const errorApi = useErrorApi();
 
 	const getShortTermTasks = async (userId) => {
 		dispatch(setShortTermTasks());
@@ -26,21 +26,7 @@ export const useGetShortTermTasks = () => {
 			return res.data.shortTermTasks;
 		} catch (error) {
 			dispatch(setShortTermTasksFailed(error));
-			const errorCode = error.response ? error.response.status : 500;
-			switch (errorCode) {
-				case 401:
-					navigate('/');
-					break;
-				case 404:
-					navigate('/pages/error-404');
-					break;
-				case 500:
-					navigate('/pages/error-500');
-					break;
-				default:
-					navigate('/pages/error');
-					break;
-			}
+			errorApi(error);
 		}
 	};
 

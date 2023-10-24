@@ -1,15 +1,15 @@
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import {
 	setArchivedTasks,
 	setArchivedTasksFailed,
 	setArchivedTasksSuccess,
 } from '../store/feature/tasks.slice';
 import axios from 'axios';
+import { useErrorApi } from '../components/utils/ErrorApi';
 
 export const useGetArchivedTasks = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const errorApi = useErrorApi();
 
 	const getArchivedTasks = async (userId) => {
 		dispatch(setArchivedTasks());
@@ -24,21 +24,7 @@ export const useGetArchivedTasks = () => {
 			return res.data.archivedTasks;
 		} catch (error) {
 			dispatch(setArchivedTasksFailed(error));
-			const errorCode = error.response ? error.response.status : 500;
-			switch (errorCode) {
-				case 401:
-					navigate('/');
-					break;
-				case 404:
-					navigate('/pages/error-404');
-					break;
-				case 500:
-					navigate('/pages/error-500');
-					break;
-				default:
-					navigate('/pages/error');
-					break;
-			}
+			errorApi(error);
 		}
 	};
 
