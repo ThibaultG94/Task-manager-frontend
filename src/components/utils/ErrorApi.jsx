@@ -1,24 +1,24 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ErrorApi = ({ errorCode }) => {
+export const useErrorApi = () => {
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		if (errorCode) {
-			switch (errorCode) {
-				case 500:
-					navigate('/pages/error-500');
-					break;
-				case 404:
-					navigate('/pages/error-404');
-					break;
-				default:
-					navigate('/pages/error');
-					break;
-			}
+	const errorApi = (errorCode) => {
+		switch (errorCode) {
+			case 401:
+				navigate('/');
+				break;
+			case 404:
+				navigate('/pages/error-404');
+				break;
+			case 500:
+				navigate('/pages/error-500');
+				break;
+			default:
+				navigate('/pages/error');
+				break;
 		}
-	}, [errorCode]);
-};
+	};
 
-export default ErrorApi;
+	return errorApi;
+};

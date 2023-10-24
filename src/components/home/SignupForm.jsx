@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDebounce } from '../utils/useDebounce';
 import register from '../../api/registerUser';
-import ErrorApi from '../utils/ErrorApi';
+import ErrorsApi from '../utils/ErrorsApi';
 
 const SignupForm = ({ closeModal, modalRef }) => {
 	const API_URL = process.env.REACT_APP_API_URL;
@@ -318,7 +318,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 						</span>
 					</div>
 
-					{displayErrors && <ErrorApi errorCode={errorCode} />}
+					{displayErrors && <ErrorsApi errorCode={errorCode} />}
 
 					<button
 						type="submit"

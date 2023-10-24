@@ -15,7 +15,6 @@ import { useGetUser } from '../api/getUser';
 import { useGetWorkspaces } from '../api/getWorkspaces';
 import {
 	setArchivedHasBeenUpdated,
-	setHasBeenUpdated,
 	setLongTermHasBeenUpdated,
 	setMidTermHasBeenUpdated,
 	setShortTermHasBeenUpdated,

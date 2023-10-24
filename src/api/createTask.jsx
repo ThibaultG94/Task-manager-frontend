@@ -1,15 +1,15 @@
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import {
 	createTaskAction,
 	createTaskFailed,
 	createTaskSuccess,
 } from '../store/feature/tasks.slice';
 import axios from 'axios';
+import { useErrorApi } from '../components/utils/ErrorApi';
 
 export const useCreateTask = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const errorApi = useErrorApi();
 
 	const createTask = async (task) => {
 		dispatch(createTaskAction());
@@ -37,20 +37,7 @@ export const useCreateTask = () => {
 		} catch (error) {
 			dispatch(createTaskFailed(error));
 			const errorCode = error.response ? error.response.status : 500;
-			switch (errorCode) {
-				case 401:
-					navigate('/');
-					break;
-				case 404:
-					navigate('/pages/error-404');
-					break;
-				case 500:
-					navigate('/pages/error-500');
-					break;
-				default:
-					navigate('/pages/error');
-					break;
-			}
+			errorApi(errorCode);
 		}
 	};
 
