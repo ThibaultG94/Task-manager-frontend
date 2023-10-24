@@ -12,8 +12,6 @@ const DisplayLongTermTasks = ({ setSelectedTask, openModal }) => {
 	const workspaces = useSelector(selectWorkspaces);
 
 	const [expandedBlocks, setExpandedBlocks] = useState({
-		'next-month-tasks': false,
-		'this-year-tasks': false,
 		'next-year-tasks': false,
 		'becoming-tasks': false,
 	});
@@ -42,88 +40,6 @@ const DisplayLongTermTasks = ({ setSelectedTask, openModal }) => {
 
 	return (
 		<>
-			{displayLongTermTasks.filter(
-				(task) => task.category === 'next-month-tasks'
-			).length > 0 && (
-				<div
-					id="next-month-tasks"
-					className={`task-block ${
-						expandedBlocks['next-month-tasks'] ? 'expanded' : ''
-					}`}
-					onClick={() => toggleBlock('next-month-tasks')}>
-					<div className="task-block-header">
-						<h3>Mois prochain</h3>
-						<button
-							className="toggle-button"
-							onClick={(e) => {
-								e.stopPropagation();
-								toggleBlock('next-month-tasks');
-							}}>
-							▶
-						</button>
-					</div>
-					<div className="task-list">
-						{displayLongTermTasks &&
-						displayLongTermTasks?.length > 0
-							? displayLongTermTasks
-									.filter(
-										(task) =>
-											task.category === 'next-month-tasks'
-									)
-									.map((task, index) => (
-										<TaskItem
-											task={task}
-											openModal={openModal}
-											key={index}
-											setSelectedTask={setSelectedTask}
-										/>
-									))
-							: null}
-					</div>
-				</div>
-			)}
-
-			{displayLongTermTasks.filter(
-				(task) => task.category === 'this-year-tasks'
-			).length > 0 && (
-				<div
-					id="this-year-tasks"
-					className={`task-block ${
-						expandedBlocks['this-year-tasks'] ? 'expanded' : ''
-					}`}
-					onClick={() => toggleBlock('this-year-tasks')}>
-					<div className="task-block-header">
-						<h3>Cette année</h3>
-						<button
-							className="toggle-button"
-							onClick={(e) => {
-								e.stopPropagation();
-								toggleBlock('this-year-tasks');
-							}}>
-							▶
-						</button>
-					</div>
-					<div className="task-list">
-						{displayLongTermTasks &&
-						displayLongTermTasks?.length > 0
-							? displayLongTermTasks
-									.filter(
-										(task) =>
-											task.category === 'this-year-tasks'
-									)
-									.map((task, index) => (
-										<TaskItem
-											task={task}
-											openModal={openModal}
-											key={index}
-											setSelectedTask={setSelectedTask}
-										/>
-									))
-							: null}
-					</div>
-				</div>
-			)}
-
 			{displayLongTermTasks.filter(
 				(task) => task.category === 'next-year-tasks'
 			).length > 0 && (

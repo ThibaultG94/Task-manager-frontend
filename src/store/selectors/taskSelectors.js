@@ -62,6 +62,11 @@ export const selectThisMonthTasks = createSelector(
 	(tasks) => tasks.thisMonthTasks
 );
 
+export const selectNextMonthTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.nextMonthTasks
+);
+
 export const selectThisYearTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.thisYearTasks

@@ -14,6 +14,7 @@ export const tasksSlice = createSlice({
 		nextWeekTasks: [],
 		nextWeekendTasks: [],
 		thisMonthTasks: [],
+		nextMonthTasks: [],
 		thisYearTasks: [],
 		nextYearTasks: [],
 		becomingTasks: [],
@@ -152,6 +153,18 @@ export const tasksSlice = createSlice({
 			state.error = null;
 		},
 		setThisMonthTasksFailed: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		setNextMonthTasksAction: (state) => {
+			state.loading = true;
+		},
+		setNextMonthTasksSuccess: (state, action) => {
+			state.loading = false;
+			state.nextMonthTasks = action.payload;
+			state.error = null;
+		},
+		setNextMonthTasksFailed: (state, action) => {
 			state.loading = false;
 			state.error = action.payload;
 		},
@@ -310,6 +323,9 @@ export const {
 	setThisMonthTasksAction,
 	setThisMonthTasksSuccess,
 	setThisMonthTasksFailed,
+	setNextMonthTasksAction,
+	setNextMonthTasksSuccess,
+	setNextMonthTasksFailed,
 	setThisYearTasksAction,
 	setThisYearTasksSuccess,
 	setThisYearTasksFailed,

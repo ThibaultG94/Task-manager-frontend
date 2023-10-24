@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectArchivedTasksHasBeenUpdated,
 	selectBecomingTasksHasBeenUpdated,
+	selectNextMonthTasksHasBeenUpdated,
 	selectNextWeekTasksHasBeenUpdated,
 	selectNextWeekendTasksHasBeenUpdated,
 	selectNextYearTasksHasBeenUpdated,
@@ -24,6 +25,7 @@ import { useGetWorkspaces } from '../api/getWorkspaces';
 import {
 	setArchivedTasksHasBeenUpdated,
 	setBecomingTasksHasBeenUpdated,
+	setNextMonthTasksHasBeenUpdated,
 	setNextWeekTasksHasBeenUpdated,
 	setNextWeekendTasksHasBeenUpdated,
 	setNextYearTasksHasBeenUpdated,
@@ -47,6 +49,7 @@ import { useGetThisMonthTasks } from '../api/getThisMonthTasks';
 import { useGetThisYearTasks } from '../api/getThisYearTasks';
 import { useGetNextYearTasks } from '../api/getNextYearTasks';
 import { useGetBecomingTasks } from '../api/getBecomingTasks';
+import { useGetNextMonthTasks } from '../api/getNextMonthTasks';
 
 const Tasks = () => {
 	const dispatch = useDispatch();
@@ -73,6 +76,9 @@ const Tasks = () => {
 	);
 	const thisMonthTasksHasBeenUpdated = useSelector(
 		selectThisMonthTasksHasBeenUpdated
+	);
+	const nextMonthTasksHasBeenUpdated = useSelector(
+		selectNextMonthTasksHasBeenUpdated
 	);
 	const thisYearTasksHasBeenUpdated = useSelector(
 		selectThisYearTasksHasBeenUpdated
@@ -104,6 +110,7 @@ const Tasks = () => {
 	const getNextWeekTasks = useGetNextWeekTasks();
 	const getNextWeekendTasks = useGetNextWeekendTasks();
 	const getThisMonthTasks = useGetThisMonthTasks();
+	const getNextMonthTasks = useGetNextMonthTasks();
 	const getThisYearTasks = useGetThisYearTasks();
 	const getNextYearTasks = useGetNextYearTasks();
 	const getBecomingTasks = useGetBecomingTasks();
@@ -127,6 +134,7 @@ const Tasks = () => {
 				await getNextWeekTasks(userId);
 				await getNextWeekendTasks(userId);
 				await getThisMonthTasks(userId);
+				await getNextMonthTasks(userId);
 				await getThisYearTasks(userId);
 				await getNextYearTasks(userId);
 				await getBecomingTasks(userId);
@@ -191,6 +199,13 @@ const Tasks = () => {
 			dispatch(setThisMonthTasksHasBeenUpdated(false));
 		}
 	}, [thisMonthTasksHasBeenUpdated]);
+
+	useEffect(() => {
+		if (nextMonthTasksHasBeenUpdated) {
+			userId !== null && getNextMonthTasks(userId);
+			dispatch(setNextMonthTasksHasBeenUpdated(false));
+		}
+	}, [nextMonthTasksHasBeenUpdated]);
 
 	useEffect(() => {
 		if (thisYearTasksHasBeenUpdated) {

@@ -17,6 +17,8 @@ import DisplayThisWeekendTasks from './DisplayThisWeekendTasks';
 import DisplayNextWeekTasks from './DisplayNextWeekTasks';
 import DisplayNextWeekendTasks from './DisplayNextWeekendTasks';
 import DisplayThisMonthTasks from './DisplayThisMonthTasks';
+import DisplayNextMonthTasks from './DisplayNextMonthTasks';
+import DisplayThisYearTasks from './DisplayThisYearTasks';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();
@@ -104,6 +106,16 @@ const DisplayTasks = () => {
 			/>
 
 			<DisplayThisMonthTasks
+				setSelectedTask={setSelectedTask}
+				openModal={openModal}
+			/>
+
+			<DisplayNextMonthTasks
+				setSelectedTask={setSelectedTask}
+				openModal={openModal}
+			/>
+
+			<DisplayThisYearTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
 			/>

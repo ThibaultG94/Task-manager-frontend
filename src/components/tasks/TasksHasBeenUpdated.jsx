@@ -4,6 +4,7 @@ import {
 	setArchivedTasksHasBeenUpdated,
 	setBecomingTasksHasBeenUpdated,
 	setHasBeenUpdated,
+	setNextMonthTasksHasBeenUpdated,
 	setNextWeekTasksHasBeenUpdated,
 	setNextWeekendTasksHasBeenUpdated,
 	setNextYearTasksHasBeenUpdated,
@@ -48,9 +49,9 @@ export const useTasksHasBeenUpdated = () => {
 			case 'this-month-tasks':
 				dispatch(setThisMonthTasksHasBeenUpdated(true));
 				break;
-			// case 'next-month-tasks':
-			// 	dispatch(setNextMonthTasksHasBeenUpdated(true));
-			// 	break;
+			case 'next-month-tasks':
+				dispatch(setNextMonthTasksHasBeenUpdated(true));
+				break;
 			case 'this-year-tasks':
 				dispatch(setThisYearTasksHasBeenUpdated(true));
 				break;

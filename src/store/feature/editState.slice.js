@@ -21,6 +21,7 @@ const initialState = {
 	nextWeekTasksHasBeenUpdated: false,
 	nextWeekendTasksHasBeenUpdated: false,
 	thisMonthTasksHasBeenUpdated: false,
+	nextMonthTasksHasBeenUpdated: false,
 	thisYearTasksHasBeenUpdated: false,
 	nextYearTasksHasBeenUpdated: false,
 	becomingTasksHasBeenUpdated: false,
@@ -66,6 +67,9 @@ const editStateSlice = createSlice({
 		setThisMonthTasksHasBeenUpdated: (state, action) => {
 			state.thisMonthTasksHasBeenUpdated = action.payload;
 		},
+		setNextMonthTasksHasBeenUpdated: (state, action) => {
+			state.nextMonthTasksHasBeenUpdated = action.payload;
+		},
 		setThisYearTasksHasBeenUpdated: (state, action) => {
 			state.thisYearTasksHasBeenUpdated = action.payload;
 		},
@@ -109,6 +113,7 @@ export const {
 	setNextWeekTasksHasBeenUpdated,
 	setNextWeekendTasksHasBeenUpdated,
 	setThisMonthTasksHasBeenUpdated,
+	setNextMonthTasksHasBeenUpdated,
 	setThisYearTasksHasBeenUpdated,
 	setNextYearTasksHasBeenUpdated,
 	setBecomingTasksHasBeenUpdated,
