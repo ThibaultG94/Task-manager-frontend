@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import {
-	setTaskFailed,
-	setTaskSuccess,
+	setTasksFailed,
+	setTasksSuccess,
 	setTasksAction,
 } from '../store/feature/tasks.slice';
 import axios from 'axios';
@@ -19,10 +19,10 @@ export const useGetUserTasks = () => {
 			const res = await axios.get(`${API_URL}/task/${userId}/all-tasks`, {
 				withCredentials: true,
 			});
-			dispatch(setTaskSuccess(res.data.userTasks));
+			dispatch(setTasksSuccess(res.data.userTasks));
 			return res.data.userTasks;
 		} catch (error) {
-			dispatch(setTaskFailed(error));
+			dispatch(setTasksFailed(error));
 			errorApi(error);
 		}
 	};

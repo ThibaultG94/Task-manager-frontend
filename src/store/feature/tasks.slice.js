@@ -4,21 +4,35 @@ export const tasksSlice = createSlice({
 	name: 'tasks',
 	initialState: {
 		tasks: [],
+		isTasksLoaded: false,
 		urgentTasks: [],
-		singleTask: null,
+		isUrgentTasksLoaded: false,
 		overdueTasks: [],
+		isOverdueTasksLoaded: false,
 		todayTasks: [],
+		isTodayTasksLoaded: false,
 		tomorrowTasks: [],
+		isTomorrowTasksLoaded: false,
 		thisWeekTasks: [],
+		isThisWeekTasksLoaded: false,
 		thisWeekendTasks: [],
+		isThisWeekendTasksLoaded: false,
 		nextWeekTasks: [],
+		isNextWeekTasksLoaded: false,
 		nextWeekendTasks: [],
+		isNextWeekendTasksLoaded: false,
 		thisMonthTasks: [],
+		isThisMonthTasksLoaded: false,
 		nextMonthTasks: [],
+		isNextMonthTasksLoaded: false,
 		thisYearTasks: [],
+		isThisYearTasksLoaded: false,
 		nextYearTasks: [],
+		isNextYearTasksLoaded: false,
 		becomingTasks: [],
+		isBecomingTasksLoaded: false,
 		archivedTasks: [],
+		isArchivedTasksLoaded: false,
 		editedTask: null,
 		loading: false,
 		error: null,
@@ -30,33 +44,23 @@ export const tasksSlice = createSlice({
 		setTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.tasks = action.payload;
+			state.isTasksLoaded = true;
 			state.error = null;
 		},
 		setTasksFailed: (state, action) => {
 			state.loading = false;
 			state.error = action.payload;
 		},
-		setUrgentTasks: (state) => {
+		setUrgentTasksAction: (state) => {
 			state.loading = true;
 		},
 		setUrgentTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.urgentTasks = action.payload;
+			state.isUrgentTasksLoaded = true;
 			state.error = null;
 		},
 		setUrgentTasksFailed: (state, action) => {
-			state.loading = false;
-			state.error = action.payload;
-		},
-		setTask: (state) => {
-			state.loading = true;
-		},
-		setTaskSuccess: (state, action) => {
-			state.loading = false;
-			state.singleTask = action.payload;
-			state.error = null;
-		},
-		setTaskFailed: (state, action) => {
 			state.loading = false;
 			state.error = action.payload;
 		},
@@ -66,6 +70,7 @@ export const tasksSlice = createSlice({
 		setOverdueTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.overdueTasks = action.payload;
+			state.isOverdueTasksLoaded = true;
 			state.error = null;
 		},
 		setOverdueTasksFailed: (state, action) => {
@@ -78,6 +83,7 @@ export const tasksSlice = createSlice({
 		setTodayTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.todayTasks = action.payload;
+			state.isTodayTasksLoaded = true;
 			state.error = null;
 		},
 		setTodayTasksFailed: (state, action) => {
@@ -90,6 +96,7 @@ export const tasksSlice = createSlice({
 		setTomorrowTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.tomorrowTasks = action.payload;
+			state.isTomorrowTasksLoaded = true;
 			state.error = null;
 		},
 		setTomorrowTasksFailed: (state, action) => {
@@ -102,6 +109,7 @@ export const tasksSlice = createSlice({
 		setThisWeekTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.thisWeekTasks = action.payload;
+			state.isThisWeekTasksLoaded = true;
 			state.error = null;
 		},
 		setThisWeekTasksFailed: (state, action) => {
@@ -114,6 +122,7 @@ export const tasksSlice = createSlice({
 		setThisWeekendTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.thisWeekendTasks = action.payload;
+			state.isThisWeekendTasksLoaded = true;
 			state.error = null;
 		},
 		setThisWeekendTasksFailed: (state, action) => {
@@ -126,6 +135,7 @@ export const tasksSlice = createSlice({
 		setNextWeekTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.nextWeekTasks = action.payload;
+			state.isNextWeekTasksLoaded = true;
 			state.error = null;
 		},
 		setNextWeekTasksFailed: (state, action) => {
@@ -138,6 +148,7 @@ export const tasksSlice = createSlice({
 		setNextWeekendTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.nextWeekendTasks = action.payload;
+			state.isNextWeekendTasksLoaded = true;
 			state.error = null;
 		},
 		setNextWeekendTasksFailed: (state, action) => {
@@ -150,6 +161,7 @@ export const tasksSlice = createSlice({
 		setThisMonthTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.thisMonthTasks = action.payload;
+			state.isThisMonthTasksLoaded = true;
 			state.error = null;
 		},
 		setThisMonthTasksFailed: (state, action) => {
@@ -162,6 +174,7 @@ export const tasksSlice = createSlice({
 		setNextMonthTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.nextMonthTasks = action.payload;
+			state.isNextMonthTasksLoaded = true;
 			state.error = null;
 		},
 		setNextMonthTasksFailed: (state, action) => {
@@ -174,6 +187,7 @@ export const tasksSlice = createSlice({
 		setThisYearTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.thisYearTasks = action.payload;
+			state.isThisYearTasksLoaded = true;
 			state.error = null;
 		},
 		setThisYearTasksFailed: (state, action) => {
@@ -186,6 +200,7 @@ export const tasksSlice = createSlice({
 		setNextYearTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.nextYearTasks = action.payload;
+			state.isNextYearTasksLoaded = true;
 			state.error = null;
 		},
 		setNextYearTasksFailed: (state, action) => {
@@ -198,6 +213,7 @@ export const tasksSlice = createSlice({
 		setBecomingTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.becomingTasks = action.payload;
+			state.isBecomingTasksLoaded = true;
 			state.error = null;
 		},
 		setBecomingTasksFailed: (state, action) => {
@@ -210,6 +226,7 @@ export const tasksSlice = createSlice({
 		setArchivedTasksSuccess: (state, action) => {
 			state.loading = false;
 			state.archivedTasks = action.payload;
+			state.isArchivedTasksLoaded = true;
 			state.error = null;
 		},
 		setArchivedTasksFailed: (state, action) => {
@@ -293,12 +310,9 @@ export const {
 	setTasksAction,
 	setTasksSuccess,
 	setTasksFailed,
-	setUrgentTasks,
+	setUrgentTasksAction,
 	setUrgentTasksSuccess,
 	setUrgentTasksFailed,
-	setTask,
-	setTaskSuccess,
-	setTaskFailed,
 	setOverdueTasksAction,
 	setOverdueTasksSuccess,
 	setOverdueTasksFailed,

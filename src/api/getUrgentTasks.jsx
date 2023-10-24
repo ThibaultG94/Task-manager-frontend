@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import {
-	setUrgentTasks,
+	setUrgentTasksAction,
 	setUrgentTasksFailed,
 	setUrgentTasksSuccess,
 } from '../store/feature/tasks.slice';
@@ -12,7 +12,7 @@ export const useGetUrgentTasks = () => {
 	const errorApi = useErrorApi();
 
 	const getUrgentTasks = async (userId) => {
-		dispatch(setUrgentTasks());
+		dispatch(setUrgentTasksAction());
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
