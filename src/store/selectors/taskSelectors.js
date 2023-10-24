@@ -37,14 +37,44 @@ export const selectTomorrowTasks = createSelector(
 	(tasks) => tasks.tomorrowTasks
 );
 
-export const selectMidTermTasks = createSelector(
+export const selectThisWeekTasks = createSelector(
 	[selectTasksState],
-	(tasks) => tasks.midTermTasks
+	(tasks) => tasks.thisWeekTasks
 );
 
-export const selectLongTermTasks = createSelector(
+export const selectThisWeekendTasks = createSelector(
 	[selectTasksState],
-	(tasks) => tasks.longTermTasks
+	(tasks) => tasks.thisWeekendTasks
+);
+
+export const selectNextWeekTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.nextWeekTasks
+);
+
+export const selectNextWeekendTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.nextWeekendTasks
+);
+
+export const selectThisMonthTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.thisMonthTasks
+);
+
+export const selectThisYearTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.thisYearTasks
+);
+
+export const selectNextYearTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.nextYearTasks
+);
+
+export const selectBecomingTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.becomingTasks
 );
 
 export const selectArchivedTasks = createSelector(

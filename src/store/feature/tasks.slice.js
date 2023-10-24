@@ -9,8 +9,14 @@ export const tasksSlice = createSlice({
 		overdueTasks: [],
 		todayTasks: [],
 		tomorrowTasks: [],
-		midTermTasks: [],
-		longTermTasks: [],
+		thisWeekTasks: [],
+		thisWeekendTasks: [],
+		nextWeekTasks: [],
+		nextWeekendTasks: [],
+		thisMonthTasks: [],
+		thisYearTasks: [],
+		nextYearTasks: [],
+		becomingTasks: [],
 		archivedTasks: [],
 		editedTask: null,
 		loading: false,
@@ -89,31 +95,103 @@ export const tasksSlice = createSlice({
 			state.loading = false;
 			state.error = action.payload;
 		},
-		setMidTermTasks: (state) => {
+		setThisWeekTasksAction: (state) => {
 			state.loading = true;
 		},
-		setMidTermTasksSuccess: (state, action) => {
+		setThisWeekTasksSuccess: (state, action) => {
 			state.loading = false;
-			state.midTermTasks = action.payload;
+			state.thisWeekTasks = action.payload;
 			state.error = null;
 		},
-		setMidTermTasksFailed: (state, action) => {
+		setThisWeekTasksFailed: (state, action) => {
 			state.loading = false;
 			state.error = action.payload;
 		},
-		setLongTermTasks: (state) => {
+		setThisWeekendTasksAction: (state) => {
 			state.loading = true;
 		},
-		setLongTermTasksSuccess: (state, action) => {
+		setThisWeekendTasksSuccess: (state, action) => {
 			state.loading = false;
-			state.longTermTasks = action.payload;
+			state.thisWeekendTasks = action.payload;
 			state.error = null;
 		},
-		setLongTermTasksFailed: (state, action) => {
+		setThisWeekendTasksFailed: (state, action) => {
 			state.loading = false;
 			state.error = action.payload;
 		},
-		setArchivedTasks: (state) => {
+		setNextWeekTasksAction: (state) => {
+			state.loading = true;
+		},
+		setNextWeekTasksSuccess: (state, action) => {
+			state.loading = false;
+			state.nextWeekTasks = action.payload;
+			state.error = null;
+		},
+		setNextWeekTasksFailed: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		setNextWeekendTasksAction: (state) => {
+			state.loading = true;
+		},
+		setNextWeekendTasksSuccess: (state, action) => {
+			state.loading = false;
+			state.nextWeekendTasks = action.payload;
+			state.error = null;
+		},
+		setNextWeekendTasksFailed: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		setThisMonthTasksAction: (state) => {
+			state.loading = true;
+		},
+		setThisMonthTasksSuccess: (state, action) => {
+			state.loading = false;
+			state.thisMonthTasks = action.payload;
+			state.error = null;
+		},
+		setThisMonthTasksFailed: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		setThisYearTasksAction: (state) => {
+			state.loading = true;
+		},
+		setThisYearTasksSuccess: (state, action) => {
+			state.loading = false;
+			state.thisYearTasks = action.payload;
+			state.error = null;
+		},
+		setThisYearTasksFailed: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		setNextYearTasksAction: (state) => {
+			state.loading = true;
+		},
+		setNextYearTasksSuccess: (state, action) => {
+			state.loading = false;
+			state.nextYearTasks = action.payload;
+			state.error = null;
+		},
+		setNextYearTasksFailed: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		setBecomingTasksAction: (state) => {
+			state.loading = true;
+		},
+		setBecomingTasksSuccess: (state, action) => {
+			state.loading = false;
+			state.becomingTasks = action.payload;
+			state.error = null;
+		},
+		setBecomingTasksFailed: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		setArchivedTasksAction: (state) => {
 			state.loading = true;
 		},
 		setArchivedTasksSuccess: (state, action) => {
@@ -217,13 +295,31 @@ export const {
 	setTomorrowTasksAction,
 	setTomorrowTasksSuccess,
 	setTomorrowTasksFailed,
-	setMidTermTasks,
-	setMidTermTasksSuccess,
-	setMidTermTasksFailed,
-	setLongTermTasks,
-	setLongTermTasksSuccess,
-	setLongTermTasksFailed,
-	setArchivedTasks,
+	setThisWeekTasksAction,
+	setThisWeekTasksSuccess,
+	setThisWeekTasksFailed,
+	setThisWeekendTasksAction,
+	setThisWeekendTasksSuccess,
+	setThisWeekendTasksFailed,
+	setNextWeekTasksAction,
+	setNextWeekTasksSuccess,
+	setNextWeekTasksFailed,
+	setNextWeekendTasksAction,
+	setNextWeekendTasksSuccess,
+	setNextWeekendTasksFailed,
+	setThisMonthTasksAction,
+	setThisMonthTasksSuccess,
+	setThisMonthTasksFailed,
+	setThisYearTasksAction,
+	setThisYearTasksSuccess,
+	setThisYearTasksFailed,
+	setNextYearTasksAction,
+	setNextYearTasksSuccess,
+	setNextYearTasksFailed,
+	setBecomingTasksAction,
+	setBecomingTasksSuccess,
+	setBecomingTasksFailed,
+	setArchivedTasksAction,
 	setArchivedTasksSuccess,
 	setArchivedTasksFailed,
 	createTaskAction,

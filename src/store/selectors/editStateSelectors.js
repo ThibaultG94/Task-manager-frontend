@@ -62,11 +62,6 @@ export const selectThisMonthTasksHasBeenUpdated = createSelector(
 	(editState) => editState.thisMonthTasksHasBeenUpdated
 );
 
-export const selectNextMonthTasksHasBeenUpdated = createSelector(
-	[selectEditState],
-	(editState) => editState.nextMonthTasksHasBeenUpdated
-);
-
 export const selectThisYearTasksHasBeenUpdated = createSelector(
 	[selectEditState],
 	(editState) => editState.thisYearTasksHasBeenUpdated
