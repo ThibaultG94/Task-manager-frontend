@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectLongTermTasks } from '../../store/selectors/taskSelectors';
+import { selectNextYearTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { sortTasks } from '../utils/sortTasks';
 
-const DisplayLongTermTasks = ({ setSelectedTask, openModal }) => {
-	const userLongTermTasks = useSelector(selectLongTermTasks);
-	const [displayLongTermTasks, setDisplayLongTermTasks] = useState([]);
+const DisplayNextYearTasks = ({ setSelectedTask, openModal }) => {
+	const userNextYearTasks = useSelector(selectNextYearTasks);
+	const [displayNextYearTasks, setDisplayNextYearTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
 	const [expandedBlocks, setExpandedBlocks] = useState({
 		'next-year-tasks': false,
-		'becoming-tasks': false,
 	});
 
 	const toggleBlock = (blockId) => {
@@ -24,23 +23,23 @@ const DisplayLongTermTasks = ({ setSelectedTask, openModal }) => {
 	};
 
 	useEffect(() => {
-		const updateDisplayLongTermTasks = async () => {
+		const updateDisplayNextYearTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				userLongTermTasks,
+				userNextYearTasks,
 				workspaces,
 				updatedTasks
 			);
 			const sortedTasks = await sortTasks(updatedTasks);
-			setDisplayLongTermTasks(sortedTasks);
+			setDisplayNextYearTasks(sortedTasks);
 		};
 
-		updateDisplayLongTermTasks();
-	}, [userLongTermTasks]);
+		updateDisplayNextYearTasks();
+	}, [userNextYearTasks]);
 
 	return (
 		<>
-			{displayLongTermTasks.filter(
+			{displayNextYearTasks.filter(
 				(task) => task.category === 'next-year-tasks'
 			).length > 0 && (
 				<div
@@ -61,53 +60,12 @@ const DisplayLongTermTasks = ({ setSelectedTask, openModal }) => {
 						</button>
 					</div>
 					<div className="task-list">
-						{displayLongTermTasks &&
-						displayLongTermTasks?.length > 0
-							? displayLongTermTasks
+						{displayNextYearTasks &&
+						displayNextYearTasks?.length > 0
+							? displayNextYearTasks
 									.filter(
 										(task) =>
 											task.category === 'next-year-tasks'
-									)
-									.map((task, index) => (
-										<TaskItem
-											task={task}
-											openModal={openModal}
-											key={index}
-											setSelectedTask={setSelectedTask}
-										/>
-									))
-							: null}
-					</div>
-				</div>
-			)}
-
-			{displayLongTermTasks.filter(
-				(task) => task.category === 'becoming-tasks'
-			).length > 0 && (
-				<div
-					id="becoming-tasks"
-					className={`task-block ${
-						expandedBlocks['becoming-tasks'] ? 'expanded' : ''
-					}`}
-					onClick={() => toggleBlock('becoming-tasks')}>
-					<div className="task-block-header">
-						<h3>Prochaines années</h3>
-						<button
-							className="toggle-button"
-							onClick={(e) => {
-								e.stopPropagation();
-								toggleBlock('becoming-tasks');
-							}}>
-							▶
-						</button>
-					</div>
-					<div className="task-list">
-						{displayLongTermTasks &&
-						displayLongTermTasks?.length > 0
-							? displayLongTermTasks
-									.filter(
-										(task) =>
-											task.category === 'becoming-tasks'
 									)
 									.map((task, index) => (
 										<TaskItem
@@ -125,4 +83,4 @@ const DisplayLongTermTasks = ({ setSelectedTask, openModal }) => {
 	);
 };
 
-export default DisplayLongTermTasks;
+export default DisplayNextYearTasks;
