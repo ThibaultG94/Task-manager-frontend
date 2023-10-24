@@ -36,8 +36,7 @@ export const useCreateTask = () => {
 			return res.data.task;
 		} catch (error) {
 			dispatch(createTaskFailed(error));
-			const errorCode = error.response ? error.response.status : 500;
-			errorApi(errorCode);
+			errorApi(error);
 		}
 	};
 

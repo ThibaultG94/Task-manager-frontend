@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 export const useErrorApi = () => {
 	const navigate = useNavigate();
 
-	const errorApi = (errorCode) => {
+	const errorApi = (error) => {
+		const errorCode = error.response ? error.response.status : 500;
 		switch (errorCode) {
 			case 401:
 				navigate('/');
