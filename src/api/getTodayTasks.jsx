@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useErrorApi } from '../components/utils/ErrorApi';
 import {
-	setArchivedTasksSuccess,
 	setTodayTasksAction,
 	setTodayTasksFailed,
 	setTodayTasksSuccess,

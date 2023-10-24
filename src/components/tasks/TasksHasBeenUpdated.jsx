@@ -1,11 +1,17 @@
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import {
-	setArchivedHasBeenUpdated,
+	setArchivedTasksHasBeenUpdated,
+	setBecomingTasksHasBeenUpdated,
 	setHasBeenUpdated,
-	setLongTermHasBeenUpdated,
-	setMidTermHasBeenUpdated,
+	setNextWeekTasksHasBeenUpdated,
+	setNextWeekendTasksHasBeenUpdated,
+	setNextYearTasksHasBeenUpdated,
 	setOverdueTasksHasBeenUpdated,
+	setThisMonthTasksHasBeenUpdated,
+	setThisWeekTasksHasBeenUpdated,
+	setThisWeekendTasksHasBeenUpdated,
+	setThisYearTasksHasBeenUpdated,
 	setTodayTasksHasBeenUpdated,
 	setTomorrowTasksHasBeenUpdated,
 } from '../../store/feature/editState.slice';
@@ -28,34 +34,34 @@ export const useTasksHasBeenUpdated = () => {
 				dispatch(setTomorrowTasksHasBeenUpdated(true));
 				break;
 			case 'this-week-tasks':
-				dispatch(setMidTermHasBeenUpdated(true));
+				dispatch(setThisWeekTasksHasBeenUpdated(true));
 				break;
 			case 'this-weekend-tasks':
-				dispatch(setMidTermHasBeenUpdated(true));
+				dispatch(setThisWeekendTasksHasBeenUpdated(true));
 				break;
 			case 'next-week-tasks':
-				dispatch(setMidTermHasBeenUpdated(true));
+				dispatch(setNextWeekTasksHasBeenUpdated(true));
 				break;
 			case 'next-weekend-tasks':
-				dispatch(setMidTermHasBeenUpdated(true));
+				dispatch(setNextWeekendTasksHasBeenUpdated(true));
 				break;
 			case 'this-month-tasks':
-				dispatch(setLongTermHasBeenUpdated(true));
+				dispatch(setThisMonthTasksHasBeenUpdated(true));
 				break;
-			case 'next-month-tasks':
-				dispatch(setLongTermHasBeenUpdated(true));
-				break;
+			// case 'next-month-tasks':
+			// 	dispatch(setNextMonthTasksHasBeenUpdated(true));
+			// 	break;
 			case 'this-year-tasks':
-				dispatch(setLongTermHasBeenUpdated(true));
+				dispatch(setThisYearTasksHasBeenUpdated(true));
 				break;
 			case 'next-year-tasks':
-				dispatch(setLongTermHasBeenUpdated(true));
+				dispatch(setNextYearTasksHasBeenUpdated(true));
 				break;
 			case 'becoming-tasks':
-				dispatch(setLongTermHasBeenUpdated(true));
+				dispatch(setBecomingTasksHasBeenUpdated(true));
 				break;
 			case 'archived-tasks':
-				dispatch(setArchivedHasBeenUpdated(true));
+				dispatch(setArchivedTasksHasBeenUpdated(true));
 				break;
 			default:
 				break;

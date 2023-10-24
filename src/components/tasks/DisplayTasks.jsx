@@ -8,9 +8,6 @@ import {
 import { resetEditState } from '../../store/feature/editState.slice';
 import { formatTaskForEditing } from '../utils/formatTaskForEditing';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
-import DisplayShortTermTasks from './DisplayShortTermTasks';
-import DisplayMidTermTasks from './DisplayMidTermTasks';
-import DisplayLongTermTasks from './DisplayLongTermTasks';
 import DisplayArchivedTasks from './DisplayArchivedTasks';
 import DisplayOverdueTasks from './DisplayOverdueTasks';
 import DisplayTodayTasks from './DisplayTodayTasks';
@@ -77,21 +74,6 @@ const DisplayTasks = () => {
 			/>
 
 			<DisplayTomorrowTasks
-				setSelectedTask={setSelectedTask}
-				openModal={openModal}
-			/>
-
-			{/* <DisplayShortTermTasks
-				setSelectedTask={setSelectedTask}
-				openModal={openModal}
-			/> */}
-
-			<DisplayMidTermTasks
-				setSelectedTask={setSelectedTask}
-				openModal={openModal}
-			/>
-
-			<DisplayLongTermTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
 			/>

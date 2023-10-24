@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import {
-	setArchivedTasks,
+	setArchivedTasksAction,
 	setArchivedTasksFailed,
 	setArchivedTasksSuccess,
 } from '../store/feature/tasks.slice';
@@ -12,7 +12,7 @@ export const useGetArchivedTasks = () => {
 	const errorApi = useErrorApi();
 
 	const getArchivedTasks = async (userId) => {
-		dispatch(setArchivedTasks());
+		dispatch(setArchivedTasksAction());
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
