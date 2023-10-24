@@ -37,19 +37,54 @@ export const selectTomorrowTasksHasBeenUpdated = createSelector(
 	(editState) => editState.tomorrowTasksHasBeenUpdated
 );
 
-export const selectMidTermHasBeenUpdated = createSelector(
+export const selectThisWeekTasksHasBeenUpdated = createSelector(
 	[selectEditState],
-	(editState) => editState.midTermHasBeenUpdated
+	(editState) => editState.thisWeekTasksHasBeenUpdated
 );
 
-export const selectLongTermHasBeenUpdated = createSelector(
+export const selectThisWeekendTasksHasBeenUpdated = createSelector(
 	[selectEditState],
-	(editState) => editState.longTermHasBeenUpdated
+	(editState) => editState.thisWeekendTasksHasBeenUpdated
 );
 
-export const selectArchivedHasBeenUpdated = createSelector(
+export const selectNextWeekTasksHasBeenUpdated = createSelector(
 	[selectEditState],
-	(editState) => editState.archivedHasBeenUpdated
+	(editState) => editState.nextWeekTasksHasBeenUpdated
+);
+
+export const selectNextWeekendTasksHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.nextWeekendTasksHasBeenUpdated
+);
+
+export const selectThisMonthTasksHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.thisMonthTasksHasBeenUpdated
+);
+
+export const selectNextMonthTasksHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.nextMonthTasksHasBeenUpdated
+);
+
+export const selectThisYearTasksHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.thisYearTasksHasBeenUpdated
+);
+
+export const selectNextYearTasksHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.nextYearTasksHasBeenUpdated
+);
+
+export const selectBecomingTasksHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.becomingTasksHasBeenUpdated
+);
+
+export const selectArchivedTasksHasBeenUpdated = createSelector(
+	[selectEditState],
+	(editState) => editState.archivedTasksHasBeenUpdated
 );
 
 export const selectWorkspacesHasBeenUpdated = createSelector(

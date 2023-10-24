@@ -25,9 +25,7 @@ const initialState = {
 	thisYearTasksHasBeenUpdated: false,
 	nextYearTasksHasBeenUpdated: false,
 	becomingTasksHasBeenUpdated: false,
-	midTermHasBeenUpdated: false,
-	longTermHasBeenUpdated: false,
-	archivedHasBeenUpdated: false,
+	archivedTasksHasBeenUpdated: false,
 	workspacesHasBeenUpdated: false,
 };
 
@@ -81,14 +79,8 @@ const editStateSlice = createSlice({
 		setBecomingTasksHasBeenUpdated: (state, action) => {
 			state.becomingTasksHasBeenUpdated = action.payload;
 		},
-		setMidTermHasBeenUpdated: (state, action) => {
-			state.midTermHasBeenUpdated = action.payload;
-		},
-		setLongTermHasBeenUpdated: (state, action) => {
-			state.longTermHasBeenUpdated = action.payload;
-		},
-		setArchivedHasBeenUpdated: (state, action) => {
-			state.archivedHasBeenUpdated = action.payload;
+		setArchivedTasksHasBeenUpdated: (state, action) => {
+			state.archivedTasksHasBeenUpdated = action.payload;
 		},
 		setWorkspacesHasBeenUpdated: (state, action) => {
 			state.workspacesHasBeenUpdated = action.payload;
@@ -125,9 +117,7 @@ export const {
 	setThisYearTasksHasBeenUpdated,
 	setNextYearTasksHasBeenUpdated,
 	setBecomingTasksHasBeenUpdated,
-	setMidTermHasBeenUpdated,
-	setLongTermHasBeenUpdated,
-	setArchivedHasBeenUpdated,
+	setArchivedTasksHasBeenUpdated,
 	setWorkspacesHasBeenUpdated,
 	resetEditState,
 } = editStateSlice.actions;
