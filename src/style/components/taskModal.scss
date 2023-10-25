@@ -48,7 +48,7 @@ p:before {
 	font-weight: 900;
 	width: 30px;
 	font-size: 1.3rem;
-	padding-top: 5px;
+	align-self: center;
 }
 
 .task-edit-title {
@@ -114,7 +114,6 @@ p:before {
 
 .title-icon {
 	display: flex;
-	height: 40px;
 }
 
 button {
