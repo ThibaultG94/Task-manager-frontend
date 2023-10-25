@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
-import { sortTasks } from '../utils/sortTasks';
 import { selectTodayTasks } from '../../store/selectors/taskSelectors';
 
 const DisplayTodayTasks = ({ setSelectedTask, openModal }) => {
@@ -26,8 +25,7 @@ const DisplayTodayTasks = ({ setSelectedTask, openModal }) => {
 		const updateDisplayTodayTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(userTodayTasks, workspaces, updatedTasks);
-			const sortedTasks = await sortTasks(updatedTasks);
-			setDisplayTodayTasks(sortedTasks);
+			setDisplayTodayTasks(updatedTasks);
 		};
 
 		updateDisplayTodayTasks();

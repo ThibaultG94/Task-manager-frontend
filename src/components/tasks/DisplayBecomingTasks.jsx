@@ -4,7 +4,6 @@ import { selectBecomingTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { sortTasks } from '../utils/sortTasks';
 
 const DisplayBecomingTasks = ({ setSelectedTask, openModal }) => {
 	const userBecomingTasks = useSelector(selectBecomingTasks);
@@ -30,8 +29,7 @@ const DisplayBecomingTasks = ({ setSelectedTask, openModal }) => {
 				workspaces,
 				updatedTasks
 			);
-			const sortedTasks = await sortTasks(updatedTasks);
-			setDisplayBecomingTasks(sortedTasks);
+			setDisplayBecomingTasks(updatedTasks);
 		};
 
 		updateDisplayBecomingTasks();

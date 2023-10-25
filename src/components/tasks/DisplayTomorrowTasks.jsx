@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
-import { sortTasks } from '../utils/sortTasks';
 import { selectTomorrowTasks } from '../../store/selectors/taskSelectors';
 
 const DisplayTomorrowTasks = ({ setSelectedTask, openModal }) => {
@@ -30,8 +29,7 @@ const DisplayTomorrowTasks = ({ setSelectedTask, openModal }) => {
 				workspaces,
 				updatedTasks
 			);
-			const sortedTasks = await sortTasks(updatedTasks);
-			setDisplayTomorrowTasks(sortedTasks);
+			setDisplayTomorrowTasks(updatedTasks);
 		};
 
 		updateDisplayTomorrowTasks();

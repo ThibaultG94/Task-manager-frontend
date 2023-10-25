@@ -4,7 +4,6 @@ import { selectNextYearTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { sortTasks } from '../utils/sortTasks';
 
 const DisplayNextYearTasks = ({ setSelectedTask, openModal }) => {
 	const userNextYearTasks = useSelector(selectNextYearTasks);
@@ -30,8 +29,7 @@ const DisplayNextYearTasks = ({ setSelectedTask, openModal }) => {
 				workspaces,
 				updatedTasks
 			);
-			const sortedTasks = await sortTasks(updatedTasks);
-			setDisplayNextYearTasks(sortedTasks);
+			setDisplayNextYearTasks(updatedTasks);
 		};
 
 		updateDisplayNextYearTasks();

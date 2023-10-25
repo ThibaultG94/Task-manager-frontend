@@ -4,7 +4,6 @@ import { selectThisMonthTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { sortTasks } from '../utils/sortTasks';
 
 const DisplayThisMonthTasks = ({ setSelectedTask, openModal }) => {
 	const userThisMonthTasks = useSelector(selectThisMonthTasks);
@@ -30,8 +29,7 @@ const DisplayThisMonthTasks = ({ setSelectedTask, openModal }) => {
 				workspaces,
 				updatedTasks
 			);
-			const sortedTasks = await sortTasks(updatedTasks);
-			setDisplayThisMonthTasks(sortedTasks);
+			setDisplayThisMonthTasks(updatedTasks);
 		};
 
 		updateDisplayThisMonthTasks();
