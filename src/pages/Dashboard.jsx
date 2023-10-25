@@ -17,6 +17,7 @@ import {
 	selectWorkspacesHasBeenUpdated,
 } from '../store/selectors/editStateSelectors';
 import { setHasBeenUpdated } from '../store/feature/editState.slice';
+import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
 
 const Dashboard = () => {
 	const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const Dashboard = () => {
 	);
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
+	useUpdateTasksInStore();
 
 	const getId = async () => {
 		const id = await getUserId();

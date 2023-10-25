@@ -10,6 +10,7 @@ import {
 import { resetEditState } from '../../store/feature/editState.slice';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { formatTaskForEditing } from '../utils/formatTaskForEditing';
+import { getCategoryDay } from '../utils/getCategoryDay';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();
@@ -59,6 +60,14 @@ const UrgentTasks = () => {
 					const formattedDate = await formatDateForDisplay(
 						urgentTasks[i].deadline
 					);
+					const day = await formatDateForDisplay(
+						urgentTasks[i].deadline
+					);
+					const category = await getCategoryDay(
+						day,
+						urgentTasks[i].status,
+						urgentTasks[i].deadline
+					);
 					updatedTasks.push({
 						title: urgentTasks[i].title,
 						date: formattedDate,
@@ -71,6 +80,7 @@ const UrgentTasks = () => {
 						assignedTo: urgentTasks[i].assignedTo,
 						taskId: urgentTasks[i]._id,
 						isOverdue: formattedDate === 'En retard',
+						category: category,
 					});
 				}
 			}

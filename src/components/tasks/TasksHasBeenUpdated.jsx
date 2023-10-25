@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import {
 	setArchivedTasksHasBeenUpdated,
 	setBecomingTasksHasBeenUpdated,
@@ -21,7 +20,6 @@ import { getCategoryDay } from '../utils/getCategoryDay';
 
 export const useTasksHasBeenUpdated = () => {
 	const dispatch = useDispatch();
-	const location = useLocation();
 
 	const updateCategory = (category) => {
 		switch (category) {
@@ -73,16 +71,14 @@ export const useTasksHasBeenUpdated = () => {
 		const day = await formatDateForDisplay(task.deadline);
 		const category = await getCategoryDay(day, task.status, task.deadline);
 
-		if (location.pathname === '/pages/tasks') {
-			if (oldCategory !== category) {
-				updateCategory(oldCategory);
-				updateCategory(category);
-			} else {
-				updateCategory(category);
-			}
+		if (oldCategory !== category) {
+			updateCategory(oldCategory);
+			updateCategory(category);
 		} else {
-			dispatch(setHasBeenUpdated(true));
+			updateCategory(category);
 		}
+
+		dispatch(setHasBeenUpdated(true));
 	};
 
 	return tasksHasBeenUpdated;
