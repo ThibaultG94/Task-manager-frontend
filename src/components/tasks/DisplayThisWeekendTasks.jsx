@@ -39,9 +39,7 @@ const DisplayThisWeekendTasks = ({ setSelectedTask, openModal }) => {
 
 	return (
 		<>
-			{displayThisWeekendTasks.filter(
-				(task) => task.category === 'this-weekend-tasks'
-			).length > 0 && (
+			{userThisWeekendTasks.length > 0 && (
 				<div
 					id="this-weekend-tasks"
 					className={`task-block ${

@@ -39,9 +39,7 @@ const DisplayThisYearTasks = ({ setSelectedTask, openModal }) => {
 
 	return (
 		<>
-			{displayThisYearTasks.filter(
-				(task) => task.category === 'this-year-tasks'
-			).length > 0 && (
+			{userThisYearTasks.length > 0 && (
 				<div
 					id="this-year-tasks"
 					className={`task-block ${

@@ -40,9 +40,7 @@ const DisplayNextWeekTasks = ({ setSelectedTask, openModal }) => {
 
 	return (
 		<>
-			{displayNextWeekTasks.filter(
-				(task) => task.category === 'next-week-tasks'
-			).length > 0 && (
+			{userNextWeekTasks.length > 0 && (
 				<div
 					id="next-week-tasks"
 					className={`task-block ${

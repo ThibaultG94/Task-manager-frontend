@@ -39,9 +39,7 @@ const DisplayOverdueTasks = ({ setSelectedTask, openModal }) => {
 
 	return (
 		<>
-			{displayOverdueTasks.filter(
-				(task) => task.category === 'retard-tasks'
-			).length > 0 && (
+			{userOverdueTasks.length > 0 && (
 				<div
 					id="retard-tasks"
 					className={`task-block ${

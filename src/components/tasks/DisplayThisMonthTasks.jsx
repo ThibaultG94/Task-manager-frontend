@@ -39,9 +39,7 @@ const DisplayThisMonthTasks = ({ setSelectedTask, openModal }) => {
 
 	return (
 		<>
-			{displayThisMonthTasks.filter(
-				(task) => task.category === 'this-month-tasks'
-			).length > 0 && (
+			{userThisMonthTasks.length > 0 && (
 				<div
 					id="this-month-tasks"
 					className={`task-block ${

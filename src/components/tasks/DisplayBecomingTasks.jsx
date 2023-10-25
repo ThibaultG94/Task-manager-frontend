@@ -39,9 +39,7 @@ const DisplayBecomingTasks = ({ setSelectedTask, openModal }) => {
 
 	return (
 		<>
-			{displayBecomingTasks.filter(
-				(task) => task.category === 'becoming-tasks'
-			).length > 0 && (
+			{userBecomingTasks.length > 0 && (
 				<div
 					id="becoming-tasks"
 					className={`task-block ${

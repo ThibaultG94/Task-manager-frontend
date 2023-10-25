@@ -39,9 +39,7 @@ const DisplayTomorrowTasks = ({ setSelectedTask, openModal }) => {
 
 	return (
 		<>
-			{displayTomorrowTasks.filter(
-				(task) => task.category === 'tomorrow-tasks'
-			).length > 0 && (
+			{userTomorrowTasks.length > 0 && (
 				<div
 					id="tomorrow-tasks"
 					className={`task-block ${
