@@ -75,7 +75,7 @@ const Calendar = () => {
 								day.isOtherMonth ? 'other-month' : ''
 							} `}
 							key={index}>
-							{day.date === today && month === currentMonth ? (
+							{day.date === today && !day.isOtherMonth ? (
 								<div className="today">{day.date}</div>
 							) : (
 								day.date
