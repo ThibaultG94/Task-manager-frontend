@@ -1,4 +1,5 @@
 import React from 'react';
+import { inverseDateFormat } from '../utils/inverseDateFormat';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	return (
@@ -13,7 +14,9 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 				{task.title}
 			</div>
 			<div className={`task-day ` + task.category}>
-				{task.status === 'Archived' ? task.deadline : task.day}
+				{task.status === 'Archived'
+					? inverseDateFormat(task.deadline)
+					: task.day}
 			</div>
 			<div className={`task-status ` + task.convertedStatus}>
 				{task.convertedStatus}
