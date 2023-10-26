@@ -15,7 +15,7 @@ const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
 			className="modal bg-[rgba(0,0,0,0.8)] transition-all ease-in-out duration-300 text-black"
 			onClick={closeModal}>
 			<div
-				className="modal-content rounded-lg bg-white shadow-md min-w-[400px] px-5"
+				className="bg-gray-100 mx-auto my-[2%] border border-gray-400 w-[60%] max-w-[800px] flex flex-col text-right px-5 rounded-lg shadow-md min-w-[400px]"
 				onClick={(e) => e.stopPropagation()}>
 				<div className="tabs">
 					<input

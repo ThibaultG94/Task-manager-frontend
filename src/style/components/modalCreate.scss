@@ -38,9 +38,22 @@ select:focus {
 	box-shadow: 0 0 5px rgba(90, 56, 95, 0.2);
 }
 
-.input-container {
+.text-container {
 	display: flex;
 	flex-direction: column;
 	width: 80%;
 	margin: 0 auto;
+}
+
+.status-priority {
+	display: flex;
+	width: 80%;
+	margin: 0 auto 10px;
+}
+
+.input-container {
+	width: 80%;
+	margin: 0 auto;
+	text-align: left;
+	margin-bottom: 10px;
 }

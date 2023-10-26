@@ -21,6 +21,9 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const [workspaceMembers, setWorkspaceMembers] = useState(null);
 	const [selectedMember, setSelectedMember] = useState('default');
 	const [message, setMessage] = useState(null);
+	const [taskTitle, setTaskTitle] = useState(null);
+	const [taskDescription, setTaskDescription] = useState(null);
+	const [taskDeadline, setTaskDeadline] = useState(null);
 
 	useEffect(() => {
 		if (selectedWorkspace && userWorkspaces) {
@@ -47,13 +50,13 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 		e.preventDefault();
 
 		const task = {
-			title: document.getElementById('taskTitle').value,
+			title: taskTitle,
 			userId,
-			description: document.getElementById('description').value,
+			description: taskDescription,
 			status,
 			priority,
 			workspaceId: selectedWorkspace,
-			deadline: document.getElementById('deadline').value,
+			deadline: taskDeadline,
 			assignedTo: selectedMember,
 		};
 
@@ -69,108 +72,165 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<div id="tab-content1" className="p-5 border-t border-[#5a385f]">
-			<h2 className="text-xl mb-2.5 text-center">Nouvelle Tâche</h2>
-			<form id="task-form" onSubmit={handleSubmit}>
-				<div className="input-container title-container">
-					<label htmlFor="taskTitle">Nom de la tâche</label>
-					<input
-						type="text"
-						name="taskTitle"
-						id="taskTitle"
-						required
-					/>
-				</div>
+			<h2 className="text-2xl mb-2.5 text-center font-light">
+				Nouvelle Tâche
+			</h2>
+			<form
+				id="task-form"
+				className="w-4/5 mx-auto my-0 flex flex-col"
+				onSubmit={handleSubmit}>
+				<div className="flex flex-row mb-4">
+					<div className="flex flex-col w-1/2 pr-2">
+						<div className="mb-4">
+							<input
+								value={taskTitle}
+								onChange={(e) => setTaskTitle(e.target.value)}
+								type="text"
+								name="taskTitle"
+								placeholder="Nom de la tâche"
+								required
+								className="placeholder-gray-500 w-full p-2 border border-gray-300 rounded"
+							/>
+						</div>
+						<div className="flex flex-row mb-4">
+							<div className="relative w-1/2">
+								<select
+									name="status"
+									value={status}
+									className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+									onChange={(e) => setStatus(e.target.value)}>
+									<option value="default" disabled>
+										Status
+									</option>
+									<option value="Pending">À faire</option>
+									<option value="In Progress">
+										En cours
+									</option>
+									<option value="Completed">Terminé</option>
+									<option value="Archived">Archivé</option>
+								</select>
+								<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+									<svg
+										className="fill-current h-4 w-4"
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20">
+										<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+									</svg>
+								</div>
+							</div>
 
-				<div className="input-container description-container">
-					<label htmlFor="description">Description</label>
-					<textarea
-						name="description"
-						id="description"
-						cols="30"
-						rows="5"></textarea>
+							<div className="relative w-1/2 pl-2">
+								<select
+									name="priority"
+									value={priority}
+									className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+									onChange={(e) =>
+										setPriority(e.target.value)
+									}>
+									<option value="default" disabled>
+										Priorité
+									</option>
+									<option value="Low">Faible</option>
+									<option value="Medium">Moyenne</option>
+									<option value="High">Haute</option>
+									<option value="Urgent">Urgent</option>
+								</select>
+								<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+									<svg
+										className="fill-current h-4 w-4"
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20">
+										<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+									</svg>
+								</div>
+							</div>
+						</div>
+						<div className="mb-4">
+							<input
+								value={taskDeadline}
+								onChange={(e) =>
+									setTaskDeadline(e.target.value)
+								}
+								type="date"
+								name="deadline"
+								placeholder="Date d'échéance"
+								defaultValue={formattedToday}
+								className="w-full p-2 border border-gray-300 rounded"
+							/>
+						</div>
+					</div>
+					<div className="w-1/2 pl-2 flex flex-col justify-between">
+						<textarea
+							value={taskDescription}
+							onChange={(e) => setTaskDescription(e.target.value)}
+							name="description"
+							className="w-full p-2 border border-gray-300 rounded resize-none"
+							placeholder="Description de la tâche"
+							cols="30"
+							rows="5"></textarea>
+					</div>
 				</div>
+				<div className="flex flex-row mb-4">
+					<div className="relative w-1/2 mr-2">
+						<select
+							name="workspaceId"
+							value={selectedWorkspace}
+							className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+							onChange={(e) =>
+								setSelectedWorkspace(e.target.value)
+							}>
+							<option value="default" disabled>
+								Sélectionnez un workspace
+							</option>
+							{userWorkspaces &&
+								userWorkspaces.map((workspace) => (
+									<option
+										key={workspace._id}
+										value={workspace._id}>
+										{workspace.title}
+									</option>
+								))}
+						</select>
+						<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+							<svg
+								className="fill-current h-4 w-4"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 20 20">
+								<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+							</svg>
+						</div>
+					</div>
 
-				<div className="input-container status-container">
-					<label htmlFor="status">Status</label>
-					<select
-						name="status"
-						id="status"
-						value={status}
-						onChange={(e) => setStatus(e.target.value)}>
-						<option value="Pending">À faire</option>
-						<option value="In Progress">En cours</option>
-						<option value="Completed">Terminé</option>
-						<option value="Archived">Archivé</option>
-					</select>
+					<div className="relative w-1/2 pl-2">
+						<select
+							name="assignedTo"
+							id="assignedTo"
+							value={selectedMember}
+							className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+							onChange={(e) => setSelectedMember(e.target.value)}>
+							<option value="default" disabled>
+								Sélectionnez l'utilisateur en charge de la tâche
+							</option>
+							{workspaceMembers &&
+								workspaceMembers.map((member) => (
+									<option key={member._id} value={member._id}>
+										{member.username}
+									</option>
+								))}
+						</select>
+						<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+							<svg
+								className="fill-current h-4 w-4"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 20 20">
+								<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+							</svg>
+						</div>
+					</div>
 				</div>
-
-				<div className="input-container priority-container">
-					<label htmlFor="priority">Priorité</label>
-					<select
-						name="priority"
-						id="priority"
-						value={priority}
-						onChange={(e) => setPriority(e.target.value)}>
-						<option value="Low">Faible</option>
-						<option value="Medium">Moyenne</option>
-						<option value="High">Haute</option>
-						<option value="Urgent">Urgent</option>
-					</select>
-				</div>
-
-				<div className="input-container workspaceId-container">
-					<label htmlFor="workspaceId">Workspace</label>
-					<select
-						name="workspaceId"
-						id="workspaceId"
-						value={selectedWorkspace}
-						onChange={(e) => setSelectedWorkspace(e.target.value)}>
-						<option value="default" disabled>
-							Sélectionnez un workspace
-						</option>
-						{userWorkspaces &&
-							userWorkspaces.map((workspace) => (
-								<option
-									key={workspace._id}
-									value={workspace._id}>
-									{workspace.title}
-								</option>
-							))}
-					</select>
-				</div>
-
-				<div className="input-container assignedTo-container">
-					<label htmlFor="assignedTo">Assigné à</label>
-					<select
-						name="assignedTo"
-						id="assignedTo"
-						value={selectedMember}
-						onChange={(e) => setSelectedMember(e.target.value)}>
-						<option value="default" disabled>
-							Sélectionnez l'utilisateur en charge de la tâche
-						</option>
-						{workspaceMembers &&
-							workspaceMembers.map((member) => (
-								<option key={member._id} value={member._id}>
-									{member.username}
-								</option>
-							))}
-					</select>
-				</div>
-
-				<div className="input-container deadline-container">
-					<label htmlFor="deadline">Échéance</label>
-					<input
-						type="date"
-						name="deadline"
-						id="deadline"
-						defaultValue={formattedToday}
-					/>
-				</div>
-
 				<button
 					type="submit"
-					className="button mt-[20px]"
+					className="button mt-[10px]"
 					id="buttonTask">
 					Créer
 				</button>
