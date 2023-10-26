@@ -11,7 +11,7 @@ const MemberSelect = ({
 				name="assignedTo"
 				id="assignedTo"
 				value={selectedMember}
-				className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+				className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
 				onChange={(e) => setSelectedMember(e.target.value)}>
 				<option value="default" disabled>
 					Sélectionnez l'utilisateur en charge de la tâche

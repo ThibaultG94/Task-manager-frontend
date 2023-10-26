@@ -10,7 +10,7 @@ const TitleInput = ({ taskTitle, setTaskTitle }) => {
 				name="taskTitle"
 				placeholder="Nom de la tâche"
 				required
-				className="placeholder-gray-500 w-full p-2 border border-gray-300 rounded"
+				className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 p-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
 			/>
 		</div>
 	);

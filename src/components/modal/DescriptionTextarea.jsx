@@ -7,7 +7,7 @@ const DescriptionTextarea = ({ taskDescription, setTaskDescription }) => {
 				value={taskDescription}
 				onChange={(e) => setTaskDescription(e.target.value)}
 				name="description"
-				className="w-full p-2 border border-gray-300 rounded resize-none flex-grow"
+				className="w-full p-2 resize-none flex-grow block appearance-none bg-white border border-gray-300 hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
 				placeholder="Description de la tâche"
 				cols="30"
 				rows="5"></textarea>

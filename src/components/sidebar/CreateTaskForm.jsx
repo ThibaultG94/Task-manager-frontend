@@ -76,12 +76,12 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<div id="tab-content1">
-			<h2 className="text-2xl mb-5 text-center font-light">
+			<h2 className="text-2xl mb-8 text-center font-light">
 				Nouvelle Tâche
 			</h2>
 			<form
 				id="task-form"
-				className="w-5/6 mx-auto mb-5 flex flex-col"
+				className="w-5/6 mx-auto mb-9 flex flex-col"
 				onSubmit={handleSubmit}>
 				<div className="flex flex-row mb-5">
 					<div className="flex flex-col w-1/2 pr-2">
