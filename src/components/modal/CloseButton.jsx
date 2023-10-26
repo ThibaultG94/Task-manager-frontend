@@ -18,7 +18,7 @@ const CloseButton = ({ onClose }) => {
 					x2="30"
 					y2="30"
 					stroke="currentColor"
-					stroke-width="2"
+					strokeWidth="2"
 				/>
 				<line
 					x1="30"
@@ -26,7 +26,7 @@ const CloseButton = ({ onClose }) => {
 					x2="10"
 					y2="30"
 					stroke="currentColor"
-					stroke-width="2"
+					strokeWidth="2"
 				/>
 			</svg>
 		</span>

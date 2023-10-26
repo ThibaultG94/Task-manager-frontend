@@ -12,6 +12,7 @@ import DescriptionTextarea from '../modal/DescriptionTextarea';
 import WorkspaceSelect from '../modal/WorkspaceSelect';
 import MemberSelect from '../modal/MemberSelect';
 import SubmitButton from '../modal/SubmitButton';
+import { toast } from 'react-toastify';
 
 const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const getUser = useGetUser();
@@ -24,7 +25,6 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const [workspaceMembersIds, setWorkspaceMembersIds] = useState(null);
 	const [workspaceMembers, setWorkspaceMembers] = useState(null);
 	const [selectedMember, setSelectedMember] = useState('default');
-	const [message, setMessage] = useState(null);
 	const [taskTitle, setTaskTitle] = useState(null);
 	const [taskDescription, setTaskDescription] = useState(null);
 	const [taskDeadline, setTaskDeadline] = useState(null);
@@ -67,10 +67,10 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 		try {
 			await createTask(task);
 			await tasksHasBeenUpdated(task);
-			setMessage('Tâche créée avec succès !');
+			toast.success('Tâche créée avec succès !');
 			setTimeout(() => setIsModalOpen(false), 500);
 		} catch (error) {
-			setMessage('Échec de la création de la tâche.');
+			toast.error('Échec de la création de la tâche.');
 		}
 	};
 
@@ -122,7 +122,6 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 					/>
 				</div>
 				<SubmitButton />
-				<span id="message-after-creating">{message}</span>
 			</form>
 		</div>
 	);
