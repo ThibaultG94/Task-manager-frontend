@@ -21,7 +21,8 @@ const Tabs = ({ tabs, activeTab, setActiveTab, closeModal }) => {
 					))}
 				</div>
 				<span
-					className="cursor-pointer mr-2 transition-transform duration-200 hover:scale-110"
+					aria-label="Close"
+					className="cursor-pointer mr-2 transition-transform duration-200 hover:rotate-180"
 					onClick={closeModal}>
 					<svg
 						width="40"

@@ -10,6 +10,12 @@ module.exports = {
 				'light-grey': '#a8a9b4',
 				'orange-primary': '#ffb360',
 			},
+			backgroundColor: {
+				'modal-bg': 'rgba(0, 0, 0, 0.8)',
+			},
+			margin: {
+				'modal-margin': '5%',
+			},
 		},
 	},
 	plugins: [],
