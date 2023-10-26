@@ -71,7 +71,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	};
 
 	return (
-		<div id="tab-content1" className="py-5 border-t border-[#5a385f]">
+		<div id="tab-content1" className="py-5 border-t border-gray-400">
 			<h2 className="text-2xl mb-2.5 text-center font-light">
 				Nouvelle Tâche
 			</h2>
