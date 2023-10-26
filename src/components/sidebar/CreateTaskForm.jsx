@@ -4,18 +4,19 @@ import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetUser } from '../../api/getUser';
 import { useCreateTask } from '../../api/createTask';
 import { useTasksHasBeenUpdated } from '../tasks/TasksHasBeenUpdated';
+import TitleInput from '../modal/TitleInput';
+import StatusSelect from '../modal/StatusSelect';
+import PrioritySelect from '../modal/PrioritySelect';
+import DeadlineInput from '../modal/DeadlineInput';
+import DescriptionTextarea from '../modal/DescriptionTextarea';
 
 const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const getUser = useGetUser();
 	const createTask = useCreateTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
-	const today = new Date();
-	const formattedToday = `${today.getFullYear()}-${String(
-		today.getMonth() + 1
-	).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 	const userWorkspaces = useSelector(selectWorkspaces);
-	const [status, setStatus] = useState('Pending');
-	const [priority, setPriority] = useState('Medium');
+	const [taskStatus, setTaskStatus] = useState('Pending');
+	const [taskPriority, setTaskPriority] = useState('Medium');
 	const [selectedWorkspace, setSelectedWorkspace] = useState('default');
 	const [workspaceMembersIds, setWorkspaceMembersIds] = useState(null);
 	const [workspaceMembers, setWorkspaceMembers] = useState(null);
@@ -53,8 +54,8 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 			title: taskTitle,
 			userId,
 			description: taskDescription,
-			status,
-			priority,
+			status: taskStatus,
+			priority: taskPriority,
 			workspaceId: selectedWorkspace,
 			deadline: taskDeadline,
 			assignedTo: selectedMember,
@@ -81,94 +82,29 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 				onSubmit={handleSubmit}>
 				<div className="flex flex-row mb-5">
 					<div className="flex flex-col w-1/2 pr-2">
-						<div className="mb-5">
-							<input
-								value={taskTitle}
-								onChange={(e) => setTaskTitle(e.target.value)}
-								type="text"
-								name="taskTitle"
-								placeholder="Nom de la tâche"
-								required
-								className="placeholder-gray-500 w-full p-2 border border-gray-300 rounded"
-							/>
-						</div>
+						<TitleInput
+							taskTitle={taskTitle}
+							setTaskTitle={setTaskTitle}
+						/>
 						<div className="flex flex-row mb-5">
-							<div className="relative w-1/2">
-								<select
-									name="status"
-									value={status}
-									className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-									onChange={(e) => setStatus(e.target.value)}>
-									<option value="default" disabled>
-										Status
-									</option>
-									<option value="Pending">À faire</option>
-									<option value="In Progress">
-										En cours
-									</option>
-									<option value="Completed">Terminé</option>
-									<option value="Archived">Archivé</option>
-								</select>
-								<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-									<svg
-										className="fill-current h-4 w-4"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 20 20">
-										<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-									</svg>
-								</div>
-							</div>
-
-							<div className="relative w-1/2 pl-2">
-								<select
-									name="priority"
-									value={priority}
-									className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-									onChange={(e) =>
-										setPriority(e.target.value)
-									}>
-									<option value="default" disabled>
-										Priorité
-									</option>
-									<option value="Low">Faible</option>
-									<option value="Medium">Moyenne</option>
-									<option value="High">Haute</option>
-									<option value="Urgent">Urgent</option>
-								</select>
-								<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-									<svg
-										className="fill-current h-4 w-4"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 20 20">
-										<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-									</svg>
-								</div>
-							</div>
-						</div>
-						<div>
-							<input
-								value={taskDeadline}
-								onChange={(e) =>
-									setTaskDeadline(e.target.value)
-								}
-								type="date"
-								name="deadline"
-								placeholder="Date d'échéance"
-								defaultValue={formattedToday}
-								className="w-full p-2 border border-gray-300 rounded"
+							<StatusSelect
+								taskStatus={taskStatus}
+								setTaskStatus={setTaskStatus}
+							/>
+							<PrioritySelect
+								taskPriority={taskPriority}
+								setTaskPriority={setTaskPriority}
 							/>
 						</div>
+						<DeadlineInput
+							taskDeadline={taskDeadline}
+							setTaskDeadline={setTaskDeadline}
+						/>
 					</div>
-					<div className="w-1/2 pl-2 flex flex-col justify-between flex-grow">
-						<textarea
-							value={taskDescription}
-							onChange={(e) => setTaskDescription(e.target.value)}
-							name="description"
-							className="w-full p-2 border border-gray-300 rounded resize-none flex-grow"
-							placeholder="Description de la tâche"
-							cols="30"
-							rows="5"></textarea>
-					</div>
+					<DescriptionTextarea
+						taskDescription={taskDescription}
+						setTaskDescription={setTaskDescription}
+					/>
 				</div>
 				<div className="flex flex-row mb-4">
 					<div className="relative w-1/2 mr-2">
@@ -234,9 +170,8 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 					id="buttonTask">
 					Créer la tâche
 				</button>
+				<span id="message-after-creating">{message}</span>
 			</form>
-
-			<span id="message-after-creating">{message}</span>
 		</div>
 	);
 };
