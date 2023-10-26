@@ -71,17 +71,17 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	};
 
 	return (
-		<div id="tab-content1" className="p-5 border-t border-[#5a385f]">
+		<div id="tab-content1" className="py-5 border-t border-[#5a385f]">
 			<h2 className="text-2xl mb-2.5 text-center font-light">
 				Nouvelle Tâche
 			</h2>
 			<form
 				id="task-form"
-				className="w-4/5 mx-auto my-0 flex flex-col"
+				className="w-5/6 mx-auto my-0 flex flex-col"
 				onSubmit={handleSubmit}>
-				<div className="flex flex-row mb-4">
+				<div className="flex flex-row mb-5">
 					<div className="flex flex-col w-1/2 pr-2">
-						<div className="mb-4">
+						<div className="mb-5">
 							<input
 								value={taskTitle}
 								onChange={(e) => setTaskTitle(e.target.value)}
@@ -92,7 +92,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 								className="placeholder-gray-500 w-full p-2 border border-gray-300 rounded"
 							/>
 						</div>
-						<div className="flex flex-row mb-4">
+						<div className="flex flex-row mb-5">
 							<div className="relative w-1/2">
 								<select
 									name="status"
@@ -145,7 +145,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 								</div>
 							</div>
 						</div>
-						<div className="mb-4">
+						<div>
 							<input
 								value={taskDeadline}
 								onChange={(e) =>
@@ -159,12 +159,12 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 							/>
 						</div>
 					</div>
-					<div className="w-1/2 pl-2 flex flex-col justify-between">
+					<div className="w-1/2 pl-2 flex flex-col justify-between flex-grow">
 						<textarea
 							value={taskDescription}
 							onChange={(e) => setTaskDescription(e.target.value)}
 							name="description"
-							className="w-full p-2 border border-gray-300 rounded resize-none"
+							className="w-full p-2 border border-gray-300 rounded resize-none flex-grow"
 							placeholder="Description de la tâche"
 							cols="30"
 							rows="5"></textarea>
@@ -230,9 +230,9 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 				</div>
 				<button
 					type="submit"
-					className="button mt-[10px]"
+					className="button mt-[10px] ml-auto w-full md:w-auto px-8"
 					id="buttonTask">
-					Créer
+					Créer la tâche
 				</button>
 			</form>
 
