@@ -71,13 +71,13 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	};
 
 	return (
-		<div id="tab-content1" className="py-5">
-			<h2 className="text-2xl mb-2.5 text-center font-light">
+		<div id="tab-content1">
+			<h2 className="text-2xl mb-5 text-center font-light">
 				Nouvelle Tâche
 			</h2>
 			<form
 				id="task-form"
-				className="w-5/6 mx-auto my-0 flex flex-col"
+				className="w-5/6 mx-auto mb-5 flex flex-col"
 				onSubmit={handleSubmit}>
 				<div className="flex flex-row mb-5">
 					<div className="flex flex-col w-1/2 pr-2">
@@ -230,7 +230,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 				</div>
 				<button
 					type="submit"
-					className="button mt-[10px] ml-auto w-full md:w-auto px-8"
+					className="bg-[#3d395a] hover:bg-[#171f39] text-white py-2 px-4 rounded-lg text-lg transition-bg duration-300 mt-[10px] ml-auto w-full md:w-auto"
 					id="buttonTask">
 					Créer la tâche
 				</button>

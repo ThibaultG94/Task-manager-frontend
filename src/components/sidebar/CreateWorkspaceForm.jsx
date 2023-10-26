@@ -28,7 +28,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	};
 
 	return (
-		<div id="tab-content2" className="p-5">
+		<div id="tab-content2">
 			<h2 className="text-xl mb-2.5 text-center">Nouveau Workspace</h2>
 			<form id="workspace-form" onSubmit={handleSubmit}>
 				<div className="input-container title-container">
