@@ -15,9 +15,9 @@ const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
 			className="modal bg-[rgba(0,0,0,0.8)] transition-all ease-in-out duration-300 text-black"
 			onClick={closeModal}>
 			<div
-				className="bg-gray-100 mx-auto my-[2%] border border-gray-400 w-[60%] max-w-[800px] flex flex-col text-right px-5 rounded-lg shadow-md min-w-[400px]"
+				className="bg-gray-100 mx-auto my-[2%] border border-gray-400 w-[60%] max-w-[800px] flex flex-col text-left px-5 rounded-lg shadow-md min-w-[400px]"
 				onClick={(e) => e.stopPropagation()}>
-				<div className="tabs relative">
+				<div className="relative">
 					<input
 						type="radio"
 						name="tabs"
@@ -30,8 +30,8 @@ const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
 						htmlFor="tab1"
 						className={`${
 							activeTab === 'tab1'
-								? 'text-lg bg-[#171f39] text-[#eaefff] cursor-default inline-block p-2 text-left transition-bg duration-300'
-								: 'text-lg text-gray-800 hover:text-gray-700 cursor-pointer inline-block p-2 text-left transition-bg duration-300'
+								? 'text-lg bg-[#171f39] text-[#eaefff] cursor-default inline-block p-2 transition-bg duration-300'
+								: 'text-lg text-gray-800 hover:text-gray-700 cursor-pointer inline-block p-2 transition-bg duration-300'
 						}`}>
 						Tâche
 					</label>
@@ -48,15 +48,14 @@ const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
 						htmlFor="tab2"
 						className={`${
 							activeTab === 'tab2'
-								? 'text-lg bg-[#171f39] text-[#eaefff] cursor-default inline-block p-2 text-left transition-bg duration-300'
-								: 'text-lg text-gray-800 hover:text-gray-700 cursor-pointer inline-block p-2 text-left transition-bg duration-300'
+								? 'text-lg bg-[#171f39] text-[#eaefff] cursor-default inline-block p-2 transition-bg duration-300'
+								: 'text-lg text-gray-800 hover:text-gray-700 cursor-pointer inline-block p-2 transition-bg duration-300'
 						}`}>
 						Workspace
 					</label>
 
 					<span
-						id="close-button"
-						className="text-3xl cursor-pointer"
+						className="text-4xl cursor-pointer absolute top-0 right-0 px-2"
 						onClick={closeModal}>
 						&times;
 					</span>
