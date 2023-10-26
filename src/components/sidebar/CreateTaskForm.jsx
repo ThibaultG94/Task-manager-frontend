@@ -19,15 +19,15 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const createTask = useCreateTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const userWorkspaces = useSelector(selectWorkspaces);
+	const [taskTitle, setTaskTitle] = useState(null);
 	const [taskStatus, setTaskStatus] = useState('Pending');
 	const [taskPriority, setTaskPriority] = useState('Medium');
+	const [taskDeadline, setTaskDeadline] = useState(null);
+	const [taskDescription, setTaskDescription] = useState(null);
 	const [selectedWorkspace, setSelectedWorkspace] = useState('default');
 	const [workspaceMembersIds, setWorkspaceMembersIds] = useState(null);
 	const [workspaceMembers, setWorkspaceMembers] = useState(null);
 	const [selectedMember, setSelectedMember] = useState('default');
-	const [taskTitle, setTaskTitle] = useState(null);
-	const [taskDescription, setTaskDescription] = useState(null);
-	const [taskDeadline, setTaskDeadline] = useState(null);
 
 	useEffect(() => {
 		if (selectedWorkspace && userWorkspaces) {

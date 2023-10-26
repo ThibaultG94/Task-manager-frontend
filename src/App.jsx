@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
 	return (
 		<div>
-			<ToastContainer />
+			<ToastContainer autoClose={600} />
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Home />} />
