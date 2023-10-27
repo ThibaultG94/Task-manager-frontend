@@ -111,7 +111,7 @@ const Tasks = () => {
 			<section className="bg-dark-blue text-white text-center">
 				<SideBar userId={userId} />
 			</section>
-			<div className="w-full p-2.5 bg-light-blue">
+			<div className="w-full bg-light-blue">
 				<Header />
 				<main>
 					<DisplayTasks />
