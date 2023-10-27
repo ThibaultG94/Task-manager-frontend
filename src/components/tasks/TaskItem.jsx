@@ -1,6 +1,6 @@
 import React from 'react';
-import { inverseDateFormat } from '../utils/inverseDateFormat';
 import QuickEditTitle from './QuickEditTitle';
+import QuickEditDeadline from './QuickEditDeadline';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	return (
@@ -12,16 +12,8 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 				setSelectedTask(task);
 			}}>
 			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} />
+			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} />
 
-			<div
-				className={
-					`text-left mx-auto p-1.5 px-2.5 rounded-lg relative z-10 cursor-auto ` +
-					task.category
-				}>
-				{task.status === 'Archived'
-					? inverseDateFormat(task.deadline)
-					: task.day}
-			</div>
 			<div
 				className={
 					`text-left mx-auto p-1.5 px-2.5 rounded-lg relative z-10 cursor-auto ` +
