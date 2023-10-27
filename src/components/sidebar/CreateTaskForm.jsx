@@ -19,14 +19,14 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const createTask = useCreateTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const userWorkspaces = useSelector(selectWorkspaces);
-	const [taskTitle, setTaskTitle] = useState(null);
+	const [taskTitle, setTaskTitle] = useState('');
 	const [taskStatus, setTaskStatus] = useState('Pending');
 	const [taskPriority, setTaskPriority] = useState('Medium');
-	const [taskDeadline, setTaskDeadline] = useState(null);
-	const [taskDescription, setTaskDescription] = useState(null);
+	const [taskDeadline, setTaskDeadline] = useState('');
+	const [taskDescription, setTaskDescription] = useState('');
 	const [selectedWorkspace, setSelectedWorkspace] = useState('default');
-	const [workspaceMembersIds, setWorkspaceMembersIds] = useState(null);
-	const [workspaceMembers, setWorkspaceMembers] = useState(null);
+	const [workspaceMembersIds, setWorkspaceMembersIds] = useState('');
+	const [workspaceMembers, setWorkspaceMembers] = useState('');
 	const [selectedMember, setSelectedMember] = useState('default');
 
 	useEffect(() => {
@@ -99,10 +99,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 								setTaskPriority={setTaskPriority}
 							/>
 						</div>
-						<DeadlineInput
-							taskDeadline={taskDeadline}
-							setTaskDeadline={setTaskDeadline}
-						/>
+						<DeadlineInput setTaskDeadline={setTaskDeadline} />
 					</div>
 					<DescriptionTextarea
 						taskDescription={taskDescription}
