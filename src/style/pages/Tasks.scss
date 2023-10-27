@@ -74,17 +74,6 @@
 	display: none;
 }
 
-.task-day,
-.task-status,
-.task-priority,
-.task-workspace,
-.task-assigned {
-	text-align: start;
-	margin: 0 auto;
-	padding: 5px 10px;
-	border-radius: 10px;
-}
-
 .retard {
 	background: #efefef;
 }
@@ -175,18 +164,6 @@
 .Urgent {
 	color: #d32f2f;
 	background-color: #ffcdd2;
-}
-
-.task-assigned {
-	border-radius: 100px;
-	background: #171f39;
-	height: 25px;
-	width: 25px;
-	overflow: hidden;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
 
 #avatarLetterAssigned {
