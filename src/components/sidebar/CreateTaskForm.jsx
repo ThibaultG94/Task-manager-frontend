@@ -86,8 +86,9 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 				<div className="flex flex-row mb-5">
 					<div className="flex flex-col w-1/2 pr-2">
 						<TitleInput
-							taskTitle={taskTitle}
-							setTaskTitle={setTaskTitle}
+							title={taskTitle}
+							setTitle={setTaskTitle}
+							label={'Nom de la tâche'}
 						/>
 						<div className="flex flex-row mb-5">
 							<StatusSelect
@@ -102,8 +103,9 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 						<DeadlineInput setTaskDeadline={setTaskDeadline} />
 					</div>
 					<DescriptionTextarea
-						taskDescription={taskDescription}
-						setTaskDescription={setTaskDescription}
+						description={taskDescription}
+						setDescription={setTaskDescription}
+						label={'Description de la tâche'}
 					/>
 				</div>
 				<div className="flex flex-row mb-4">
@@ -118,7 +120,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 						workspaceMembers={workspaceMembers}
 					/>
 				</div>
-				<SubmitButton />
+				<SubmitButton label={'Créer la tâche'} />
 			</form>
 		</div>
 	);
