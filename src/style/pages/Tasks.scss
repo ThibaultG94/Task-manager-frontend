@@ -7,10 +7,6 @@
 	background: #e1786a;
 }
 
-#retard-tasks .task-circle {
-	background: #fff;
-}
-
 .task-block {
 	background-color: white;
 	padding: 20px;
@@ -76,24 +72,6 @@
 
 .task-item:first-child::before {
 	display: none;
-}
-
-.task-circle {
-	border-radius: 50px;
-	border: 1px solid black;
-	height: 20px;
-	width: 20px;
-	margin-right: 10px;
-}
-
-.task-title {
-	padding: 5px 15px 0;
-	max-width: 400px;
-	display: flex;
-	justify-content: baseline;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 .task-day,

@@ -9,8 +9,8 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 				openModal(e);
 				setSelectedTask(task);
 			}}>
-			<div className="task-title">
-				<div className="task-circle"></div>
+			<div className="p-1 pr-4 pt-0 max-w-xs flex justify-start whitespace-nowrap overflow-hidden self-center">
+				<div className="rounded-full border border-black h-5 w-5 mr-2 bg-white self-center"></div>
 				{task.title}
 			</div>
 			<div className={`task-day ` + task.category}>
