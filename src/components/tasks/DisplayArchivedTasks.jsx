@@ -9,6 +9,7 @@ import TaskItem from './TaskItem';
 import getUserId from '../../api/getUserId';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import HeaderBlock from './HeaderBlock';
 
 const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	const [userId, setUserId] = useState(null);
@@ -73,17 +74,12 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 					expandedBlocks['archived-tasks'] ? 'expanded' : ''
 				}`}
 				onClick={() => toggleBlock('archived-tasks')}>
-				<div className="task-block-header">
-					<h3>Archives</h3>
-					<button
-						className="toggle-button"
-						onClick={(e) => {
-							e.stopPropagation();
-							toggleBlock('archived-tasks');
-						}}>
-						▶
-					</button>
-				</div>
+				<HeaderBlock
+					label={'Archives'}
+					type={'archived-tasks'}
+					toggleBlock={toggleBlock}
+				/>
+
 				<div className="task-list">
 					{displayArchivedTasks && displayArchivedTasks?.length > 0
 						? displayArchivedTasks

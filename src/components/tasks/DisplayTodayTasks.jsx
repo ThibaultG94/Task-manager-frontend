@@ -4,6 +4,7 @@ import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectTodayTasks } from '../../store/selectors/taskSelectors';
+import HeaderBlock from './HeaderBlock';
 
 const DisplayTodayTasks = ({ setSelectedTask, openModal }) => {
 	const userTodayTasks = useSelector(selectTodayTasks);
@@ -40,17 +41,12 @@ const DisplayTodayTasks = ({ setSelectedTask, openModal }) => {
 						expandedBlocks['today-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('today-tasks')}>
-					<div className="task-block-header">
-						<h3>Aujourd'hui</h3>
-						<button
-							className="toggle-button"
-							onClick={(e) => {
-								e.stopPropagation();
-								toggleBlock('today-tasks');
-							}}>
-							▶
-						</button>
-					</div>
+					<HeaderBlock
+						label={"Aujourd'hui"}
+						type={'today-tasks'}
+						toggleBlock={toggleBlock}
+					/>
+
 					<div className="task-list">
 						{displayTodayTasks && displayTodayTasks?.length > 0
 							? displayTodayTasks

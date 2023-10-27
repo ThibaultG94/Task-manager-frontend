@@ -4,6 +4,7 @@ import { selectBecomingTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import HeaderBlock from './HeaderBlock';
 
 const DisplayBecomingTasks = ({ setSelectedTask, openModal }) => {
 	const userBecomingTasks = useSelector(selectBecomingTasks);
@@ -44,17 +45,12 @@ const DisplayBecomingTasks = ({ setSelectedTask, openModal }) => {
 						expandedBlocks['becoming-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('becoming-tasks')}>
-					<div className="task-block-header">
-						<h3>Prochaines années</h3>
-						<button
-							className="toggle-button"
-							onClick={(e) => {
-								e.stopPropagation();
-								toggleBlock('becoming-tasks');
-							}}>
-							▶
-						</button>
-					</div>
+					<HeaderBlock
+						label={'Prochaines années'}
+						type={'becoming-tasks'}
+						toggleBlock={toggleBlock}
+					/>
+
 					<div className="task-list">
 						{displayBecomingTasks &&
 						displayBecomingTasks?.length > 0

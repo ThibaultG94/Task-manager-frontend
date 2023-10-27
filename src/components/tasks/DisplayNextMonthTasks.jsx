@@ -4,6 +4,7 @@ import { selectNextMonthTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import HeaderBlock from './HeaderBlock';
 
 const DisplayNextMonthTasks = ({ setSelectedTask, openModal }) => {
 	const userNextMonthTasks = useSelector(selectNextMonthTasks);
@@ -44,17 +45,11 @@ const DisplayNextMonthTasks = ({ setSelectedTask, openModal }) => {
 						expandedBlocks['next-month-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('next-month-tasks')}>
-					<div className="task-block-header">
-						<h3>Mois prochain</h3>
-						<button
-							className="toggle-button"
-							onClick={(e) => {
-								e.stopPropagation();
-								toggleBlock('next-month-tasks');
-							}}>
-							▶
-						</button>
-					</div>
+					<HeaderBlock
+						label="Mois prochain"
+						type={'next-month-tasks'}
+						toggleBlock={toggleBlock}
+					/>
 					<div className="task-list">
 						{displayNextMonthTasks &&
 						displayNextMonthTasks?.length > 0

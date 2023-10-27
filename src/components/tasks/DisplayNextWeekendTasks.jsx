@@ -4,6 +4,7 @@ import { selectNextWeekendTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
+import HeaderBlock from './HeaderBlock';
 
 const DisplayNextWeekendTasks = ({ setSelectedTask, openModal }) => {
 	const userNextWeekendTasks = useSelector(selectNextWeekendTasks);
@@ -44,17 +45,12 @@ const DisplayNextWeekendTasks = ({ setSelectedTask, openModal }) => {
 						expandedBlocks['next-weekend-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('next-weekend-tasks')}>
-					<div className="task-block-header">
-						<h3>Weekend prochain</h3>
-						<button
-							className="toggle-button"
-							onClick={(e) => {
-								e.stopPropagation();
-								toggleBlock('next-weekend-tasks');
-							}}>
-							▶
-						</button>
-					</div>
+					<HeaderBlock
+						label="Weekend prochain"
+						type={'next-weekend-tasks'}
+						toggleBlock={toggleBlock}
+					/>
+
 					<div className="task-list">
 						{displayNextWeekendTasks &&
 						displayNextWeekendTasks?.length > 0

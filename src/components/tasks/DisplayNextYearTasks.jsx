@@ -4,6 +4,7 @@ import { selectNextYearTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import HeaderBlock from './HeaderBlock';
 
 const DisplayNextYearTasks = ({ setSelectedTask, openModal }) => {
 	const userNextYearTasks = useSelector(selectNextYearTasks);
@@ -44,17 +45,12 @@ const DisplayNextYearTasks = ({ setSelectedTask, openModal }) => {
 						expandedBlocks['next-year-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('next-year-tasks')}>
-					<div className="task-block-header">
-						<h3>Année prochaine</h3>
-						<button
-							className="toggle-button"
-							onClick={(e) => {
-								e.stopPropagation();
-								toggleBlock('next-year-tasks');
-							}}>
-							▶
-						</button>
-					</div>
+					<HeaderBlock
+						label="Année prochaine"
+						type={'next-year-tasks'}
+						toggleBlock={toggleBlock}
+					/>
+
 					<div className="task-list">
 						{displayNextYearTasks &&
 						displayNextYearTasks?.length > 0

@@ -9,8 +9,8 @@
 
 .task-block {
 	background-color: white;
-	padding: 20px;
-	margin: 15px;
+	padding: 20px 0;
+	margin: 10px 30px;
 	border-radius: 5px;
 }
 
@@ -52,11 +52,8 @@
 }
 
 .task-item {
-	padding: 20px 0;
 	display: grid;
 	grid-template-columns: 400px 140px 140px 180px 190px 140px;
-	cursor: pointer;
-	position: relative;
 }
 
 .task-item::before {

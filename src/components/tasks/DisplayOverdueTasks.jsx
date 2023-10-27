@@ -4,6 +4,7 @@ import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectOverdueTasks } from '../../store/selectors/taskSelectors';
+import HeaderBlock from './HeaderBlock';
 
 const DisplayOverdueTasks = ({ setSelectedTask, openModal }) => {
 	const userOverdueTasks = useSelector(selectOverdueTasks);
@@ -44,17 +45,12 @@ const DisplayOverdueTasks = ({ setSelectedTask, openModal }) => {
 						expandedBlocks['retard-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('retard-tasks')}>
-					<div className="task-block-header">
-						<h3>Retard</h3>
-						<button
-							className="toggle-button"
-							onClick={(e) => {
-								e.stopPropagation();
-								toggleBlock('retard-tasks');
-							}}>
-							▶
-						</button>
-					</div>
+					<HeaderBlock
+						label={'Retard'}
+						type={'retard-tasks'}
+						toggleBlock={toggleBlock}
+					/>
+
 					<div className="task-list">
 						{displayOverdueTasks && displayOverdueTasks?.length > 0
 							? displayOverdueTasks
