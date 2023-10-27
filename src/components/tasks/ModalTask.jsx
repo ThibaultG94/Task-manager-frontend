@@ -27,7 +27,7 @@ const ModalTask = ({ closeModal, setIsModalOpen }) => {
 					&times;
 				</span>
 				<div className="task-details">
-					<EditTitle />
+					<EditTitle itemTitle={false} modalTitle={true} />
 
 					<EditStatus />
 
