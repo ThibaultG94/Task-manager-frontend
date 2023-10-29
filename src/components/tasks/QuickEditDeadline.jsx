@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { inverseDateFormat } from '../utils/inverseDateFormat';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEditTask } from '../../api/editTask';
@@ -21,7 +21,6 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
-	const inputDeadlineRef = useRef(null);
 	const [convertedDeadline, setConvertedDeadline] = useState('');
 	const [taskDeadline, setTaskDeadline] = useState('');
 
@@ -70,6 +69,15 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 		setConvertedDeadline(formattedDisplayDay);
 	};
 
+	const flatpickrRef = useCallback(
+		(node) => {
+			if (node !== null && isEditingField.deadline) {
+				node.flatpickr.open();
+			}
+		},
+		[isEditingField.deadline]
+	);
+
 	return (
 		<div
 			onClick={(e) => e.stopPropagation()}
@@ -97,6 +105,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 				<div className="relative">
 					<form onSubmit={(e) => handleSubmitDeadline(e)}>
 						<Flatpickr
+							ref={flatpickrRef}
 							value={convertedDeadline}
 							onChange={(date) => handleDateChange(date[0])}
 							options={{
@@ -104,7 +113,6 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 								locale: French,
 							}}
 							className="w-[85px] h-[10px] border-none px-0"
-							ref={inputDeadlineRef}
 						/>
 					</form>
 				</div>
