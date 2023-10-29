@@ -22,7 +22,6 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
 	const [convertedDeadline, setConvertedDeadline] = useState('');
-	const [taskDeadline, setTaskDeadline] = useState('');
 
 	useEffect(() => {
 		const day = new Date(task?.deadline);
@@ -33,9 +32,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 		setConvertedDeadline(formattedDisplayDay);
 	}, [task]);
 
-	const handleSubmitDeadline = async (e) => {
-		e.preventDefault();
-		const newDeadline = taskDeadline;
+	const handleSubmitDeadline = async (newDeadline) => {
 		dispatch(setEditedTask({ deadline: newDeadline }));
 		try {
 			await editTask({ ...editedTask, deadline: newDeadline });
@@ -53,11 +50,10 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 		}
 	};
 
-	const handleDateChange = (date) => {
+	const handleDateChange = async (date) => {
 		const formattedDBDay = `${date.getFullYear()}-${String(
 			date.getMonth() + 1
 		).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-		setTaskDeadline(formattedDBDay);
 
 		const formattedDisplayDay = `${String(date.getDate()).padStart(
 			2,
@@ -67,6 +63,8 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 			'0'
 		)}/${date.getFullYear()}`;
 		setConvertedDeadline(formattedDisplayDay);
+
+		return formattedDBDay;
 	};
 
 	const flatpickrRef = useCallback(
@@ -77,6 +75,11 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 		},
 		[isEditingField.deadline]
 	);
+
+	const handleSubmitDeadlineOnEnter = async (date) => {
+		const formattedDBDay = await handleDateChange(date[0]);
+		handleSubmitDeadline(formattedDBDay);
+	};
 
 	return (
 		<div
@@ -103,11 +106,13 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 			)}
 			{isEditingField.deadline && editedTask?._id === task.taskId ? (
 				<div className="relative">
-					<form onSubmit={(e) => handleSubmitDeadline(e)}>
+					<form>
 						<Flatpickr
 							ref={flatpickrRef}
 							value={convertedDeadline}
-							onChange={(date) => handleDateChange(date[0])}
+							onChange={(date) => {
+								handleSubmitDeadlineOnEnter(date);
+							}}
 							options={{
 								dateFormat: 'd/m/Y',
 								locale: French,
