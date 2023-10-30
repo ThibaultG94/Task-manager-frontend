@@ -11,6 +11,7 @@ import { setEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/editTask';
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 import { toast } from 'react-toastify';
+import ArrowDown from '../modal/ArrowDown';
 
 const QuickEditStatus = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 			{isEditingField.status && editedTask?._id === task.taskId ? (
 				<form>
 					<select
-						className="p-0 w-full border-none"
+						className="block bg-transparent appearance-none w-full text-center p-0 pr-2 rounded border-0 cursor-pointer"
 						defaultValue={editedTask?.status}
 						ref={inputStatusRef}
 						onChange={(e) => handleSubmitStatus(e.target.value)}
@@ -73,6 +74,7 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 						<option value="Completed">Terminé</option>
 						<option value="Archived">Archivé</option>
 					</select>
+					<ArrowDown />
 				</form>
 			) : (
 				isEditingField.status && <span>{task.convertedStatus}</span>

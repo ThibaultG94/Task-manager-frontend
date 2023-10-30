@@ -11,6 +11,7 @@ import {
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { toast } from 'react-toastify';
+import ArrowDown from '../modal/ArrowDown';
 
 const QuickEditPriority = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 			{isEditingField.priority && editedTask?._id === task.taskId ? (
 				<form>
 					<select
-						className="p-0 w-full border-none"
+						className="block bg-transparent appearance-none w-full text-center p-0 pl-2 pr-6 rounded border-0 cursor-pointer"
 						defaultValue={editedTask?.priority}
 						ref={inputPriorityRef}
 						onChange={(e) => handleSubmitPriority(e.target.value)}
@@ -73,6 +74,7 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 						<option value="High">Haute</option>
 						<option value="Urgent">Urgent</option>
 					</select>
+					<ArrowDown />
 				</form>
 			) : (
 				isEditingField.priority && <span>{task.convertedPriority}</span>
