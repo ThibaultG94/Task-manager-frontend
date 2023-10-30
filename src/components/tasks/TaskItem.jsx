@@ -3,6 +3,7 @@ import QuickEditTitle from './QuickEditTitle';
 import QuickEditDeadline from './QuickEditDeadline';
 import QuickEditStatus from './QuickEditStatus';
 import QuickEditPriority from './QuickEditPriority';
+import QuickEditWorkspace from './QuickEditWorkspace';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	return (
@@ -17,10 +18,8 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditStatus task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} />
+			<QuickEditWorkspace task={task} setSelectedTask={setSelectedTask} />
 
-			<div className="text-left mx-auto p-1.5 px-2.5 rounded-lg relative z-10 cursor-auto">
-				{task.workspaceTitle}
-			</div>
 			<div className="text-left mx-auto p-1.5 px-2.5 bg-[#171f39] h-8 w-8 overflow-hidden flex items-center justify-center rounded-full relative z-10 cursor-auto">
 				<span id="avatarLetterAssigned">{task.assignedToLetter}</span>
 			</div>
