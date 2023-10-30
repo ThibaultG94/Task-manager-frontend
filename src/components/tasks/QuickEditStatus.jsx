@@ -24,16 +24,18 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 	const handleSubmitStatus = async (status) => {
 		const newStatus = status;
 		dispatch(setEditedTask({ status: newStatus }));
-		try {
-			await editTask({ ...editedTask, status: newStatus });
-			dispatch(resetEditState());
-			dispatch(setHasEdited(false));
-			await tasksHasBeenUpdated(editedTask, editedTask.category);
-			toast.success(
-				'Le status de la tâche a été mise à jour avec succès !'
-			);
-		} catch (error) {
-			toast.error('Échec de la mise à jour du status de la tâche.');
+		if (newStatus !== task.status) {
+			try {
+				await editTask({ ...editedTask, status: newStatus });
+				dispatch(resetEditState());
+				dispatch(setHasEdited(false));
+				await tasksHasBeenUpdated(editedTask, editedTask.category);
+				toast.success(
+					'Le status de la tâche a été mise à jour avec succès !'
+				);
+			} catch (error) {
+				toast.error('Échec de la mise à jour du status de la tâche.');
+			}
 		}
 	};
 
