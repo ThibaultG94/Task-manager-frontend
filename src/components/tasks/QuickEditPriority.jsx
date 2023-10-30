@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEditTask } from '../../api/editTask';
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
@@ -20,6 +20,25 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
 	const inputPriorityRef = useRef(null);
+
+	const handleClickOutside = (event) => {
+		if (
+			inputPriorityRef.current &&
+			!inputPriorityRef.current.contains(event.target)
+		) {
+			dispatch(setEditingField({ field: 'priority', value: false }));
+		}
+	};
+
+	useEffect(() => {
+		if (isEditingField.priority) {
+			document.addEventListener('mousedown', handleClickOutside);
+		}
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [isEditingField.priority, dispatch]);
 
 	const handleSubmitPriority = async (priority) => {
 		const newPriority = priority;

@@ -24,17 +24,26 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
 	const inputWorkspaceRef = useRef(null);
-	const [convertedWorkspace, setConvertedWorkspace] = useState('');
 	const [workspaces, setWorkspaces] = useState([]);
 
-	// useEffect(() => {
-	// 	const fetchConvertedWorkspace = async () => {
-	// 		const workspace = await getWorkspace(editedTask?.workspaceId);
-	// 		setConvertedWorkspace(workspace?.title);
-	// 	};
+	const handleClickOutside = (event) => {
+		if (
+			inputWorkspaceRef.current &&
+			!inputWorkspaceRef.current.contains(event.target)
+		) {
+			dispatch(setEditingField({ field: 'workspace', value: false }));
+		}
+	};
 
-	// 	if (editedTask && editedTask?.workspaceId) fetchConvertedWorkspace();
-	// }, [editedTask]);
+	useEffect(() => {
+		if (isEditingField.workspace) {
+			document.addEventListener('mousedown', handleClickOutside);
+		}
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [isEditingField.workspace, dispatch]);
 
 	useEffect(() => {
 		setWorkspaces(userWorkspaces);

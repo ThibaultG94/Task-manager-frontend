@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import {
@@ -20,6 +20,25 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
 	const inputStatusRef = useRef(null);
+
+	const handleClickOutside = (event) => {
+		if (
+			inputStatusRef.current &&
+			!inputStatusRef.current.contains(event.target)
+		) {
+			dispatch(setEditingField({ field: 'status', value: false }));
+		}
+	};
+
+	useEffect(() => {
+		if (isEditingField.status) {
+			document.addEventListener('mousedown', handleClickOutside);
+		}
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [isEditingField.status, dispatch]);
 
 	const handleSubmitStatus = async (status) => {
 		const newStatus = status;
