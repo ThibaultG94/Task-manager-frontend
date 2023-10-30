@@ -2,6 +2,7 @@ import React from 'react';
 import QuickEditTitle from './QuickEditTitle';
 import QuickEditDeadline from './QuickEditDeadline';
 import QuickEditStatus from './QuickEditStatus';
+import QuickEditPriority from './QuickEditPriority';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	return (
@@ -15,14 +16,8 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditStatus task={task} setSelectedTask={setSelectedTask} />
+			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} />
 
-			<div
-				className={
-					`text-left mx-auto p-1.5 px-2.5 rounded-lg relative z-10 cursor-auto ` +
-					task.convertedPriority
-				}>
-				{task.convertedPriority}
-			</div>
 			<div className="text-left mx-auto p-1.5 px-2.5 rounded-lg relative z-10 cursor-auto">
 				{task.workspaceTitle}
 			</div>

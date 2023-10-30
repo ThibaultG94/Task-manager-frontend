@@ -29,10 +29,10 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
 			toast.success(
-				'Le titre de la tâche a été mise à jour avec succès !'
+				'Le status de la tâche a été mise à jour avec succès !'
 			);
 		} catch (error) {
-			toast.error('Échec de la mise à jour du titre de la tâche.');
+			toast.error('Échec de la mise à jour du status de la tâche.');
 		}
 	};
 
