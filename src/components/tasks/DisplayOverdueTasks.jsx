@@ -3,17 +3,17 @@ import { useSelector } from 'react-redux';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
-import { selectOverdueTasks } from '../../store/selectors/taskSelectors';
 import HeaderBlock from './HeaderBlock';
 
-const DisplayOverdueTasks = ({ setSelectedTask, openModal }) => {
-	const userOverdueTasks = useSelector(selectOverdueTasks);
+const DisplayOverdueTasks = ({
+	setSelectedTask,
+	openModal,
+	userOverdueTasks,
+	expandedBlocks,
+	setExpandedBlocks,
+}) => {
 	const [displayOverdueTasks, setDisplayOverdueTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
-
-	const [expandedBlocks, setExpandedBlocks] = useState({
-		'retard-tasks': true,
-	});
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({

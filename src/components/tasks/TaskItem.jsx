@@ -19,7 +19,6 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			<QuickEditStatus task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditWorkspace task={task} setSelectedTask={setSelectedTask} />
-
 			<div className="text-left mx-auto p-1.5 px-2.5 bg-[#171f39] h-8 w-8 overflow-hidden flex items-center justify-center rounded-full relative z-10 cursor-auto">
 				<span id="avatarLetterAssigned">{task.assignedToLetter}</span>
 			</div>

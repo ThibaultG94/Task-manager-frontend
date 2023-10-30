@@ -21,6 +21,11 @@ import DisplayNextMonthTasks from './DisplayNextMonthTasks';
 import DisplayThisYearTasks from './DisplayThisYearTasks';
 import DisplayNextYearTasks from './DisplayNextYearTasks';
 import DisplayBecomingTasks from './DisplayBecomingTasks';
+import {
+	selectOverdueTasks,
+	selectTodayTasks,
+	selectTomorrowTasks,
+} from '../../store/selectors/taskSelectors';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();
@@ -28,6 +33,37 @@ const DisplayTasks = () => {
 	const hasEdited = useSelector(selectHasEdited);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const userOverdueTasks = useSelector(selectOverdueTasks);
+	const userTodayTasks = useSelector(selectTodayTasks);
+	const userTomorrowTasks = useSelector(selectTomorrowTasks);
+
+	const [expandedBlocks, setExpandedBlocks] = useState({
+		'overdue-tasks': true,
+		'today-tasks': true,
+		'tomorrow-tasks': true,
+		'this-week-tasks': false,
+		'this-weekend-tasks': false,
+		'next-week-tasks': false,
+		'next-weekend-tasks': false,
+		'this-month-tasks': false,
+		'next-month-tasks': false,
+		'this-year-tasks': false,
+		'becoming-tasks': false,
+		'archived-tasks': false,
+	});
+
+	const updateExpandedBlocks = () => {
+		if (
+			userOverdueTasks.length === 0 &&
+			userTodayTasks.length === 0 &&
+			userTomorrowTasks.length === 0
+		) {
+			setExpandedBlocks((prevState) => ({
+				...prevState,
+				'this-week-tasks': true,
+			}));
+		}
+	};
 
 	const openModal = (e) => {
 		e.stopPropagation();
@@ -75,6 +111,9 @@ const DisplayTasks = () => {
 			<DisplayOverdueTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userOverdueTasks={userOverdueTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayTodayTasks
