@@ -3,17 +3,17 @@ import { useSelector } from 'react-redux';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
-import { selectTodayTasks } from '../../store/selectors/taskSelectors';
 import HeaderBlock from './HeaderBlock';
 
-const DisplayTodayTasks = ({ setSelectedTask, openModal }) => {
-	const userTodayTasks = useSelector(selectTodayTasks);
+const DisplayTodayTasks = ({
+	setSelectedTask,
+	openModal,
+	userTodayTasks,
+	expandedBlocks,
+	setExpandedBlocks,
+}) => {
 	const [displayTodayTasks, setDisplayTodayTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
-
-	const [expandedBlocks, setExpandedBlocks] = useState({
-		'today-tasks': true,
-	});
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({

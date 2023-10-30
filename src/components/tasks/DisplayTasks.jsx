@@ -22,7 +22,16 @@ import DisplayThisYearTasks from './DisplayThisYearTasks';
 import DisplayNextYearTasks from './DisplayNextYearTasks';
 import DisplayBecomingTasks from './DisplayBecomingTasks';
 import {
+	selectBecomingTasks,
+	selectNextMonthTasks,
+	selectNextWeekTasks,
+	selectNextWeekendTasks,
+	selectNextYearTasks,
 	selectOverdueTasks,
+	selectThisMonthTasks,
+	selectThisWeekTasks,
+	selectThisWeekendTasks,
+	selectThisYearTasks,
 	selectTodayTasks,
 	selectTomorrowTasks,
 } from '../../store/selectors/taskSelectors';
@@ -36,6 +45,15 @@ const DisplayTasks = () => {
 	const userOverdueTasks = useSelector(selectOverdueTasks);
 	const userTodayTasks = useSelector(selectTodayTasks);
 	const userTomorrowTasks = useSelector(selectTomorrowTasks);
+	const userThisWeekTasks = useSelector(selectThisWeekTasks);
+	const userThisWeekendTasks = useSelector(selectThisWeekendTasks);
+	const userNextWeekTasks = useSelector(selectNextWeekTasks);
+	const userNextWeekendTasks = useSelector(selectNextWeekendTasks);
+	const userThisMonthTasks = useSelector(selectThisMonthTasks);
+	const userNextMonthTasks = useSelector(selectNextMonthTasks);
+	const userThisYearTasks = useSelector(selectThisYearTasks);
+	const userNextYearTasks = useSelector(selectNextYearTasks);
+	const userBecomingTasks = useSelector(selectBecomingTasks);
 
 	const [expandedBlocks, setExpandedBlocks] = useState({
 		'overdue-tasks': true,
@@ -51,19 +69,6 @@ const DisplayTasks = () => {
 		'becoming-tasks': false,
 		'archived-tasks': false,
 	});
-
-	const updateExpandedBlocks = () => {
-		if (
-			userOverdueTasks.length === 0 &&
-			userTodayTasks.length === 0 &&
-			userTomorrowTasks.length === 0
-		) {
-			setExpandedBlocks((prevState) => ({
-				...prevState,
-				'this-week-tasks': true,
-			}));
-		}
-	};
 
 	const openModal = (e) => {
 		e.stopPropagation();
@@ -119,56 +124,152 @@ const DisplayTasks = () => {
 			<DisplayTodayTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userTodayTasks={userTodayTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayTomorrowTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userTomorrowTasks={userTomorrowTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayThisWeekTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userOverdueTasks={userOverdueTasks}
+				userTodayTasks={userTodayTasks}
+				userTomorrowTasks={userTomorrowTasks}
+				userThisWeekTasks={userThisWeekTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayThisWeekendTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userOverdueTasks={userOverdueTasks}
+				userTodayTasks={userTodayTasks}
+				userTomorrowTasks={userTomorrowTasks}
+				userThisWeekTasks={userThisWeekTasks}
+				userThisWeekendTasks={userThisWeekendTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayNextWeekTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userOverdueTasks={userOverdueTasks}
+				userTodayTasks={userTodayTasks}
+				userTomorrowTasks={userTomorrowTasks}
+				userThisWeekTasks={userThisWeekTasks}
+				userThisWeekendTasks={userThisWeekendTasks}
+				userNextWeekTasks={userNextWeekTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayNextWeekendTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userOverdueTasks={userOverdueTasks}
+				userTodayTasks={userTodayTasks}
+				userTomorrowTasks={userTomorrowTasks}
+				userThisWeekTasks={userThisWeekTasks}
+				userThisWeekendTasks={userThisWeekendTasks}
+				userNextWeekTasks={userNextWeekTasks}
+				userNextWeekendTasks={userNextWeekendTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayThisMonthTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userOverdueTasks={userOverdueTasks}
+				userTodayTasks={userTodayTasks}
+				userTomorrowTasks={userTomorrowTasks}
+				userThisWeekTasks={userThisWeekTasks}
+				userThisWeekendTasks={userThisWeekendTasks}
+				userNextWeekTasks={userNextWeekTasks}
+				userNextWeekendTasks={userNextWeekendTasks}
+				userThisMonthTasks={userThisMonthTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayNextMonthTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userOverdueTasks={userOverdueTasks}
+				userTodayTasks={userTodayTasks}
+				userTomorrowTasks={userTomorrowTasks}
+				userThisWeekTasks={userThisWeekTasks}
+				userThisWeekendTasks={userThisWeekendTasks}
+				userNextWeekTasks={userNextWeekTasks}
+				userNextWeekendTasks={userNextWeekendTasks}
+				userThisMonthTasks={userThisMonthTasks}
+				userNextMonthTasks={userNextMonthTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayThisYearTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userOverdueTasks={userOverdueTasks}
+				userTodayTasks={userTodayTasks}
+				userTomorrowTasks={userTomorrowTasks}
+				userThisWeekTasks={userThisWeekTasks}
+				userThisWeekendTasks={userThisWeekendTasks}
+				userNextWeekTasks={userNextWeekTasks}
+				userNextWeekendTasks={userNextWeekendTasks}
+				userThisMonthTasks={userThisMonthTasks}
+				userNextMonthTasks={userNextMonthTasks}
+				userThisYearTasks={userThisYearTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayNextYearTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userOverdueTasks={userOverdueTasks}
+				userTodayTasks={userTodayTasks}
+				userTomorrowTasks={userTomorrowTasks}
+				userThisWeekTasks={userThisWeekTasks}
+				userThisWeekendTasks={userThisWeekendTasks}
+				userNextWeekTasks={userNextWeekTasks}
+				userNextWeekendTasks={userNextWeekendTasks}
+				userThisMonthTasks={userThisMonthTasks}
+				userNextMonthTasks={userNextMonthTasks}
+				userThisYearTasks={userThisYearTasks}
+				userNextYearTasks={userNextYearTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayBecomingTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
+				userOverdueTasks={userOverdueTasks}
+				userTodayTasks={userTodayTasks}
+				userTomorrowTasks={userTomorrowTasks}
+				userThisWeekTasks={userThisWeekTasks}
+				userThisWeekendTasks={userThisWeekendTasks}
+				userNextWeekTasks={userNextWeekTasks}
+				userNextWeekendTasks={userNextWeekendTasks}
+				userThisMonthTasks={userThisMonthTasks}
+				userNextMonthTasks={userNextMonthTasks}
+				userThisYearTasks={userThisYearTasks}
+				userNextYearTasks={userNextYearTasks}
+				userBecomingTasks={userBecomingTasks}
+				expandedBlocks={expandedBlocks}
+				setExpandedBlocks={setExpandedBlocks}
 			/>
 
 			<DisplayArchivedTasks

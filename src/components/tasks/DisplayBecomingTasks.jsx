@@ -1,19 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectBecomingTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import HeaderBlock from './HeaderBlock';
 
-const DisplayBecomingTasks = ({ setSelectedTask, openModal }) => {
-	const userBecomingTasks = useSelector(selectBecomingTasks);
+const DisplayBecomingTasks = ({
+	setSelectedTask,
+	openModal,
+	userOverdueTasks,
+	userTodayTasks,
+	userTomorrowTasks,
+	userThisWeekTasks,
+	userThisWeekendTasks,
+	userNextWeekTasks,
+	userNextWeekendTasks,
+	userThisMonthTasks,
+	userNextMonthTasks,
+	userThisYearTasks,
+	userNextYearTasks,
+	userBecomingTasks,
+	expandedBlocks,
+	setExpandedBlocks,
+}) => {
 	const [displayBecomingTasks, setDisplayBecomingTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
-	const [expandedBlocks, setExpandedBlocks] = useState({
-		'becoming-tasks': false,
-	});
+	const updateExpandedBlocks = () => {
+		if (
+			userOverdueTasks.length === 0 &&
+			userTodayTasks.length === 0 &&
+			userTomorrowTasks.length === 0 &&
+			userThisWeekTasks.length === 0 &&
+			userThisWeekendTasks.length === 0 &&
+			userNextWeekTasks.length === 0 &&
+			userNextWeekendTasks.length === 0 &&
+			userThisMonthTasks.length === 0 &&
+			userNextMonthTasks.length === 0 &&
+			userThisYearTasks.length === 0 &&
+			userNextYearTasks.length === 0
+		) {
+			setExpandedBlocks((prevState) => ({
+				...prevState,
+				'becoming-tasks': true,
+			}));
+		} else {
+			setExpandedBlocks((prevState) => ({
+				...prevState,
+				'becoming-tasks': false,
+			}));
+		}
+	};
+
+	useEffect(() => {
+		updateExpandedBlocks();
+	}, [
+		userOverdueTasks,
+		userTodayTasks,
+		userTomorrowTasks,
+		userThisWeekTasks,
+		userThisWeekendTasks,
+		userNextWeekTasks,
+		userNextWeekendTasks,
+		userThisMonthTasks,
+		userNextMonthTasks,
+		userThisYearTasks,
+		userNextYearTasks,
+	]);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({

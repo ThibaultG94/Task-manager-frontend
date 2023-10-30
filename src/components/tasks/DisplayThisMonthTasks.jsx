@@ -1,19 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectThisMonthTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import HeaderBlock from './HeaderBlock';
 
-const DisplayThisMonthTasks = ({ setSelectedTask, openModal }) => {
-	const userThisMonthTasks = useSelector(selectThisMonthTasks);
+const DisplayThisMonthTasks = ({
+	setSelectedTask,
+	openModal,
+	userOverdueTasks,
+	userTodayTasks,
+	userTomorrowTasks,
+	userThisWeekTasks,
+	userThisWeekendTasks,
+	userNextWeekTasks,
+	userNextWeekendTasks,
+	userThisMonthTasks,
+	expandedBlocks,
+	setExpandedBlocks,
+}) => {
 	const [displayThisMonthTasks, setDisplayThisMonthTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
-	const [expandedBlocks, setExpandedBlocks] = useState({
-		'this-month-tasks': false,
-	});
+	const updateExpandedBlocks = () => {
+		if (
+			userOverdueTasks.length === 0 &&
+			userTodayTasks.length === 0 &&
+			userTomorrowTasks.length === 0 &&
+			userThisWeekTasks.length === 0 &&
+			userThisWeekendTasks.length === 0 &&
+			userNextWeekTasks.length === 0 &&
+			userNextWeekendTasks.length === 0
+		) {
+			setExpandedBlocks((prevState) => ({
+				...prevState,
+				'this-month-tasks': true,
+			}));
+		} else {
+			setExpandedBlocks((prevState) => ({
+				...prevState,
+				'this-month-tasks': false,
+			}));
+		}
+	};
+
+	useEffect(() => {
+		updateExpandedBlocks();
+	}, [
+		userOverdueTasks,
+		userTodayTasks,
+		userTomorrowTasks,
+		userThisWeekTasks,
+		userThisWeekendTasks,
+		userNextWeekTasks,
+		userNextWeekendTasks,
+	]);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({

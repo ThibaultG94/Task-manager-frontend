@@ -6,14 +6,15 @@ import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectTomorrowTasks } from '../../store/selectors/taskSelectors';
 import HeaderBlock from './HeaderBlock';
 
-const DisplayTomorrowTasks = ({ setSelectedTask, openModal }) => {
-	const userTomorrowTasks = useSelector(selectTomorrowTasks);
+const DisplayTomorrowTasks = ({
+	setSelectedTask,
+	openModal,
+	userTomorrowTasks,
+	expandedBlocks,
+	setExpandedBlocks,
+}) => {
 	const [displayTomorrowTasks, setDisplayTomorrowTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
-
-	const [expandedBlocks, setExpandedBlocks] = useState({
-		'tomorrow-tasks': true,
-	});
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({

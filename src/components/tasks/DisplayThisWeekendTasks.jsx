@@ -1,19 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectThisWeekendTasks } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import HeaderBlock from './HeaderBlock';
 
-const DisplayThisWeekendTasks = ({ setSelectedTask, openModal }) => {
-	const userThisWeekendTasks = useSelector(selectThisWeekendTasks);
+const DisplayThisWeekendTasks = ({
+	setSelectedTask,
+	openModal,
+	userOverdueTasks,
+	userTodayTasks,
+	userTomorrowTasks,
+	userThisWeekTasks,
+	userThisWeekendTasks,
+	expandedBlocks,
+	setExpandedBlocks,
+}) => {
 	const [displayThisWeekendTasks, setDisplayThisWeekendTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
-	const [expandedBlocks, setExpandedBlocks] = useState({
-		'this-weekend-tasks': false,
-	});
+	const updateExpandedBlocks = () => {
+		if (
+			userOverdueTasks.length === 0 &&
+			userTodayTasks.length === 0 &&
+			userTomorrowTasks.length === 0 &&
+			userThisWeekTasks.length === 0 &&
+			userThisWeekendTasks.length === 0
+		) {
+			setExpandedBlocks((prevState) => ({
+				...prevState,
+				'this-weekend-tasks': true,
+			}));
+		} else {
+			setExpandedBlocks((prevState) => ({
+				...prevState,
+				'this-weekend-tasks': false,
+			}));
+		}
+	};
+
+	useEffect(() => {
+		updateExpandedBlocks();
+	}, [
+		userOverdueTasks,
+		userTodayTasks,
+		userTomorrowTasks,
+		userThisWeekTasks,
+		userThisWeekendTasks,
+	]);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({
