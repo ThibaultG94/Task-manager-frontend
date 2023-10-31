@@ -8,7 +8,7 @@ const ButtonToEditTaskInModal = ({ openModal, setSelectedTask, task }) => {
 				setSelectedTask(task);
 			}}
 			className="mx-auto flex items-center cursor-pointer">
-			Edit
+			<span className="edit-icon-2 transition-colors duration-300 ease-in-out flex items-center text-center text-sm rounded py-2 px-3 hover:bg-[#007bff] hover:text-white"></span>
 		</div>
 	);
 };

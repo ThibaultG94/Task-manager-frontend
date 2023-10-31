@@ -132,11 +132,19 @@ p:before {
 	color: white;
 }
 
-.edit-icon::before {
+.edit-icon::before,
+.edit-icon-2::before {
 	content: '\f040';
 	font-family: 'Font Awesome 5 Free';
 	font-weight: 900;
+}
+
+.edit-icon::before {
 	margin-right: 10px;
+}
+
+.edit-icon-2::before {
+	font-size: 1rem;
 }
 
 .task-modal-content {
