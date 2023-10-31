@@ -94,7 +94,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 				);
 			}}
 			className={
-				`text-left mx-auto p-1.5 px-2.5 rounded-lg relative z-10 cursor-auto ` +
+				`text-left mx-auto p-1.5 px-2.5 rounded-lg relative cursor-auto ` +
 				task.category
 			}>
 			{!isEditingField.deadline && (

@@ -24,6 +24,10 @@ module.exports = {
 			margin: {
 				'modal-margin': '4%',
 			},
+			cursor: {
+				grab: 'grab',
+				grabbing: 'grabbing',
+			},
 		},
 	},
 	plugins: [

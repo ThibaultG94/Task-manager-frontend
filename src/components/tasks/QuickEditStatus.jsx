@@ -71,7 +71,7 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 				);
 			}}
 			className={
-				`text-left mx-auto p-1.5 rounded-lg relative z-10 cursor-auto w-[100px] text-center ` +
+				`text-left mx-auto p-1.5 rounded-lg relative cursor-auto w-[100px] text-center ` +
 				task.convertedStatus
 			}>
 			{!isEditingField.status && <span>{task.convertedStatus}</span>}
