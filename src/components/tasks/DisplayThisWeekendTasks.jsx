@@ -80,7 +80,7 @@ const DisplayThisWeekendTasks = ({
 					}`}
 					onClick={() => toggleBlock('this-weekend-tasks')}>
 					<HeaderBlock
-						label="Ce Weekend"
+						label="Ce weekend"
 						type={'this-weekend-tasks'}
 						toggleBlock={toggleBlock}
 					/>

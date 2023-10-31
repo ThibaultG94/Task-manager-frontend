@@ -8,7 +8,7 @@ import HeaderBlock from './HeaderBlock';
 const DisplayOverdueTasks = ({
 	setSelectedTask,
 	openModal,
-	userOverdueTasks,
+	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
@@ -26,7 +26,7 @@ const DisplayOverdueTasks = ({
 		const updateDisplayOverdueTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				userOverdueTasks,
+				allTasks.userOverdueTasks,
 				workspaces,
 				updatedTasks
 			);
@@ -34,11 +34,11 @@ const DisplayOverdueTasks = ({
 		};
 
 		updateDisplayOverdueTasks();
-	}, [userOverdueTasks]);
+	}, [allTasks.userOverdueTasks]);
 
 	return (
 		<>
-			{userOverdueTasks.length > 0 && (
+			{allTasks.userOverdueTasks.length > 0 && (
 				<div
 					id="retard-tasks"
 					className={`task-block ${

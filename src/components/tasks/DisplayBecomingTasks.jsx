@@ -8,18 +8,7 @@ import HeaderBlock from './HeaderBlock';
 const DisplayBecomingTasks = ({
 	setSelectedTask,
 	openModal,
-	userOverdueTasks,
-	userTodayTasks,
-	userTomorrowTasks,
-	userThisWeekTasks,
-	userThisWeekendTasks,
-	userNextWeekTasks,
-	userNextWeekendTasks,
-	userThisMonthTasks,
-	userNextMonthTasks,
-	userThisYearTasks,
-	userNextYearTasks,
-	userBecomingTasks,
+	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
@@ -28,17 +17,17 @@ const DisplayBecomingTasks = ({
 
 	const updateExpandedBlocks = () => {
 		if (
-			userOverdueTasks.length === 0 &&
-			userTodayTasks.length === 0 &&
-			userTomorrowTasks.length === 0 &&
-			userThisWeekTasks.length === 0 &&
-			userThisWeekendTasks.length === 0 &&
-			userNextWeekTasks.length === 0 &&
-			userNextWeekendTasks.length === 0 &&
-			userThisMonthTasks.length === 0 &&
-			userNextMonthTasks.length === 0 &&
-			userThisYearTasks.length === 0 &&
-			userNextYearTasks.length === 0
+			allTasks.userOverdueTasks.length === 0 &&
+			allTasks.userTodayTasks.length === 0 &&
+			allTasks.userTomorrowTasks.length === 0 &&
+			allTasks.userThisWeekTasks.length === 0 &&
+			allTasks.userThisWeekendTasks.length === 0 &&
+			allTasks.userNextWeekTasks.length === 0 &&
+			allTasks.userNextWeekendTasks.length === 0 &&
+			allTasks.userThisMonthTasks.length === 0 &&
+			allTasks.userNextMonthTasks.length === 0 &&
+			allTasks.userThisYearTasks.length === 0 &&
+			allTasks.userNextYearTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
@@ -55,17 +44,17 @@ const DisplayBecomingTasks = ({
 	useEffect(() => {
 		updateExpandedBlocks();
 	}, [
-		userOverdueTasks,
-		userTodayTasks,
-		userTomorrowTasks,
-		userThisWeekTasks,
-		userThisWeekendTasks,
-		userNextWeekTasks,
-		userNextWeekendTasks,
-		userThisMonthTasks,
-		userNextMonthTasks,
-		userThisYearTasks,
-		userNextYearTasks,
+		allTasks.userOverdueTasks,
+		allTasks.userTodayTasks,
+		allTasks.userTomorrowTasks,
+		allTasks.userThisWeekTasks,
+		allTasks.userThisWeekendTasks,
+		allTasks.userNextWeekTasks,
+		allTasks.userNextWeekendTasks,
+		allTasks.userThisMonthTasks,
+		allTasks.userNextMonthTasks,
+		allTasks.userThisYearTasks,
+		allTasks.userNextYearTasks,
 	]);
 
 	const toggleBlock = (blockId) => {
@@ -79,7 +68,7 @@ const DisplayBecomingTasks = ({
 		const updateDisplayBecomingTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				userBecomingTasks,
+				allTasks.userBecomingTasks,
 				workspaces,
 				updatedTasks
 			);
@@ -87,11 +76,11 @@ const DisplayBecomingTasks = ({
 		};
 
 		updateDisplayBecomingTasks();
-	}, [userBecomingTasks]);
+	}, [allTasks.userBecomingTasks]);
 
 	return (
 		<>
-			{userBecomingTasks.length > 0 && (
+			{allTasks.userBecomingTasks.length > 0 && (
 				<div
 					id="becoming-tasks"
 					className={`task-block ${

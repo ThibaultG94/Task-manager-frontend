@@ -8,16 +8,7 @@ import HeaderBlock from './HeaderBlock';
 const DisplayThisYearTasks = ({
 	setSelectedTask,
 	openModal,
-	userOverdueTasks,
-	userTodayTasks,
-	userTomorrowTasks,
-	userThisWeekTasks,
-	userThisWeekendTasks,
-	userNextWeekTasks,
-	userNextWeekendTasks,
-	userThisMonthTasks,
-	userNextMonthTasks,
-	userThisYearTasks,
+	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
@@ -26,15 +17,15 @@ const DisplayThisYearTasks = ({
 
 	const updateExpandedBlocks = () => {
 		if (
-			userOverdueTasks.length === 0 &&
-			userTodayTasks.length === 0 &&
-			userTomorrowTasks.length === 0 &&
-			userThisWeekTasks.length === 0 &&
-			userThisWeekendTasks.length === 0 &&
-			userNextWeekTasks.length === 0 &&
-			userNextWeekendTasks.length === 0 &&
-			userThisMonthTasks.length === 0 &&
-			userNextMonthTasks.length === 0
+			allTasks.userOverdueTasks.length === 0 &&
+			allTasks.userTodayTasks.length === 0 &&
+			allTasks.userTomorrowTasks.length === 0 &&
+			allTasks.userThisWeekTasks.length === 0 &&
+			allTasks.userThisWeekendTasks.length === 0 &&
+			allTasks.userNextWeekTasks.length === 0 &&
+			allTasks.userNextWeekendTasks.length === 0 &&
+			allTasks.userThisMonthTasks.length === 0 &&
+			allTasks.userNextMonthTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
@@ -51,15 +42,15 @@ const DisplayThisYearTasks = ({
 	useEffect(() => {
 		updateExpandedBlocks();
 	}, [
-		userOverdueTasks,
-		userTodayTasks,
-		userTomorrowTasks,
-		userThisWeekTasks,
-		userThisWeekendTasks,
-		userNextWeekTasks,
-		userNextWeekendTasks,
-		userThisMonthTasks,
-		userNextMonthTasks,
+		allTasks.userOverdueTasks,
+		allTasks.userTodayTasks,
+		allTasks.userTomorrowTasks,
+		allTasks.userThisWeekTasks,
+		allTasks.userThisWeekendTasks,
+		allTasks.userNextWeekTasks,
+		allTasks.userNextWeekendTasks,
+		allTasks.userThisMonthTasks,
+		allTasks.userNextMonthTasks,
 	]);
 
 	const toggleBlock = (blockId) => {
@@ -73,7 +64,7 @@ const DisplayThisYearTasks = ({
 		const updateDisplayThisYearTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				userThisYearTasks,
+				allTasks.userThisYearTasks,
 				workspaces,
 				updatedTasks
 			);
@@ -81,11 +72,11 @@ const DisplayThisYearTasks = ({
 		};
 
 		updateDisplayThisYearTasks();
-	}, [userThisYearTasks]);
+	}, [allTasks.userThisYearTasks]);
 
 	return (
 		<>
-			{userThisYearTasks.length > 0 && (
+			{allTasks.userThisYearTasks.length > 0 && (
 				<div
 					id="this-year-tasks"
 					className={`task-block ${
