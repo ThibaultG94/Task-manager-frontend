@@ -134,18 +134,18 @@ p:before {
 // 	background-color: #171f39;
 // }
 
-.save-button {
-	background-color: #648cf6;
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-}
+// .save-button {
+// 	background-color: #648cf6;
+// 	border: none;
+// 	color: white;
+// 	padding: 15px 32px;
+// 	text-align: center;
+// 	text-decoration: none;
+// 	display: inline-block;
+// 	font-size: 16px;
+// 	margin: 4px 2px;
+// 	cursor: pointer;
+// }
 
 .edit-icon {
 	transition: background-color 0.3s ease, color 0.3s ease;
@@ -174,9 +174,9 @@ p:before {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-button:active {
-	background-color: #171f39;
-}
+// button:active {
+// 	background-color: #171f39;
+// }
 
 .element-icon {
 	display: flex;
@@ -184,27 +184,27 @@ button:active {
 	min-height: 40px;
 }
 
-.action-buttons {
-	display: flex;
-	justify-content: space-between;
-	padding-top: 15px;
-}
+// .action-buttons {
+// 	display: flex;
+// 	justify-content: space-between;
+// 	padding-top: 15px;
+// }
 
-.save-button,
-.delete-button {
-	padding: 10px;
-	margin: 5px;
-	cursor: pointer;
-	transition: 0.3s ease-in;
-}
+// .save-button,
+// .delete-button {
+// 	padding: 10px;
+// 	margin: 5px;
+// 	cursor: pointer;
+// 	transition: 0.3s ease-in;
+// }
 
-.delete-button {
-	background: #e1786a;
-}
+// .delete-button {
+// 	background: #e1786a;
+// }
 
-.delete-button:hover {
-	background: #98000d;
-}
+// .delete-button:hover {
+// 	background: #98000d;
+// }
 
 .fas {
 	margin-right: 5px;

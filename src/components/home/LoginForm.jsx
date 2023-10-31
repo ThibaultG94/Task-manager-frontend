@@ -60,7 +60,7 @@ const LoginForm = () => {
 
 	return (
 		<section className="flex justify-center px-20 py-10 bg-light-blue">
-			<div>
+			<div id="home">
 				<h2 className="text-3xl my-10 text-center">Connexion</h2>
 				<form
 					id="login-form"
@@ -117,7 +117,9 @@ const LoginForm = () => {
 						/>
 					)}
 
-					<button className="button" type="submit">
+					<button
+						className="button bg-dark-blue-2 hover:bg-dark-purple mt-5 mb-4"
+						type="submit">
 						Se connecter
 					</button>
 				</form>

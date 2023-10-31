@@ -21,16 +21,16 @@
 	cursor: pointer;
 }
 
-.toggle-button {
-	transition: transform 0.3s ease;
-	background: none;
-	color: black;
-	user-select: none;
-}
+// .toggle-button {
+// 	transition: transform 0.3s ease;
+// 	background: none;
+// 	color: black;
+// 	user-select: none;
+// }
 
-.toggle-button:hover {
-	background: none;
-}
+// .toggle-button:hover {
+// 	background: none;
+// }
 
 .task-list {
 	display: flex;
@@ -43,9 +43,9 @@
 	transition: max-height 0.3s ease;
 }
 
-.expanded .toggle-button {
-	transform: rotate(90deg);
-}
+// .expanded .toggle-button {
+// 	transform: rotate(90deg);
+// }
 
 .expanded .task-list {
 	max-height: none;

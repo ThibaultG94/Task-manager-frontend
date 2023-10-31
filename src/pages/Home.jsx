@@ -14,7 +14,7 @@ const Home = () => {
 	}, [redirectAfterLogin]);
 
 	return (
-		<div id="home" className="flex items-center justify-center">
+		<div className="flex items-center justify-center">
 			{!redirectAfterLogin ? <CheckAuthentication /> : null}
 			<main className="min-w-full min-h-screen grid grid-cols-[45%_55%]">
 				<LoginForm />

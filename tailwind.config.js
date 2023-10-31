@@ -10,6 +10,8 @@ module.exports = {
 			colors: {
 				'light-blue': '#eaefff',
 				'dark-blue': '#171f39',
+				'dark-blue-2': '#3d395a',
+				'dark-purple': '#67557c',
 				'red-error': '#e1786a',
 				'light-grey': '#a8a9b4',
 				'orange-primary': '#ffb360',
@@ -22,5 +24,20 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [
+		function ({ addComponents }) {
+			addComponents({
+				'.button': {
+					display: 'inline-block',
+					color: '#ffffff',
+					padding: '10px 20px',
+					fontSize: '1.2rem',
+					borderRadius: '10px',
+					border: 'none',
+					cursor: 'pointer',
+					boxShadow: '0 1px 10px rgba(0, 0, 0, 0.2)',
+				},
+			});
+		},
+	],
 };

@@ -300,7 +300,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 
 					<button
 						type="submit"
-						className="button"
+						className="button bg-dark-blue hover:bg-dark-blue-2 mt-5	"
 						onClick={(e) => handleSubmit(e)}
 						disabled={isSubmitting}>
 						{isSubmitting ? 'En cours...' : "S'inscrire"}

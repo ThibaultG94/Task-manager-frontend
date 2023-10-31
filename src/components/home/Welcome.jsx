@@ -21,7 +21,9 @@ const Welcome = () => {
 					avoir besoin de créer un compte. Commencez à organisez vos
 					tâches tout de suite en utilisant le mode visiteur.
 				</p>
-				<a href="#" className="button">
+				<a
+					href="#"
+					className="button bg-dark-blue hover:bg-dark-blue-2 mt-5">
 					Mode visiteur
 				</a>
 			</div>
