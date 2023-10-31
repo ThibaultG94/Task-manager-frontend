@@ -8,14 +8,7 @@ import HeaderBlock from './HeaderBlock';
 const DisplayThisMonthTasks = ({
 	setSelectedTask,
 	openModal,
-	userOverdueTasks,
-	userTodayTasks,
-	userTomorrowTasks,
-	userThisWeekTasks,
-	userThisWeekendTasks,
-	userNextWeekTasks,
-	userNextWeekendTasks,
-	userThisMonthTasks,
+	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
@@ -24,13 +17,13 @@ const DisplayThisMonthTasks = ({
 
 	const updateExpandedBlocks = () => {
 		if (
-			userOverdueTasks.length === 0 &&
-			userTodayTasks.length === 0 &&
-			userTomorrowTasks.length === 0 &&
-			userThisWeekTasks.length === 0 &&
-			userThisWeekendTasks.length === 0 &&
-			userNextWeekTasks.length === 0 &&
-			userNextWeekendTasks.length === 0
+			allTasks.userOverdueTasks.length === 0 &&
+			allTasks.userTodayTasks.length === 0 &&
+			allTasks.userTomorrowTasks.length === 0 &&
+			allTasks.userThisWeekTasks.length === 0 &&
+			allTasks.userThisWeekendTasks.length === 0 &&
+			allTasks.userNextWeekTasks.length === 0 &&
+			allTasks.userNextWeekendTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
@@ -47,13 +40,13 @@ const DisplayThisMonthTasks = ({
 	useEffect(() => {
 		updateExpandedBlocks();
 	}, [
-		userOverdueTasks,
-		userTodayTasks,
-		userTomorrowTasks,
-		userThisWeekTasks,
-		userThisWeekendTasks,
-		userNextWeekTasks,
-		userNextWeekendTasks,
+		allTasks.userOverdueTasks,
+		allTasks.userTodayTasks,
+		allTasks.userTomorrowTasks,
+		allTasks.userThisWeekTasks,
+		allTasks.userThisWeekendTasks,
+		allTasks.userNextWeekTasks,
+		allTasks.userNextWeekendTasks,
 	]);
 
 	const toggleBlock = (blockId) => {
@@ -67,7 +60,7 @@ const DisplayThisMonthTasks = ({
 		const updateDisplayThisMonthTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				userThisMonthTasks,
+				allTasks.userThisMonthTasks,
 				workspaces,
 				updatedTasks
 			);
@@ -75,11 +68,11 @@ const DisplayThisMonthTasks = ({
 		};
 
 		updateDisplayThisMonthTasks();
-	}, [userThisMonthTasks]);
+	}, [allTasks.userThisMonthTasks]);
 
 	return (
 		<>
-			{userThisMonthTasks.length > 0 && (
+			{allTasks.userThisMonthTasks.length > 0 && (
 				<div
 					id="this-month-tasks"
 					className={`task-block ${

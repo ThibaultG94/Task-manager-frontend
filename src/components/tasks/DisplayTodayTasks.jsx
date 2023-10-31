@@ -8,7 +8,7 @@ import HeaderBlock from './HeaderBlock';
 const DisplayTodayTasks = ({
 	setSelectedTask,
 	openModal,
-	userTodayTasks,
+	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
@@ -25,16 +25,20 @@ const DisplayTodayTasks = ({
 	useEffect(() => {
 		const updateDisplayTodayTasks = async () => {
 			const updatedTasks = [];
-			await updateDisplayTasks(userTodayTasks, workspaces, updatedTasks);
+			await updateDisplayTasks(
+				allTasks.userTodayTasks,
+				workspaces,
+				updatedTasks
+			);
 			setDisplayTodayTasks(updatedTasks);
 		};
 
 		updateDisplayTodayTasks();
-	}, [userTodayTasks]);
+	}, [allTasks.userTodayTasks]);
 
 	return (
 		<>
-			{userTodayTasks.length > 0 && (
+			{allTasks.userTodayTasks.length > 0 && (
 				<div
 					id="today-tasks"
 					className={`task-block ${

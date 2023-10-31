@@ -42,15 +42,6 @@ const DisplayTasks = () => {
 	const hasEdited = useSelector(selectHasEdited);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const userOverdueTasks = useSelector(selectOverdueTasks);
-	const userTodayTasks = useSelector(selectTodayTasks);
-	const userTomorrowTasks = useSelector(selectTomorrowTasks);
-	const userThisWeekTasks = useSelector(selectThisWeekTasks);
-	const userThisWeekendTasks = useSelector(selectThisWeekendTasks);
-	const userNextWeekTasks = useSelector(selectNextWeekTasks);
-	const userNextWeekendTasks = useSelector(selectNextWeekendTasks);
-	const userThisMonthTasks = useSelector(selectThisMonthTasks);
-	const userNextMonthTasks = useSelector(selectNextMonthTasks);
 
 	const allTasks = {
 		userOverdueTasks: useSelector(selectOverdueTasks),
@@ -136,7 +127,7 @@ const DisplayTasks = () => {
 			<DisplayTodayTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
-				userTodayTasks={userTodayTasks}
+				allTasks={allTasks}
 				expandedBlocks={expandedBlocks}
 				setExpandedBlocks={setExpandedBlocks}
 			/>
@@ -144,7 +135,7 @@ const DisplayTasks = () => {
 			<DisplayTomorrowTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
-				userTomorrowTasks={userTomorrowTasks}
+				allTasks={allTasks}
 				expandedBlocks={expandedBlocks}
 				setExpandedBlocks={setExpandedBlocks}
 			/>
@@ -152,10 +143,7 @@ const DisplayTasks = () => {
 			<DisplayThisWeekTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
-				userOverdueTasks={userOverdueTasks}
-				userTodayTasks={userTodayTasks}
-				userTomorrowTasks={userTomorrowTasks}
-				userThisWeekTasks={userThisWeekTasks}
+				allTasks={allTasks}
 				expandedBlocks={expandedBlocks}
 				setExpandedBlocks={setExpandedBlocks}
 			/>
@@ -163,11 +151,7 @@ const DisplayTasks = () => {
 			<DisplayThisWeekendTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
-				userOverdueTasks={userOverdueTasks}
-				userTodayTasks={userTodayTasks}
-				userTomorrowTasks={userTomorrowTasks}
-				userThisWeekTasks={userThisWeekTasks}
-				userThisWeekendTasks={userThisWeekendTasks}
+				allTasks={allTasks}
 				expandedBlocks={expandedBlocks}
 				setExpandedBlocks={setExpandedBlocks}
 			/>
@@ -175,12 +159,7 @@ const DisplayTasks = () => {
 			<DisplayNextWeekTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
-				userOverdueTasks={userOverdueTasks}
-				userTodayTasks={userTodayTasks}
-				userTomorrowTasks={userTomorrowTasks}
-				userThisWeekTasks={userThisWeekTasks}
-				userThisWeekendTasks={userThisWeekendTasks}
-				userNextWeekTasks={userNextWeekTasks}
+				allTasks={allTasks}
 				expandedBlocks={expandedBlocks}
 				setExpandedBlocks={setExpandedBlocks}
 			/>
@@ -188,13 +167,7 @@ const DisplayTasks = () => {
 			<DisplayNextWeekendTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
-				userOverdueTasks={userOverdueTasks}
-				userTodayTasks={userTodayTasks}
-				userTomorrowTasks={userTomorrowTasks}
-				userThisWeekTasks={userThisWeekTasks}
-				userThisWeekendTasks={userThisWeekendTasks}
-				userNextWeekTasks={userNextWeekTasks}
-				userNextWeekendTasks={userNextWeekendTasks}
+				allTasks={allTasks}
 				expandedBlocks={expandedBlocks}
 				setExpandedBlocks={setExpandedBlocks}
 			/>
@@ -202,14 +175,7 @@ const DisplayTasks = () => {
 			<DisplayThisMonthTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
-				userOverdueTasks={userOverdueTasks}
-				userTodayTasks={userTodayTasks}
-				userTomorrowTasks={userTomorrowTasks}
-				userThisWeekTasks={userThisWeekTasks}
-				userThisWeekendTasks={userThisWeekendTasks}
-				userNextWeekTasks={userNextWeekTasks}
-				userNextWeekendTasks={userNextWeekendTasks}
-				userThisMonthTasks={userThisMonthTasks}
+				allTasks={allTasks}
 				expandedBlocks={expandedBlocks}
 				setExpandedBlocks={setExpandedBlocks}
 			/>
@@ -217,15 +183,7 @@ const DisplayTasks = () => {
 			<DisplayNextMonthTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
-				userOverdueTasks={userOverdueTasks}
-				userTodayTasks={userTodayTasks}
-				userTomorrowTasks={userTomorrowTasks}
-				userThisWeekTasks={userThisWeekTasks}
-				userThisWeekendTasks={userThisWeekendTasks}
-				userNextWeekTasks={userNextWeekTasks}
-				userNextWeekendTasks={userNextWeekendTasks}
-				userThisMonthTasks={userThisMonthTasks}
-				userNextMonthTasks={userNextMonthTasks}
+				allTasks={allTasks}
 				expandedBlocks={expandedBlocks}
 				setExpandedBlocks={setExpandedBlocks}
 			/>

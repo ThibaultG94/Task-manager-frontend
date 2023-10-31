@@ -3,13 +3,12 @@ import { useSelector } from 'react-redux';
 import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
-import { selectTomorrowTasks } from '../../store/selectors/taskSelectors';
 import HeaderBlock from './HeaderBlock';
 
 const DisplayTomorrowTasks = ({
 	setSelectedTask,
 	openModal,
-	userTomorrowTasks,
+	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
@@ -27,7 +26,7 @@ const DisplayTomorrowTasks = ({
 		const updateDisplayTomorrowTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				userTomorrowTasks,
+				allTasks.userTomorrowTasks,
 				workspaces,
 				updatedTasks
 			);
@@ -35,11 +34,11 @@ const DisplayTomorrowTasks = ({
 		};
 
 		updateDisplayTomorrowTasks();
-	}, [userTomorrowTasks]);
+	}, [allTasks.userTomorrowTasks]);
 
 	return (
 		<>
-			{userTomorrowTasks.length > 0 && (
+			{allTasks.userTomorrowTasks.length > 0 && (
 				<div
 					id="tomorrow-tasks"
 					className={`task-block ${

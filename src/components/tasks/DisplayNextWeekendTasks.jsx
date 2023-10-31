@@ -8,13 +8,7 @@ import HeaderBlock from './HeaderBlock';
 const DisplayNextWeekendTasks = ({
 	setSelectedTask,
 	openModal,
-	userOverdueTasks,
-	userTodayTasks,
-	userTomorrowTasks,
-	userThisWeekTasks,
-	userThisWeekendTasks,
-	userNextWeekTasks,
-	userNextWeekendTasks,
+	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
@@ -23,12 +17,12 @@ const DisplayNextWeekendTasks = ({
 
 	const updateExpandedBlocks = () => {
 		if (
-			userOverdueTasks.length === 0 &&
-			userTodayTasks.length === 0 &&
-			userTomorrowTasks.length === 0 &&
-			userThisWeekTasks.length === 0 &&
-			userThisWeekendTasks.length === 0 &&
-			userNextWeekTasks.length === 0
+			allTasks.userOverdueTasks.length === 0 &&
+			allTasks.userTodayTasks.length === 0 &&
+			allTasks.userTomorrowTasks.length === 0 &&
+			allTasks.userThisWeekTasks.length === 0 &&
+			allTasks.userThisWeekendTasks.length === 0 &&
+			allTasks.userNextWeekTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
@@ -45,12 +39,12 @@ const DisplayNextWeekendTasks = ({
 	useEffect(() => {
 		updateExpandedBlocks();
 	}, [
-		userOverdueTasks,
-		userTodayTasks,
-		userTomorrowTasks,
-		userThisWeekTasks,
-		userThisWeekendTasks,
-		userNextWeekTasks,
+		allTasks.userOverdueTasks,
+		allTasks.userTodayTasks,
+		allTasks.userTomorrowTasks,
+		allTasks.userThisWeekTasks,
+		allTasks.userThisWeekendTasks,
+		allTasks.userNextWeekTasks,
 	]);
 
 	const toggleBlock = (blockId) => {
@@ -64,7 +58,7 @@ const DisplayNextWeekendTasks = ({
 		const updateDisplayNextWeekendTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				userNextWeekendTasks,
+				allTasks.userNextWeekendTasks,
 				workspaces,
 				updatedTasks
 			);
@@ -72,11 +66,11 @@ const DisplayNextWeekendTasks = ({
 		};
 
 		updateDisplayNextWeekendTasks();
-	}, [userNextWeekendTasks]);
+	}, [allTasks.userNextWeekendTasks]);
 
 	return (
 		<>
-			{userNextWeekendTasks.length > 0 && (
+			{allTasks.userNextWeekendTasks.length > 0 && (
 				<div
 					id="next-weekend-tasks"
 					className={`task-block ${

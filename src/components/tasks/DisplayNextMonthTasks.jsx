@@ -8,15 +8,7 @@ import HeaderBlock from './HeaderBlock';
 const DisplayNextMonthTasks = ({
 	setSelectedTask,
 	openModal,
-	userOverdueTasks,
-	userTodayTasks,
-	userTomorrowTasks,
-	userThisWeekTasks,
-	userThisWeekendTasks,
-	userNextWeekTasks,
-	userNextWeekendTasks,
-	userThisMonthTasks,
-	userNextMonthTasks,
+	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
@@ -25,14 +17,14 @@ const DisplayNextMonthTasks = ({
 
 	const updateExpandedBlocks = () => {
 		if (
-			userOverdueTasks.length === 0 &&
-			userTodayTasks.length === 0 &&
-			userTomorrowTasks.length === 0 &&
-			userThisWeekTasks.length === 0 &&
-			userThisWeekendTasks.length === 0 &&
-			userNextWeekTasks.length === 0 &&
-			userNextWeekendTasks.length === 0 &&
-			userThisMonthTasks.length === 0
+			allTasks.userOverdueTasks.length === 0 &&
+			allTasks.userTodayTasks.length === 0 &&
+			allTasks.userTomorrowTasks.length === 0 &&
+			allTasks.userThisWeekTasks.length === 0 &&
+			allTasks.userThisWeekendTasks.length === 0 &&
+			allTasks.userNextWeekTasks.length === 0 &&
+			allTasks.userNextWeekendTasks.length === 0 &&
+			allTasks.userThisMonthTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
@@ -49,14 +41,14 @@ const DisplayNextMonthTasks = ({
 	useEffect(() => {
 		updateExpandedBlocks();
 	}, [
-		userOverdueTasks,
-		userTodayTasks,
-		userTomorrowTasks,
-		userThisWeekTasks,
-		userThisWeekendTasks,
-		userNextWeekTasks,
-		userNextWeekendTasks,
-		userThisMonthTasks,
+		allTasks.userOverdueTasks,
+		allTasks.userTodayTasks,
+		allTasks.userTomorrowTasks,
+		allTasks.userThisWeekTasks,
+		allTasks.userThisWeekendTasks,
+		allTasks.userNextWeekTasks,
+		allTasks.userNextWeekendTasks,
+		allTasks.userThisMonthTasks,
 	]);
 
 	const toggleBlock = (blockId) => {
@@ -70,7 +62,7 @@ const DisplayNextMonthTasks = ({
 		const updateDisplayNextMonthTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				userNextMonthTasks,
+				allTasks.userNextMonthTasks,
 				workspaces,
 				updatedTasks
 			);
@@ -78,11 +70,11 @@ const DisplayNextMonthTasks = ({
 		};
 
 		updateDisplayNextMonthTasks();
-	}, [userNextMonthTasks]);
+	}, [allTasks.userNextMonthTasks]);
 
 	return (
 		<>
-			{userNextMonthTasks.length > 0 && (
+			{allTasks.userNextMonthTasks.length > 0 && (
 				<div
 					id="next-month-tasks"
 					className={`task-block ${

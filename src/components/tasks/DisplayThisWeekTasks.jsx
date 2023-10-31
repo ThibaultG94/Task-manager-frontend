@@ -8,10 +8,7 @@ import HeaderBlock from './HeaderBlock';
 const DisplayThisWeekTasks = ({
 	setSelectedTask,
 	openModal,
-	userOverdueTasks,
-	userTodayTasks,
-	userTomorrowTasks,
-	userThisWeekTasks,
+	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
@@ -20,9 +17,9 @@ const DisplayThisWeekTasks = ({
 
 	const updateExpandedBlocks = () => {
 		if (
-			userOverdueTasks.length === 0 &&
-			userTodayTasks.length === 0 &&
-			userTomorrowTasks.length === 0
+			allTasks.userOverdueTasks.length === 0 &&
+			allTasks.userTodayTasks.length === 0 &&
+			allTasks.userTomorrowTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
@@ -38,7 +35,11 @@ const DisplayThisWeekTasks = ({
 
 	useEffect(() => {
 		updateExpandedBlocks();
-	}, [userOverdueTasks, userTodayTasks, userTomorrowTasks]);
+	}, [
+		allTasks.userOverdueTasks,
+		allTasks.userTodayTasks,
+		allTasks.userTomorrowTasks,
+	]);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({
@@ -51,7 +52,7 @@ const DisplayThisWeekTasks = ({
 		const updateDisplayThisWeekTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				userThisWeekTasks,
+				allTasks.userThisWeekTasks,
 				workspaces,
 				updatedTasks
 			);
@@ -59,11 +60,11 @@ const DisplayThisWeekTasks = ({
 		};
 
 		updateDisplayThisWeekTasks();
-	}, [userThisWeekTasks]);
+	}, [allTasks.userThisWeekTasks]);
 
 	return (
 		<>
-			{userThisWeekTasks.length > 0 && (
+			{allTasks.userThisWeekTasks.length > 0 && (
 				<div
 					id="this-week-tasks"
 					className={`task-block ${
