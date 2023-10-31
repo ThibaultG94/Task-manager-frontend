@@ -89,7 +89,9 @@ const DisplayThisYearTasks = ({
 						toggleBlock={toggleBlock}
 					/>
 
-					<div className="task-list">
+					<div
+						className="task-list"
+						onClick={(e) => e.stopPropagation()}>
 						{displayThisYearTasks &&
 						displayThisYearTasks?.length > 0
 							? displayThisYearTasks

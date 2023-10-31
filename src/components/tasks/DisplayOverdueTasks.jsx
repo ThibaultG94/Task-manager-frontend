@@ -51,7 +51,9 @@ const DisplayOverdueTasks = ({
 						toggleBlock={toggleBlock}
 					/>
 
-					<div className="task-list">
+					<div
+						className="task-list"
+						onClick={(e) => e.stopPropagation()}>
 						{displayOverdueTasks && displayOverdueTasks?.length > 0
 							? displayOverdueTasks
 									.filter(

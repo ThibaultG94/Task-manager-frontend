@@ -4,16 +4,16 @@ import QuickEditDeadline from './QuickEditDeadline';
 import QuickEditStatus from './QuickEditStatus';
 import QuickEditPriority from './QuickEditPriority';
 import QuickEditWorkspace from './QuickEditWorkspace';
+import ButtonToEditTaskInModal from './ButtonToEditTaskInModal';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	return (
-		<div
-			className="task-item hover:bg-orange-primary relative z-0 cursor-pointer py-[20px] px-4 mx-auto"
-			onClick={(e) => {
-				e.stopPropagation();
-				openModal(e);
-				setSelectedTask(task);
-			}}>
+		<div className="task-item hover:bg-orange-primary relative py-[20px] px-4 mx-auto">
+			<ButtonToEditTaskInModal
+				openModal={openModal}
+				setSelectedTask={setSelectedTask}
+				task={task}
+			/>
 			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditStatus task={task} setSelectedTask={setSelectedTask} />

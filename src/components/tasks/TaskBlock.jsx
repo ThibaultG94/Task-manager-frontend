@@ -22,8 +22,7 @@ const TaskBlock = ({
 			id={blockType}
 			className={`task-block ${
 				expandedBlocks[blockType] ? 'expanded' : ''
-			}`}
-			onClick={() => toggleBlock(blockType)}>
+			}`}>
 			<HeaderBlock
 				label={blockLabel}
 				type={blockType}

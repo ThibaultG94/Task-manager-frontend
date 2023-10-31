@@ -93,7 +93,9 @@ const DisplayBecomingTasks = ({
 						toggleBlock={toggleBlock}
 					/>
 
-					<div className="task-list">
+					<div
+						className="task-list"
+						onClick={(e) => e.stopPropagation()}>
 						{displayBecomingTasks &&
 						displayBecomingTasks?.length > 0
 							? displayBecomingTasks

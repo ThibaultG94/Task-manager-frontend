@@ -77,7 +77,9 @@ const DisplayThisWeekTasks = ({
 						toggleBlock={toggleBlock}
 					/>
 
-					<div className="task-list">
+					<div
+						className="task-list"
+						onClick={(e) => e.stopPropagation()}>
 						{displayThisWeekTasks &&
 						displayThisWeekTasks?.length > 0
 							? displayThisWeekTasks

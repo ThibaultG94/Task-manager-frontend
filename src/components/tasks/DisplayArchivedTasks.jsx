@@ -80,7 +80,7 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 					toggleBlock={toggleBlock}
 				/>
 
-				<div className="task-list">
+				<div className="task-list" onClick={(e) => e.stopPropagation()}>
 					{displayArchivedTasks && displayArchivedTasks?.length > 0
 						? displayArchivedTasks
 								.filter(

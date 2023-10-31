@@ -86,7 +86,9 @@ const DisplayNextMonthTasks = ({
 						type={'next-month-tasks'}
 						toggleBlock={toggleBlock}
 					/>
-					<div className="task-list">
+					<div
+						className="task-list"
+						onClick={(e) => e.stopPropagation()}>
 						{displayNextMonthTasks &&
 						displayNextMonthTasks?.length > 0
 							? displayNextMonthTasks

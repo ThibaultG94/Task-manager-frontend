@@ -85,7 +85,9 @@ const DisplayThisMonthTasks = ({
 						toggleBlock={toggleBlock}
 					/>
 
-					<div className="task-list">
+					<div
+						className="task-list"
+						onClick={(e) => e.stopPropagation()}>
 						{displayThisMonthTasks &&
 						displayThisMonthTasks?.length > 0
 							? displayThisMonthTasks

@@ -51,7 +51,9 @@ const DisplayTomorrowTasks = ({
 						toggleBlock={toggleBlock}
 					/>
 
-					<div className="task-list">
+					<div
+						className="task-list"
+						onClick={(e) => e.stopPropagation()}>
 						{displayTomorrowTasks &&
 						displayTomorrowTasks?.length > 0
 							? displayTomorrowTasks
