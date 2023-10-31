@@ -9,10 +9,12 @@ module.exports = {
 		extend: {
 			colors: {
 				'light-blue': '#eaefff',
+				'light-blue-2': '#648cf6',
 				'dark-blue': '#171f39',
 				'dark-blue-2': '#3d395a',
 				'dark-purple': '#67557c',
 				'red-error': '#e1786a',
+				'red-error-2': '#98000d',
 				'light-grey': '#a8a9b4',
 				'orange-primary': '#ffb360',
 			},

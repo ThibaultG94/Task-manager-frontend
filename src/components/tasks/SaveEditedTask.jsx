@@ -39,7 +39,9 @@ const SaveEditedTask = ({ setIsModalOpen, setSaveMessage }) => {
 	};
 
 	return (
-		<button className="save-button" onClick={handleSave}>
+		<button
+			className="button mt-2 bg-light-blue-2 hover:bg-dark-blue"
+			onClick={handleSave}>
 			<i className="fas fa-save"></i> Sauvegarder
 		</button>
 	);

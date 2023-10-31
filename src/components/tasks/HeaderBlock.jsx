@@ -5,7 +5,7 @@ const HeaderBlock = ({ label, type, toggleBlock }) => {
 		<div className="task-block-header">
 			<h3 className="pl-6 text-xl">{label}</h3>
 			<button
-				className="toggle-button mr-6"
+				className="transition-transform ease-in-out duration-300 bg-transparent text-black select-none hover:bg-transparent mr-6"
 				onClick={() => toggleBlock({ type })}>
 				▶
 			</button>
