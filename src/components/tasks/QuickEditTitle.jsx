@@ -63,6 +63,7 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 						type="text"
 						defaultValue={task?.title}
 						className="p-0 w-full border-0"
+						maxLength={60}
 						ref={inputTitleRef}
 					/>
 				</form>

@@ -9,6 +9,7 @@ const TitleInput = ({ title, setTitle, label }) => {
 				type="text"
 				name="title"
 				placeholder={label}
+				maxLength={50}
 				required
 				className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 p-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
 			/>

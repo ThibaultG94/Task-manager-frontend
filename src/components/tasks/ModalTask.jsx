@@ -21,7 +21,7 @@ const ModalTask = ({ closeModal, setIsModalOpen }) => {
 			className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10"
 			onClick={closeModal}>
 			<div
-				className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-md w-2/3"
+				className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-md w-[70vw]"
 				ref={modalRef}
 				onClick={(e) => e.stopPropagation()}>
 				<CloseButton onClose={closeModal} modalTabs={false} />

@@ -7,6 +7,7 @@ import {
 } from '../../store/feature/editState.slice';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { updateEditedTask } from '../../store/feature/tasks.slice';
+import EditIcon from './EditIcon';
 
 const EditTitle = () => {
 	const dispatch = useDispatch();
@@ -38,34 +39,29 @@ const EditTitle = () => {
 	};
 
 	return (
-		<div className="title-icon relative">
+		<div className="h-8 mb-2">
 			{!isEditingField.title && (
-				<h2 className="pt-2 text-2xl font-bold">{editedTask?.title}</h2>
+				<div className="flex justify-center">
+					<h2 className="mt-2 text-2xl font-bold flex-grow">
+						{editedTask?.title}
+					</h2>
+					<EditIcon handleEditElement={handleEditTitle} />
+				</div>
 			)}
 			{isEditingField.title && (
-				<>
+				<div className="flex justify-center">
 					<input
 						type="text"
-						className="task-edit-title pt-2 text-2xl"
+						maxLength={60}
+						className="mt-2 text-2xl font-bold flex-grow"
 						defaultValue={editedTask?.title}
 						ref={inputTitleRef}
 					/>
-					<button
-						className="save-title absolute right-20"
-						onClick={(e) => handleValidTitle(e)}>
+					<button onClick={(e) => handleValidTitle(e)}>
 						Valider
 					</button>
-					<button
-						className="absolute right-0"
-						onClick={(e) => handleEditTitle(e)}>
-						Annuler
-					</button>
-				</>
-			)}
-			{!isEditingField.title && (
-				<span
-					className="edit-icon"
-					onClick={(e) => handleEditTitle(e)}></span>
+					<button onClick={(e) => handleEditTitle(e)}>Annuler</button>
+				</div>
 			)}
 		</div>
 	);
