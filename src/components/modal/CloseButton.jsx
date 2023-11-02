@@ -1,10 +1,13 @@
 import React from 'react';
 
-const CloseButton = ({ onClose }) => {
+const CloseButton = ({ onClose, modalTabs }) => {
 	return (
 		<span
 			aria-label="Close"
-			className="cursor-pointer mr-2 transition-transform duration-200 hover:rotate-180"
+			className={
+				`cursor-pointer transition-transform duration-200 hover:rotate-180` +
+				(modalTabs ? ` mr-2` : ` absolute top-0 right-0`)
+			}
 			onClick={onClose}>
 			<svg
 				width="40"

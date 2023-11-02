@@ -21,7 +21,7 @@ const Tabs = ({ tabs, activeTab, setActiveTab, closeModal }) => {
 						</button>
 					))}
 				</div>
-				<CloseButton onClose={closeModal} />
+				<CloseButton onClose={closeModal} modalTabs={true} />
 			</div>
 			<div className="tab-content">
 				{tabs.find((tab) => tab.id === activeTab).component}
