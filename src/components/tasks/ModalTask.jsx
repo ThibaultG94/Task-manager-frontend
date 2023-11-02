@@ -26,7 +26,7 @@ const ModalTask = ({ closeModal, setIsModalOpen }) => {
 				onClick={(e) => e.stopPropagation()}>
 				<CloseButton onClose={closeModal} modalTabs={false} />
 
-				<div className="task-details">
+				<div className="py-3 px-5 bg-modal-task-bg border border-gray-300 rounded-md">
 					<EditTitle itemTitle={false} modalTitle={true} />
 
 					<EditStatus />

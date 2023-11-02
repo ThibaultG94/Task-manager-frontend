@@ -17,6 +17,7 @@ module.exports = {
 				'red-error-2': '#98000d',
 				'light-grey': '#a8a9b4',
 				'orange-primary': '#ffb360',
+				'modal-task-bg': '#f9f9f9',
 			},
 			backgroundColor: {
 				'modal-bg': 'rgba(0, 0, 0, 0.8)',
