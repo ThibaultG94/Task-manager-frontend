@@ -41,9 +41,13 @@ const EditDescription = () => {
 	};
 
 	return (
-		<div className="description-icon element-icon">
+		<div className="flex flex-wrap mb-2">
 			{!isEditingField.description && (
-				<span>{editedTask?.description}</span>
+				<div className="description-icon mt-2 px-2 py-1 rounded-lg">
+					<span className="ml-3 text-xl">
+						{editedTask?.description}
+					</span>
+				</div>
 			)}
 			{isEditingField.description && (
 				<>
@@ -60,11 +64,11 @@ const EditDescription = () => {
 					</button>
 				</>
 			)}
-			{!isEditingField.description && (
+			{/* {!isEditingField.description && (
 				<span
-					className="edit-icon"
-					onClick={(e) => handleEditDescription(e)}></span>
-			)}
+				className="edit-icon"
+				onClick={(e) => handleEditDescription(e)}></span>
+			)} */}
 		</div>
 	);
 };

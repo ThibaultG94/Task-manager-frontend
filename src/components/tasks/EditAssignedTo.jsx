@@ -85,8 +85,12 @@ const EditAssignedTo = () => {
 	}, [membersName]);
 
 	return (
-		<div className="assigned-icon element-icon">
-			{!isEditingField.assignedTo && <span>{convertedMember}</span>}
+		<div className="flex flex-wrap mb-2">
+			{!isEditingField.assignedTo && (
+				<div className="assigned-icon mt-2 ml-6 px-2 py-1 rounded-lg bg-light-blue-3">
+					<span className="ml-3 text-xl">{convertedMember}</span>
+				</div>
+			)}
 			{isEditingField.assignedTo && (
 				<>
 					<select
@@ -114,11 +118,11 @@ const EditAssignedTo = () => {
 					</button>
 				</>
 			)}
-			{!isEditingField.assignedTo && (
+			{/* {!isEditingField.assignedTo && (
 				<span
-					className="edit-icon"
-					onClick={(e) => handleEditAssignedTo(e)}></span>
-			)}
+				className="edit-icon"
+				onClick={(e) => handleEditAssignedTo(e)}></span>
+			)} */}
 		</div>
 	);
 };

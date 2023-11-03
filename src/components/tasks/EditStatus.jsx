@@ -8,6 +8,8 @@ import {
 } from '../../store/feature/editState.slice';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { updateEditedTask } from '../../store/feature/tasks.slice';
+import ValidOrCancelButtonsInEditingMode from './ValidOrCancelButtonsInEditingMode';
+import EditIcon from './EditIcon';
 
 const EditStatus = () => {
 	const dispatch = useDispatch();
@@ -43,12 +45,20 @@ const EditStatus = () => {
 	}, [editedTask]);
 
 	return (
-		<div className="status-icon element-icon">
-			{!isEditingField.status && <span>{convertedStatus}</span>}
+		<div className="flex flex-wrap mb-2">
+			{!isEditingField.status && (
+				<div
+					className={
+						'status-icon mt-2 px-2 py-1 rounded-lg ' +
+						convertedStatus
+					}>
+					<span className="ml-3 text-xl">{convertedStatus}</span>
+				</div>
+			)}
 			{isEditingField.status && (
-				<>
+				<div className="status-icon">
 					<select
-						className="task-edit-select"
+						className="task-edit-select ml-4"
 						defaultValue={editedTask?.status}
 						ref={inputStatusRef}>
 						<option value="Pending">À faire</option>
@@ -56,19 +66,15 @@ const EditStatus = () => {
 						<option value="Completed">Terminé</option>
 						<option value="Archived">Archivé</option>
 					</select>
-					<button onClick={(e) => handleValidStatus(e)}>
-						Valider
-					</button>
-					<button onClick={(e) => handleEditStatus(e)}>
-						Annuler
-					</button>
-				</>
+					<ValidOrCancelButtonsInEditingMode
+						handleValidElement={handleValidStatus}
+						handleEditElement={handleEditStatus}
+					/>
+				</div>
 			)}
-			{!isEditingField.status && (
-				<span
-					className="edit-icon"
-					onClick={(e) => handleEditStatus(e)}></span>
-			)}
+			{/* {!isEditingField.status && (
+				<EditIcon handleEditElement={handleEditStatus} />
+			)} */}
 		</div>
 	);
 };

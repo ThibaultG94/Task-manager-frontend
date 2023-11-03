@@ -40,13 +40,13 @@ const EditTitle = () => {
 	};
 
 	return (
-		<div className="h-8 mb-2">
+		<div className="mb-2">
 			{!isEditingField.title && (
-				<div className="flex justify-center">
-					<h2 className="mt-2 text-2xl font-bold flex-grow">
+				<div className="text-left">
+					<p className="mt-3 text-2xl font-normal flex-grow">
 						{editedTask?.title}
-					</h2>
-					<EditIcon handleEditElement={handleEditTitle} />
+					</p>
+					{/* <EditIcon handleEditElement={handleEditTitle} /> */}
 				</div>
 			)}
 			{isEditingField.title && (

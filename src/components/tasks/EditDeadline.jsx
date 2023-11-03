@@ -46,8 +46,16 @@ const EditDeadline = () => {
 	}, [editedTask]);
 
 	return (
-		<div className="deadline-icon element-icon">
-			{!isEditingField.deadline && <span>{convertedDeadline}</span>}
+		<div className="flex flex-wrap mb-2">
+			{!isEditingField.deadline && (
+				<div
+					className={
+						'deadline-icon mt-2 ml-6 px-2 py-1 rounded-lg ' +
+						editedTask?.category
+					}>
+					<span className="ml-3 text-xl">{convertedDeadline}</span>
+				</div>
+			)}
 			{isEditingField.deadline && (
 				<>
 					<input
@@ -64,11 +72,11 @@ const EditDeadline = () => {
 					</button>
 				</>
 			)}
-			{!isEditingField.deadline && (
+			{/* {!isEditingField.deadline && (
 				<span
-					className="edit-icon"
-					onClick={(e) => handleEditDeadline(e)}></span>
-			)}
+				className="edit-icon"
+				onClick={(e) => handleEditDeadline(e)}></span>
+			)} */}
 		</div>
 	);
 };

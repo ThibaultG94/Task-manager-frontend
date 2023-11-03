@@ -46,8 +46,16 @@ const EditPriority = () => {
 	}, [editedTask]);
 
 	return (
-		<div className="priority-icon element-icon">
-			{!isEditingField.priority && <span>{convertedPriority}</span>}
+		<div className="flex flex-wrap mb-2">
+			{!isEditingField.priority && (
+				<div
+					className={
+						'priority-icon mt-2 ml-6 px-2 py-1 rounded-lg ' +
+						convertedPriority
+					}>
+					<span className="ml-3 text-xl">{convertedPriority}</span>
+				</div>
+			)}
 			{isEditingField.priority && (
 				<>
 					<select
@@ -67,11 +75,11 @@ const EditPriority = () => {
 					</button>
 				</>
 			)}
-			{!isEditingField.priority && (
+			{/* {!isEditingField.priority && (
 				<span
-					className="edit-icon"
-					onClick={(e) => handleEditPriority(e)}></span>
-			)}
+				className="edit-icon"
+				onClick={(e) => handleEditPriority(e)}></span>
+			)} */}
 		</div>
 	);
 };

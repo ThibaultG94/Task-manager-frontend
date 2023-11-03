@@ -6,7 +6,7 @@ const CloseButton = ({ onClose, modalTabs }) => {
 			aria-label="Close"
 			className={
 				`cursor-pointer transition-transform duration-200 hover:rotate-180` +
-				(modalTabs ? ` mr-2` : ` absolute top-0 right-0`)
+				(modalTabs ? ` mr-2` : ` absolute top-1 right-2`)
 			}
 			onClick={onClose}>
 			<svg
@@ -21,7 +21,7 @@ const CloseButton = ({ onClose, modalTabs }) => {
 					x2="30"
 					y2="30"
 					stroke="currentColor"
-					strokeWidth="2"
+					strokeWidth="3"
 				/>
 				<line
 					x1="30"
@@ -29,7 +29,7 @@ const CloseButton = ({ onClose, modalTabs }) => {
 					x2="10"
 					y2="30"
 					stroke="currentColor"
-					strokeWidth="2"
+					strokeWidth="3"
 				/>
 			</svg>
 		</span>

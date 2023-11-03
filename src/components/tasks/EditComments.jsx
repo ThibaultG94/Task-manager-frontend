@@ -35,30 +35,30 @@ const EditComments = () => {
 	};
 
 	return (
-		<div>
+		<div className="flex flex-wrap mb-2">
 			{isEditingField.comments && (
-				<div className="comments-icon element-icon">
-					<span>{editedTask?.comments}</span>
-					{isEditingField.comments && (
-						<>
-							<textarea
-								class="task-edit-comments"
-								ref={inputCommentsRef}></textarea>
-							<button onClick={(e) => handleValidComments(e)}>
-								Valider
-							</button>
-							<button onClick={(e) => handleEditComments(e)}>
-								Annuler
-							</button>
-						</>
-					)}
-					{!isEditingField.comments && (
+				<div className="comments-icon mt-2 ml-6 px-2 py-1 rounded-lg">
+					<span className="ml-3 text-xl">{editedTask?.comments}</span>
+				</div>
+			)}
+			{isEditingField.comments && (
+				<>
+					<textarea
+						class="task-edit-comments"
+						ref={inputCommentsRef}></textarea>
+					<button onClick={(e) => handleValidComments(e)}>
+						Valider
+					</button>
+					<button onClick={(e) => handleEditComments(e)}>
+						Annuler
+					</button>
+				</>
+			)}
+			{/* {!isEditingField.comments && (
 						<span
 							className="edit-icon"
 							onClick={(e) => handleEditComments(e)}></span>
-					)}
-				</div>
-			)}
+					)} */}
 		</div>
 	);
 };

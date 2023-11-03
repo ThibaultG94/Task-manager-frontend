@@ -58,8 +58,12 @@ const EditWorkspace = () => {
 	}, [userWorkspaces]);
 
 	return (
-		<div className="workspace-icon element-icon">
-			{!isEditingWorkspace && <span>{convertedWorkspace}</span>}
+		<div className="flex flex-wrap mb-2">
+			{!isEditingWorkspace && (
+				<div className="workspace-icon mt-2 px-2 py-1 rounded-lg bg-light-blue">
+					<span className="ml-3 text-xl">{convertedWorkspace}</span>
+				</div>
+			)}
 			{isEditingWorkspace && (
 				<>
 					<select
@@ -83,11 +87,11 @@ const EditWorkspace = () => {
 					</button>
 				</>
 			)}
-			{!isEditingWorkspace && (
+			{/* {!isEditingWorkspace && (
 				<span
-					className="edit-icon"
-					onClick={(e) => handleEditWorkspace(e)}></span>
-			)}
+				className="edit-icon"
+				onClick={(e) => handleEditWorkspace(e)}></span>
+			)} */}
 		</div>
 	);
 };

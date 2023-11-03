@@ -38,7 +38,7 @@ const DeleteTask = ({ setIsModalOpen, setDeleteMessage }) => {
 
 	return (
 		<button
-			className="button bg-red-error hover:bg-red-error-2 mt-2"
+			className="button bg-red-error hover:bg-red-error-2 mt-2 text-base px-3"
 			onClick={handleDelete}>
 			<i className="fas fa-trash-alt"></i> Supprimer
 		</button>
