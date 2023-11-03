@@ -8,6 +8,7 @@ import {
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { updateEditedTask } from '../../store/feature/tasks.slice';
 import EditIcon from './EditIcon';
+import ValidOrCancelButtonsInEditingMode from './ValidOrCancelButtonsInEditingMode';
 
 const EditTitle = () => {
 	const dispatch = useDispatch();
@@ -57,10 +58,10 @@ const EditTitle = () => {
 						defaultValue={editedTask?.title}
 						ref={inputTitleRef}
 					/>
-					<button onClick={(e) => handleValidTitle(e)}>
-						Valider
-					</button>
-					<button onClick={(e) => handleEditTitle(e)}>Annuler</button>
+					<ValidOrCancelButtonsInEditingMode
+						handleValidElement={handleValidTitle}
+						handleEditElement={handleEditTitle}
+					/>
 				</div>
 			)}
 		</div>
