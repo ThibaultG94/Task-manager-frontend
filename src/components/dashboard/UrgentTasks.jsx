@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ModalDisplayTask from '../tasks/ModalDisplayTask';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
@@ -11,7 +10,7 @@ import { resetEditState } from '../../store/feature/editState.slice';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { formatTaskForEditing } from '../utils/formatTaskForEditing';
 import { getCategoryDay } from '../utils/getCategoryDay';
-import ModalEditTask from '../tasks/ModalEditTask';
+import ModalTask from '../tasks/ModalTask';
 
 const UrgentTasks = ({ userId }) => {
 	const dispatch = useDispatch();
@@ -135,19 +134,11 @@ const UrgentTasks = ({ userId }) => {
 			</div>
 
 			{isModalOpen && (
-				<ModalDisplayTask
+				<ModalTask
 					closeModal={closeModal}
 					setIsModalOpen={setIsModalOpen}
+					isEditing={isEditing}
 					setIsEditing={setIsEditing}
-				/>
-			)}
-
-			{isEditing && (
-				<ModalEditTask
-					closeModal={closeModal}
-					setIsModalOpen={setIsModalOpen}
-					setIsEditing={setIsEditing}
-					userId={userId}
 				/>
 			)}
 		</div>

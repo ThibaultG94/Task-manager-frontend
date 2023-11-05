@@ -55,61 +55,49 @@ const ModalEditTask = ({
 	}, [workspaceMembersIds]);
 
 	return (
-		<section
-			className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10"
-			onClick={closeModal}>
-			<div
-				className="absolute z-10 top-60 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white py-12 px-5 rounded-md w-[52vw]"
-				ref={modalRef}
-				onClick={(e) => e.stopPropagation()}>
-				<CloseButton onClose={closeModal} modalTabs={false} />
-				<div>
-					<form
-						className="w-5/6 mx-auto flex flex-col"
-						onSubmit={(e) => e.stopPropagation()}>
-						<div className="flex flex-row">
-							<div className="flex flex-col w-1/2 pr-2">
-								<TitleInput
-									title={taskTitle}
-									setTitle={setTaskTitle}
-									label={'Nom de la tâche'}
-								/>
-								<div className="flex flex-row mb-5">
-									<StatusSelect
-										taskStatus={taskStatus}
-										setTaskStatus={setTaskStatus}
-									/>
-									<PrioritySelect
-										taskPriority={taskPriority}
-										setTaskPriority={setTaskPriority}
-									/>
-								</div>
-								<DeadlineInput
-									setTaskDeadline={setTaskDeadline}
-								/>
-							</div>
-							<DescriptionTextarea
-								description={taskDescription}
-								setDescription={setTaskDescription}
-								label={'Description de la tâche'}
+		<div>
+			<form
+				className="w-5/6 mx-auto flex flex-col"
+				onSubmit={(e) => e.stopPropagation()}>
+				<div className="flex flex-row">
+					<div className="flex flex-col w-1/2 pr-2">
+						<TitleInput
+							title={taskTitle}
+							setTitle={setTaskTitle}
+							label={'Nom de la tâche'}
+						/>
+						<div className="flex flex-row mb-5">
+							<StatusSelect
+								taskStatus={taskStatus}
+								setTaskStatus={setTaskStatus}
+							/>
+							<PrioritySelect
+								taskPriority={taskPriority}
+								setTaskPriority={setTaskPriority}
 							/>
 						</div>
-						<div className="flex flex-row mt-4">
-							<WorkspaceSelect
-								selectedWorkspace={selectedWorkspace}
-								setSelectedWorkspace={setSelectedWorkspace}
-								userWorkspaces={userWorkspaces}
-							/>
-							<MemberSelect
-								selectedMember={selectedMember}
-								setSelectedMember={setSelectedMember}
-								workspaceMembers={workspaceMembers}
-							/>
-						</div>
-					</form>
+						<DeadlineInput setTaskDeadline={setTaskDeadline} />
+					</div>
+					<DescriptionTextarea
+						description={taskDescription}
+						setDescription={setTaskDescription}
+						label={'Description de la tâche'}
+					/>
 				</div>
-			</div>
-		</section>
+				<div className="flex flex-row mt-4">
+					<WorkspaceSelect
+						selectedWorkspace={selectedWorkspace}
+						setSelectedWorkspace={setSelectedWorkspace}
+						userWorkspaces={userWorkspaces}
+					/>
+					<MemberSelect
+						selectedMember={selectedMember}
+						setSelectedMember={setSelectedMember}
+						workspaceMembers={workspaceMembers}
+					/>
+				</div>
+			</form>
+		</div>
 	);
 };
 
