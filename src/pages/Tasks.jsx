@@ -114,7 +114,7 @@ const Tasks = () => {
 			<div className="w-full bg-light-blue">
 				<Header />
 				<main>
-					<DisplayTasks />
+					<DisplayTasks userId={userId} />
 				</main>
 			</div>
 		</div>

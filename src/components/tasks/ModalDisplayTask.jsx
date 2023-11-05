@@ -12,12 +12,15 @@ import DeleteTask from './DeleteTask';
 import CloseButton from '../modal/CloseButton';
 import EditIcon from './EditIcon';
 
-const ModalTask = ({ closeModal, setIsModalOpen }) => {
+const ModalDisplayTask = ({ closeModal, setIsModalOpen, setIsEditing }) => {
 	const modalRef = useRef(null);
 	const [saveMessage, setSaveMessage] = useState('');
 	const [deleteMessage, setDeleteMessage] = useState('');
 
-	const handleEditTask = () => {};
+	const handleEditTask = () => {
+		setIsModalOpen(false);
+		setIsEditing(true);
+	};
 
 	return (
 		<section
@@ -68,4 +71,4 @@ const ModalTask = ({ closeModal, setIsModalOpen }) => {
 	);
 };
 
-export default ModalTask;
+export default ModalDisplayTask;

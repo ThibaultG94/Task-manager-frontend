@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ModalTask from './ModalTask';
+import ModalDisplayTask from './ModalDisplayTask';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectHasEdited,
@@ -35,13 +35,15 @@ import {
 	selectTodayTasks,
 	selectTomorrowTasks,
 } from '../../store/selectors/taskSelectors';
+import ModalEditTask from './ModalEditTask';
 
-const DisplayTasks = () => {
+const DisplayTasks = ({ userId }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const hasEdited = useSelector(selectHasEdited);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
 
 	const allTasks = {
 		userOverdueTasks: useSelector(selectOverdueTasks),
@@ -96,6 +98,7 @@ const DisplayTasks = () => {
 				}
 			}
 			setIsModalOpen(false);
+			setIsEditing(false);
 			dispatch(resetEditState());
 			const formattedTask = await formatTaskForEditing(selectedTask);
 			dispatch(setInitialEditedTask(formattedTask));
@@ -218,9 +221,19 @@ const DisplayTasks = () => {
 			/>
 
 			{isModalOpen && (
-				<ModalTask
+				<ModalDisplayTask
 					closeModal={closeModal}
 					setIsModalOpen={setIsModalOpen}
+					setIsEditing={setIsEditing}
+				/>
+			)}
+
+			{isEditing && (
+				<ModalEditTask
+					closeModal={closeModal}
+					setIsModalOpen={setIsModalOpen}
+					setIsEditing={setIsEditing}
+					userId={userId}
 				/>
 			)}
 		</section>

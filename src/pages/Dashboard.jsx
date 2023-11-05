@@ -72,7 +72,7 @@ const Dashboard = () => {
 				<Header />
 				<main className="dashboard-container">
 					<Calendar />
-					<UrgentTasks />
+					<UrgentTasks userId={userId} />
 					<ListWorkspaces />
 					<Activities />
 					<Coworkers />
