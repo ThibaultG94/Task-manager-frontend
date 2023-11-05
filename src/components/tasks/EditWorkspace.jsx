@@ -61,7 +61,7 @@ const EditWorkspace = () => {
 		<div className="flex flex-wrap mb-2">
 			{!isEditingWorkspace && (
 				<div className="workspace-icon mt-2 px-2 py-1 rounded-lg bg-light-blue">
-					<span className="ml-3 text-xl">{convertedWorkspace}</span>
+					<span className="ml-2 text-lg">{convertedWorkspace}</span>
 				</div>
 			)}
 			{isEditingWorkspace && (

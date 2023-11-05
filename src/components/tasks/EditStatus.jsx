@@ -52,7 +52,7 @@ const EditStatus = () => {
 						'status-icon mt-2 px-2 py-1 rounded-lg ' +
 						convertedStatus
 					}>
-					<span className="ml-3 text-xl">{convertedStatus}</span>
+					<span className="ml-2 text-lg">{convertedStatus}</span>
 				</div>
 			)}
 			{isEditingField.status && (

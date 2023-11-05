@@ -43,8 +43,8 @@ const EditDescription = () => {
 	return (
 		<div className="flex flex-wrap mb-2">
 			{!isEditingField.description && (
-				<div className="description-icon mt-2 px-2 py-1 rounded-lg">
-					<span className="ml-3 text-xl">
+				<div className="description-icon px-2 py-1 rounded-lg">
+					<span className="ml-2 text-lg">
 						{editedTask?.description}
 					</span>
 				</div>

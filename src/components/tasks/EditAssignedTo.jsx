@@ -88,7 +88,7 @@ const EditAssignedTo = () => {
 		<div className="flex flex-wrap mb-2">
 			{!isEditingField.assignedTo && (
 				<div className="assigned-icon mt-2 ml-6 px-2 py-1 rounded-lg bg-light-blue-3">
-					<span className="ml-3 text-xl">{convertedMember}</span>
+					<span className="ml-2 text-lg">{convertedMember}</span>
 				</div>
 			)}
 			{isEditingField.assignedTo && (

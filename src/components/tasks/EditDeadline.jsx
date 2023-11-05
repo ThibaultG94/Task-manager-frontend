@@ -53,7 +53,7 @@ const EditDeadline = () => {
 						'deadline-icon mt-2 ml-6 px-2 py-1 rounded-lg ' +
 						editedTask?.category
 					}>
-					<span className="ml-3 text-xl">{convertedDeadline}</span>
+					<span className="ml-2 text-lg">{convertedDeadline}</span>
 				</div>
 			)}
 			{isEditingField.deadline && (

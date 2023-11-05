@@ -53,7 +53,7 @@ const EditPriority = () => {
 						'priority-icon mt-2 ml-6 px-2 py-1 rounded-lg ' +
 						convertedPriority
 					}>
-					<span className="ml-3 text-xl">{convertedPriority}</span>
+					<span className="ml-2 text-lg">{convertedPriority}</span>
 				</div>
 			)}
 			{isEditingField.priority && (

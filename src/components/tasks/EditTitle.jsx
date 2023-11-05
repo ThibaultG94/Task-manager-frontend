@@ -40,9 +40,9 @@ const EditTitle = () => {
 	};
 
 	return (
-		<div className="mb-2">
+		<div className="mb-6">
 			{!isEditingField.title && (
-				<div className="text-left">
+				<div className="text-center">
 					<p className="mt-3 text-2xl font-normal flex-grow">
 						{editedTask?.title}
 					</p>

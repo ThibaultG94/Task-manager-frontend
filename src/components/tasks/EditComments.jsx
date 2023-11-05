@@ -38,7 +38,7 @@ const EditComments = () => {
 		<div className="flex flex-wrap mb-2">
 			{isEditingField.comments && (
 				<div className="comments-icon mt-2 ml-6 px-2 py-1 rounded-lg">
-					<span className="ml-3 text-xl">{editedTask?.comments}</span>
+					<span className="ml-2 text-lg">{editedTask?.comments}</span>
 				</div>
 			)}
 			{isEditingField.comments && (
