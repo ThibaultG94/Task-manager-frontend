@@ -54,7 +54,7 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 					})
 				);
 			}}
-			className="bg-white rounded-md max-w-xs flex justify-start whitespace-nowrap overflow-hidden self-center relative cursor-auto">
+			className="rounded-md max-w-xs flex justify-start whitespace-nowrap overflow-hidden self-center relative cursor-auto">
 			{/* <div className="rounded-full border border-black h-5 w-5 min-w-[20px] mr-2 bg-white self-center"></div> */}
 			{!isEditingField.title && <span>{task?.title}</span>}
 			{isEditingField.title && editedTask?._id === task.taskId ? (

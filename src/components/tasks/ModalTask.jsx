@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import SaveEditedTask from './SaveEditedTask';
 import DeleteTask from './DeleteTask';
 import CloseButton from '../modal/CloseButton';
-import EditIcon from './EditIcon';
 import ModalDisplayTask from './ModalDisplayTask';
 import ModalEditTask from './ModalEditTask';
 import CancelEditTask from './CancelEditTask';
@@ -35,7 +34,7 @@ const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 				{isEditing && <ModalEditTask />}
 
 				{!isEditing && (
-					<div className="action-buttons">
+					<div className="flex justify-end">
 						<DeleteTask
 							setIsModalOpen={setIsModalOpen}
 							setDeleteMessage={setDeleteMessage}
@@ -44,7 +43,7 @@ const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 					</div>
 				)}
 				{isEditing && (
-					<div className="action-buttons">
+					<div className="flex justify-between mt-4">
 						<CancelEditTask handleCancelEdit={handleCancelEdit} />
 						<SaveEditedTask
 							setIsModalOpen={setIsModalOpen}

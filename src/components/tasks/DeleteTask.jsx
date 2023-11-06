@@ -28,19 +28,25 @@ const DeleteTask = ({ setIsModalOpen, setDeleteMessage }) => {
 	};
 
 	const handleDelete = async () => {
-		await removeTask();
-		setDeleteMessage('La tâche a été supprimée avec succès !');
-		setTimeout(() => {
-			setIsModalOpen(false);
-			setDeleteMessage('');
-		}, 500);
+		const confirmation = window.confirm(
+			'Etes-vous sûr de vouloir supprimer cette tâche ?'
+		);
+
+		if (confirmation) {
+			await removeTask();
+			setDeleteMessage('La tâche a été supprimée avec succès !');
+			setTimeout(() => {
+				setIsModalOpen(false);
+				setDeleteMessage('');
+			}, 500);
+		}
 	};
 
 	return (
 		<button
-			className="button bg-red-error hover:bg-red-error-2 mt-2 text-base px-3"
+			className="button bg-red-error hover:bg-red-error-2 mt-2 text-base pl-3 pr-2 rounded-md absolute top-0 left-2"
 			onClick={handleDelete}>
-			<i className="fas fa-trash-alt"></i> Supprimer
+			<i className="fas fa-trash-alt"></i>
 		</button>
 	);
 };
