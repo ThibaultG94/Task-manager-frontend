@@ -12,6 +12,7 @@ import WorkspaceSelect from '../modal/WorkspaceSelect';
 import MemberSelect from '../modal/MemberSelect';
 import { toast } from 'react-toastify';
 import CloseButton from '../modal/CloseButton';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
 
 const ModalEditTask = ({
 	closeModal,
@@ -22,6 +23,7 @@ const ModalEditTask = ({
 	const getUser = useGetUser();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const userWorkspaces = useSelector(selectWorkspaces);
+	const editedTask = useSelector(selectEditedTask);
 	const [taskTitle, setTaskTitle] = useState('');
 	const [taskStatus, setTaskStatus] = useState('Pending');
 	const [taskPriority, setTaskPriority] = useState('Medium');
@@ -54,10 +56,20 @@ const ModalEditTask = ({
 		workspaceMembersIds && getMembers();
 	}, [workspaceMembersIds]);
 
+	useEffect(() => {
+		setTaskTitle(editedTask?.title);
+		setTaskStatus(editedTask?.status);
+		setTaskPriority(editedTask?.priority);
+		setTaskDeadline(editedTask?.deadline);
+		setTaskDescription(editedTask?.description);
+		setSelectedWorkspace(editedTask?.workspace);
+		setSelectedMember(editedTask?.member);
+	}, [editedTask]);
+
 	return (
-		<div>
+		<div className="mt-6">
 			<form
-				className="w-5/6 mx-auto flex flex-col"
+				className="w-full mx-auto flex flex-col"
 				onSubmit={(e) => e.stopPropagation()}>
 				<div className="flex flex-row">
 					<div className="flex flex-col w-1/2 pr-2">
@@ -76,7 +88,10 @@ const ModalEditTask = ({
 								setTaskPriority={setTaskPriority}
 							/>
 						</div>
-						<DeadlineInput setTaskDeadline={setTaskDeadline} />
+						<DeadlineInput
+							taskDeadline={taskDeadline}
+							setTaskDeadline={setTaskDeadline}
+						/>
 					</div>
 					<DescriptionTextarea
 						description={taskDescription}

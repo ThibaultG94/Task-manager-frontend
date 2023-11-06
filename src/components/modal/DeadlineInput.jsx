@@ -4,11 +4,16 @@ import Flatpickr from 'react-flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr.js';
 import ArrowDown from './ArrowDown';
 
-const DeadlineInput = ({ setTaskDeadline }) => {
+const DeadlineInput = ({ taskDeadline, setTaskDeadline }) => {
 	const [displayDate, setDisplayDate] = useState(null);
 
 	useEffect(() => {
-		const today = new Date();
+		let today;
+		if (taskDeadline) {
+			today = new Date(taskDeadline);
+		} else {
+			today = new Date();
+		}
 		const formattedDisplayDay = `${String(today.getDate()).padStart(
 			2,
 			'0'
@@ -18,7 +23,7 @@ const DeadlineInput = ({ setTaskDeadline }) => {
 		)}/${today.getFullYear()}`;
 		setDisplayDate(formattedDisplayDay);
 		handleDateChange(today);
-	}, []);
+	}, [taskDeadline]);
 
 	const handleDateChange = (date) => {
 		const formattedDBDay = `${date.getFullYear()}-${String(

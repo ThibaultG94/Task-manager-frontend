@@ -7,7 +7,6 @@ import {
 } from '../../store/feature/editState.slice';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { updateEditedTask } from '../../store/feature/tasks.slice';
-import EditIcon from './EditIcon';
 import ValidOrCancelButtonsInEditingMode from './ValidOrCancelButtonsInEditingMode';
 
 const EditTitle = () => {
@@ -46,7 +45,6 @@ const EditTitle = () => {
 					<p className="mt-3 text-2xl font-normal flex-grow">
 						{editedTask?.title}
 					</p>
-					{/* <EditIcon handleEditElement={handleEditTitle} /> */}
 				</div>
 			)}
 			{isEditingField.title && (
