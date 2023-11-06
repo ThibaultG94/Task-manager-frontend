@@ -11,6 +11,19 @@ const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 	const modalRef = useRef(null);
 	const [saveMessage, setSaveMessage] = useState('');
 	const [deleteMessage, setDeleteMessage] = useState('');
+	const [taskData, setTaskData] = useState({
+		_id: '',
+		title: '',
+		status: 'Pending',
+		priority: 'Medium',
+		deadline: '',
+		description: '',
+		selectedWorkspace: 'default',
+		workspaceMembersIds: '',
+		workspaceMembers: '',
+		selectedMember: 'default',
+		category: '',
+	});
 
 	const handleEditTask = () => {
 		setIsEditing(true);
@@ -31,7 +44,12 @@ const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 				<CloseButton onClose={closeModal} modalTabs={false} />
 
 				{!isEditing && <ModalDisplayTask />}
-				{isEditing && <ModalEditTask />}
+				{isEditing && (
+					<ModalEditTask
+						taskData={taskData}
+						setTaskData={setTaskData}
+					/>
+				)}
 
 				{!isEditing && (
 					<div className="flex justify-end">
@@ -48,6 +66,7 @@ const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 						<SaveEditedTask
 							setIsModalOpen={setIsModalOpen}
 							setSaveMessage={setSaveMessage}
+							taskData={taskData}
 						/>
 					</div>
 				)}

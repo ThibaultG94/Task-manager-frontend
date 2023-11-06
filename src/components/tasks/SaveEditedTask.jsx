@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useEditTask } from '../../api/editTask';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -9,12 +9,27 @@ import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { selectHasEdited } from '../../store/selectors/editStateSelectors';
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 
-const SaveEditedTask = ({ setIsModalOpen, setSaveMessage }) => {
+const SaveEditedTask = ({ setIsModalOpen, setSaveMessage, taskData }) => {
 	const dispatch = useDispatch();
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
-	const editedTask = useSelector(selectEditedTask);
+	// const editedTask = useSelector(selectEditedTask);
+	const [editedTask, setEditedTask] = useState(null);
 	const hasEdited = useSelector(selectHasEdited);
+
+	useEffect(() => {
+		setEditedTask({
+			_id: taskData._id,
+			title: taskData.title,
+			status: taskData.status,
+			priority: taskData.priority,
+			deadline: taskData.deadline,
+			description: taskData.description,
+			workspaceId: taskData.selectedWorkspace,
+			assignedTo: taskData.selectedMember,
+			category: taskData.category,
+		});
+	}, [taskData]);
 
 	const updateTask = async () => {
 		try {
@@ -30,7 +45,7 @@ const SaveEditedTask = ({ setIsModalOpen, setSaveMessage }) => {
 	};
 
 	const handleSave = async () => {
-		if (hasEdited) await updateTask();
+		await updateTask();
 		setSaveMessage('La tâche a été mise à jour avec succès !');
 		setTimeout(() => {
 			setIsModalOpen(false);

@@ -10,32 +10,13 @@ import DeadlineInput from '../modal/DeadlineInput';
 import DescriptionTextarea from '../modal/DescriptionTextarea';
 import WorkspaceSelect from '../modal/WorkspaceSelect';
 import MemberSelect from '../modal/MemberSelect';
-import { toast } from 'react-toastify';
-import CloseButton from '../modal/CloseButton';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 
-const ModalEditTask = ({
-	closeModal,
-	setIsModalOpen,
-	setIsEditing,
-	userId,
-}) => {
+const ModalEditTask = ({ taskData, setTaskData }) => {
 	const getUser = useGetUser();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const editedTask = useSelector(selectEditedTask);
-	const [taskData, setTaskData] = useState({
-		title: '',
-		status: 'Pending',
-		priority: 'Medium',
-		deadline: '',
-		description: '',
-		selectedWorkspace: 'default',
-		workspaceMembersIds: '',
-		workspaceMembers: '',
-		selectedMember: 'default',
-	});
-
 	const modalRef = useRef(null);
 
 	useEffect(() => {
@@ -67,6 +48,7 @@ const ModalEditTask = ({
 	useEffect(() => {
 		setTaskData((prevState) => ({
 			...prevState,
+			_id: editedTask?._id,
 			title: editedTask?.title,
 			status: editedTask?.status,
 			priority: editedTask?.priority,
@@ -74,6 +56,7 @@ const ModalEditTask = ({
 			description: editedTask?.description,
 			selectedWorkspace: editedTask?.workspaceId,
 			selectedMember: editedTask?.assignedTo,
+			category: editedTask?.category,
 		}));
 	}, [editedTask]);
 
