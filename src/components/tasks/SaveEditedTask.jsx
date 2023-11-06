@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useEditTask } from '../../api/editTask';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
 	resetEditState,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
-import { selectEditedTask } from '../../store/selectors/taskSelectors';
-import { selectHasEdited } from '../../store/selectors/editStateSelectors';
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 
 const SaveEditedTask = ({ setIsModalOpen, setSaveMessage, taskData }) => {
 	const dispatch = useDispatch();
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
-	// const editedTask = useSelector(selectEditedTask);
 	const [editedTask, setEditedTask] = useState(null);
-	const hasEdited = useSelector(selectHasEdited);
 
 	useEffect(() => {
 		setEditedTask({

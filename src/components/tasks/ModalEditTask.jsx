@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetUser } from '../../api/getUser';
-import { useTasksHasBeenUpdated } from '../tasks/TasksHasBeenUpdated';
 import TitleInput from '../modal/TitleInput';
 import StatusSelect from '../modal/StatusSelect';
 import PrioritySelect from '../modal/PrioritySelect';
@@ -14,10 +13,8 @@ import { selectEditedTask } from '../../store/selectors/taskSelectors';
 
 const ModalEditTask = ({ taskData, setTaskData }) => {
 	const getUser = useGetUser();
-	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const editedTask = useSelector(selectEditedTask);
-	const modalRef = useRef(null);
 
 	useEffect(() => {
 		if (taskData.selectedWorkspace && userWorkspaces) {
