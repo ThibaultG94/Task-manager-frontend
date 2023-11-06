@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskDisplayTitle from './TaskDisplayTitle';
 import TaskDisplayStatus from './TaskDisplayStatus';
-import EditPriority from './EditPriority';
+import TaskDisplayPriority from './TaskDisplayPriority';
 import EditDeadline from './EditDeadline';
 import EditDescription from './EditDescription';
 import EditComments from './EditComments';
@@ -15,7 +15,7 @@ const ModalDisplayTask = () => {
 
 			<div className="flex mt-3 mb-2">
 				<TaskDisplayStatus />
-				<EditPriority />
+				<TaskDisplayPriority />
 				<EditDeadline />
 			</div>
 
