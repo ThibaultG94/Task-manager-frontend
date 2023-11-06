@@ -24,46 +24,57 @@ const ModalEditTask = ({
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const editedTask = useSelector(selectEditedTask);
-	const [taskTitle, setTaskTitle] = useState('');
-	const [taskStatus, setTaskStatus] = useState('Pending');
-	const [taskPriority, setTaskPriority] = useState('Medium');
-	const [taskDeadline, setTaskDeadline] = useState('');
-	const [taskDescription, setTaskDescription] = useState('');
-	const [selectedWorkspace, setSelectedWorkspace] = useState('default');
-	const [workspaceMembersIds, setWorkspaceMembersIds] = useState('');
-	const [workspaceMembers, setWorkspaceMembers] = useState('');
-	const [selectedMember, setSelectedMember] = useState('default');
+	const [taskData, setTaskData] = useState({
+		title: '',
+		status: 'Pending',
+		priority: 'Medium',
+		deadline: '',
+		description: '',
+		selectedWorkspace: 'default',
+		workspaceMembersIds: '',
+		workspaceMembers: '',
+		selectedMember: 'default',
+	});
+
 	const modalRef = useRef(null);
 
 	useEffect(() => {
-		if (selectedWorkspace && userWorkspaces) {
+		if (taskData.selectedWorkspace && userWorkspaces) {
 			const workspace = userWorkspaces.find(
-				(ws) => ws._id === selectedWorkspace
+				(ws) => ws._id === taskData.selectedWorkspace
 			);
 			if (workspace) {
-				setWorkspaceMembersIds(workspace.members);
+				setTaskData((prev) => ({
+					...prev,
+					workspaceMembersIds: workspace.members,
+				}));
 			}
 		}
-	}, [selectedWorkspace]);
+	}, [taskData.selectedWorkspace]);
 
 	useEffect(() => {
 		const getMembers = async () => {
-			const memberPromises = workspaceMembersIds.map((id) => getUser(id));
+			const memberPromises = taskData.workspaceMembersIds.map((id) =>
+				getUser(id)
+			);
 			const members = await Promise.all(memberPromises);
-			setWorkspaceMembers(members);
+			setTaskData((prev) => ({ ...prev, workspaceMembers: members }));
 		};
 
-		workspaceMembersIds && getMembers();
-	}, [workspaceMembersIds]);
+		taskData.workspaceMembersIds.length && getMembers();
+	}, [taskData.workspaceMembersIds]);
 
 	useEffect(() => {
-		setTaskTitle(editedTask?.title);
-		setTaskStatus(editedTask?.status);
-		setTaskPriority(editedTask?.priority);
-		setTaskDeadline(editedTask?.deadline);
-		setTaskDescription(editedTask?.description);
-		setSelectedWorkspace(editedTask?.workspace);
-		setSelectedMember(editedTask?.member);
+		setTaskData((prevState) => ({
+			...prevState,
+			title: editedTask?.title,
+			status: editedTask?.status,
+			priority: editedTask?.priority,
+			deadline: editedTask?.deadline,
+			description: editedTask?.description,
+			selectedWorkspace: editedTask?.workspaceId,
+			selectedMember: editedTask?.assignedTo,
+		}));
 	}, [editedTask]);
 
 	return (
@@ -74,41 +85,76 @@ const ModalEditTask = ({
 				<div className="flex flex-row">
 					<div className="flex flex-col w-1/2 pr-2">
 						<TitleInput
-							title={taskTitle}
-							setTitle={setTaskTitle}
+							title={taskData.title}
+							setTitle={(value) =>
+								setTaskData((prev) => ({
+									...prev,
+									title: value,
+								}))
+							}
 							label={'Nom de la tâche'}
 						/>
 						<div className="flex flex-row mb-5">
 							<StatusSelect
-								taskStatus={taskStatus}
-								setTaskStatus={setTaskStatus}
+								taskStatus={taskData.status}
+								setTaskStatus={(value) =>
+									setTaskData((prev) => ({
+										...prev,
+										status: value,
+									}))
+								}
 							/>
 							<PrioritySelect
-								taskPriority={taskPriority}
-								setTaskPriority={setTaskPriority}
+								taskPriority={taskData.priority}
+								setTaskPriority={(value) =>
+									setTaskData((prev) => ({
+										...prev,
+										priority: value,
+									}))
+								}
 							/>
 						</div>
 						<DeadlineInput
-							taskDeadline={taskDeadline}
-							setTaskDeadline={setTaskDeadline}
+							taskDeadline={taskData.deadline}
+							setTaskDeadline={(value) =>
+								setTaskData((prev) => ({
+									...prev,
+									deadline: value,
+								}))
+							}
 						/>
 					</div>
 					<DescriptionTextarea
-						description={taskDescription}
-						setDescription={setTaskDescription}
+						description={taskData.description}
+						setDescription={(value) =>
+							setTaskData((prev) => ({
+								...prev,
+								description: value,
+							}))
+						}
 						label={'Description de la tâche'}
 					/>
 				</div>
 				<div className="flex flex-row mt-4">
 					<WorkspaceSelect
-						selectedWorkspace={selectedWorkspace}
-						setSelectedWorkspace={setSelectedWorkspace}
+						selectedWorkspace={taskData.selectedWorkspace}
+						setSelectedWorkspace={(value) =>
+							setTaskData((prev) => ({
+								...prev,
+								selectedWorkspace: value,
+							}))
+						}
 						userWorkspaces={userWorkspaces}
 					/>
 					<MemberSelect
-						selectedMember={selectedMember}
-						setSelectedMember={setSelectedMember}
-						workspaceMembers={workspaceMembers}
+						selectedMember={taskData.selectedMember}
+						setSelectedMember={(value) =>
+							setTaskData((prev) => ({
+								...prev,
+								selectedMember: value,
+							}))
+						}
+						workspaceMembers={taskData.workspaceMembers}
 					/>
 				</div>
 			</form>
