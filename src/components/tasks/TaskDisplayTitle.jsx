@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 
-const DisplayTitle = () => {
+const TaskDisplayTitle = () => {
 	const editedTask = useSelector(selectEditedTask);
 
 	return (
@@ -16,4 +16,4 @@ const DisplayTitle = () => {
 	);
 };
 
-export default DisplayTitle;
+export default TaskDisplayTitle;
