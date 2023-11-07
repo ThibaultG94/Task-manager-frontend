@@ -163,7 +163,11 @@ const SignupForm = ({ closeModal, modalRef }) => {
 
 				<form className="signup-form mx-auto">
 					<div className="mb-4">
-						<label htmlFor="pseudo">Nom d'utilisateur</label>
+						<label
+							htmlFor="pseudo"
+							className="block text-sm font-medium text-gray-700">
+							Nom d'utilisateur
+						</label>
 						<input
 							type="text"
 							id="pseudo"
@@ -175,11 +179,18 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							placeholder="Entrez votre nom d'utilisateur"
 							onChange={(e) => handleChange(e)}
 							value={formData.pseudo}
+							className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
+								errors.pseudo && 'border-red-500 text-red-600'
+							}`}
 						/>
 					</div>
 
 					<div className="mb-4">
-						<label htmlFor="email">Email</label>
+						<label
+							htmlFor="email"
+							className="block text-sm font-medium text-gray-700">
+							Email
+						</label>
 						<input
 							type="email"
 							name="email"
@@ -191,18 +202,25 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							placeholder="prenom.nom@email.fr"
 							onChange={(e) => handleChange(e)}
 							value={formData.email}
+							className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
+								errors.email && 'border-red-500 text-red-600'
+							}`}
 						/>
 					</div>
 
 					<div
-						className={`password-container ${
+						className={`password-container mb-4 ${
 							errors.password
-								? 'error'
+								? 'border border-red-500'
 								: isSuccess
-								? 'success'
-								: ''
+								? 'border border-green-500'
+								: 'border border-gray-300'
 						}`}>
-						<label htmlFor="password">Mot de passe</label>
+						<label
+							htmlFor="password"
+							className="block text-sm font-medium text-gray-700">
+							Mot de passe
+						</label>
 						<input
 							type="password"
 							name="password"
@@ -214,30 +232,48 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							required
 							onChange={(e) => handleChange(e)}
 							value={formData.password}
+							className={`mt-1 block w-full rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
+								errors.password
+									? 'border-red-500 text-red-600'
+									: 'border-gray-300'
+							}`}
 						/>
-						{isTypingPassword ? (
-							isTypingPassword && (
-								<p
-									id="progress-bar"
-									className={progressBar}></p>
-							)
-						) : (
-							<p id="no-bar"></p>
+						{isTypingPassword && (
+							<div className="relative pt-1">
+								<div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-red-200">
+									<div
+										style={{ width: '30%' }}
+										className="h-1 bg-red-500"></div>
+									<div
+										style={{ width: '60%' }}
+										className="h-1 bg-yellow-500"></div>
+									<div
+										style={{ width: '100%' }}
+										className="h-1 bg-green-500"></div>
+								</div>
+							</div>
 						)}
-						<span className="error-password">
+						<span
+							className={`text-xs ${
+								errors.password
+									? 'text-red-500 visible'
+									: 'text-green-500 visible'
+							}`}>
 							{errors.password}
 						</span>
 					</div>
 
 					<div
-						className={`confirm-container ${
+						className={`confirm-container mb-4 ${
 							errors.passwordConfirm
-								? 'error'
+								? 'border border-red-500'
 								: isSuccess
-								? 'success'
-								: ''
+								? 'border border-green-500'
+								: 'border border-gray-300'
 						}`}>
-						<label htmlFor="passwordConfirm">
+						<label
+							htmlFor="passwordConfirm"
+							className="block text-sm font-medium text-gray-700">
 							Confirmez le mot de passe
 						</label>
 						<input
@@ -251,8 +287,18 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							required
 							onChange={(e) => handleChange(e)}
 							value={formData.passwordConfirm}
+							className={`mt-1 block w-full rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
+								errors.passwordConfirm
+									? 'border-red-500 text-red-600'
+									: 'border-gray-300'
+							}`}
 						/>
-						<span className="error-password">
+						<span
+							className={`text-xs ${
+								errors.passwordConfirm
+									? 'text-red-500 visible'
+									: 'text-green-500 visible'
+							}`}>
 							{errors.passwordConfirm}
 						</span>
 					</div>
@@ -260,7 +306,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 					<div className="flex justify-end">
 						<button
 							type="submit"
-							className="button bg-dark-blue hover:bg-dark-blue-2 mt-5	"
+							className="button bg-dark-blue hover:bg-dark-blue-2 mt-5"
 							onClick={(e) => handleSubmit(e)}
 							disabled={isSubmitting}>
 							{isSubmitting ? 'En cours...' : "S'inscrire"}
@@ -268,9 +314,11 @@ const SignupForm = ({ closeModal, modalRef }) => {
 					</div>
 					<div
 						className={`success-container ${
-							isSuccess ? 'success' : ''
+							isSuccess ? 'visible' : 'invisible'
 						}`}>
-						<span id="success-register">Inscription validée !</span>
+						<span id="success-register" className="text-green-500">
+							Inscription validée !
+						</span>
 					</div>
 				</form>
 			</div>
