@@ -63,16 +63,15 @@ const LoginForm = () => {
 			<div id="home">
 				<h2 className="text-3xl my-10 text-center">Connexion</h2>
 				<form
-					id="login-form"
 					className="flex flex-col items-start mb-24"
 					onSubmit={handleSubmit}>
 					<div className="flex flex-col">
-						<label htmlFor="emailLog">Email</label>
+						<label htmlFor="email">Email</label>
 						<input
 							className="w-[350px] mt-2 h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300"
 							type="email"
 							id="emailLog"
-							name="emailLog"
+							name="email"
 							minLength="6"
 							maxLength="254"
 							autoComplete="off"
