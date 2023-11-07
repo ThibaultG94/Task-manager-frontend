@@ -67,37 +67,35 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	}, [userArchivedTasks]);
 
 	return (
-		<>
-			<div
-				id="archived-tasks"
-				className={`mx-8 my-3 rounded-md bg-white ${
-					expandedBlocks['archived-tasks'] ? 'expanded' : ''
-				}`}
-				onClick={() => toggleBlock('archived-tasks')}>
-				<HeaderBlock
-					label={'Archives'}
-					type={'archived-tasks'}
-					toggleBlock={toggleBlock}
-				/>
+		<div
+			id="archived-tasks"
+			className={`mx-8 my-3 rounded-md bg-white ${
+				expandedBlocks['archived-tasks'] ? 'expanded' : ''
+			}`}
+			onClick={() => toggleBlock('archived-tasks')}>
+			<HeaderBlock
+				label={'Archives'}
+				type={'archived-tasks'}
+				toggleBlock={toggleBlock}
+			/>
 
-				<div className="task-list" onClick={(e) => e.stopPropagation()}>
-					{displayArchivedTasks && displayArchivedTasks?.length > 0
-						? displayArchivedTasks
-								.filter(
-									(task) => task.category === 'archived-tasks'
-								)
-								.map((task, index) => (
-									<TaskItem
-										task={task}
-										openModal={openModal}
-										key={index}
-										setSelectedTask={setSelectedTask}
-									/>
-								))
-						: null}
-				</div>
+			<div className="task-list" onClick={(e) => e.stopPropagation()}>
+				{displayArchivedTasks && displayArchivedTasks?.length > 0
+					? displayArchivedTasks
+							.filter(
+								(task) => task.category === 'archived-tasks'
+							)
+							.map((task, index) => (
+								<TaskItem
+									task={task}
+									openModal={openModal}
+									key={index}
+									setSelectedTask={setSelectedTask}
+								/>
+							))
+					: null}
 			</div>
-		</>
+		</div>
 	);
 };
 
