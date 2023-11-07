@@ -2,25 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { formatDateForDisplay } from '../utils/formatDateForDisplay';
-import {
-	selectIsEditingField,
-	selectHasEdited,
-} from '../../store/selectors/editStateSelectors';
-import { resetEditState } from '../../store/feature/editState.slice';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { formatTaskForEditing } from '../utils/formatTaskForEditing';
 import { getCategoryDay } from '../utils/getCategoryDay';
 import ModalTask from '../tasks/ModalTask';
+import useCheckIfEdited from './utils/checkIfEdited';
 
-const UrgentTasks = ({ userId }) => {
+const UrgentTasks = () => {
 	const dispatch = useDispatch();
 	const urgentTasks = useSelector(selectUrgentTasks);
-	const isEditingField = useSelector(selectIsEditingField);
-	const hasEdited = useSelector(selectHasEdited);
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
+	const checkIfEdited = useCheckIfEdited({
+		setIsModalOpen,
+		setIsEditing,
+		selectedTask,
+		formatTaskForEditing,
+		setInitialEditedTask,
+	});
 
 	const openModal = (e) => {
 		e.stopPropagation();
@@ -28,29 +29,6 @@ const UrgentTasks = ({ userId }) => {
 	};
 
 	const closeModal = async () => {
-		const checkIfEdited = async () => {
-			const anyFieldEditing = Object.values(isEditingField).some(Boolean);
-			if (anyFieldEditing || hasEdited) {
-				let message;
-				if (anyFieldEditing) {
-					message =
-						"Vous êtes en train d'éditer. Voulez-vous vraiment quitter sans sauvegarder ?";
-				} else if (hasEdited) {
-					message =
-						'Vous avez des changements non sauvegardés. Voulez-vous vraiment quitter sans sauvegarder ?';
-				}
-				const userResponse = window.confirm(message);
-				if (!userResponse) {
-					return;
-				}
-			}
-			setIsModalOpen(false);
-			setIsEditing(false);
-			dispatch(resetEditState());
-			const formattedTask = await formatTaskForEditing(selectedTask);
-			dispatch(setInitialEditedTask(formattedTask));
-		};
-
 		await checkIfEdited();
 	};
 

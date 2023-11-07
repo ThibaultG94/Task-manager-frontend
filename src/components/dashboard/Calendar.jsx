@@ -20,7 +20,6 @@ const Calendar = () => {
 	const [currentDate, setCurrentDate] = useState(new Date());
 	const [calendarDays, setCalendarDays] = useState([]);
 	const today = new Date().getDate();
-	const currentMonth = new Date().getMonth();
 	const month = currentDate.getMonth();
 
 	const generateDays = (currentDate) => {

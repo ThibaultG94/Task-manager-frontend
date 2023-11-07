@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Error from './pages/Error';
-import Error404 from './pages/Error404';
-import Error500 from './pages/Error500';
+import Error from './pages/errors/Error';
+import Error404 from './pages/errors/Error404';
+import Error500 from './pages/errors/Error500';
 import Dashboard from './pages/Dashboard';
 import Workspaces from './pages/Workspaces';
 import ResetPassword from './pages/ResetPassword';

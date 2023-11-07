@@ -13,7 +13,7 @@ const ListWorkspaces = () => {
 				if (workspaces && workspaces[i]) {
 					updatedWorkspaces.push({
 						title: workspaces[i].title,
-						// coworkers: workspaces[i].coworkers,
+						members: workspaces[i].members,
 					});
 				}
 			}
@@ -37,6 +37,11 @@ const ListWorkspaces = () => {
 								<i className="fa-solid fa-share-nodes"></i>
 							</div>
 							<div>{workspace.title}</div>
+							{/* <div>
+								{workspace.members.map((member) => (
+									<span>{member[0]}</span>
+								))}
+							</div> */}
 						</div>
 						<div>
 							<div>{workspace.coworkersCount}</div>
