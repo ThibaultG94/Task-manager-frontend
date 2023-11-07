@@ -70,7 +70,7 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 		<>
 			<div
 				id="archived-tasks"
-				className={`task-block ${
+				className={`mx-8 my-3 rounded-md bg-white ${
 					expandedBlocks['archived-tasks'] ? 'expanded' : ''
 				}`}
 				onClick={() => toggleBlock('archived-tasks')}>

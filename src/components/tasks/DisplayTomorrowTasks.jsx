@@ -41,7 +41,7 @@ const DisplayTomorrowTasks = ({
 			{allTasks.userTomorrowTasks.length > 0 && (
 				<div
 					id="tomorrow-tasks"
-					className={`task-block ${
+					className={`mx-8 my-3 rounded-md bg-white ${
 						expandedBlocks['tomorrow-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('tomorrow-tasks')}>
