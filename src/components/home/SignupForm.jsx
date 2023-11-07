@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDebounce } from '../utils/useDebounce';
 import { useRegisterUser } from '../../api/registerUser';
+import {
+	pseudoChecker,
+	emailChecker,
+	passwordChecker,
+	confirmChecker,
+} from '../utils/formValidation';
 
 const SignupForm = ({ closeModal, modalRef }) => {
 	const registerUser = useRegisterUser();
@@ -38,58 +44,6 @@ const SignupForm = ({ closeModal, modalRef }) => {
 		localStorage.setItem('signupFormData', JSON.stringify(formData));
 	}, [formData]);
 
-	const pseudoChecker = (value) => {
-		if (value.length < 3) {
-			return 'Le pseudo doit comporter au moins 3 caractères';
-		}
-		return '';
-	};
-
-	const emailChecker = (value) => {
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!emailRegex.test(value)) {
-			return 'Adresse e-mail invalide';
-		}
-		return '';
-	};
-
-	const passwordChecker = (value) => {
-		const regex =
-			/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
-
-		if (!value.match(regex)) {
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				password:
-					'Minimum de 8 caractères, une majuscule, un chiffre et un caractère spécial',
-			}));
-			setProgressBar('progressRed');
-		} else if (value.length < 12) {
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				password: 'Sécurité moyenne',
-			}));
-			setProgressBar('progressBlue');
-		} else {
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				password: null,
-			}));
-			setProgressBar('progressGreen');
-		}
-	};
-
-	const confirmChecker = (value, password) => {
-		if (value === '') {
-			return null;
-		}
-		if (value !== password) {
-			return 'Les mots de passe ne correspondent pas';
-		} else {
-			return null;
-		}
-	};
-
 	const debouncedPasswordChecker = useDebounce(passwordChecker, 400);
 	const debouncedConfirmChecker = useDebounce(confirmChecker, 500);
 
@@ -100,7 +54,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 			const updatedFormData = { ...prevFormData, [name]: value };
 
 			if (name === 'password') {
-				debouncedPasswordChecker(value);
+				debouncedPasswordChecker(value, setErrors, setProgressBar);
 				setIsTypingPassword(true);
 				setErrors((prevErrors) => ({
 					...prevErrors,
@@ -155,7 +109,11 @@ const SignupForm = ({ closeModal, modalRef }) => {
 			setErrors({
 				pseudo: pseudoChecker(formData.pseudo),
 				email: emailChecker(formData.email),
-				password: passwordChecker(formData.password),
+				password: passwordChecker(
+					formData.password,
+					setErrors,
+					setProgressBar
+				),
 				passwordConfirm: confirmChecker(
 					formData.passwordConfirm,
 					formData.password
