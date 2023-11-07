@@ -10,7 +10,6 @@ import EditTask from './EditTask';
 const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 	const modalRef = useRef(null);
 	const [saveMessage, setSaveMessage] = useState('');
-	const [deleteMessage, setDeleteMessage] = useState('');
 	const [taskData, setTaskData] = useState({
 		_id: '',
 		title: '',
@@ -53,10 +52,7 @@ const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 
 				{!isEditing && (
 					<div className="flex justify-end">
-						<DeleteTask
-							setIsModalOpen={setIsModalOpen}
-							setDeleteMessage={setDeleteMessage}
-						/>
+						<DeleteTask setIsModalOpen={setIsModalOpen} />
 						<EditTask handleEditTask={handleEditTask} />
 					</div>
 				)}
@@ -72,9 +68,6 @@ const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 				)}
 				{saveMessage && (
 					<span id="message-after-saving">{saveMessage}</span>
-				)}
-				{deleteMessage && (
-					<span id="message-after-delete">{deleteMessage}</span>
 				)}
 			</div>
 		</section>

@@ -7,8 +7,9 @@ import {
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
+import { toast } from 'react-toastify';
 
-const DeleteTask = ({ setIsModalOpen, setDeleteMessage }) => {
+const DeleteTask = ({ setIsModalOpen }) => {
 	const dispatch = useDispatch();
 	const deleteTask = useDeleteTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
@@ -20,9 +21,9 @@ const DeleteTask = ({ setIsModalOpen, setDeleteMessage }) => {
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
+			toast.success('La tâche a été supprimée avec succès !');
 		} catch (error) {
-			setDeleteMessage('Échec de la suppression de la tâche.');
-			console.error('Échec de la suppression de la tâche:', error);
+			toast.error('Échec de la suppression de la tâche.');
 			return;
 		}
 	};
@@ -34,10 +35,8 @@ const DeleteTask = ({ setIsModalOpen, setDeleteMessage }) => {
 
 		if (confirmation) {
 			await removeTask();
-			setDeleteMessage('La tâche a été supprimée avec succès !');
 			setTimeout(() => {
 				setIsModalOpen(false);
-				setDeleteMessage('');
 			}, 500);
 		}
 	};
