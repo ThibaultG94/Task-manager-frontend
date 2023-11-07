@@ -2,11 +2,11 @@ import React from 'react';
 import TaskDisplayTitle from './TaskDisplayTitle';
 import TaskDisplayStatus from './TaskDisplayStatus';
 import TaskDisplayPriority from './TaskDisplayPriority';
-import EditDeadline from './EditDeadline';
-import EditDescription from './EditDescription';
-import EditComments from './EditComments';
-import EditWorkspace from './EditWorkspace';
-import EditAssignedTo from './EditAssignedTo';
+import TaskDisplayDeadline from './TaskDisplayDeadline';
+import TaskDisplayDescription from './TaskDisplayDescription';
+import TaskDisplayComments from './TaskDisplayComments';
+import TaskDisplayWorkspace from './TaskDisplayWorkspace';
+import TaskDisplayAssignedTo from './TaskDisplayAssignedTo';
 
 const ModalDisplayTask = () => {
 	return (
@@ -16,16 +16,16 @@ const ModalDisplayTask = () => {
 			<div className="flex mt-3 mb-2">
 				<TaskDisplayStatus />
 				<TaskDisplayPriority />
-				<EditDeadline />
+				<TaskDisplayDeadline />
 			</div>
 
-			<EditDescription />
+			<TaskDisplayDescription />
 
 			<div className="flex">
-				<EditWorkspace />
-				<EditAssignedTo />
+				<TaskDisplayWorkspace />
+				<TaskDisplayAssignedTo />
 			</div>
-			{/* <EditComments /> */}
+			{/* <TaskDisplayComments /> */}
 		</div>
 	);
 };
