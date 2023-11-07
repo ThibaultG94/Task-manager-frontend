@@ -52,7 +52,7 @@ const SaveEditedTask = ({ setIsModalOpen, taskData }) => {
 		<button
 			className="button mt-2 bg-light-blue-2 hover:bg-dark-blue"
 			onClick={handleSave}>
-			<i className="fas fa-save"></i> Sauvegarder
+			<i className="fas fa-save mr-2"></i> Sauvegarder
 		</button>
 	);
 };

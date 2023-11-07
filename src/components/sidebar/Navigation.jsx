@@ -16,7 +16,7 @@ const Navigation = ({ userId }) => {
 						: 'cursor-pointer text-xl'
 				}>
 				<li>
-					<i className="fas fa-home"></i>
+					<i className="fas fa-home mr-1"></i>
 				</li>
 			</NavLink>
 
@@ -30,7 +30,7 @@ const Navigation = ({ userId }) => {
 						  'cursor-default text-xl'
 				}>
 				<li style={{ opacity: '0.3' }}>
-					<i className="fas fa-calendar-alt"></i>
+					<i className="fas fa-calendar-alt mr-1"></i>
 				</li>
 			</NavLink>
 
@@ -44,7 +44,7 @@ const Navigation = ({ userId }) => {
 						  'cursor-default text-xl'
 				}>
 				<li style={{ opacity: '0.3' }}>
-					<i className="fas fa-eye"></i>
+					<i className="fas fa-eye mr-1"></i>
 				</li>
 			</NavLink>
 
@@ -52,7 +52,7 @@ const Navigation = ({ userId }) => {
 				id="addWorkspaceOrTaskButton"
 				className="cursor-pointer text-xl"
 				onClick={() => setIsModalOpen(true)}>
-				<i className="fas fa-plus-square"></i>
+				<i className="fas fa-plus-square mr-1"></i>
 			</li>
 
 			{isModalOpen && (

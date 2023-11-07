@@ -13,3 +13,69 @@ body {
 	min-width: 100vw;
 	overflow: hidden;
 }
+
+.status-icon::before {
+	content: '\f110';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	width: 30px;
+	font-size: 1.1rem;
+}
+
+.priority-icon::before {
+	content: '\f3fd';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	width: 30px;
+	font-size: 1.1rem;
+}
+
+.deadline-icon::before {
+	content: '\f073';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	width: 30px;
+	font-size: 1.1rem;
+}
+
+.description-icon::before {
+	content: '\f15c';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	width: 30px;
+	font-size: 1.1rem;
+}
+
+.comments-icon::before {
+	content: '\f086';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	width: 30px;
+	font-size: 1.1rem;
+}
+
+.workspace-icon::before {
+	content: '\f0b1';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	width: 30px;
+	font-size: 1.1rem;
+}
+
+.assigned-icon::before {
+	content: '\f007';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	width: 30px;
+	font-size: 1.1rem;
+}
+
+.edit-icon::before {
+	content: '\f040';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+}
+
+.edit-icon::before {
+	font-size: 1rem;
+}

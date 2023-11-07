@@ -5,7 +5,7 @@ const EditTask = ({ handleEditTask }) => {
 		<button
 			className="button mt-2 bg-light-blue-2 hover:bg-dark-blue"
 			onClick={handleEditTask}>
-			<i className="fas fa-pencil-alt"></i> Editer
+			<i className="fas fa-pencil-alt mr-2"></i> Editer
 		</button>
 	);
 };
