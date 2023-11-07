@@ -150,7 +150,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 	}, [formData.password, formData.passwordConfirm, isTypingPassword]);
 
 	return (
-		<section className="modal bg-modal-bg transition-all ease-in-out duration-300 text-black">
+		<section className="modal-2 fixed z-10 left-0 top-0 w-full h-full bg-modal-bg transition-all ease-in-out duration-300 text-black">
 			<div
 				className="absolute z-10 top-[46%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white py-7 px-5 rounded-md w-[52vw]"
 				ref={modalRef}>
@@ -316,7 +316,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 						className={`success-container ${
 							isSuccess ? 'visible' : 'invisible'
 						}`}>
-						<span id="success-register" className="text-green-500">
+						<span className="text-green-500 pt-80 text-2xl">
 							Inscription validée !
 						</span>
 					</div>

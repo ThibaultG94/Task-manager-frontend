@@ -8,23 +8,3 @@
 	overflow: auto;
 	background-color: rgba(0, 0, 0, 0.4);
 }
-
-.modal-content {
-	background-color: #fefefe;
-	margin: 2% auto;
-	border: 1px solid #888;
-	width: 60%;
-	max-width: 800px;
-	display: flex;
-	flex-direction: column;
-	text-align: right;
-}
-
-.modal-content h2 {
-	margin: 0 auto;
-}
-
-#success-register {
-	padding-top: 20px;
-	font-size: 1.5rem;
-}

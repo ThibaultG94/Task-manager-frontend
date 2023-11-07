@@ -21,7 +21,7 @@ module.exports = {
 				'modal-task-bg': '#f9f9f9',
 			},
 			backgroundColor: {
-				'modal-bg': 'rgba(0, 0, 0, 0.8)',
+				'modal-bg': 'rgba(0, 0, 0, 0.6)',
 			},
 			margin: {
 				'modal-margin': '4%',

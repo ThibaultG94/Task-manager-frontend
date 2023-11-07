@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import LoginForm from '../components/home/LoginForm';
 import Welcome from '../components/home/Welcome';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
-import '../style/pages/Home.scss';
-import '../style/components/formchecker.scss';
-import '../style/components/modal.scss';
 
 const Home = () => {
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
