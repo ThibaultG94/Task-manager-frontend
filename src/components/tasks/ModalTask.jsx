@@ -9,7 +9,6 @@ import EditTask from './EditTask';
 
 const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 	const modalRef = useRef(null);
-	const [saveMessage, setSaveMessage] = useState('');
 	const [taskData, setTaskData] = useState({
 		_id: '',
 		title: '',
@@ -61,13 +60,9 @@ const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 						<CancelEditTask handleCancelEdit={handleCancelEdit} />
 						<SaveEditedTask
 							setIsModalOpen={setIsModalOpen}
-							setSaveMessage={setSaveMessage}
 							taskData={taskData}
 						/>
 					</div>
-				)}
-				{saveMessage && (
-					<span id="message-after-saving">{saveMessage}</span>
 				)}
 			</div>
 		</section>

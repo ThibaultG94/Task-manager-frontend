@@ -6,8 +6,9 @@ import {
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
+import { toast } from 'react-toastify';
 
-const SaveEditedTask = ({ setIsModalOpen, setSaveMessage, taskData }) => {
+const SaveEditedTask = ({ setIsModalOpen, taskData }) => {
 	const dispatch = useDispatch();
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
@@ -33,19 +34,17 @@ const SaveEditedTask = ({ setIsModalOpen, setSaveMessage, taskData }) => {
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
+			toast.success('La tâche a été mise à jour avec succès !');
 		} catch (error) {
-			setSaveMessage('Échec de la mise à jour de la tâche.');
-			console.error('Échec de la mise à jour de la tâche:', error);
+			toast.error('Échec de la mise à jour de la tâche.');
 			return;
 		}
 	};
 
 	const handleSave = async () => {
 		await updateTask();
-		setSaveMessage('La tâche a été mise à jour avec succès !');
 		setTimeout(() => {
 			setIsModalOpen(false);
-			setSaveMessage('');
 		}, 500);
 	};
 
