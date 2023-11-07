@@ -34,7 +34,6 @@ const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<section
-			id="modal-to-create"
 			className="modal bg-modal-bg transition-all ease-in-out duration-300 text-black"
 			onClick={closeModal}>
 			<div

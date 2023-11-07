@@ -7,6 +7,7 @@ import {
 	passwordChecker,
 	confirmChecker,
 } from '../utils/formValidation';
+import CloseButton from '../modal/CloseButton';
 
 const SignupForm = ({ closeModal, modalRef }) => {
 	const registerUser = useRegisterUser();
@@ -149,18 +150,19 @@ const SignupForm = ({ closeModal, modalRef }) => {
 	}, [formData.password, formData.passwordConfirm, isTypingPassword]);
 
 	return (
-		<section className="modal" id="signup-modal">
-			<div className="modal-content" ref={modalRef}>
-				<span
-					className="close-button"
-					id="close-button"
-					onClick={closeModal}>
-					&times;
-				</span>
-				<h2>Inscription</h2>
+		<section className="modal bg-modal-bg transition-all ease-in-out duration-300 text-black">
+			<div
+				className="absolute z-10 top-[46%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white py-7 px-5 rounded-md w-[52vw]"
+				ref={modalRef}>
+				<div className="flex justify-between items-center mb-4">
+					<h2 className="text-lg font-bold text-gray-700">
+						Inscription
+					</h2>
+					<CloseButton onClose={closeModal} />
+				</div>
 
-				<form id="signup-form" className="signup-form mx-auto">
-					<div>
+				<form className="signup-form mx-auto">
+					<div className="mb-4">
 						<label htmlFor="pseudo">Nom d'utilisateur</label>
 						<input
 							type="text"
@@ -176,7 +178,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 						/>
 					</div>
 
-					<div>
+					<div className="mb-4">
 						<label htmlFor="email">Email</label>
 						<input
 							type="email"
@@ -205,7 +207,6 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							type="password"
 							name="password"
 							id="password"
-							className="mt-3 mb-[-3px]"
 							placeholder="Entrez votre mot de passe"
 							minLength="8"
 							maxLength="128"
@@ -256,13 +257,15 @@ const SignupForm = ({ closeModal, modalRef }) => {
 						</span>
 					</div>
 
-					<button
-						type="submit"
-						className="button bg-dark-blue hover:bg-dark-blue-2 mt-5	"
-						onClick={(e) => handleSubmit(e)}
-						disabled={isSubmitting}>
-						{isSubmitting ? 'En cours...' : "S'inscrire"}
-					</button>
+					<div className="flex justify-end">
+						<button
+							type="submit"
+							className="button bg-dark-blue hover:bg-dark-blue-2 mt-5	"
+							onClick={(e) => handleSubmit(e)}
+							disabled={isSubmitting}>
+							{isSubmitting ? 'En cours...' : "S'inscrire"}
+						</button>
+					</div>
 					<div
 						className={`success-container ${
 							isSuccess ? 'success' : ''
