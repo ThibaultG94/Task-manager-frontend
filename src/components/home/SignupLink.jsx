@@ -32,7 +32,10 @@ const SignupLink = () => {
 		<>
 			<p className="text-center">
 				Pas encore inscrit ?{' '}
-				<a href="#" id="signup-link" onClick={(e) => openModal(e)}>
+				<a
+					href="#"
+					className="text-[#5a385f] no-underline hover:underline"
+					onClick={(e) => openModal(e)}>
 					S'inscrire
 				</a>
 			</p>

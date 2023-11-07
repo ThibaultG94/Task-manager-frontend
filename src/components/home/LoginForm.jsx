@@ -67,11 +67,12 @@ const LoginForm = () => {
 					className="flex flex-col items-start mb-24"
 					onSubmit={handleSubmit}>
 					<div className="flex flex-col">
-						<label htmlFor="email">Email</label>
+						<label htmlFor="emailLog">Email</label>
 						<input
+							className="w-[350px] mt-2 h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300"
 							type="email"
 							id="emailLog"
-							name="email"
+							name="emailLog"
 							minLength="6"
 							maxLength="254"
 							autoComplete="off"
@@ -79,7 +80,9 @@ const LoginForm = () => {
 							onChange={handleChange}
 							value={formData.email}
 						/>
-						<span id="email-error" className="error-message h-6">
+						<span
+							id="email-error"
+							className="text-red-400 text-sm my-1 h-6">
 							{errors.email}
 						</span>
 					</div>
@@ -93,6 +96,7 @@ const LoginForm = () => {
 										</a> */}
 							</div>
 							<input
+								className="w-[350px] mt-2 h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300"
 								type="password"
 								id="passwordLog"
 								name="password"
@@ -104,7 +108,9 @@ const LoginForm = () => {
 								value={formData.password}
 							/>
 						</div>
-						<span id="password-error" className="error-message h-6">
+						<span
+							id="password-error"
+							className="text-red-400 text-sm my-1 h-6">
 							{errors.password}
 						</span>
 					</div>

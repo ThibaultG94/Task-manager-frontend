@@ -179,7 +179,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							placeholder="Entrez votre nom d'utilisateur"
 							onChange={(e) => handleChange(e)}
 							value={formData.pseudo}
-							className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
+							className={`h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300 mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
 								errors.pseudo && 'border-red-500 text-red-600'
 							}`}
 						/>
@@ -202,7 +202,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							placeholder="prenom.nom@email.fr"
 							onChange={(e) => handleChange(e)}
 							value={formData.email}
-							className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
+							className={`h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300 mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
 								errors.email && 'border-red-500 text-red-600'
 							}`}
 						/>
@@ -232,7 +232,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							required
 							onChange={(e) => handleChange(e)}
 							value={formData.password}
-							className={`mt-1 block w-full rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
+							className={`h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300 mt-2 block w-full rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
 								errors.password
 									? 'border-red-500 text-red-600'
 									: 'border-gray-300'
@@ -287,7 +287,7 @@ const SignupForm = ({ closeModal, modalRef }) => {
 							required
 							onChange={(e) => handleChange(e)}
 							value={formData.passwordConfirm}
-							className={`mt-1 block w-full rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
+							className={`h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300 mt-2 block w-full rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
 								errors.passwordConfirm
 									? 'border-red-500 text-red-600'
 									: 'border-gray-300'
