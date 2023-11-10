@@ -48,3 +48,35 @@ export const confirmChecker = (value, password) => {
 		return false;
 	}
 };
+
+export const validateFormDataOnTyping = (
+	formData,
+	setErrors,
+	setProgressBar
+) => {
+	setTimeout(() => {
+		setErrors({
+			username: pseudoChecker(formData.username),
+			email: emailChecker(formData.email),
+			password: passwordChecker(
+				formData.password,
+				setErrors,
+				setProgressBar
+			),
+			passwordConfirm: confirmChecker(
+				formData.passwordConfirm,
+				formData.password
+			),
+		});
+	}, 300);
+};
+
+export const validatePasswordConfirmOnTyping = (formData, setErrors) => {
+	setErrors((prevErrors) => ({
+		...prevErrors,
+		passwordConfirm: confirmChecker(
+			formData.passwordConfirm,
+			formData.password
+		),
+	}));
+};

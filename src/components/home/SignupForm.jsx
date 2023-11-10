@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import useHandleChange from './utils/signup/handleChange';
 import {
-	confirmChecker,
-	emailChecker,
-	passwordChecker,
-	pseudoChecker,
-} from '../utils/formValidation';
+	validateFormDataOnTyping,
+	validatePasswordConfirmOnTyping,
+} from './utils/signup/formValidation';
 import useHandleSubmit from './utils/signup/handleSubmit';
 
 const SignupForm = () => {
@@ -46,45 +44,19 @@ const SignupForm = () => {
 
 	useEffect(() => {
 		if (!isTypingPassword && !isTypingPasswordConfirm) {
-			setTimeout(() => {
-				setErrors({
-					username: pseudoChecker(formData.username),
-					email: emailChecker(formData.email),
-					password: passwordChecker(
-						formData.password,
-						setErrors,
-						setProgressBar
-					),
-					passwordConfirm: confirmChecker(
-						formData.passwordConfirm,
-						formData.password
-					),
-				});
-				setIsTypingPassword(false);
-				setIsTypingPasswordConfirm(false);
-			}, 300);
+			validateFormDataOnTyping(formData, setErrors, setProgressBar);
 		} else if (!isTypingPassword) {
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				passwordConfirm: confirmChecker(
-					formData.passwordConfirm,
-					formData.password
-				),
-			}));
-			setIsTypingPassword(false);
-			setIsTypingPasswordConfirm(false);
+			validatePasswordConfirmOnTyping(formData, setErrors);
+		} else {
+			return;
 		}
+		setIsTypingPassword(false);
+		setIsTypingPasswordConfirm(false);
 	}, [formData, isTypingPassword, isTypingPasswordConfirm]);
 
 	useEffect(() => {
 		if (isTypingPasswordConfirm && !isTypingPassword) {
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				passwordConfirm: confirmChecker(
-					formData.passwordConfirm,
-					formData.password
-				),
-			}));
+			validatePasswordConfirmOnTyping(formData, setErrors);
 		}
 		setIsTypingPassword(false);
 		setIsTypingPasswordConfirm(false);

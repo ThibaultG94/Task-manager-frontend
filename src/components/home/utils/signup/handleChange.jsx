@@ -1,4 +1,4 @@
-import { confirmChecker, passwordChecker } from '../../../utils/formValidation';
+import { confirmChecker, passwordChecker } from './formValidation';
 import { useDebounce } from '../../../utils/useDebounce';
 
 const useHandleChange = ({
