@@ -8,13 +8,11 @@ import Dashboard from './pages/Dashboard';
 import Workspaces from './pages/Workspaces';
 import ResetPassword from './pages/ResetPassword';
 import Tasks from './pages/Tasks';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
 	return (
 		<div>
-			<ToastContainer autoClose={600} />
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Home />} />

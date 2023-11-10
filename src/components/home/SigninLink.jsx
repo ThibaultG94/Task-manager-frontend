@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import SignupForm from './SignupForm';
 
 const SignupLink = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,18 +30,18 @@ const SignupLink = () => {
 	return (
 		<>
 			<p className="text-center">
-				Pas encore inscrit ?{' '}
+				Déjà inscrit ?{' '}
 				<a
 					href="#"
 					className="text-[#5a385f] no-underline hover:underline"
 					onClick={(e) => openModal(e)}>
-					S'inscrire
+					Se connecter
 				</a>
 			</p>
 
-			{isModalOpen && (
+			{/* {isModalOpen && (
 				<SignupForm closeModal={closeModal} modalRef={modalRef} />
-			)}
+			)} */}
 		</>
 	);
 };

@@ -1,127 +1,69 @@
 import React, { useEffect, useState } from 'react';
-import { useDebounce } from '../utils/useDebounce';
-import { useRegisterUser } from '../../api/registerUser';
+import useHandleChange from './utils/handleChange';
 import {
-	pseudoChecker,
+	confirmChecker,
 	emailChecker,
 	passwordChecker,
-	confirmChecker,
+	pseudoChecker,
 } from '../utils/formValidation';
-import CloseButton from '../modal/CloseButton';
+import useHandleSubmit from './utils/handleSubmit';
+import SigninLink from './SigninLink';
 
-const SignupForm = ({ closeModal, modalRef }) => {
-	const registerUser = useRegisterUser();
-
-	const [formData, setFormData] = useState({
-		pseudo: '',
-		email: '',
-		password: '',
-		passwordConfirm: '',
-	});
+const SignupForm = () => {
 	const [errors, setErrors] = useState({
-		pseudo: null,
+		username: null,
 		email: null,
 		password: null,
 		passwordConfirm: null,
+	});
+	const [formData, setFormData] = useState({
+		username: '',
+		email: '',
+		password: '',
+		passwordConfirm: '',
 	});
 
 	const [isTypingPassword, setIsTypingPassword] = useState(false);
 	const [isTypingPasswordConfirm, setIsTypingPasswordConfirm] =
 		useState(false);
 	const [progressBar, setProgressBar] = useState('');
-	const [isSuccess, setIsSuccess] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
-	useEffect(() => {
-		const storedFormData = JSON.parse(
-			localStorage.getItem('signupFormData')
-		);
-		if (storedFormData) {
-			setFormData(storedFormData);
-		}
-	}, []);
-
-	useEffect(() => {
-		localStorage.setItem('signupFormData', JSON.stringify(formData));
-	}, [formData]);
-
-	const debouncedPasswordChecker = useDebounce(passwordChecker, 400);
-	const debouncedConfirmChecker = useDebounce(confirmChecker, 500);
-
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-
-		setFormData((prevFormData) => {
-			const updatedFormData = { ...prevFormData, [name]: value };
-
-			if (name === 'password') {
-				debouncedPasswordChecker(value, setErrors, setProgressBar);
-				setIsTypingPassword(true);
-				setErrors((prevErrors) => ({
-					...prevErrors,
-					passwordConfirm: confirmChecker(
-						updatedFormData.passwordConfirm,
-						value
-					),
-				}));
-			}
-
-			if (name === 'passwordConfirm' && value !== '') {
-				confirmChecker(value, formData.password);
-				setIsTypingPasswordConfirm(true);
-			}
-
-			return updatedFormData;
-		});
-
-		setIsTypingPassword(false);
-		setIsTypingPasswordConfirm(false);
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-
-		if (
-			formData.pseudo &&
-			formData.email &&
-			formData.password &&
-			formData.passwordConfirm &&
-			!errors.password &&
-			!errors.passwordConfirm
-		) {
-			setIsSubmitting(true);
-			registerUser(formData.pseudo, formData.email, formData.password);
-			setFormData({
-				pseudo: '',
-				email: '',
-				password: '',
-				passwordConfirm: '',
-			});
-			setProgressBar('');
-			setIsSuccess(true);
-			localStorage.removeItem('signupFormData');
-		} else {
-			alert('Veuillez remplir correctement les champs');
-		}
-	};
+	const handleChange = useHandleChange({
+		formData,
+		setErrors,
+		setFormData,
+		setIsTypingPassword,
+		setIsTypingPasswordConfirm,
+		setProgressBar,
+	});
+	const handleSubmit = useHandleSubmit({
+		errors,
+		formData,
+		setFormData,
+		setIsSubmitting,
+		setProgressBar,
+	});
 
 	useEffect(() => {
 		if (!isTypingPassword && !isTypingPasswordConfirm) {
-			setErrors({
-				pseudo: pseudoChecker(formData.pseudo),
-				email: emailChecker(formData.email),
-				password: passwordChecker(
-					formData.password,
-					setErrors,
-					setProgressBar
-				),
-				passwordConfirm: confirmChecker(
-					formData.passwordConfirm,
-					formData.password
-				),
-			});
-			setIsTypingPassword(false);
-			setIsTypingPasswordConfirm(false);
+			setTimeout(() => {
+				setErrors({
+					username: pseudoChecker(formData.username),
+					email: emailChecker(formData.email),
+					password: passwordChecker(
+						formData.password,
+						setErrors,
+						setProgressBar
+					),
+					passwordConfirm: confirmChecker(
+						formData.passwordConfirm,
+						formData.password
+					),
+				});
+				setIsTypingPassword(false);
+				setIsTypingPasswordConfirm(false);
+			}, 300);
 		} else if (!isTypingPassword) {
 			setErrors((prevErrors) => ({
 				...prevErrors,
@@ -150,95 +92,93 @@ const SignupForm = ({ closeModal, modalRef }) => {
 	}, [formData.password, formData.passwordConfirm, isTypingPassword]);
 
 	return (
-		<section className="modal-2 fixed z-10 left-0 top-0 w-full h-full bg-modal-bg transition-all ease-in-out duration-300 text-black">
-			<div
-				className="absolute z-10 top-[46%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white py-7 px-5 rounded-md w-[52vw]"
-				ref={modalRef}>
-				<div className="flex justify-between items-center mb-4">
-					<h2 className="text-lg font-bold text-gray-700">
-						Inscription
-					</h2>
-					<CloseButton onClose={closeModal} />
-				</div>
+		<section className="bg-light-blue flex justify-center px-20 py-5">
+			<div>
+				<h2 className="mb-8 text-3xl text-center">Inscription</h2>
 
-				<form className="signup-form mx-auto">
-					<div className="mb-4">
+				<form
+					className="flex flex-col items-start"
+					onSubmit={async (e) => await handleSubmit(e)}>
+					<div className="flex flex-col">
 						<label
-							htmlFor="pseudo"
-							className="block text-sm font-medium text-gray-700">
+							className="block text-md text-gray-800"
+							htmlFor="username">
 							Nom d'utilisateur
 						</label>
 						<input
-							type="text"
-							id="pseudo"
-							name="pseudo"
-							required
-							minLength="3"
-							maxLength="30"
 							autoComplete="off"
-							placeholder="Entrez votre nom d'utilisateur"
-							onChange={(e) => handleChange(e)}
-							value={formData.pseudo}
-							className={`h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300 mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
-								errors.pseudo && 'border-red-500 text-red-600'
+							className={`appearance-none border focus:border-green-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
+								errors.username &&
+								'border-red-500 text-red-600 focus:border-red-500'
 							}`}
+							id="username"
+							maxLength="30"
+							minLength="3"
+							name="username"
+							onChange={(e) => handleChange(e)}
+							required
+							type="text"
+							value={formData.username}
 						/>
+						<span className="h-6 my-1 text-red-400 text-sm">
+							{errors.username}
+						</span>
 					</div>
 
-					<div className="mb-4">
+					<div className="flex flex-col">
 						<label
-							htmlFor="email"
-							className="block text-sm font-medium text-gray-700">
+							className="block text-gray-800 text-md"
+							htmlFor="email">
 							Email
 						</label>
 						<input
-							type="email"
-							name="email"
+							autoComplete="off"
+							className={`appearance-none border focus:border-green-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
+								errors.email &&
+								'border-red-500 text-red-600 focus:border-red-500'
+							}`}
 							id="email"
 							maxLength="254"
 							minLength="6"
-							required
-							autoComplete="off"
-							placeholder="prenom.nom@email.fr"
+							name="email"
 							onChange={(e) => handleChange(e)}
+							required
+							type="email"
 							value={formData.email}
-							className={`h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300 mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
-								errors.email && 'border-red-500 text-red-600'
-							}`}
 						/>
+						<span className="h-6 my-1 text-red-400 text-sm">
+							{errors.email}
+						</span>
 					</div>
 
-					<div
-						className={`password-container mb-4 ${
-							errors.password
-								? 'border border-red-500'
-								: isSuccess
-								? 'border border-green-500'
-								: 'border border-gray-300'
-						}`}>
-						<label
-							htmlFor="password"
-							className="block text-sm font-medium text-gray-700">
-							Mot de passe
-						</label>
+					<div className="flex flex-col">
+						<div className="flex justify-between">
+							<label
+								className="block text-md text-gray-800"
+								htmlFor="password">
+								Mot de passe
+							</label>
+							{/* <a href="./auth/forgetPassword.html">
+											Mot de passe oublié
+										</a> */}
+						</div>
 						<input
-							type="password"
-							name="password"
-							id="password"
-							placeholder="Entrez votre mot de passe"
-							minLength="8"
-							maxLength="128"
 							autoComplete="off"
-							required
-							onChange={(e) => handleChange(e)}
-							value={formData.password}
-							className={`h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300 mt-2 block w-full rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
-								errors.password
-									? 'border-red-500 text-red-600'
-									: 'border-gray-300'
+							className={`appearance-none border focus:border-green-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
+								errors.password &&
+								'border-red-500 text-red-600 focus:border-red-500'
 							}`}
+							id="password"
+							maxLength="128"
+							minLength="8"
+							name="password"
+							onChange={(e) => handleChange(e)}
+							required
+							type="password"
+							value={formData.password}
 						/>
-						{isTypingPassword && (
+						<span className={progressBar}></span>
+						{/* {isTypingPassword && (
 							<div className="relative pt-1">
 								<div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-red-200">
 									<div
@@ -252,75 +192,48 @@ const SignupForm = ({ closeModal, modalRef }) => {
 										className="h-1 bg-green-500"></div>
 								</div>
 							</div>
-						)}
-						<span
-							className={`text-xs ${
-								errors.password
-									? 'text-red-500 visible'
-									: 'text-green-500 visible'
-							}`}>
+						)} */}
+						<span className="h-9 my-1 text-red-400 text-sm max-w-[350px]">
 							{errors.password}
 						</span>
 					</div>
 
-					<div
-						className={`confirm-container mb-4 ${
-							errors.passwordConfirm
-								? 'border border-red-500'
-								: isSuccess
-								? 'border border-green-500'
-								: 'border border-gray-300'
-						}`}>
+					<div className="flex flex-col">
 						<label
-							htmlFor="passwordConfirm"
-							className="block text-sm font-medium text-gray-700">
+							className="block text-md text-gray-800"
+							htmlFor="passwordConfirm">
 							Confirmez le mot de passe
 						</label>
 						<input
-							type="password"
-							name="passwordConfirm"
-							id="confirm"
-							placeholder="Confirmez votre mot de passe"
-							minLength="8"
-							maxLength="128"
 							autoComplete="off"
-							required
-							onChange={(e) => handleChange(e)}
-							value={formData.passwordConfirm}
-							className={`h-9 shadow appearance-none border rounded-lg text-base px-2 transition-colors focus:border-green-300 mt-2 block w-full rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ${
-								errors.passwordConfirm
-									? 'border-red-500 text-red-600'
-									: 'border-gray-300'
+							className={`appearance-none border focus:border-green-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
+								errors.passwordConfirm &&
+								'border-red-500 text-red-600 focus:border-red-500'
 							}`}
+							id="passwordConfirm"
+							maxLength="128"
+							minLength="8"
+							name="passwordConfirm"
+							onChange={(e) => handleChange(e)}
+							required
+							type="password"
+							value={formData.passwordConfirm}
 						/>
-						<span
-							className={`text-xs ${
-								errors.passwordConfirm
-									? 'text-red-500 visible'
-									: 'text-green-500 visible'
-							}`}>
+						<span className="h-6 my-1 text-red-400 text-sm">
 							{errors.passwordConfirm}
 						</span>
 					</div>
 
-					<div className="flex justify-end">
+					<div className="w-full flex justify-end">
 						<button
-							type="submit"
-							className="button bg-dark-blue hover:bg-dark-blue-2 mt-5"
-							onClick={(e) => handleSubmit(e)}
-							disabled={isSubmitting}>
+							className="button bg-dark-blue-2 hover:bg-dark-purple mt-5 mb-4"
+							disabled={isSubmitting}
+							type="submit">
 							{isSubmitting ? 'En cours...' : "S'inscrire"}
 						</button>
 					</div>
-					<div
-						className={`success-container ${
-							isSuccess ? 'visible' : 'invisible'
-						}`}>
-						<span className="text-green-500 pt-80 text-2xl">
-							Inscription validée !
-						</span>
-					</div>
 				</form>
+				<SigninLink />
 			</div>
 		</section>
 	);

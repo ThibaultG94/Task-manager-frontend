@@ -18,6 +18,7 @@ import {
 } from '../store/selectors/editStateSelectors';
 import { setHasBeenUpdated } from '../store/feature/editState.slice';
 import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
+import { ToastContainer } from 'react-toastify';
 
 const Dashboard = () => {
 	const dispatch = useDispatch();
@@ -64,6 +65,7 @@ const Dashboard = () => {
 
 	return (
 		<div className="flex">
+			<ToastContainer autoClose={600} position="bottom-left" />
 			{!redirectAfterLogin ? <CheckAuthentication /> : null}
 			<section className="bg-dark-blue text-white text-center">
 				<SideBar userId={userId} />

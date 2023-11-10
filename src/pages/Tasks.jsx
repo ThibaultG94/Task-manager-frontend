@@ -33,6 +33,7 @@ import {
 	selectIsTomorrowTasksLoaded,
 } from '../store/selectors/taskSelectors';
 import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
+import { ToastContainer } from 'react-toastify';
 
 const Tasks = () => {
 	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);
@@ -107,6 +108,7 @@ const Tasks = () => {
 
 	return (
 		<div className="flex">
+			<ToastContainer autoClose={600} position="bottom-right" />
 			{!redirectAfterLogin ? <CheckAuthentication /> : null}
 			<section className="bg-dark-blue text-white text-center">
 				<SideBar userId={userId} />
