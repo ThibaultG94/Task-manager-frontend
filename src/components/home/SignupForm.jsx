@@ -7,7 +7,6 @@ import {
 	pseudoChecker,
 } from '../utils/formValidation';
 import useHandleSubmit from './utils/handleSubmit';
-import SigninLink from './SigninLink';
 
 const SignupForm = () => {
 	const [errors, setErrors] = useState({
@@ -92,7 +91,7 @@ const SignupForm = () => {
 	}, [formData.password, formData.passwordConfirm, isTypingPassword]);
 
 	return (
-		<section className="bg-light-blue flex justify-center px-20 py-5">
+		<section className="bg-light-blue flex justify-center px-20 py-8 text-dark-blue">
 			<div>
 				<h2 className="mb-8 text-3xl text-center">Inscription</h2>
 
@@ -152,16 +151,12 @@ const SignupForm = () => {
 					</div>
 
 					<div className="flex flex-col">
-						<div className="flex justify-between">
-							<label
-								className="block text-md text-gray-800"
-								htmlFor="password">
-								Mot de passe
-							</label>
-							{/* <a href="./auth/forgetPassword.html">
-											Mot de passe oublié
-										</a> */}
-						</div>
+						<label
+							className="block text-md text-gray-800"
+							htmlFor="password">
+							Mot de passe
+						</label>
+
 						<input
 							autoComplete="off"
 							className={`appearance-none border focus:border-green-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
@@ -233,7 +228,6 @@ const SignupForm = () => {
 						</button>
 					</div>
 				</form>
-				<SigninLink />
 			</div>
 		</section>
 	);
