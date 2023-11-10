@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import useHandleChange from './utils/handleChange';
+import useHandleChange from './utils/signup/handleChange';
 import {
 	confirmChecker,
 	emailChecker,
 	passwordChecker,
 	pseudoChecker,
 } from '../utils/formValidation';
-import useHandleSubmit from './utils/handleSubmit';
+import useHandleSubmit from './utils/signup/handleSubmit';
 
 const SignupForm = () => {
 	const [errors, setErrors] = useState({

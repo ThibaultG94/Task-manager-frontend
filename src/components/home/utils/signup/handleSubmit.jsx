@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { useRegisterUser } from '../../../api/registerUser';
+import { useRegisterUser } from '../../../../api/registerUser';
 
 const useHandleSubmit = ({
 	errors,

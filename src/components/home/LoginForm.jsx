@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
+import useHandleChange from './utils/login/handleChange';
+import useHandleSubmit from './utils/login/handleSubmit';
+import ErrorLogin from '../utils/ErrorLogin';
 
 const LoginForm = () => {
+	const [errorCode, setErrorCode] = useState(null);
+	const [displayErrors, setDisplayErrors] = useState(false);
+	const [error, setError] = useState(null);
+
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
@@ -9,12 +16,23 @@ const LoginForm = () => {
 		email: null,
 		password: null,
 	});
+
+	const handleChange = useHandleChange({ setFormData });
+	const handleSubmit = useHandleSubmit({
+		formData,
+		setDisplayErrors,
+		setError,
+		setErrorCode,
+	});
+
 	return (
 		<section className="flex justify-center px-20 py-8 text-light-blue">
 			<div>
 				<h2 className="mb-8 text-3xl text-center">Connexion</h2>
 
-				<form className="flex flex-col items-start">
+				<form
+					className="flex flex-col items-start"
+					onSubmit={handleSubmit}>
 					<div className="flex flex-col">
 						<label className="text-md" htmlFor="email">
 							Email
@@ -28,6 +46,7 @@ const LoginForm = () => {
 							maxLength="254"
 							minLength="6"
 							name="email"
+							onChange={(e) => handleChange(e)}
 							required
 							type="email"
 							value={formData.email}
@@ -55,6 +74,7 @@ const LoginForm = () => {
 							maxLength="128"
 							minLength="8"
 							name="password"
+							onChange={(e) => handleChange(e)}
 							required
 							type="password"
 							value={formData.password}
@@ -63,6 +83,14 @@ const LoginForm = () => {
 							{errors.password}
 						</span>
 					</div>
+
+					{displayErrors && (
+						<ErrorLogin
+							error={error}
+							setErrors={setErrors}
+							errorCode={errorCode}
+						/>
+					)}
 
 					<div className="w-full flex justify-end">
 						<button
