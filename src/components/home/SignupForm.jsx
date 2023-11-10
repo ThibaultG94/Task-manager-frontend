@@ -5,6 +5,10 @@ import {
 	validatePasswordConfirmOnTyping,
 } from './utils/signup/formValidation';
 import useHandleSubmit from './utils/signup/handleSubmit';
+import UsernameSignup from './utils/signup/UsernameSignup';
+import EmailSignup from './utils/signup/EmailSignup';
+import PasswordSignup from './utils/signup/PasswordSignup';
+import ConfirmPasswordSignup from './utils/signup/ConfirmPasswordSignup';
 
 const SignupForm = () => {
 	const [errors, setErrors] = useState({
@@ -70,126 +74,30 @@ const SignupForm = () => {
 				<form
 					className="flex flex-col items-start"
 					onSubmit={async (e) => await handleSubmit(e)}>
-					<div className="flex flex-col">
-						<label
-							className="block text-md text-gray-800"
-							htmlFor="username">
-							Nom d'utilisateur
-						</label>
-						<input
-							autoComplete="off"
-							className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
-								errors.username &&
-								'border-red-500 text-red-600 focus:border-red-500'
-							}`}
-							id="username"
-							maxLength="30"
-							minLength="3"
-							name="username"
-							onChange={(e) => handleChange(e)}
-							required
-							type="text"
-							value={formData.username}
-						/>
-						<span className="h-6 my-1 text-red-400 text-sm">
-							{errors.username}
-						</span>
-					</div>
+					<UsernameSignup
+						errors={errors}
+						formData={formData}
+						handleChange={handleChange}
+					/>
 
-					<div className="flex flex-col">
-						<label
-							className="block text-gray-800 text-md"
-							htmlFor="email">
-							Email
-						</label>
-						<input
-							autoComplete="off"
-							className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
-								errors.email &&
-								'border-red-500 text-red-600 focus:border-red-500'
-							}`}
-							id="email"
-							maxLength="254"
-							minLength="6"
-							name="email"
-							onChange={(e) => handleChange(e)}
-							required
-							type="email"
-							value={formData.email}
-						/>
-						<span className="h-6 my-1 text-red-400 text-sm">
-							{errors.email}
-						</span>
-					</div>
+					<EmailSignup
+						errors={errors}
+						formData={formData}
+						handleChange={handleChange}
+					/>
 
-					<div className="flex flex-col">
-						<label
-							className="block text-md text-gray-800"
-							htmlFor="password">
-							Mot de passe
-						</label>
+					<PasswordSignup
+						errors={errors}
+						formData={formData}
+						handleChange={handleChange}
+						progressBar={progressBar}
+					/>
 
-						<input
-							autoComplete="off"
-							className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
-								errors.password &&
-								'border-red-500 text-red-600 focus:border-red-500'
-							}`}
-							id="password"
-							maxLength="128"
-							minLength="8"
-							name="password"
-							onChange={(e) => handleChange(e)}
-							required
-							type="password"
-							value={formData.password}
-						/>
-						<span className={progressBar}></span>
-						{/* {isTypingPassword && (
-							<div className="relative pt-1">
-								<div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-red-200">
-									<div
-										style={{ width: '30%' }}
-										className="h-1 bg-red-500"></div>
-									<div
-										style={{ width: '60%' }}
-										className="h-1 bg-yellow-500"></div>
-									<div
-										style={{ width: '100%' }}
-										className="h-1 bg-green-500"></div>
-								</div>
-							</div>
-						)} */}
-						<span className="h-9 my-1 text-red-400 text-sm max-w-[350px]">
-							{errors.password}
-						</span>
-					</div>
-
-					<div className="flex flex-col">
-						<label
-							className="block text-md text-gray-800"
-							htmlFor="passwordConfirm">
-							Confirmez le mot de passe
-						</label>
-						<input
-							autoComplete="off"
-							className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
-								errors.passwordConfirm &&
-								'border-red-500 text-red-600 focus:border-red-500'
-							}`}
-							id="passwordConfirm"
-							maxLength="128"
-							minLength="8"
-							name="passwordConfirm"
-							onChange={(e) => handleChange(e)}
-							required
-							type="password"
-							value={formData.passwordConfirm}
-						/>
-						<span className="h-6 my-1 text-red-400 text-sm">
-							{errors.passwordConfirm}
-						</span>
-					</div>
+					<ConfirmPasswordSignup
+						errors={errors}
+						formData={formData}
+						handleChange={handleChange}
+					/>
 
 					<div className="w-full flex justify-end">
 						<button
