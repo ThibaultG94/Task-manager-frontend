@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useHandleChange from './utils/login/handleChange';
 import useHandleSubmit from './utils/login/handleSubmit';
-import ErrorLogin from '../utils/ErrorLogin';
+import ErrorLogin from './utils/login/ErrorLogin';
 
 const LoginForm = () => {
 	const [errorCode, setErrorCode] = useState(null);
