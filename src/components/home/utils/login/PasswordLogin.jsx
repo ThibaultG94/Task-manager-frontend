@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PasswordResetModal from '../../PasswordResetModal';
 
 const PasswordLogin = ({ errors, formData, handleChange }) => {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const handleOpenModal = () => setIsModalOpen(true);
+
+	const handleCloseModal = () => setIsModalOpen(false);
+
+	const handleResetPassword = (email) => {
+		console.log('Envoi de la requête de réinitialisation pour', email);
+		handleCloseModal();
+	};
+
 	return (
 		<div className="flex flex-col">
 			<div className="flex justify-between">
 				<label className="text-md" htmlFor="password">
 					Mot de passe
 				</label>
-				<span className="italic cursor-pointer">
+				<span
+					className="italic cursor-pointer"
+					onClick={handleOpenModal}>
 					Mot de passe oublié
 				</span>
+
+				<PasswordResetModal
+					isOpen={isModalOpen}
+					onClose={handleCloseModal}
+					onReset={handleResetPassword}
+				/>
 			</div>
 			<input
 				className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base text-black transition-colors ${
