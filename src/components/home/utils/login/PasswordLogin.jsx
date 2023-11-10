@@ -7,12 +7,12 @@ const PasswordLogin = ({ errors, formData, handleChange }) => {
 				<label className="text-md" htmlFor="password">
 					Mot de passe
 				</label>
-				{/* <a href="./auth/forgetPassword.html">
-											Mot de passe oublié
-										</a> */}
+				<span className="italic cursor-pointer">
+					Mot de passe oublié
+				</span>
 			</div>
 			<input
-				className={`appearance-none border focus:border-green-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base text-black transition-colors ${
+				className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base text-black transition-colors ${
 					errors.password &&
 					'border-red-500 text-red-600 focus:border-red-500'
 				}`}

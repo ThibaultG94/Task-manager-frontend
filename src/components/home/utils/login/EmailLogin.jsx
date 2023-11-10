@@ -7,7 +7,7 @@ const EmailLogin = ({ errors, formData, handleChange }) => {
 				Email
 			</label>
 			<input
-				className={`appearance-none border focus:border-green-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base text-black transition-colors ${
+				className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base text-black transition-colors ${
 					errors.email &&
 					'border-red-500 text-red-600 focus:border-red-500'
 				}`}
