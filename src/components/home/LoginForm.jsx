@@ -6,6 +6,7 @@ import EmailLogin from './utils/login/EmailLogin';
 import PasswordLogin from './utils/login/PasswordLogin';
 import PasswordResetModal from './PasswordResetModal';
 import { toast } from 'react-toastify';
+import { useForgotPassword } from '../../api/forgotPassword';
 
 const LoginForm = () => {
 	const [errorCode, setErrorCode] = useState(null);
@@ -22,6 +23,7 @@ const LoginForm = () => {
 		password: null,
 	});
 
+	const forgotPassword = useForgotPassword();
 	const handleChange = useHandleChange({ setFormData });
 	const handleSubmit = useHandleSubmit({
 		formData,
@@ -33,12 +35,9 @@ const LoginForm = () => {
 	const handleOpenModal = () => setIsModalOpen(true);
 	const handleCloseModal = () => setIsModalOpen(false);
 
-	const handleResetPassword = (email) => {
+	const handleResetPassword = async (email) => {
+		await forgotPassword(email);
 		handleCloseModal();
-		toast.success(
-			"Un email de réinitialisation vous a été envoyé à l'adresse " +
-				email
-		);
 	};
 
 	return (
