@@ -10,7 +10,7 @@ const PasswordLogin = ({ errors, formData, handleChange, handleOpenModal }) => {
 				<span
 					className="italic cursor-pointer"
 					onClick={handleOpenModal}>
-					Mot de passe oublié
+					Mot de passe oublié ?
 				</span>
 			</div>
 			<input
