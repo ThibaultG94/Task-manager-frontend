@@ -1,31 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useResetPassword } from '../api/resetPassword';
+import { toast } from 'react-toastify';
 
 const ResetPassword = () => {
 	const [password, setPassword] = useState('');
 	const navigate = useNavigate();
 	const { token } = useParams();
+	const resetPassword = useResetPassword();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		try {
-			const response = await fetch(
-				`http://backendurl/reset-password/${token}`,
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ password }),
-				}
-			);
-
-			if (response.ok) {
-				navigate('/login');
-			}
+			await resetPassword(token, password);
+			navigate('/');
+			toast.success('Votre mot de passe a bien été réinitialisé');
 		} catch (error) {
 			console.error('Password reset error', error);
+			toast.error(
+				'Une erreur est survenue lors de la réinitialisation du mot de passe'
+			);
 		}
 	};
 
@@ -33,9 +28,9 @@ const ResetPassword = () => {
 		<div>
 			<form onSubmit={handleSubmit}>
 				<input
-					autocomplete="off"
-					minlength="6"
-					maxlength="254"
+					autoComplete="off"
+					minLength="6"
+					maxLength="254"
 					onChange={(e) => setPassword(e.target.value)}
 					placeholder="Nouveau mot de passe"
 					required
