@@ -15,7 +15,7 @@ const App = () => {
 		<div>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<Home />} />
+					<Route path="/home" element={<Home />} />
 					<Route path="*" element={<Error404 />} />
 					<Route path="/pages/error" element={<Error />} />
 					<Route path="/pages/error-404" element={<Error404 />} />

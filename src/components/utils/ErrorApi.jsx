@@ -7,7 +7,7 @@ export const useErrorApi = () => {
 		const errorCode = error.response ? error.response.status : 500;
 		switch (errorCode) {
 			case 401:
-				navigate('/');
+				navigate('/home');
 				break;
 			case 404:
 				navigate('/pages/error-404');

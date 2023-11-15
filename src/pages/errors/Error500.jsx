@@ -10,7 +10,7 @@ const Error500 = () => {
 					Une erreur serveur s'est produite. Veuillez réessayer plus
 					tard.
 				</p>
-				<NavLink to="/" className="text-blue-500 underline">
+				<NavLink to="/home" className="text-blue-500 underline">
 					Retour à l'accueil
 				</NavLink>
 			</div>

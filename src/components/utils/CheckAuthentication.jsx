@@ -17,10 +17,10 @@ const CheckAuthentication = () => {
 				const userId = await getUserId(API_URL);
 				const currentPath = location.pathname;
 
-				if (userId && currentPath === '/') {
+				if (userId && currentPath === '/home') {
 					navigate('/pages/dashboard');
-				} else if (!userId && currentPath !== '/') {
-					navigate('/');
+				} else if (!userId && currentPath !== '/home') {
+					navigate('/home');
 				}
 
 				sessionStorage.setItem('redirectAfterLogin', currentPath);

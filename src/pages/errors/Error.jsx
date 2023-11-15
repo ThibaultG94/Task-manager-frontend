@@ -9,7 +9,7 @@ const Error = () => {
 				<p className="text-lg text-gray-700">
 					Quelque chose s'est mal passé. Veuillez réessayer.
 				</p>
-				<NavLink to="/" className="text-blue-500 underline">
+				<NavLink to="/home" className="text-blue-500 underline">
 					Retour à l'accueil
 				</NavLink>
 			</div>

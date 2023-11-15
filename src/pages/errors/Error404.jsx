@@ -9,7 +9,7 @@ const Error404 = () => {
 				<p className="text-lg text-gray-700">
 					La page que vous cherchez n'existe pas.
 				</p>
-				<NavLink to="/" className="text-blue-500 underline">
+				<NavLink to="/home" className="text-blue-500 underline">
 					Retour à l'accueil
 				</NavLink>
 			</div>

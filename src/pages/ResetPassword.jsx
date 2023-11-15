@@ -41,7 +41,7 @@ const ResetPassword = () => {
 		if (validatePasswords()) {
 			try {
 				await resetPassword(token, password);
-				navigate('/');
+				navigate('/home');
 				toast.success('Votre mot de passe a bien été réinitialisé');
 			} catch (error) {
 				console.error('Password reset error', error);

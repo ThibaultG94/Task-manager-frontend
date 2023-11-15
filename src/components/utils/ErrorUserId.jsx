@@ -8,7 +8,7 @@ const ErrorUserId = ({ errorCode }) => {
 		if (errorCode) {
 			switch (errorCode) {
 				case 401:
-					navigate('/');
+					navigate('/home');
 					break;
 				case 500:
 					navigate('/pages/error-500');
