@@ -9,6 +9,10 @@ body {
 	outline: none;
 	background: #ffffff;
 	color: #171f39;
+
+	@media (max-width: 767px) {
+		overflow: visible;
+	}
 }
 
 .dashboard-container {

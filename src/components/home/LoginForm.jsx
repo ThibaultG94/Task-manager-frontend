@@ -5,10 +5,9 @@ import ErrorLogin from './utils/login/ErrorLogin';
 import EmailLogin from './utils/login/EmailLogin';
 import PasswordLogin from './utils/login/PasswordLogin';
 import PasswordResetModal from './PasswordResetModal';
-import { toast } from 'react-toastify';
 import { useForgotPassword } from '../../api/forgotPassword';
 
-const LoginForm = () => {
+const LoginForm = ({ setShowLoginForm }) => {
 	const [errorCode, setErrorCode] = useState(null);
 	const [displayErrors, setDisplayErrors] = useState(false);
 	const [error, setError] = useState(null);
@@ -41,7 +40,7 @@ const LoginForm = () => {
 	};
 
 	return (
-		<section className="flex justify-center px-20 py-8 text-light-blue">
+		<section className="bg-dark-blue flex h-screen justify-center px-20 py-8 text-light-blue">
 			<div>
 				<h2 className="mb-8 text-3xl text-center">Connexion</h2>
 
@@ -76,6 +75,11 @@ const LoginForm = () => {
 							Se connecter
 						</button>
 					</div>
+					<button
+						className="block md:hidden text-blue-500"
+						onClick={() => setShowLoginForm(false)}>
+						Pas encore inscrit ?
+					</button>
 				</form>
 			</div>
 

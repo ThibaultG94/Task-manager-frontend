@@ -10,7 +10,7 @@ import EmailSignup from './utils/signup/EmailSignup';
 import PasswordSignup from './utils/signup/PasswordSignup';
 import ConfirmPasswordSignup from './utils/signup/ConfirmPasswordSignup';
 
-const SignupForm = () => {
+const SignupForm = ({ setShowLoginForm }) => {
 	const [errors, setErrors] = useState({
 		username: null,
 		email: null,
@@ -67,7 +67,7 @@ const SignupForm = () => {
 	}, [formData.password, formData.passwordConfirm, isTypingPassword]);
 
 	return (
-		<section className="bg-light-blue flex justify-center px-20 py-8 text-dark-blue">
+		<section className="bg-light-blue flex h-screen justify-center py-8 text-dark-blue">
 			<div>
 				<h2 className="mb-8 text-3xl text-center">Inscription</h2>
 
@@ -107,6 +107,11 @@ const SignupForm = () => {
 							{isSubmitting ? 'En cours...' : "S'inscrire"}
 						</button>
 					</div>
+					<button
+						className="block md:hidden text-blue-500"
+						onClick={() => setShowLoginForm(true)}>
+						Déjà inscrit ?
+					</button>
 				</form>
 			</div>
 		</section>
