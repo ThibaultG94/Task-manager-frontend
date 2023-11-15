@@ -20,8 +20,10 @@ const CheckAuthentication = () => {
 				if (userId && currentPath === '/') {
 					navigate('/pages/dashboard');
 				} else if (!userId && currentPath !== '/') {
-					navigate('/home');
+					navigate('/');
 				}
+
+				sessionStorage.setItem('redirectAfterLogin', currentPath);
 			} catch (error) {
 				setError(error);
 				if (error.response) {
@@ -34,8 +36,7 @@ const CheckAuthentication = () => {
 		};
 
 		fetchData();
-		sessionStorage.setItem('redirectAfterLogin', location.pathname);
-	}, []);
+	}, [location.pathname]);
 
 	if (error) {
 		return <ErrorUserId errorCode={errorCode} />;
