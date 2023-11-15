@@ -67,9 +67,11 @@ const SignupForm = ({ setShowLoginForm }) => {
 	}, [formData.password, formData.passwordConfirm, isTypingPassword]);
 
 	return (
-		<section className="bg-light-blue flex h-screen justify-center py-8 text-dark-blue">
+		<section className="bg-light-blue flex h-screen justify-center py-4 sm:py-6 md:py-8 text-dark-blue">
 			<div>
-				<h2 className="mb-8 text-3xl text-center">Inscription</h2>
+				<h2 className="mb-4 sm:mb-6 md:mb-8 text-2xl sm:text-3xl text-center">
+					Inscription
+				</h2>
 
 				<form
 					className="flex flex-col items-start"
@@ -101,14 +103,14 @@ const SignupForm = ({ setShowLoginForm }) => {
 
 					<div className="w-full flex justify-end">
 						<button
-							className="button bg-dark-blue-2 hover:bg-dark-purple mt-5 mb-4"
+							className="button bg-dark-blue-2 hover:bg-dark-purple mt-2 sm:mt-3 md:mt-5 text-sm sm:text-base md:text-lg"
 							disabled={isSubmitting}
 							type="submit">
 							{isSubmitting ? 'En cours...' : "S'inscrire"}
 						</button>
 					</div>
 					<button
-						className="block md:hidden text-blue-500"
+						className="block md:hidden text-blue-500 text-sm mt-2"
 						onClick={() => setShowLoginForm(true)}>
 						Déjà inscrit ?
 					</button>
