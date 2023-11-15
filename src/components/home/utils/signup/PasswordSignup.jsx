@@ -32,14 +32,16 @@ const PasswordSignup = ({ errors, formData, handleChange, progressBar }) => {
 	};
 
 	return (
-		<div className="flex flex-col">
-			<label className="block text-md text-gray-800" htmlFor="password">
+		<div className="flex flex-col w-full">
+			<label
+				className="block text-gray-800 text-sm md:text-base"
+				htmlFor="password">
 				Mot de passe
 			</label>
 
 			<input
 				autoComplete="off"
-				className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
+				className={`appearance-none border focus:border-blue-300 w-full h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
 					errors.password &&
 					'border-red-500 text-red-600 focus:border-red-500'
 				}`}
@@ -63,7 +65,7 @@ const PasswordSignup = ({ errors, formData, handleChange, progressBar }) => {
 					style={{ width: `${passwordStrength}%` }}></div>
 			</div>
 
-			<span className="h-9 my-1 text-red-400 text-sm max-w-[350px]">
+			<span className="h-9 my-1 text-red-400 text-sm max-w-full">
 				{errors.password}
 			</span>
 		</div>

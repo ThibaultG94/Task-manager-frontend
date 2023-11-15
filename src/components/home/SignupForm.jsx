@@ -68,7 +68,7 @@ const SignupForm = ({ setShowLoginForm }) => {
 
 	return (
 		<section className="bg-light-blue flex h-screen justify-center py-4 sm:py-6 md:py-8 text-dark-blue">
-			<div>
+			<div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg sm:w-72 md:w-80 lg:w-96">
 				<h2 className="mb-4 sm:mb-6 md:mb-8 text-2xl sm:text-3xl text-center">
 					Inscription
 				</h2>
@@ -101,7 +101,12 @@ const SignupForm = ({ setShowLoginForm }) => {
 						handleChange={handleChange}
 					/>
 
-					<div className="w-full flex justify-end">
+					<div className="w-full flex justify-between md:justify-end">
+						<button
+							className="block md:hidden text-blue-500 text-sm mt-2"
+							onClick={() => setShowLoginForm(true)}>
+							Déjà inscrit ?
+						</button>
 						<button
 							className="button bg-dark-blue-2 hover:bg-dark-purple mt-2 sm:mt-3 md:mt-5 text-sm sm:text-base md:text-lg"
 							disabled={isSubmitting}
@@ -109,11 +114,6 @@ const SignupForm = ({ setShowLoginForm }) => {
 							{isSubmitting ? 'En cours...' : "S'inscrire"}
 						</button>
 					</div>
-					<button
-						className="block md:hidden text-blue-500 text-sm mt-2"
-						onClick={() => setShowLoginForm(true)}>
-						Déjà inscrit ?
-					</button>
 				</form>
 			</div>
 		</section>

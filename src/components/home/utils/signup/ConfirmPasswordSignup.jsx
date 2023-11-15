@@ -2,15 +2,15 @@ import React from 'react';
 
 const ConfirmPasswordSignup = ({ errors, formData, handleChange }) => {
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col w-full">
 			<label
-				className="block text-md text-gray-800"
+				className="block text-gray-800 text-sm md:text-base"
 				htmlFor="passwordConfirm">
 				Confirmez le mot de passe
 			</label>
 			<input
 				autoComplete="off"
-				className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
+				className={`appearance-none border focus:border-blue-300 w-full h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
 					errors.passwordConfirm &&
 					'border-red-500 text-red-600 focus:border-red-500'
 				}`}
@@ -23,7 +23,7 @@ const ConfirmPasswordSignup = ({ errors, formData, handleChange }) => {
 				type="password"
 				value={formData.passwordConfirm}
 			/>
-			<span className="h-6 my-1 text-red-400 text-sm">
+			<span className="h-6 my-1 text-red-400 text-sm max-w-full">
 				{errors.passwordConfirm}
 			</span>
 		</div>

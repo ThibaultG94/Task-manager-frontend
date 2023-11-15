@@ -2,13 +2,15 @@ import React from 'react';
 
 const EmailSignup = ({ errors, formData, handleChange }) => {
 	return (
-		<div className="flex flex-col">
-			<label className="block text-gray-800 text-md" htmlFor="email">
+		<div className="flex flex-col w-full">
+			<label
+				className="block text-gray-800 text-sm md:text-base"
+				htmlFor="email">
 				Email
 			</label>
 			<input
 				autoComplete="off"
-				className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
+				className={`appearance-none border focus:border-blue-300 w-full h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
 					errors.email &&
 					'border-red-500 text-red-600 focus:border-red-500'
 				}`}
@@ -21,7 +23,7 @@ const EmailSignup = ({ errors, formData, handleChange }) => {
 				type="email"
 				value={formData.email}
 			/>
-			<span className="h-6 my-1 text-red-400 text-sm">
+			<span className="h-6 my-1 text-red-400 text-xs md:text-sm">
 				{errors.email}
 			</span>
 		</div>
