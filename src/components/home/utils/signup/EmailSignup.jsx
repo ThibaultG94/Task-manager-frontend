@@ -10,7 +10,7 @@ const EmailSignup = ({ errors, formData, handleChange }) => {
 			</label>
 			<input
 				autoComplete="off"
-				className={`appearance-none border focus:border-blue-300 w-full h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
+				className={`appearance-none border focus:border-blue-300 h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors w-full ${
 					errors.email &&
 					'border-red-500 text-red-600 focus:border-red-500'
 				}`}

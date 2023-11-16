@@ -2,12 +2,12 @@ import React from 'react';
 
 const EmailLogin = ({ errors, formData, handleChange }) => {
 	return (
-		<div className="flex flex-col">
-			<label className="text-md" htmlFor="email">
+		<div className="flex flex-col w-full">
+			<label className="block text-sm md:text-base" htmlFor="email">
 				Email
 			</label>
 			<input
-				className={`appearance-none border focus:border-blue-300 w-[350px] h-9 mt-2 px-2 rounded-lg shadow text-base text-black transition-colors ${
+				className={`appearance-none border focus:border-blue-300 h-9 mt-2 px-2 rounded-lg shadow text-base text-black transition-colors w-full ${
 					errors.email &&
 					'border-red-500 text-red-600 focus:border-red-500'
 				}`}
@@ -20,7 +20,7 @@ const EmailLogin = ({ errors, formData, handleChange }) => {
 				type="email"
 				value={formData.email}
 			/>
-			<span className="h-6 my-1 text-red-400 text-sm">
+			<span className="h-6 my-1 text-red-400 text-xs md:text-sm">
 				{errors.email}
 			</span>
 		</div>

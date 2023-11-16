@@ -40,9 +40,11 @@ const LoginForm = ({ setShowLoginForm }) => {
 	};
 
 	return (
-		<section className="bg-dark-blue flex h-screen justify-center px-20 py-8 text-light-blue">
-			<div>
-				<h2 className="mb-8 text-3xl text-center">Connexion</h2>
+		<section className="bg-dark-blue flex h-screen justify-center py-4 sm:py-6 md:py-8 text-light-blue">
+			<div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg sm:w-72 md:w-80 lg:w-96">
+				<h2 className="mb-4 sm:mb-6 md:mb-8 text-2xl sm:text-3xl text-center">
+					Connexion
+				</h2>
 
 				<form
 					className="flex flex-col items-start"
@@ -68,18 +70,18 @@ const LoginForm = ({ setShowLoginForm }) => {
 						/>
 					)}
 
-					<div className="w-full flex justify-end">
+					<div className="w-full flex justify-between md:justify-end">
 						<button
-							className="button bg-light-blue hover:bg-light-blue-3 mt-5 mb-4 text-dark-blue"
+							className="block md:hidden text-blue-500 text-sm mt-2"
+							onClick={() => setShowLoginForm(false)}>
+							Pas encore inscrit ?
+						</button>
+						<button
+							className="button bg-light-blue hover:bg-light-blue-3 mt-2 sm:mt-3 md:mt-5 text-sm sm:text-base md:text-lg text-dark-blue"
 							type="submit">
 							Se connecter
 						</button>
 					</div>
-					<button
-						className="block md:hidden text-blue-500"
-						onClick={() => setShowLoginForm(false)}>
-						Pas encore inscrit ?
-					</button>
 				</form>
 			</div>
 
