@@ -77,7 +77,7 @@ const DisplayNextMonthTasks = ({
 			{allTasks.userNextMonthTasks.length > 0 && (
 				<div
 					id="next-month-tasks"
-					className={`mx-8 my-3 rounded-md bg-white ${
+					className={`mb-4 rounded-md bg-white ${
 						expandedBlocks['next-month-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('next-month-tasks')}>

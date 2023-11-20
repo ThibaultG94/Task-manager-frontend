@@ -75,7 +75,7 @@ const DisplayThisMonthTasks = ({
 			{allTasks.userThisMonthTasks.length > 0 && (
 				<div
 					id="this-month-tasks"
-					className={`mx-8 my-3 rounded-md bg-white ${
+					className={`mb-4 rounded-md bg-white ${
 						expandedBlocks['this-month-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('this-month-tasks')}>

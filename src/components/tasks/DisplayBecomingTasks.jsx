@@ -83,7 +83,7 @@ const DisplayBecomingTasks = ({
 			{allTasks.userBecomingTasks.length > 0 && (
 				<div
 					id="becoming-tasks"
-					className={`mx-8 my-3 rounded-md bg-white ${
+					className={`mb-4 rounded-md bg-white ${
 						expandedBlocks['becoming-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('becoming-tasks')}>

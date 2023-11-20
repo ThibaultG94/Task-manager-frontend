@@ -79,7 +79,7 @@ const DisplayThisYearTasks = ({
 			{allTasks.userThisYearTasks.length > 0 && (
 				<div
 					id="this-year-tasks"
-					className={`mx-8 my-3 rounded-md bg-white ${
+					className={`mb-4 rounded-md bg-white ${
 						expandedBlocks['this-year-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('this-year-tasks')}>

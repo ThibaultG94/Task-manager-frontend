@@ -10,10 +10,10 @@ const Header = () => {
 	const currentUser = useSelector(selectCurrentUser);
 
 	return (
-		<header className="mx-auto relative h-[70px] w-[95%]">
+		<header className="flex justify-between mx-auto py-2 w-full">
 			<HeaderWelcome currentUser={currentUser} />
 			<HeaderNav />
-			<div className="flex items-center absolute right-0 top-2.5">
+			<div className="flex items-center">
 				{/* <HeaderSearch /> */}
 				<HeaderAvatar currentUser={currentUser} />
 			</div>

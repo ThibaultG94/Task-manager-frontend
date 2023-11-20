@@ -23,7 +23,7 @@ const HeaderWelcome = ({ currentUser }) => {
 	}, [location]);
 
 	return (
-		<div className="absolute left-0 top-[10px]">
+		<div>
 			<h2 className="mb-[5px] text-[1.3rem]">
 				Bonjour {currentUser?.username} !
 			</h2>

@@ -73,7 +73,7 @@ const DisplayNextWeekendTasks = ({
 			{allTasks.userNextWeekendTasks.length > 0 && (
 				<div
 					id="next-weekend-tasks"
-					className={`mx-8 my-3 rounded-md bg-white ${
+					className={`mb-4 rounded-md bg-white ${
 						expandedBlocks['next-weekend-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('next-weekend-tasks')}>
