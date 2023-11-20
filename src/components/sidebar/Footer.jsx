@@ -9,11 +9,11 @@ const Footer = () => {
 	};
 
 	return (
-		<ul className="self-end flex flex-col justify-between h-[11vh]">
+		<ul className="self-end flex flex-col justify-between">
 			<li
-				className="cursor-default text-xl"
+				className="cursor-default mb-6 text-xl"
 				id="paramsLink"
-				style={{ opacity: '0.3' }}>
+				style={{ display: 'none' }}>
 				<i className="fas fa-cog mr-1"></i>
 			</li>
 

@@ -11,7 +11,7 @@ const Navigation = ({ userId }) => {
 	};
 
 	return (
-		<nav className="self-end flex flex-col justify-between h-[30vh]">
+		<nav className="self-end flex flex-col justify-between">
 			<NavLink
 				id="homelink"
 				to="/pages/dashboard"
@@ -21,8 +21,8 @@ const Navigation = ({ userId }) => {
 						'/pages/tasks',
 						'/pages/workspaces',
 					])
-						? 'cursor-pointer text-xl font-bold text-orange-primary'
-						: 'cursor-pointer text-xl'
+						? 'cursor-pointer text-xl font-bold mb-6 text-orange-primary'
+						: 'cursor-pointer text-xl mb-6'
 				}>
 				<li>
 					<i className="fas fa-home mr-1"></i>
@@ -34,11 +34,12 @@ const Navigation = ({ userId }) => {
 				to="/pages/calendar"
 				className={(nav) =>
 					nav.isActive
-						? 'cursor-pointer text-xl font-bold text-custom-orange'
+						? 'cursor-pointer text-xl font-bold mb-6 text-custom-orange'
 						: // : 'cursor-pointer text-xl'
-						  'cursor-default text-xl'
-				}>
-				<li style={{ opacity: '0.3' }}>
+						  'cursor-default text-xl mb-6'
+				}
+				style={{ display: 'none' }}>
+				<li>
 					<i className="fas fa-calendar-alt mr-1"></i>
 				</li>
 			</NavLink>
@@ -48,11 +49,12 @@ const Navigation = ({ userId }) => {
 				to="/pages/overview"
 				className={(nav) =>
 					nav.isActive
-						? 'cursor-pointer text-xl font-bold text-custom-orange'
+						? 'cursor-pointer text-xl font-bold text-custom-orange mb-6'
 						: // : 'cursor-pointer text-xl'
-						  'cursor-default text-xl'
-				}>
-				<li style={{ opacity: '0.3' }}>
+						  'cursor-default text-xl mb-6'
+				}
+				style={{ display: 'none' }}>
+				<li>
 					<i className="fas fa-eye mr-1"></i>
 				</li>
 			</NavLink>
