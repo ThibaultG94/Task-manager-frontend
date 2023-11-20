@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import CreateTaskAndWorkspace from './CreateTaskAndWorkspace';
 
 const Navigation = ({ userId }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const location = useLocation();
+
+	const isActiveLink = (paths) => {
+		return paths.includes(location.pathname);
+	};
 
 	return (
 		<nav className="self-end flex flex-col justify-between h-[30vh]">
 			<NavLink
 				id="homelink"
 				to="/pages/dashboard"
-				className={(nav) =>
-					nav.isActive
-						? 'cursor-pointer text-xl font-bold text-custom-orange'
+				className={() =>
+					isActiveLink([
+						'/pages/dashboard',
+						'/pages/tasks',
+						'/pages/workspaces',
+					])
+						? 'cursor-pointer text-xl font-bold text-orange-primary'
 						: 'cursor-pointer text-xl'
 				}>
 				<li>
