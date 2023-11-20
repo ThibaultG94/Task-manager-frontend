@@ -21,12 +21,12 @@ const Workspaces = () => {
 	}, [redirectAfterLogin]);
 
 	return (
-		<div className="flex relative">
+		<div className="bg-light-blue flex relative">
 			{!redirectAfterLogin ? <CheckAuthentication /> : null}
 			<section className="bg-dark-blue fixed text-center text-white z-10">
 				<SideBar />
 			</section>
-			<div className="bg-light-blue ml-20 w-full">
+			<div className="ml-20 w-full">
 				<Header />
 				<main></main>
 			</div>

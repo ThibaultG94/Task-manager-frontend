@@ -7,6 +7,10 @@ export const useLogoutUser = () => {
 	const errorApi = useErrorApi();
 	const API_URL = process.env.REACT_APP_API_URL;
 
+	const deleteCookie = (name) => {
+		document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+	};
+
 	const logoutUser = async () => {
 		try {
 			const res = await axios.post(
@@ -14,6 +18,9 @@ export const useLogoutUser = () => {
 				{},
 				{ withCredentials: true }
 			);
+
+			deleteCookie('token');
+			deleteCookie('refreshToken');
 
 			sessionStorage.removeItem('redirectAfterLogin');
 			sessionStorage.removeItem('userId');

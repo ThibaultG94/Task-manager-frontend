@@ -10,7 +10,7 @@ const Header = () => {
 	const currentUser = useSelector(selectCurrentUser);
 
 	return (
-		<header className="py-O px-[2%] mx-auto relative h-[70px] w-[95%]">
+		<header className="mx-auto relative h-[70px] w-[95%]">
 			<HeaderWelcome currentUser={currentUser} />
 			<HeaderNav />
 			<div className="flex items-center absolute right-0 top-2.5">
