@@ -1,6 +1,4 @@
 body {
-	min-width: 100vw;
-	overflow: hidden;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
 		Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 	margin: 0;
@@ -16,18 +14,14 @@ body {
 }
 
 .dashboard-container {
-	width: 100%;
-	height: 850px;
 	display: grid;
 	grid-template-areas:
 		'cal task task'
 		'work act cow';
-	grid-template-rows: 1fr 1fr;
+	grid-template-rows: 250px 250px;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 15px;
 	padding: 10px 2% 15px;
-	max-height: calc(100vh - 9%);
-	overflow: hidden;
 	justify-content: center;
 }
 

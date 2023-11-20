@@ -64,13 +64,13 @@ const Dashboard = () => {
 	}, [hasBeenUpdated, workspacesHasBeenUpdated]);
 
 	return (
-		<div className="flex relative">
+		<div className="bg-light-blue h-screen flex relative">
 			<ToastContainer autoClose={600} position="bottom-left" />
 			{!redirectAfterLogin ? <CheckAuthentication /> : null}
 			<section className="bg-dark-blue fixed text-center text-white z-10">
 				<SideBar userId={userId} />
 			</section>
-			<div className="bg-light-blue ml-20 w-full">
+			<div className="ml-20 w-full">
 				<Header />
 				<main className="dashboard-container">
 					<Calendar />

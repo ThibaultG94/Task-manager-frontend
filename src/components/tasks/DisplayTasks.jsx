@@ -117,7 +117,7 @@ const DisplayTasks = ({ userId }) => {
 	}, [selectedTask]);
 
 	return (
-		<section className="overflow-y-scroll max-h-screen">
+		<section>
 			<DisplayOverdueTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
