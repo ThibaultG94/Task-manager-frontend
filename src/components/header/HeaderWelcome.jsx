@@ -23,11 +23,11 @@ const HeaderWelcome = ({ currentUser }) => {
 	}, [location]);
 
 	return (
-		<div>
-			<h2 className="mb-[5px] text-[1.3rem]">
+		<div className="absolute left-0">
+			<h2 className="mb-0.5 text-xl">
 				Bonjour {currentUser?.username} !
 			</h2>
-			<p className="text-[1.1rem]">{message && message}</p>
+			<p className="text-base">{message && message}</p>
 		</div>
 	);
 };
