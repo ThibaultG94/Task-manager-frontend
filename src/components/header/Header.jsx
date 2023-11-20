@@ -10,7 +10,7 @@ const Header = () => {
 	const currentUser = useSelector(selectCurrentUser);
 
 	return (
-		<header className="h-20 mx-auto py-2 relative w-full">
+		<header className="h-16 mx-auto py-2 relative w-full">
 			<HeaderWelcome currentUser={currentUser} />
 			<HeaderNav />
 			<div className="absolute flex h-full items-center right-0 top-0">

@@ -115,7 +115,7 @@ const Tasks = () => {
 			</section>
 			<div className="flex flex-col ml-24 px-4 w-full">
 				<Header />
-				<main>
+				<main className="mt-1">
 					<DisplayTasks userId={userId} />
 				</main>
 			</div>
