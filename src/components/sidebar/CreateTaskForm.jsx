@@ -80,7 +80,6 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 				Nouvelle Tâche
 			</h2>
 			<form
-				id="task-form"
 				className="w-5/6 mx-auto mb-9 flex flex-col"
 				onSubmit={handleSubmit}>
 				<div className="flex flex-col md:flex-row mb-2 sm:mb-4 md:mb-5">
