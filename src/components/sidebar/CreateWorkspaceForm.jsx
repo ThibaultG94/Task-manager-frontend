@@ -34,7 +34,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<div id="tab-content2">
-			<h2 className="text-2xl mb-8 text-center font-light">
+			<h2 className="font-light mb-8 md:text-2xl text-center">
 				Nouveau Workspace
 			</h2>
 			<form

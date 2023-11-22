@@ -76,21 +76,21 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<div id="tab-content1">
-			<h2 className="text-2xl mb-8 text-center font-light">
+			<h2 className="font-light mb-2 sm:mb-4 md:mb-6 text-lg sm:text-xl md:text-2xl text-center">
 				Nouvelle Tâche
 			</h2>
 			<form
 				id="task-form"
 				className="w-5/6 mx-auto mb-9 flex flex-col"
 				onSubmit={handleSubmit}>
-				<div className="flex flex-row mb-5">
-					<div className="flex flex-col w-1/2 pr-2">
+				<div className="flex flex-col md:flex-row mb-2 sm:mb-4 md:mb-5">
+					<div className="flex flex-col md:w-1/2 sm:pr-1 md:pr-2">
 						<TitleInput
 							title={taskTitle}
 							setTitle={setTaskTitle}
 							label={'Nom de la tâche'}
 						/>
-						<div className="flex flex-row mb-5">
+						<div className="flex flex-col sm:flex-row mb-2 sm:mb-4 md:mb-5">
 							<StatusSelect
 								taskStatus={taskStatus}
 								setTaskStatus={setTaskStatus}
@@ -108,7 +108,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 						label={'Description de la tâche'}
 					/>
 				</div>
-				<div className="flex flex-row mb-4">
+				<div className="flex flex-col md:flex-row mb-2">
 					<WorkspaceSelect
 						selectedWorkspace={selectedWorkspace}
 						setSelectedWorkspace={setSelectedWorkspace}

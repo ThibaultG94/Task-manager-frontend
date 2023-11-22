@@ -3,9 +3,8 @@ import React from 'react';
 const SubmitButton = ({ label }) => {
 	return (
 		<button
-			type="submit"
-			className="button bg-[#3d395a] hover:bg-[#171f39] transition-bg duration-300 mt-[20px] ml-auto w-full md:w-auto"
-			id="buttonTask">
+			className="bg-dark-blue-2 hover:bg-dark-blue button duration-300 ml-auto mt-1 md:mt-4 transition-bg w-full md:w-auto"
+			type="submit">
 			{label}
 		</button>
 	);

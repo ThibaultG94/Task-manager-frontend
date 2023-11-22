@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import 'flatpickr/dist/flatpickr.min.css';
 import Flatpickr from 'react-flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr.js';
-import ArrowDown from './ArrowDown';
 
 const DeadlineInput = ({ taskDeadline, setTaskDeadline }) => {
 	const [displayDate, setDisplayDate] = useState(null);
@@ -42,17 +41,16 @@ const DeadlineInput = ({ taskDeadline, setTaskDeadline }) => {
 	};
 
 	return (
-		<div className="relative">
+		<div className="mb-2 sm:mb-1 md:mb-0 relative">
 			<Flatpickr
-				value={displayDate}
+				className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 focus:outline-none focus:shadow-outline leading-tight p-2 rounded shadow w-full"
 				onChange={(date) => handleDateChange(date[0])}
 				options={{
 					dateFormat: 'd/m/Y',
 					locale: French,
 				}}
-				className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 p-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+				value={displayDate}
 			/>
-			<ArrowDown />
 		</div>
 	);
 };

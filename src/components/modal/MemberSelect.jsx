@@ -7,13 +7,13 @@ const MemberSelect = ({
 	workspaceMembers,
 }) => {
 	return (
-		<div className="relative w-1/2 pl-2">
+		<div className="md:mr-2 relative w-full md:w-1/2">
 			<select
-				name="assignedTo"
+				className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
 				id="assignedTo"
-				value={selectedMember}
-				className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
-				onChange={(e) => setSelectedMember(e.target.value)}>
+				name="assignedTo"
+				onChange={(e) => setSelectedMember(e.target.value)}
+				value={selectedMember}>
 				<option value="default" disabled>
 					Sélectionnez l'utilisateur en charge de la tâche
 				</option>

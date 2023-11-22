@@ -34,17 +34,23 @@ module.exports = {
 		},
 	},
 	plugins: [
-		function ({ addComponents }) {
+		function ({ addComponents, theme }) {
 			addComponents({
 				'.button': {
-					display: 'inline-block',
-					color: '#ffffff',
-					padding: '10px 20px',
-					fontSize: '1.2rem',
-					borderRadius: '10px',
 					border: 'none',
-					cursor: 'pointer',
+					borderRadius: '10px',
 					boxShadow: '0 1px 10px rgba(0, 0, 0, 0.2)',
+					color: '#ffffff',
+					cursor: 'pointer',
+					display: 'inline-block',
+					fontSize: theme('fontSize.sm'),
+					'@screen md': {
+						fontSize: theme('fontSize.base'),
+					},
+					'@screen lg': {
+						fontSize: theme('fontSize.lg'),
+					},
+					padding: '10px 20px',
 				},
 			});
 		},

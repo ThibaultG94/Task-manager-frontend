@@ -3,12 +3,12 @@ import ArrowDown from './ArrowDown';
 
 const StatusSelect = ({ taskStatus, setTaskStatus }) => {
 	return (
-		<div className="relative w-1/2">
+		<div className="mb-2 sm:mb-0 relative w-full sm:w-1/2">
 			<select
+				className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
 				name="status"
-				value={taskStatus}
-				className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
-				onChange={(e) => setTaskStatus(e.target.value)}>
+				onChange={(e) => setTaskStatus(e.target.value)}
+				value={taskStatus}>
 				<option value="default" disabled>
 					Status
 				</option>
