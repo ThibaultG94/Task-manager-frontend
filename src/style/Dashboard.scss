@@ -7,21 +7,18 @@ body {
 	outline: none;
 	background: #ffffff;
 	color: #171f39;
-
-	@media (max-width: 767px) {
-		overflow: visible;
-	}
 }
 
 .dashboard-container {
 	display: grid;
+	gap: 15px;
 	grid-template-areas:
 		'cal task task'
 		'work act cow';
-	grid-template-rows: 250px 250px;
-	grid-template-columns: 1fr 1fr 1fr;
-	gap: 15px;
+	grid-template-columns: 350px 1fr 1fr;
+	grid-template-rows: 260px 250px;
 	justify-content: center;
+	margin-top: 10px;
 }
 
 .dashboard-card {
@@ -64,11 +61,13 @@ body {
 
 #calendar {
 	position: absolute;
-	top: 0.2rem;
+	top: 0.5rem;
 }
 
 .month-year {
+	font-size: large;
 	font-weight: bold;
+	margin-left: 5px;
 	padding-top: 0.1rem;
 }
 
@@ -93,19 +92,21 @@ body {
 }
 
 .day {
-	border-radius: 50%;
-	width: 26px;
-	height: 26px;
-	display: flex;
-	justify-content: center;
 	align-items: center;
+	border-radius: 50%;
+	display: flex;
+	height: 26px;
+	justify-content: center;
+	line-height: 26px;
 	margin-bottom: -5px;
+	padding-left: 1px;
+	width: 26px;
 }
 
 .today {
+	background: #ffb360;
 	color: white;
 	font-weight: bold;
-	background: #ffb360;
 }
 
 .other-month {
