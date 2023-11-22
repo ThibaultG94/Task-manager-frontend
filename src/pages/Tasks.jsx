@@ -113,7 +113,7 @@ const Tasks = () => {
 			<section className="bg-dark-blue fixed text-center text-white z-10">
 				<SideBar userId={userId} />
 			</section>
-			<div className="flex flex-col ml-24 px-4 w-full">
+			<div className="flex flex-col md:ml-24 mt-16 md:mt-0 px-4 w-full">
 				<Header />
 				<main className="mt-1">
 					<DisplayTasks userId={userId} />

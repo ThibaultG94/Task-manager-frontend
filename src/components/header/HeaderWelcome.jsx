@@ -24,10 +24,10 @@ const HeaderWelcome = ({ currentUser }) => {
 
 	return (
 		<div className="absolute left-0">
-			<h2 className="mb-0.5 text-xl">
+			<h2 className="hidden sm:block md:mb-0.5 text-base sm:text-lg md:text-xl">
 				Bonjour {currentUser?.username} !
 			</h2>
-			<p className="text-base">{message && message}</p>
+			<p className="hidden md:block text-base">{message && message}</p>
 		</div>
 	);
 };
