@@ -35,9 +35,6 @@ const DeleteTask = ({ setIsModalOpen }) => {
 
 		if (confirmation) {
 			await removeTask();
-			setTimeout(() => {
-				setIsModalOpen(false);
-			}, 500);
 		}
 	};
 

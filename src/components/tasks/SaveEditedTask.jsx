@@ -43,9 +43,6 @@ const SaveEditedTask = ({ setIsModalOpen, taskData }) => {
 
 	const handleSave = async () => {
 		await updateTask();
-		setTimeout(() => {
-			setIsModalOpen(false);
-		}, 500);
 	};
 
 	return (
