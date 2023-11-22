@@ -1,17 +1,16 @@
-import React from 'react';
-
 const CloseButton = ({ onClose, modalTabs }) => {
 	return (
 		<span
 			aria-label="Close"
 			className={
-				`cursor-pointer transition-transform duration-200 hover:rotate-180` +
-				(modalTabs ? ` mr-2` : ` absolute top-1 right-2`)
+				`cursor-pointer duration-300 hover:rotate-180 transition-transform` +
+				(modalTabs
+					? ` mr-2`
+					: ` absolute top-1 right-2 md:top-3 md:right-3`)
 			}
 			onClick={onClose}>
 			<svg
-				width="40"
-				height="40"
+				className="w-8 h-8 md:w-10 md:h-10"
 				viewBox="0 0 40 40"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg">

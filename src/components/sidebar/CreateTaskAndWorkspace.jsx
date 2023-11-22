@@ -34,10 +34,10 @@ const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<section
-			className="fixed z-10 left-0 top-0 w-full h-full bg-modal-bg transition-all ease-in-out duration-300 text-black"
+			className="bg-modal-bg duration-300 ease-in-out fixed h-full text-black left-0 top-0 transition-all w-full z-10"
 			onClick={closeModal}>
 			<div
-				className="bg-gray-100 mx-auto my-modal-margin border border-gray-400 w-[70%] max-w-[960px] flex flex-col rounded-lg shadow-md min-w-[400px]"
+				className="bg-gray-100 border border-gray-400 flex flex-col mx-auto my-modal-margin rounded-lg shadow-md min-w-min w-3/4 max-w-max"
 				onClick={(e) => e.stopPropagation()}>
 				<Tabs
 					tabs={tabData}

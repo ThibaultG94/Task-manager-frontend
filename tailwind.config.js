@@ -25,7 +25,7 @@ module.exports = {
 				'modal-bg': 'rgba(0, 0, 0, 0.6)',
 			},
 			margin: {
-				'modal-margin': '4%',
+				'modal-margin': '5%',
 			},
 			cursor: {
 				grab: 'grab',
