@@ -68,6 +68,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 			await createTask(task);
 			await tasksHasBeenUpdated(task);
 			toast.success('Tâche créée avec succès !');
+			setIsModalOpen(false);
 		} catch (error) {
 			toast.error('Échec de la création de la tâche.');
 		}

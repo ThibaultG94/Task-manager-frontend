@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ArrowDown from './ArrowDown';
 
 const MemberSelect = ({
@@ -6,6 +6,12 @@ const MemberSelect = ({
 	setSelectedMember,
 	workspaceMembers,
 }) => {
+	useEffect(() => {
+		if (workspaceMembers && workspaceMembers.length === 1) {
+			setSelectedMember(workspaceMembers[0]._id);
+		}
+	}, [workspaceMembers, setSelectedMember]);
+
 	return (
 		<div className="md:mr-2 relative w-full md:w-1/2">
 			<select

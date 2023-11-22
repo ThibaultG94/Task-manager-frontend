@@ -35,6 +35,7 @@ const DeleteTask = ({ setIsModalOpen }) => {
 
 		if (confirmation) {
 			await removeTask();
+			setIsModalOpen(false);
 		}
 	};
 

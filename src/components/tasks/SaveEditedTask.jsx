@@ -43,6 +43,7 @@ const SaveEditedTask = ({ setIsModalOpen, taskData }) => {
 
 	const handleSave = async () => {
 		await updateTask();
+		setIsModalOpen(false);
 	};
 
 	return (
