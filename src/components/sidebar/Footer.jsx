@@ -9,9 +9,9 @@ const Footer = () => {
 	};
 
 	return (
-		<ul className="self-end flex flex-col justify-between">
+		<ul className="flex flex-row md:flex-col justify-between self-center md:self-end md:w-full">
 			<li
-				className="cursor-default mb-6 text-xl"
+				className="cursor-default md:mb-6 mr-6 md:mr-0 text-xl"
 				id="paramsLink"
 				style={{ display: 'none' }}>
 				<i className="fas fa-cog mr-1"></i>

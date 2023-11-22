@@ -5,15 +5,11 @@ import Footer from './Footer';
 
 const SideBar = ({ userId }) => {
 	return (
-		<div className="flex flex-col h-screen p-[20px] w-[90px]">
+		<div className="flex flex-row md:flex-col h-16 md:h-screen p-2 md:py-2.5 w-screen md:w-20">
 			<Logo />
-			<div className="flex flex-col h-full items-center justify-between mt-14 px-auto w-full">
-				<div className="flex justify-center w-full">
-					<Navigation userId={userId} />
-				</div>
-				<div className="flex justify-center w-full">
-					<Footer />
-				</div>
+			<div className="flex flex-row md:flex-col md:h-full items-center justify-between pl-10 md:pl-0 md:mt-14 md:px-auto w-full">
+				<Navigation userId={userId} />
+				<Footer />
 			</div>
 		</div>
 	);
