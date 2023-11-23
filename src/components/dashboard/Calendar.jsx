@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const days = ['LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM', 'DIM'];
+const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 const months = [
 	'Janvier',
 	'Février',
@@ -54,7 +54,7 @@ const Calendar = () => {
 
 	return (
 		<div className="calendar-container dashboard-card flex justify-center items-center">
-			<div id="calendar" className="px-3 overflow-hidden">
+			<div id="calendar" className="px-1 overflow-hidden">
 				<div className="month-year">
 					{`${
 						months[currentDate.getMonth()]
@@ -62,7 +62,7 @@ const Calendar = () => {
 				</div>
 				<div className="calendar-header">
 					{days.map((day) => (
-						<div className="calendar-day" key={day}>
+						<div className="calendar-day day-name" key={day}>
 							{day}
 						</div>
 					))}

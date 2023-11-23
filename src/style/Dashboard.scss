@@ -15,8 +15,8 @@ body {
 	grid-template-areas:
 		'cal task task'
 		'work act cow';
-	grid-template-columns: 350px 1fr 1fr;
-	grid-template-rows: 260px 250px;
+	grid-template-columns: 310px 1fr 1fr;
+	grid-template-rows: 290px 240px;
 	justify-content: center;
 	margin-top: 10px;
 }
@@ -66,8 +66,8 @@ body {
 
 .month-year {
 	font-size: large;
-	font-weight: bold;
-	margin-left: 5px;
+	font-weight: 500;
+	margin-left: 12px;
 	padding-top: 0.1rem;
 }
 
@@ -83,24 +83,26 @@ body {
 	text-align: center;
 	display: flex;
 	justify-content: center;
-	padding: 5px 0;
+	padding: 6px 0;
 	font-size: 0.9rem;
 }
 
-.calendar-day-today {
-	margin-bottom: -5px;
+.day-name {
+	font-weight: 500;
+	opacity: 0.3;
+	padding: 6px 0 0;
 }
 
 .day {
 	align-items: center;
 	border-radius: 50%;
 	display: flex;
-	height: 26px;
+	height: 30px;
 	justify-content: center;
-	line-height: 26px;
+	line-height: 30px;
 	margin-bottom: -5px;
 	padding-left: 1px;
-	width: 26px;
+	width: 30px;
 }
 
 .today {
