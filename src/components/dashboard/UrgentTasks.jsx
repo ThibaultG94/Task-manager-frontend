@@ -35,7 +35,7 @@ const UrgentTasks = () => {
 	useEffect(() => {
 		const updateDisplayTasks = async () => {
 			const updatedTasks = [];
-			for (let i = 0; i < 3; i++) {
+			for (let i = 0; i < 4; i++) {
 				if (urgentTasks && urgentTasks[i]) {
 					const formattedDate = await formatDateForDisplay(
 						urgentTasks[i].deadline
