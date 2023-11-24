@@ -61,11 +61,19 @@ const ListWorkspaces = () => {
 									)}
 								</div>
 								<div className="ml-4">
-									<span className="bg-dark-purple font-semibold mr-2 px-2.5 py-1 rounded text-white text-xs">
+									<span className="bg-light-blue mr-2 px-2.5 py-1 rounded text-xs">
 										{workspace?.members.length}{' '}
 										{workspace?.members.length > 1
 											? 'membres'
 											: 'membre'}
+									</span>
+								</div>
+								<div className="ml-2">
+									<span className="bg-yellow-primary mr-2 px-2.5 py-1 rounded text-xs">
+										{workspace?.members.length}{' '}
+										{workspace?.members.length > 1
+											? 'tâches à faire'
+											: 'tâche à faire'}
 									</span>
 								</div>
 							</div>

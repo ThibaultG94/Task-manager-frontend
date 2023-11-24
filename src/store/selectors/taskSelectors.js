@@ -22,6 +22,16 @@ export const selectIsUrgentTasksLoaded = createSelector(
 	(tasks) => tasks.isUrgentTasksLoaded
 );
 
+export const selectWorkspaceTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.workspaceTasks
+);
+
+export const selectIsWorkspaceTasksLoaded = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.isWorkspaceTasksLoaded
+);
+
 export const selectOverdueTasks = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.overdueTasks

@@ -7,6 +7,8 @@ export const tasksSlice = createSlice({
 		isTasksLoaded: false,
 		urgentTasks: [],
 		isUrgentTasksLoaded: false,
+		workspaceTasks: [],
+		isWorkspaceTasksLoaded: false,
 		overdueTasks: [],
 		isOverdueTasksLoaded: false,
 		todayTasks: [],
@@ -61,6 +63,19 @@ export const tasksSlice = createSlice({
 			state.error = null;
 		},
 		setUrgentTasksFailed: (state, action) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		setWorkspaceTasksAction: (state) => {
+			state.loading = true;
+		},
+		setWorkspaceTasksSuccess: (state, action) => {
+			state.loading = false;
+			state.workspaceTasks = action.payload;
+			state.isWorkspaceTasksLoaded = true;
+			state.error = null;
+		},
+		setWorkspaceTasksFailed: (state, action) => {
 			state.loading = false;
 			state.error = action.payload;
 		},
@@ -313,6 +328,9 @@ export const {
 	setUrgentTasksAction,
 	setUrgentTasksSuccess,
 	setUrgentTasksFailed,
+	setWorkspaceTasksAction,
+	setWorkspaceTasksSuccess,
+	setWorkspaceTasksFailed,
 	setOverdueTasksAction,
 	setOverdueTasksSuccess,
 	setOverdueTasksFailed,
