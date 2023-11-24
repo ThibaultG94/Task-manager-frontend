@@ -34,7 +34,7 @@ const ListWorkspaces = () => {
 
 	return (
 		<div className="dashboard-card workspaces-container">
-			<h4 className="pl-1">Workspaces</h4>
+			<h4 className="pl-2">Workspaces</h4>
 			<div className="flex flex-col">
 				{displayWorkspaces &&
 					displayWorkspaces.map((workspace, index) => (
@@ -61,8 +61,11 @@ const ListWorkspaces = () => {
 									)}
 								</div>
 								<div className="ml-4">
-									<span className="bg-dark-purple font-semibold mr-2 px-2.5 py-0.5 rounded text-white text-xs">
-										{workspace?.members.length}
+									<span className="bg-dark-purple font-semibold mr-2 px-2.5 py-1 rounded text-white text-xs">
+										{workspace?.members.length}{' '}
+										{workspace?.members.length > 1
+											? 'membres'
+											: 'membre'}
 									</span>
 								</div>
 							</div>
