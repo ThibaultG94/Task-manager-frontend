@@ -125,17 +125,50 @@ body {
 }
 
 .urgent-task {
-	display: flex;
-	padding: 10px 0;
 	align-items: center;
-	justify-content: space-between;
 	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 0;
+	position: relative;
 	transition: 0.1s ease;
-}
 
-.urgent-task:hover {
-	background: #171f39;
-	color: white;
+	.archive-icon {
+		border: 2px solid #4b5563;
+		border-radius: 50%;
+		cursor: pointer;
+		display: none;
+		padding: 4px;
+		position: absolute;
+		right: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+		transition: all 0.3s ease-in-out;
+
+		&:hover {
+			background-color: #f0fff4;
+			border-color: #10b981;
+			color: #4ade80;
+			svg {
+				stroke: #10b981;
+			}
+		}
+
+		svg {
+			height: 20px;
+			stroke: #4b5563;
+			width: 20px;
+		}
+	}
+
+	&:hover {
+		background: #171f39;
+		color: white;
+
+		.archive-icon {
+			display: block;
+		}
+	}
 }
 
 .urgent-task-todo {
@@ -157,6 +190,7 @@ body {
 .date-container {
 	position: relative;
 	min-width: 100px;
+	margin-right: 40px;
 }
 
 .date {

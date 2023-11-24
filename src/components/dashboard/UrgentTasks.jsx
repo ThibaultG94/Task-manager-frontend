@@ -32,6 +32,11 @@ const UrgentTasks = () => {
 		await checkIfEdited();
 	};
 
+	const validateTask = async (e) => {
+		e.stopPropagation();
+		console.log('validate task');
+	};
+
 	useEffect(() => {
 		const updateDisplayTasks = async () => {
 			const updatedTasks = [];
@@ -101,6 +106,23 @@ const UrgentTasks = () => {
 							</div>
 							<div className="date-container">
 								<div className="date">{task.date}</div>
+							</div>
+							<div
+								className="archive-icon"
+								onClick={(e) => validateTask(e)}>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="w-6 h-6">
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M4.5 12.75l6 6 9-13.5"
+									/>
+								</svg>
 							</div>
 						</div>
 					))
