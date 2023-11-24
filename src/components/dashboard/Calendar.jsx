@@ -61,8 +61,8 @@ const Calendar = () => {
 					} ${currentDate.getFullYear()}`}
 				</div>
 				<div className="calendar-header">
-					{days.map((day) => (
-						<div className="calendar-day day-name" key={day}>
+					{days.map((day, index) => (
+						<div className="calendar-day day-name" key={index}>
 							{day}
 						</div>
 					))}

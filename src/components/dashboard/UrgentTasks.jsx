@@ -7,10 +7,15 @@ import { formatTaskForEditing } from '../utils/formatTaskForEditing';
 import { getCategoryDay } from '../utils/getCategoryDay';
 import ModalTask from '../tasks/ModalTask';
 import useCheckIfEdited from './utils/checkIfEdited';
+import { useEditTask } from '../../api/editTask';
+import { toast } from 'react-toastify';
+import { useTasksHasBeenUpdated } from '../tasks/TasksHasBeenUpdated';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();
+	const editTask = useEditTask();
 	const urgentTasks = useSelector(selectUrgentTasks);
+	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,9 +37,17 @@ const UrgentTasks = () => {
 		await checkIfEdited();
 	};
 
-	const validateTask = async (e) => {
+	const validateTask = async (e, task) => {
 		e.stopPropagation();
-		console.log('validate task');
+		const newStatus = 'Archived';
+
+		try {
+			await editTask({ status: newStatus, _id: task.taskId });
+			await tasksHasBeenUpdated(task, task.category);
+			toast.success('La tâche a été archivée avec succès !');
+		} catch (error) {
+			toast.error("Échec de l'archivage de la tâche.");
+		}
 	};
 
 	useEffect(() => {
@@ -109,7 +122,7 @@ const UrgentTasks = () => {
 							</div>
 							<div
 								className="archive-icon"
-								onClick={(e) => validateTask(e)}>
+								onClick={(e) => validateTask(e, task)}>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
