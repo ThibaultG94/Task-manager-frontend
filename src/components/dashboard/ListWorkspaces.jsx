@@ -24,9 +24,9 @@ const ListWorkspaces = () => {
 	}, [workspaces]);
 
 	return (
-		<div className="workspaces-container dashboard-card">
-			<h4>Workspaces</h4>
-			<div className="h-[80%] flex flex-col justify-between">
+		<div className="dashboard-card workspaces-container">
+			<h4 className="pl-1">Workspaces</h4>
+			<div className="flex flex-col">
 				{displayWorkspaces.map((workspace, index) => (
 					<div
 						key={index}

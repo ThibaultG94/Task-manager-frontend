@@ -10,10 +10,12 @@ import useCheckIfEdited from './utils/checkIfEdited';
 import { useEditTask } from '../../api/editTask';
 import { toast } from 'react-toastify';
 import { useTasksHasBeenUpdated } from '../tasks/TasksHasBeenUpdated';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();
 	const editTask = useEditTask();
+	const workspaces = useSelector(selectWorkspaces);
 	const urgentTasks = useSelector(selectUrgentTasks);
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const [displayTasks, setDisplayTasks] = useState([]);
@@ -66,6 +68,10 @@ const UrgentTasks = () => {
 						urgentTasks[i].status,
 						urgentTasks[i].deadline
 					);
+					const workspaceName = workspaces.find(
+						(workspace) =>
+							workspace._id === urgentTasks[i].workspaceId
+					).title;
 					updatedTasks.push({
 						title: urgentTasks[i].title,
 						date: formattedDate,
@@ -79,6 +85,7 @@ const UrgentTasks = () => {
 						taskId: urgentTasks[i]._id,
 						isOverdue: formattedDate === 'En retard',
 						category: category,
+						workspaceName: workspaceName,
 					});
 				}
 			}
@@ -99,9 +106,9 @@ const UrgentTasks = () => {
 	}, [selectedTask]);
 
 	return (
-		<div className="tasks-container dashboard-card">
+		<div className="dashboard-card tasks-container">
 			<h4 className="pl-4">Tâches urgentes</h4>
-			<div className="urgent-task-container">
+			<div className="flex flex-col">
 				{displayTasks?.length > 0 ? (
 					displayTasks.map((task, index) => (
 						<div
@@ -117,8 +124,15 @@ const UrgentTasks = () => {
 								<div id="check"></div>
 								<div>{task.title}</div>
 							</div>
-							<div className="date-container">
-								<div className="date">{task.date}</div>
+							<div className="flex flex-row">
+								<div className="mr-10">
+									<div className="text-dark-purple-2">
+										{task.workspaceName}
+									</div>
+								</div>
+								<div className="date-container">
+									<div className="date">{task.date}</div>
+								</div>
 							</div>
 							<div
 								className="archive-icon"
