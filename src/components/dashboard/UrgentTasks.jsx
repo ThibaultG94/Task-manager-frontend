@@ -68,7 +68,7 @@ const UrgentTasks = () => {
 						urgentTasks[i].status,
 						urgentTasks[i].deadline
 					);
-					const workspaceName = workspaces.find(
+					const workspaceName = workspaces?.find(
 						(workspace) =>
 							workspace._id === urgentTasks[i].workspaceId
 					).title;
@@ -113,7 +113,7 @@ const UrgentTasks = () => {
 					displayTasks.map((task, index) => (
 						<div
 							className={`urgent-task ${
-								task.isOverdue ? 'task-overdue' : ''
+								task?.isOverdue ? 'task-overdue' : ''
 							}`}
 							key={index}
 							onClick={(e) => {
@@ -122,16 +122,16 @@ const UrgentTasks = () => {
 							}}>
 							<div className="urgent-task-todo">
 								<div id="check"></div>
-								<div>{task.title}</div>
+								<div>{task?.title}</div>
 							</div>
 							<div className="flex flex-row">
 								<div className="mr-10">
 									<div className="text-dark-purple-2">
-										{task.workspaceName}
+										{task?.workspaceName}
 									</div>
 								</div>
 								<div className="date-container">
-									<div className="date">{task.date}</div>
+									<div className="date">{task?.date}</div>
 								</div>
 							</div>
 							<div
