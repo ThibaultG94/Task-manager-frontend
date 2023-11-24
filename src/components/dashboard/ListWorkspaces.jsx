@@ -48,7 +48,7 @@ const ListWorkspaces = () => {
 								</div>
 								<div>{workspace?.title}</div>
 							</div>
-							<div>
+							<div className="flex items-center">
 								<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8">
 									{workspace?.membersName.map(
 										(member, index) => (
@@ -60,9 +60,11 @@ const ListWorkspaces = () => {
 										)
 									)}
 								</div>
-								{/* <div>
-									<div>{workspace.coworkersCount}</div>
-								</div> */}
+								<div className="ml-4">
+									<span className="bg-dark-purple font-semibold mr-2 px-2.5 py-0.5 rounded text-white text-xs">
+										{workspace?.members.length}
+									</span>
+								</div>
 							</div>
 						</div>
 					))}

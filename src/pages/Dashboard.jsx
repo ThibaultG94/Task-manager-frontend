@@ -4,7 +4,6 @@ import Header from '../components/header/Header';
 import Calendar from '../components/dashboard/Calendar';
 import UrgentTasks from '../components/dashboard/UrgentTasks';
 import ListWorkspaces from '../components/dashboard/ListWorkspaces';
-import Activities from '../components/dashboard/Activities';
 import Coworkers from '../components/dashboard/Coworkers';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
 import getUserId from '../api/getUserId';
@@ -76,7 +75,6 @@ const Dashboard = () => {
 					<Calendar />
 					<UrgentTasks />
 					<ListWorkspaces />
-					<Activities />
 					<Coworkers />
 				</main>
 			</div>

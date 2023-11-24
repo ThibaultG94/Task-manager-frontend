@@ -14,7 +14,7 @@ body {
 	gap: 15px;
 	grid-template-areas:
 		'cal task task'
-		'work act cow';
+		'work work cow';
 	grid-template-columns: 310px 1fr 1fr;
 	grid-template-rows: 290px 240px;
 	justify-content: center;
@@ -47,10 +47,6 @@ body {
 .workspaces-container {
 	grid-area: work;
 	position: relative;
-}
-
-.activities-container {
-	grid-area: act;
 }
 
 .coworkers-container {
