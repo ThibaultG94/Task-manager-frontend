@@ -30,7 +30,7 @@ body {
 
 .dashboard-card h4 {
 	font-size: 1.2rem;
-	margin: 5px 0;
+	margin: 5px 0 2px;
 }
 
 .calendar-container {
@@ -118,9 +118,9 @@ body {
 /************************** URGENT TASKS ************************/
 
 .urgent-task {
+	display: flex;
 	align-items: center;
 	cursor: pointer;
-	display: flex;
 	justify-content: space-between;
 	padding: 10px 0;
 	position: relative;
@@ -171,9 +171,9 @@ body {
 .urgent-task-todo {
 	display: flex;
 	align-items: center;
+	height: 40px;
 	justify-content: space-between;
 	padding-left: 15px;
-	height: 40px;
 }
 
 #check {

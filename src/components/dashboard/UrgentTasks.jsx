@@ -109,7 +109,7 @@ const UrgentTasks = () => {
 		<div className="dashboard-card tasks-container">
 			<h4 className="pl-4">Tâches urgentes</h4>
 			<div className="flex flex-col">
-				{displayTasks?.length > 0 ? (
+				{displayTasks && displayTasks?.length > 0 ? (
 					displayTasks.map((task, index) => (
 						<div
 							className={`urgent-task ${
