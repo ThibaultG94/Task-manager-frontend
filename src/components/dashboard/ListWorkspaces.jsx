@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetUser } from '../../api/getUser';
+import { useGetWorkspaceTaskStatusCount } from '../../api/getWorkspaceTaskStatusCount';
+import { TaskStatusCount } from './TaskStatusCount';
 
 const ListWorkspaces = () => {
 	const workspaces = useSelector(selectWorkspaces);
 	const [displayWorkspaces, setDisplayWorkspaces] = useState([]);
 	const getUser = useGetUser();
+	const getWorkspaceTaskStatusCount = useGetWorkspaceTaskStatusCount();
 
 	useEffect(() => {
 		const updateDisplayWorkspaces = async () => {
@@ -18,11 +21,15 @@ const ListWorkspaces = () => {
 					);
 					const members = await Promise.all(membersPromises);
 					const membersName = members.map((user) => user?.username);
+					const taskStatusCount = await getWorkspaceTaskStatusCount(
+						workspaces[i]._id
+					);
 
 					updatedWorkspaces.push({
 						title: workspaces[i].title,
 						members: workspaces[i].members,
 						membersName: membersName,
+						taskStatusCount: taskStatusCount,
 					});
 				}
 			}
@@ -69,12 +76,18 @@ const ListWorkspaces = () => {
 									</span>
 								</div>
 								<div className="ml-2">
-									<span className="bg-yellow-primary mr-2 px-2.5 py-1 rounded text-xs">
-										{workspace?.members.length}{' '}
-										{workspace?.members.length > 1
-											? 'tâches à faire'
-											: 'tâche à faire'}
-									</span>
+									{workspace?.taskStatusCount &&
+										Object.entries(
+											workspace?.taskStatusCount
+										)
+											.filter(([, count]) => count > 0)
+											.map(([status, count]) => (
+												<TaskStatusCount
+													key={status}
+													status={status}
+													count={count}
+												/>
+											))}
 								</div>
 							</div>
 						</div>

@@ -5,6 +5,7 @@ import {
 	setWorkspaceTasksFailed,
 	setWorkspaceTasksSuccess,
 } from '../store/feature/tasks.slice';
+import axios from 'axios';
 
 export const useGetWorkspaceTasks = () => {
 	const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export const useGetWorkspaceTasks = () => {
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
-				`${API_URL}/tasks/workspace/${workspaceId}`,
+				`${API_URL}/task/workspace/${workspaceId}`,
 				{
 					withCredentials: true,
 				}
