@@ -30,7 +30,7 @@ export const updateDisplayTasks = async (
 			);
 			const userAssigned = await getAssignedUser(userTasks[i].assignedTo);
 			updatedTasks.push({
-				title: userTasks[i].title,
+				title: userTasks[i]?.title,
 				date: formattedDate,
 				status: userTasks[i].status,
 				convertedStatus: convertedStatus,

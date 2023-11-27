@@ -15,7 +15,10 @@ import {
 	selectHasBeenUpdated,
 	selectWorkspacesHasBeenUpdated,
 } from '../store/selectors/editStateSelectors';
-import { setHasBeenUpdated } from '../store/feature/editState.slice';
+import {
+	setHasBeenUpdated,
+	setWorkspacesHasBeenUpdated,
+} from '../store/feature/editState.slice';
 import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
 import { ToastContainer } from 'react-toastify';
 
@@ -54,11 +57,12 @@ const Dashboard = () => {
 	useEffect(() => {
 		if (hasBeenUpdated) {
 			userId !== null && getUrgentTasks(userId);
+			userId !== null && getWorkspaces(userId);
 			dispatch(setHasBeenUpdated(false));
 		}
 		if (workspacesHasBeenUpdated) {
 			userId !== null && getWorkspaces(userId);
-			dispatch(selectWorkspacesHasBeenUpdated(false));
+			dispatch(setWorkspacesHasBeenUpdated(false));
 		}
 	}, [hasBeenUpdated, workspacesHasBeenUpdated]);
 
