@@ -51,6 +51,7 @@ body {
 			'work'
 			'cow';
 		grid-template-columns: 1fr;
+		grid-template-rows: 290px 240px 240px 200px;
 	}
 }
 
@@ -176,7 +177,8 @@ body {
 		transform: translateY(-50%);
 		transition: all 0.3s ease-in-out;
 
-		&:hover {
+		&:hover,
+		&:focus {
 			background-color: #f0fff4;
 			border-color: #10b981;
 			color: #4ade80;
@@ -189,10 +191,26 @@ body {
 			height: 20px;
 			stroke: #4b5563;
 			width: 20px;
+
+			@media screen and (max-width: 768px) {
+				height: 15px;
+				width: 15px;
+			}
+
+			@media screen and (max-width: 480px) {
+				height: 10px;
+				width: 10px;
+			}
+
+			@media screen and (max-width: 430px) {
+				height: 7px;
+				width: 7px;
+			}
 		}
 	}
 
-	&:hover {
+	&:hover,
+	&:focus {
 		background: #171f39;
 		color: white;
 
@@ -204,6 +222,13 @@ body {
 			display: block;
 		}
 	}
+
+	@media screen and (max-width: 768px) {
+		.archive-icon {
+			display: block;
+			right: 5px;
+		}
+	}
 }
 
 .urgent-task-todo {
@@ -212,6 +237,18 @@ body {
 	height: 40px;
 	justify-content: space-between;
 	padding-left: 15px;
+	margin-right: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	@media screen and (max-width: 768px) {
+		padding-left: 10px;
+	}
+
+	@media screen and (max-width: 480px) {
+		padding-left: 5px;
+	}
 }
 
 #check {
@@ -220,17 +257,61 @@ body {
 	height: 20px;
 	width: 20px;
 	margin-right: 10px;
+
+	@media screen and (max-width: 768px) {
+		height: 15px;
+		width: 15px;
+		margin-right: 8px;
+	}
+
+	@media screen and (max-width: 480px) {
+		height: 10px;
+		width: 10px;
+		margin-right: 5px;
+	}
 }
 
 .date-container {
 	position: relative;
 	min-width: 100px;
 	margin-right: 40px;
+
+	@media screen and (max-width: 768px) {
+		min-width: 90px;
+		margin-right: 35px;
+	}
+
+	@media screen and (max-width: 480px) {
+		min-width: 80px;
+		margin-right: 30px;
+	}
+
+	@media screen and (max-width: 430px) {
+		min-width: 70px;
+		margin-right: 25px;
+	}
+
+	@media screen and (max-width: 400px) {
+		display: none;
+	}
 }
 
 .date {
 	color: #e1786a;
+	font-size: 1rem;
 	text-align: left;
+
+	@media screen and (max-width: 768px) {
+		font-size: 0.9rem;
+	}
+
+	@media screen and (max-width: 480px) {
+		font-size: 0.8rem;
+	}
+
+	@media screen and (max-width: 350px) {
+		font-size: 0.7rem;
+	}
 }
 
 .date::before {
@@ -243,6 +324,18 @@ body {
 	left: -20px;
 	top: 50%;
 	transform: translateY(-50%);
+
+	@media screen and (max-width: 768px) {
+		width: 8px;
+		height: 8px;
+		left: -15px;
+	}
+
+	@media screen and (max-width: 480px) {
+		width: 6px;
+		height: 6px;
+		left: -10px;
+	}
 }
 
 .task-overdue {

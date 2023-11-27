@@ -22,6 +22,7 @@ const UrgentTasks = () => {
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
+
 	const checkIfEdited = useCheckIfEdited({
 		setIsModalOpen,
 		setIsEditing,
@@ -107,7 +108,7 @@ const UrgentTasks = () => {
 
 	return (
 		<div className="dashboard-card tasks-container">
-			<h4 className="pl-4">Tâches urgentes</h4>
+			<h4 className="pl-2 sm:pl-3 md:pl-4">Tâches urgentes</h4>
 			<div className="flex flex-col">
 				{displayTasks && displayTasks?.length > 0 ? (
 					displayTasks.map((task, index) => (
@@ -122,11 +123,13 @@ const UrgentTasks = () => {
 							}}>
 							<div className="urgent-task-todo">
 								<div id="check"></div>
-								<div>{task?.title}</div>
+								<div className="text-sm sm:text-base">
+									{task?.title}
+								</div>
 							</div>
 							<div className="flex flex-row">
-								<div className="mr-10">
-									<div className="font-medium text-dark-purple-2">
+								<div className="mr-10 hidden sm:block">
+									<div className="font-medium text-dark-purple-2 text-xs sm:text-sm md:text-base">
 										{task?.workspaceName}
 									</div>
 								</div>
