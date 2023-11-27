@@ -15,10 +15,43 @@ body {
 	grid-template-areas:
 		'cal task task'
 		'work work cow';
-	grid-template-columns: 310px 600px 1fr;
+	grid-template-columns: 310px 560px 1fr;
 	grid-template-rows: 290px 240px;
 	justify-content: center;
 	margin-top: 10px;
+
+	@media (max-width: 1300px) {
+		grid-template-areas:
+			'cal task task'
+			'work work work'
+			'cow cow cow';
+		grid-template-rows: 290px 240px 240px;
+	}
+
+	@media (max-width: 1100px) {
+		grid-template-areas:
+			'cal cow'
+			'task task'
+			'work work';
+		grid-template-columns: 310px 1fr;
+	}
+
+	@media (max-width: 768px) {
+		grid-template-areas:
+			'cal cow'
+			'task task'
+			'work work';
+		grid-template-columns: 310px 1fr;
+	}
+
+	@media (max-width: 600px) {
+		grid-template-areas:
+			'cal'
+			'task'
+			'work'
+			'cow';
+		grid-template-columns: 1fr;
+	}
 }
 
 .dashboard-card {
@@ -36,6 +69,15 @@ body {
 .calendar-container {
 	grid-area: cal;
 	position: relative;
+
+	@media (max-width: 600px) {
+		width: 310px;
+		margin: 0 auto;
+	}
+
+	@media (max-width: 320px) {
+		width: none;
+	}
 }
 
 .tasks-container {
