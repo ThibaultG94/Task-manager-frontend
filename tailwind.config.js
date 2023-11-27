@@ -21,10 +21,6 @@ module.exports = {
 				'orange-primary': '#ffb360',
 				'yellow-primary': '#F9F871',
 				'modal-task-bg': '#f9f9f9',
-				'status-pending': '#ffa500',
-				'status-inprogress': '#00ff00',
-				'status-completed': '#0000ff',
-				'status-archived': '#808080',
 			},
 			backgroundColor: {
 				'modal-bg': 'rgba(0, 0, 0, 0.6)',

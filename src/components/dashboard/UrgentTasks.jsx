@@ -68,7 +68,7 @@ const UrgentTasks = () => {
 						urgentTasks[i].status,
 						urgentTasks[i].deadline
 					);
-					const workspaceName = workspaces?.find(
+					const workspaceName = await workspaces?.find(
 						(workspace) =>
 							workspace._id === urgentTasks[i].workspaceId
 					).title;
@@ -126,7 +126,7 @@ const UrgentTasks = () => {
 							</div>
 							<div className="flex flex-row">
 								<div className="mr-10">
-									<div className="text-dark-purple-2">
+									<div className="font-medium text-dark-purple-2">
 										{task?.workspaceName}
 									</div>
 								</div>

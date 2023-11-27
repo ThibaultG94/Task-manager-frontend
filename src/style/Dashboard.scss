@@ -225,3 +225,21 @@ body {
 	position: absolute;
 	top: 45%;
 }
+
+/************************** WORKSPACES ************************/
+
+.bg-status-pending {
+	background-color: #ffa500;
+}
+
+.bg-status-inprogress {
+	background-color: #00ff00;
+}
+
+.bg-status-completed {
+	background-color: #0000ff;
+}
+
+.bg-status-archived {
+	background-color: #808080;
+}
