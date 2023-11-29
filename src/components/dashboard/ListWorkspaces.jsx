@@ -64,13 +64,15 @@ const ListWorkspaces = () => {
 					displayWorkspaces.map((workspace, index) => (
 						<div
 							key={index}
-							className="flex items-center justify-between p-2 relative"
+							className="flex items-center justify-between p-1 md:p-2 relative"
 							style={{ opacity: workspace ? '1' : '0' }}>
 							<div className="flex h-8 items-center">
-								<div className="mr-3 text-dark-blue text-lg">
+								<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">
 									<i className="fa-solid fa-share-nodes"></i>
 								</div>
-								<div>{workspace?.title}</div>
+								<div className="text-sm md:text-base">
+									{workspace?.title}
+								</div>
 							</div>
 							{isTabletOrLaptop ? (
 								<div className="flex items-center">
@@ -90,7 +92,7 @@ const ListWorkspaces = () => {
 											title={`${workspace?.members.length} membre(s)`}
 										/>
 									</div>
-									<div className="flex text-center">
+									<div className="hidden sm:flex text-center">
 										{workspace?.taskStatusCount &&
 											Object.entries(
 												workspace?.taskStatusCount

@@ -16,14 +16,13 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 		const workspace = {
 			title: workspaceTitle,
 			userId,
-			description: document.getElementById('workspaceDescription').value,
+			description: workspaceDescription,
 			members: [userId],
 			isDefault: false,
 		};
 
 		try {
 			await createWorkspace(workspace);
-			document.getElementById('workspace-form').reset();
 			toast.success('Workspace créé !');
 			setIsModalOpen(false);
 		} catch (err) {
