@@ -7,7 +7,12 @@ import ModalEditTask from './ModalEditTask';
 import CancelEditTask from './CancelEditTask';
 import EditTask from './EditTask';
 
-const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
+const HandleModalTask = ({
+	closeModal,
+	setIsModalOpen,
+	isEditing,
+	setIsEditing,
+}) => {
 	const modalRef = useRef(null);
 	const [taskData, setTaskData] = useState({
 		_id: '',
@@ -41,27 +46,31 @@ const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 				onClick={(e) => e.stopPropagation()}>
 				<CloseButton onClose={closeModal} modalTabs={false} />
 
-				{!isEditing && <ModalDisplayTask />}
-				{isEditing && (
-					<ModalEditTask
-						taskData={taskData}
-						setTaskData={setTaskData}
-					/>
-				)}
-
 				{!isEditing && (
-					<div className="flex justify-end">
-						<DeleteTask setIsModalOpen={setIsModalOpen} />
-						<EditTask handleEditTask={handleEditTask} />
+					<div>
+						<ModalDisplayTask />
+						<div className="flex justify-end">
+							<DeleteTask setIsModalOpen={setIsModalOpen} />
+							<EditTask handleEditTask={handleEditTask} />
+						</div>
 					</div>
 				)}
+
 				{isEditing && (
-					<div className="flex justify-between mt-4">
-						<CancelEditTask handleCancelEdit={handleCancelEdit} />
-						<SaveEditedTask
-							setIsModalOpen={setIsModalOpen}
+					<div>
+						<ModalEditTask
 							taskData={taskData}
+							setTaskData={setTaskData}
 						/>
+						<div className="flex justify-between mt-4">
+							<CancelEditTask
+								handleCancelEdit={handleCancelEdit}
+							/>
+							<SaveEditedTask
+								setIsModalOpen={setIsModalOpen}
+								taskData={taskData}
+							/>
+						</div>
 					</div>
 				)}
 			</div>
@@ -69,4 +78,4 @@ const ModalTask = ({ closeModal, setIsModalOpen, isEditing, setIsEditing }) => {
 	);
 };
 
-export default ModalTask;
+export default HandleModalTask;

@@ -5,7 +5,7 @@ import { formatDateForDisplay } from '../utils/formatDateForDisplay';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { formatTaskForEditing } from '../utils/formatTaskForEditing';
 import { getCategoryDay } from '../utils/getCategoryDay';
-import ModalTask from '../tasks/ModalTask';
+import HandleModalTask from '../tasks/HandleModalTask';
 import useCheckIfEdited from './utils/checkIfEdited';
 import { useEditTask } from '../../api/editTask';
 import { toast } from 'react-toastify';
@@ -164,7 +164,7 @@ const UrgentTasks = () => {
 			</div>
 
 			{isModalOpen && (
-				<ModalTask
+				<HandleModalTask
 					closeModal={closeModal}
 					setIsModalOpen={setIsModalOpen}
 					isEditing={isEditing}

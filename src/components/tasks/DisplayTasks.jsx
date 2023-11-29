@@ -34,7 +34,7 @@ import {
 	selectTodayTasks,
 	selectTomorrowTasks,
 } from '../../store/selectors/taskSelectors';
-import ModalTask from './ModalTask';
+import HandleModalTask from './HandleModalTask';
 
 const DisplayTasks = ({ userId }) => {
 	const dispatch = useDispatch();
@@ -220,7 +220,7 @@ const DisplayTasks = ({ userId }) => {
 			/>
 
 			{isModalOpen && (
-				<ModalTask
+				<HandleModalTask
 					closeModal={closeModal}
 					setIsModalOpen={setIsModalOpen}
 					isEditing={isEditing}
