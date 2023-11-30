@@ -58,7 +58,7 @@ const ModalDisplayTask = () => {
 
 			<div className="mb-4 text-base text-gray-700 px-2">
 				<div className="flex justify-between items-center">
-					<span className="text-sm font-bold text-gray-500">
+					<span className="text-sm font-bold self-end text-gray-500">
 						Status
 					</span>
 					<div
@@ -74,7 +74,7 @@ const ModalDisplayTask = () => {
 				</div>
 
 				<div className="flex justify-between items-center py-1">
-					<span className="text-sm font-bold text-gray-500">
+					<span className="text-sm font-bold self-end text-gray-500">
 						Assigné à
 					</span>
 					<div className="assigned-icon mt-2 ml-6 px-2 py-1 rounded-lg bg-light-blue-3">
@@ -83,7 +83,7 @@ const ModalDisplayTask = () => {
 				</div>
 
 				<div className="flex justify-between items-center py-1">
-					<span className="text-sm font-bold text-gray-500">
+					<span className="text-sm font-bold self-end text-gray-500">
 						Deadline
 					</span>
 					<div
@@ -98,7 +98,7 @@ const ModalDisplayTask = () => {
 				</div>
 
 				<div className="flex justify-between items-center py-1">
-					<span className="text-sm font-bold text-gray-500">
+					<span className="text-sm font-bold self-end text-gray-500">
 						Priorité
 					</span>
 					<div
@@ -113,7 +113,7 @@ const ModalDisplayTask = () => {
 				</div>
 
 				<div className="flex justify-between items-center py-1">
-					<span className="text-sm font-bold text-gray-500">
+					<span className="text-sm font-bold self-end text-gray-500">
 						Workspace
 					</span>
 					<div className="workspace-icon mt-2 px-2 py-1 rounded-lg bg-light-blue">

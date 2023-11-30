@@ -44,10 +44,9 @@ const HandleModalTask = ({
 				className="bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-y-auto transform -translate-x-1/2 top-10 rounded-lg shadow-md w-1/2 z-10"
 				ref={modalRef}
 				onClick={(e) => e.stopPropagation()}>
-				<CloseButton onClose={closeModal} modalTabs={false} />
-
 				{!isEditing && (
 					<div>
+						<CloseButton onClose={closeModal} modalTabs={false} />
 						<ModalDisplayTask />
 						<div className="flex justify-end">
 							<DeleteTask setIsModalOpen={setIsModalOpen} />
@@ -62,7 +61,7 @@ const HandleModalTask = ({
 							taskData={taskData}
 							setTaskData={setTaskData}
 						/>
-						<div className="flex justify-between mt-4">
+						<div className="flex justify-between my-4 px-4">
 							<CancelEditTask
 								handleCancelEdit={handleCancelEdit}
 							/>

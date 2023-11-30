@@ -2,14 +2,12 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetUser } from '../../api/getUser';
-import TitleInput from '../modal/TitleInput';
-import StatusSelect from '../modal/StatusSelect';
 import PrioritySelect from '../modal/PrioritySelect';
 import DeadlineInput from '../modal/DeadlineInput';
-import DescriptionTextarea from '../modal/DescriptionTextarea';
 import WorkspaceSelect from '../modal/WorkspaceSelect';
 import MemberSelect from '../modal/MemberSelect';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
+import ArrowDown from '../modal/ArrowDown';
 
 const ModalEditTask = ({ taskData, setTaskData }) => {
 	const getUser = useGetUser();
@@ -58,74 +56,60 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 	}, [editedTask]);
 
 	return (
-		<div className="mt-6">
-			<form
-				className="w-full mx-auto flex flex-col"
-				onSubmit={(e) => e.stopPropagation()}>
-				<div className="flex flex-row">
-					<div className="flex flex-col w-1/2 pr-2">
-						<TitleInput
-							title={taskData.title}
-							setTitle={(value) =>
+		<form
+			className="max-w-lg mx-auto px-4 rounded-lg"
+			onSubmit={(e) => e.stopPropagation()}>
+			<div className="text-center pt-4 px-6">
+				<h5 className="text-gray-900 text-lg leading-tight font-medium mb-2">
+					<input
+						className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 focus:outline-none focus:shadow-outline leading-tight p-2 rounded shadow w-full"
+						maxLength={50}
+						name="title"
+						onChange={(e) =>
+							setTaskData((prev) => ({
+								...prev,
+								title: e.target.value,
+							}))
+						}
+						required
+						type="text"
+						value={taskData.title}
+					/>
+				</h5>
+			</div>
+
+			<div className="mb-4 text-base text-gray-700 px-2">
+				<div className="flex justify-between items-center">
+					<span className="text-sm font-bold text-gray-500">
+						Status
+					</span>
+					<div className="mb-2 md:mr-2 sm:mb-0 relative w-full sm:w-1/2">
+						<select
+							className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
+							name="status"
+							onChange={(e) =>
 								setTaskData((prev) => ({
 									...prev,
-									title: value,
+									status: e.target.value,
 								}))
 							}
-							label={'Nom de la tâche'}
-						/>
-						<div className="flex flex-row mb-5">
-							<StatusSelect
-								taskStatus={taskData.status}
-								setTaskStatus={(value) =>
-									setTaskData((prev) => ({
-										...prev,
-										status: value,
-									}))
-								}
-							/>
-							<PrioritySelect
-								taskPriority={taskData.priority}
-								setTaskPriority={(value) =>
-									setTaskData((prev) => ({
-										...prev,
-										priority: value,
-									}))
-								}
-							/>
-						</div>
-						<DeadlineInput
-							taskDeadline={taskData.deadline}
-							setTaskDeadline={(value) =>
-								setTaskData((prev) => ({
-									...prev,
-									deadline: value,
-								}))
-							}
-						/>
+							value={taskData.status}>
+							<option value="default" disabled>
+								Status
+							</option>
+							<option value="Pending">À faire</option>
+							<option value="In Progress">En cours</option>
+							<option value="Completed">Terminé</option>
+							<option value="Archived">Archivé</option>
+						</select>
+						<ArrowDown />
 					</div>
-					<DescriptionTextarea
-						description={taskData.description}
-						setDescription={(value) =>
-							setTaskData((prev) => ({
-								...prev,
-								description: value,
-							}))
-						}
-						label={'Description de la tâche'}
-					/>
 				</div>
-				<div className="flex flex-row mt-4">
-					<WorkspaceSelect
-						selectedWorkspace={taskData.selectedWorkspace}
-						setSelectedWorkspace={(value) =>
-							setTaskData((prev) => ({
-								...prev,
-								selectedWorkspace: value,
-							}))
-						}
-						userWorkspaces={userWorkspaces}
-					/>
+
+				<div className="flex justify-between items-center py-1">
+					<span className="text-sm font-bold text-gray-500">
+						Assigné à
+					</span>
 					<MemberSelect
 						selectedMember={taskData.selectedMember}
 						setSelectedMember={(value) =>
@@ -137,8 +121,75 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 						workspaceMembers={taskData.workspaceMembers}
 					/>
 				</div>
-			</form>
-		</div>
+
+				<div className="flex justify-between items-center py-1">
+					<span className="text-sm font-bold text-gray-500">
+						Deadline
+					</span>
+					<div className="md:mr-2">
+						<DeadlineInput
+							taskDeadline={taskData.deadline}
+							setTaskDeadline={(value) =>
+								setTaskData((prev) => ({
+									...prev,
+									deadline: value,
+								}))
+							}
+						/>
+					</div>
+				</div>
+
+				<div className="flex justify-between items-center py-1 md:mr-2">
+					<span className="text-sm font-bold text-gray-500">
+						Priorité
+					</span>
+					<PrioritySelect
+						taskPriority={taskData.priority}
+						setTaskPriority={(value) =>
+							setTaskData((prev) => ({
+								...prev,
+								priority: value,
+							}))
+						}
+					/>
+				</div>
+
+				<div className="flex justify-between items-center py-1">
+					<span className="text-sm font-bold text-gray-500">
+						Workspace
+					</span>
+					<WorkspaceSelect
+						selectedWorkspace={taskData.selectedWorkspace}
+						setSelectedWorkspace={(value) =>
+							setTaskData((prev) => ({
+								...prev,
+								selectedWorkspace: value,
+							}))
+						}
+						userWorkspaces={userWorkspaces}
+					/>
+				</div>
+			</div>
+
+			<div className="mt-4 px-2">
+				<h5 className="text-sm font-bold text-gray-500 mb-2">
+					Description
+				</h5>
+				<textarea
+					className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 flex-grow focus:outline-none focus:shadow-outline leading-tight p-2 resize-none rounded shadow w-full"
+					cols="30"
+					name="description"
+					onChange={(e) =>
+						setTaskData((prev) => ({
+							...prev,
+							description: e.target.value,
+						}))
+					}
+					rows="5"
+					value={taskData.description}
+				/>
+			</div>
+		</form>
 	);
 };
 
