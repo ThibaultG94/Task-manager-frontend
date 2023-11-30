@@ -38,10 +38,10 @@ const HandleModalTask = ({
 
 	return (
 		<section
-			className="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10"
+			className="bg-black bg-opacity-50 fixed h-full inset-0 w-full z-10"
 			onClick={closeModal}>
 			<div
-				className="absolute z-10 top-60 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white py-7 px-5 rounded-md w-[52vw]"
+				className="bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-y-auto transform -translate-x-1/2 top-10 rounded-lg shadow-md w-1/2 z-10"
 				ref={modalRef}
 				onClick={(e) => e.stopPropagation()}>
 				<CloseButton onClose={closeModal} modalTabs={false} />
