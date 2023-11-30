@@ -41,7 +41,7 @@ const HandleModalTask = ({
 			className="bg-black bg-opacity-50 fixed h-full inset-0 w-full z-10"
 			onClick={closeModal}>
 			<div
-				className="bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-y-auto transform -translate-x-1/2 top-10 rounded-lg shadow-md w-1/2 z-10"
+				className="bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-y-auto transform -translate-x-1/2 top-10 rounded-lg shadow-md custom-xs:min-w-[400px] min-w-[300px] z-10"
 				ref={modalRef}
 				onClick={(e) => e.stopPropagation()}>
 				{!isEditing && (

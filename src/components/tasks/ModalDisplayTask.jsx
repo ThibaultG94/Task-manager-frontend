@@ -51,7 +51,7 @@ const ModalDisplayTask = () => {
 	return (
 		<div className="max-w-lg mx-auto px-4 rounded-lg">
 			<div className="text-center pt-4 px-6">
-				<h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
+				<h5 className="text-gray-900 text-lg md:text-xl leading-tight font-medium mb-2">
 					{editedTask?.title}
 				</h5>
 			</div>

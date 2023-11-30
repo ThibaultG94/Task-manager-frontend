@@ -32,6 +32,9 @@ module.exports = {
 				grab: 'grab',
 				grabbing: 'grabbing',
 			},
+			screens: {
+				'custom-xs': '450px',
+			},
 		},
 	},
 	plugins: [

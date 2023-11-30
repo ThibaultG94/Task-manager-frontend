@@ -60,7 +60,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 			className="max-w-lg mx-auto pl-4 rounded-lg"
 			onSubmit={(e) => e.stopPropagation()}>
 			<div className="text-center pt-4 px-4">
-				<h5 className="text-gray-900 text-lg leading-tight font-medium mb-2">
+				<h5 className="text-gray-900 text-base md:text-lg leading-tight font-medium mb-2">
 					<input
 						className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 focus:outline-none focus:shadow-outline leading-tight p-2 rounded shadow w-full"
 						maxLength={50}
@@ -80,7 +80,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 
 			<div className="mb-4 text-base text-gray-700 px-2">
 				<div className="flex justify-between items-center">
-					<span className="text-sm font-bold text-gray-500">
+					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Status
 					</span>
 					<div className="mb-2 md:mr-2 sm:mb-0 relative w-full sm:w-1/2">
@@ -107,7 +107,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 				</div>
 
 				<div className="flex justify-between items-center py-1">
-					<span className="text-sm font-bold text-gray-500">
+					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Assigné à
 					</span>
 					<MemberSelect
@@ -123,7 +123,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 				</div>
 
 				<div className="flex justify-between items-center py-1">
-					<span className="text-sm font-bold text-gray-500">
+					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Deadline
 					</span>
 					<div className="md:mr-2">
@@ -140,7 +140,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 				</div>
 
 				<div className="flex justify-between items-center py-1 md:mr-2">
-					<span className="text-sm font-bold text-gray-500">
+					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Priorité
 					</span>
 					<PrioritySelect
@@ -155,7 +155,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 				</div>
 
 				<div className="flex justify-between items-center py-1">
-					<span className="text-sm font-bold text-gray-500">
+					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Workspace
 					</span>
 					<WorkspaceSelect
@@ -172,7 +172,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 			</div>
 
 			<div className="mt-4 px-2">
-				<h5 className="text-sm font-bold text-gray-500 mb-2">
+				<h5 className="hidden md:block text-sm font-bold text-gray-500 mb-2">
 					Description
 				</h5>
 				<textarea
