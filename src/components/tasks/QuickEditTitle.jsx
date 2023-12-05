@@ -54,21 +54,24 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 					})
 				);
 			}}
-			className="rounded-md max-w-xs flex justify-start whitespace-nowrap overflow-hidden self-center relative cursor-auto">
-			{/* <div className="rounded-full border border-black h-5 w-5 min-w-[20px] mr-2 bg-white self-center"></div> */}
-			{!isEditingField.title && <span>{task?.title}</span>}
+			className="cursor-auto flex justify-start overflow-hidden relative rounded-md self-center text-xs sm:text-sm md:text-base">
+			{!isEditingField.title && (
+				<span className="ellipsis">{task?.title}</span>
+			)}
 			{isEditingField.title && editedTask?._id === task.taskId ? (
 				<form className="w-full" onSubmit={(e) => handleSubmitTitle(e)}>
 					<input
 						type="text"
 						defaultValue={task?.title}
-						className="p-0 w-full border-0"
+						className="border-0 p-0 w-full"
 						maxLength={60}
 						ref={inputTitleRef}
 					/>
 				</form>
 			) : (
-				isEditingField.title && <span>{task?.title}</span>
+				isEditingField.title && (
+					<span className="ellipsis">{task?.title}</span>
+				)
 			)}
 		</div>
 	);

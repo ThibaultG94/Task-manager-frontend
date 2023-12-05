@@ -234,3 +234,9 @@
 	color: #eaefff;
 	font-size: 1rem;
 }
+
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
