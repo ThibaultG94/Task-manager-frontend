@@ -40,7 +40,7 @@ const DisplayOverdueTasks = ({
 		<>
 			{allTasks.userOverdueTasks.length > 0 && (
 				<div
-					className={`mb-4 rounded-md bg-red-error-overdue ${
+					className={`mb-4 rounded-md bg-red-error-overdue text-red-error-2 font-medium ${
 						expandedBlocks['retard-tasks'] ? 'expanded' : ''
 					}`}
 					onClick={() => toggleBlock('retard-tasks')}>
