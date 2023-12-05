@@ -101,12 +101,12 @@
 
 .task-item::before {
 	content: '';
-	position: absolute;
-	top: -2px;
-	left: 5%;
-	height: 1px;
-	opacity: 0.1;
 	background-color: black;
+	height: 1px;
+	position: absolute;
+	left: 5%;
+	opacity: 0.1;
+	top: -2px;
 	width: 90%;
 }
 

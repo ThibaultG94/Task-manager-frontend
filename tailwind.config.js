@@ -34,6 +34,8 @@ module.exports = {
 				grabbing: 'grabbing',
 			},
 			screens: {
+				'custom-1120': '1120px',
+				'custom-860': '860px',
 				'custom-xs': '450px',
 			},
 		},
