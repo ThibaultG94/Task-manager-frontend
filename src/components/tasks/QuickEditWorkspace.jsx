@@ -77,8 +77,10 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 					})
 				);
 			}}
-			className="text-left mx-auto p-1.5 px-2.5 rounded-lg relative cursor-auto">
-			{!isEditingField.workspace && <span>{task.workspaceTitle}</span>}
+			className="cursor-auto flex items-center justify-start mx-auto overflow-hidden p-1.5 relative rounded-lg text-xs md:text-sm lg:text-base">
+			{!isEditingField.workspace && (
+				<span className="ellipsis">{task.workspaceTitle}</span>
+			)}
 			{isEditingField.workspace && editedTask?._id === task.taskId ? (
 				<form className="relative">
 					<select

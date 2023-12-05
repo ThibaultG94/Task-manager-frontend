@@ -69,10 +69,30 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 				);
 			}}
 			className={
-				`text-left mx-auto p-1.5 px-2.5 rounded-lg relative cursor-auto ` +
+				`text-left mx-auto p-1.5 lg:px-2.5 rounded-lg relative cursor-auto ` +
 				task.convertedPriority
 			}>
-			{!isEditingField.priority && <span>{task.convertedPriority}</span>}
+			{!isEditingField.priority && (
+				<>
+					<span className="block lg:hidden">
+						{task.priority === 'Urgent' && (
+							<i className="fas fa-exclamation-triangle"></i>
+						)}
+						{task.convertedPriority === 'Priorité haute' && (
+							<i className="fas fa-arrow-up"></i>
+						)}
+						{task.convertedPriority === 'Priorité moyenne' && (
+							<i className="fas fa-equals"></i>
+						)}
+						{task.convertedPriority === 'Priorité faible' && (
+							<i className="fas fa-arrow-down"></i>
+						)}
+					</span>
+					<span className="hidden lg:block">
+						{task.convertedPriority}
+					</span>
+				</>
+			)}{' '}
 			{isEditingField.priority && editedTask?._id === task.taskId ? (
 				<form>
 					<select
