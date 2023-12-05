@@ -48,13 +48,14 @@ module.exports = {
 					cursor: 'pointer',
 					display: 'inline-block',
 					fontSize: theme('fontSize.sm'),
+					padding: '7px 15px',
 					'@screen md': {
 						fontSize: theme('fontSize.base'),
+						padding: '10px 20px',
 					},
 					'@screen lg': {
 						fontSize: theme('fontSize.lg'),
 					},
-					padding: '10px 20px',
 				},
 			});
 		},

@@ -24,13 +24,13 @@ export const updateDisplayTasks = async (
 			const convertedPriority = await convertPriority(
 				userTasks[i].priority
 			);
-			const workspace = workspaces.find(
+			const workspace = await workspaces.find(
 				(singleWorkspace) =>
 					singleWorkspace._id === userTasks[i].workspaceId
 			);
 			const userAssigned = await getAssignedUser(userTasks[i].assignedTo);
 			updatedTasks.push({
-				title: userTasks[i]?.title,
+				title: userTasks[i].title,
 				date: formattedDate,
 				status: userTasks[i].status,
 				convertedStatus: convertedStatus,

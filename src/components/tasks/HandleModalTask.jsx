@@ -61,7 +61,7 @@ const HandleModalTask = ({
 							taskData={taskData}
 							setTaskData={setTaskData}
 						/>
-						<div className="flex justify-between my-4 px-4">
+						<div className="flex justify-between mt-1 mb-3 md:my-4 px-4 md:px-6">
 							<CancelEditTask
 								handleCancelEdit={handleCancelEdit}
 							/>

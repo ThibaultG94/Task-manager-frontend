@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetUser } from '../../api/getUser';
-import PrioritySelect from '../modal/PrioritySelect';
 import DeadlineInput from '../modal/DeadlineInput';
 import WorkspaceSelect from '../modal/WorkspaceSelect';
 import MemberSelect from '../modal/MemberSelect';
@@ -57,9 +56,9 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 
 	return (
 		<form
-			className="max-w-lg mx-auto pl-4 rounded-lg"
+			className="max-w-lg mx-auto px-2 md:px-4 rounded-lg"
 			onSubmit={(e) => e.stopPropagation()}>
-			<div className="text-center pt-4 px-4">
+			<div className="text-center pt-4 px-2 md:px-4">
 				<h5 className="text-gray-900 text-base md:text-lg leading-tight font-medium mb-2">
 					<input
 						className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 focus:outline-none focus:shadow-outline leading-tight p-2 rounded shadow w-full"
@@ -78,12 +77,12 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 				</h5>
 			</div>
 
-			<div className="mb-4 text-base text-gray-700 px-2">
-				<div className="flex justify-between items-center">
+			<div className="md:mb-4 text-base text-gray-700 px-2">
+				<div className="flex justify-between items-center py-0 md:py-1">
 					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Status
 					</span>
-					<div className="mb-2 md:mr-2 sm:mb-0 relative w-full sm:w-1/2">
+					<div className="mb-1 md:mb-2 md:mr-2 md:mb-0 relative w-full md:w-1/2">
 						<select
 							className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
 							name="status"
@@ -122,11 +121,11 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 					/>
 				</div>
 
-				<div className="flex justify-between items-center py-1">
+				<div className="flex justify-between items-center pt-1 md:py-1 w-full">
 					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Deadline
 					</span>
-					<div className="md:mr-2">
+					<div className="md:mr-2 w-full md:w-1/2">
 						<DeadlineInput
 							taskDeadline={taskData.deadline}
 							setTaskDeadline={(value) =>
@@ -139,19 +138,31 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 					</div>
 				</div>
 
-				<div className="flex justify-between items-center py-1 md:mr-2">
+				<div className="flex justify-between items-center pt-0 pb-1 md:py-1">
 					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Priorité
 					</span>
-					<PrioritySelect
-						taskPriority={taskData.priority}
-						setTaskPriority={(value) =>
-							setTaskData((prev) => ({
-								...prev,
-								priority: value,
-							}))
-						}
-					/>
+					<div className="md:mr-2 relative w-full md:w-1/2">
+						<select
+							className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
+							name="priority"
+							onChange={(e) =>
+								setTaskData((prev) => ({
+									...prev,
+									priority: e.target.value,
+								}))
+							}
+							value={taskData.priority}>
+							<option value="default" disabled>
+								Priorité
+							</option>
+							<option value="Low">Faible</option>
+							<option value="Medium">Moyenne</option>
+							<option value="High">Haute</option>
+							<option value="Urgent">Urgent</option>
+						</select>
+						<ArrowDown />
+					</div>
 				</div>
 
 				<div className="flex justify-between items-center py-1">
@@ -171,7 +182,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 				</div>
 			</div>
 
-			<div className="mt-4 px-2">
+			<div className="md:mt-4 px-2">
 				<h5 className="hidden md:block text-sm font-bold text-gray-500 mb-2">
 					Description
 				</h5>
