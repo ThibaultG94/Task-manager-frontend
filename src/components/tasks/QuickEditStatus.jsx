@@ -71,10 +71,45 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 				);
 			}}
 			className={
-				`text-left mx-auto p-1.5 rounded-lg relative cursor-auto w-[100px] text-center ` +
+				`text-left mx-auto p-1.5 rounded-lg relative cursor-auto text-center ` +
 				task.convertedStatus
 			}>
-			{!isEditingField.status && <span>{task.convertedStatus}</span>}
+			{!isEditingField.status && (
+				<span>
+					{task.status === 'Archived' ? (
+						<>
+							<i className="fas fa-archive md:hidden"></i>
+							<span className="hidden md:inline">
+								{task.convertedStatus}
+							</span>
+						</>
+					) : task.status === 'Completed' ? (
+						<>
+							<i className="fas fa-check md:hidden"></i>
+							<span className="hidden md:inline">
+								{task.convertedStatus}
+							</span>
+						</>
+					) : task.status === 'In Progress' ? (
+						<>
+							<i className="fas fa-spinner md:hidden"></i>
+							<span className="hidden md:inline">
+								{task.convertedStatus}
+							</span>
+						</>
+					) : task.status === 'Pending' ? (
+						<>
+							<i className="fas fa-list md:hidden"></i>
+							<span className="hidden md:inline">
+								{task.convertedStatus}
+							</span>
+						</>
+					) : (
+						<span>{task.convertedStatus}</span>
+					)}
+				</span>
+			)}
+
 			{isEditingField.status && editedTask?._id === task.taskId ? (
 				<form>
 					<select

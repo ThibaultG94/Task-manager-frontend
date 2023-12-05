@@ -14,6 +14,7 @@ import {
 import { toast } from 'react-toastify';
 import Flatpickr from 'react-flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr';
+import { formatDate } from './utils/formatDateForResponsive';
 
 const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -109,15 +110,20 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 				);
 			}}
 			className={
-				`text-left mx-auto p-1.5 px-2.5 rounded-lg relative cursor-auto ` +
+				`cursor-auto flex items-center mx-auto p-0.5 md:p-1 lg:p-1.5 md:p px-1 sm:px-1.5 md:px-2 lg:px-2.5 rounded-lg text-xs md:text-sm relative lg:text-base ` +
 				classInFunctionOfDayorCategory
 			}>
 			{!isEditingField.deadline && (
-				<span>
-					{task.status === 'Archived'
-						? inverseDateFormat(task.deadline)
-						: task.day}
-				</span>
+				<>
+					<span className="block lg:hidden">
+						{formatDate(task.deadline)}{' '}
+					</span>
+					<span className="hidden lg:block">
+						{task.status === 'Archived'
+							? inverseDateFormat(task.deadline)
+							: task.day}{' '}
+					</span>
+				</>
 			)}
 			{isEditingField.deadline && editedTask?._id === task.taskId ? (
 				<div className="relative">
