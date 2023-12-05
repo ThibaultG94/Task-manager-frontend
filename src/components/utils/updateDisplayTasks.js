@@ -40,7 +40,8 @@ export const updateDisplayTasks = async (
 				description: userTasks[i].description,
 				comments: userTasks[i].comments,
 				workspace: workspace?._id,
-				workspaceTitle: workspace && workspace?.title,
+				workspaceTitle:
+					workspace && workspace.title && workspace?.title,
 				assignedTo: userAssigned?._id,
 				assignedToLetter: userAssigned?.username[0],
 				taskId: userTasks[i]._id,

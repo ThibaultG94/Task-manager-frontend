@@ -23,6 +23,21 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const editedTask = useSelector(selectEditedTask);
 	const [convertedDeadline, setConvertedDeadline] = useState('');
 
+	const dayWeek = [
+		'Lundi',
+		'Mardi',
+		'Mercredi',
+		'Jeudi',
+		'Vendredi',
+		'Samedi',
+		'Dimanche',
+		'Demain',
+	];
+
+	const classInFunctionOfDayorCategory = dayWeek.includes(task.day)
+		? task.day
+		: task.category;
+
 	useEffect(() => {
 		const day = new Date(task?.deadline);
 		const formattedDisplayDay = `${String(day.getDate()).padStart(
@@ -95,7 +110,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 			}}
 			className={
 				`text-left mx-auto p-1.5 px-2.5 rounded-lg relative cursor-auto ` +
-				task.category
+				classInFunctionOfDayorCategory
 			}>
 			{!isEditingField.deadline && (
 				<span>
