@@ -68,8 +68,25 @@
 	content: '\f040';
 	font-family: 'Font Awesome 5 Free';
 	font-weight: 900;
-}
-
-.edit-icon::before {
 	font-size: 1rem;
+
+	@media screen and (max-width: 1024px) {
+		font-size: 0.9rem;
+	}
+
+	@media screen and (max-width: 768px) {
+		font-size: 0.8rem;
+	}
+
+	@media screen and (max-width: 540px) {
+		font-size: 0.7rem;
+	}
+
+	@media screen and (max-width: 450px) {
+		font-size: 0.6rem;
+	}
+
+	@media screen and (max-width: 330px) {
+		font-size: 0.5rem;
+	}
 }
