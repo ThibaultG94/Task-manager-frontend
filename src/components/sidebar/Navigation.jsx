@@ -11,7 +11,7 @@ const Navigation = ({ userId }) => {
 	};
 
 	return (
-		<nav className="flex flex-row md:flex-col justify-between self-center md:self-end md:w-full">
+		<nav className="flex flex-row xl:flex-col justify-between self-center xl:self-end xl:w-full">
 			<NavLink
 				id="homelink"
 				to="/pages/dashboard"
@@ -21,8 +21,8 @@ const Navigation = ({ userId }) => {
 						'/pages/tasks',
 						'/pages/workspaces',
 					])
-						? 'cursor-pointer text-xl font-bold md:mb-6 mr-6 md:mr-0 text-orange-primary'
-						: 'cursor-pointer text-xl md:mb-6 mr-6 md:mr-0'
+						? 'cursor-pointer text-xl font-bold xl:mb-6 mr-6 xl:mr-0 text-orange-primary'
+						: 'cursor-pointer text-xl xl:mb-6 mr-6 xl:mr-0'
 				}>
 				<li>
 					<i className="fas fa-home mr-1"></i>

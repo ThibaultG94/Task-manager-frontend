@@ -5,9 +5,9 @@ import Footer from './Footer';
 
 const SideBar = ({ userId }) => {
 	return (
-		<div className="flex flex-row md:flex-col h-16 md:h-screen p-2 px-3 md:py-2.5 w-screen md:w-20">
+		<div className="flex flex-row xl:flex-col h-16 xl:h-screen p-2 px-4 xl:py-2.5 w-screen xl:w-20">
 			<Logo />
-			<div className="flex flex-row md:flex-col md:h-full items-center justify-between pl-20 md:pl-0 md:mt-14 md:px-auto w-full">
+			<div className="flex flex-row xl:flex-col xl:h-full items-center justify-between pl-20 xl:pl-0 xl:mt-14 xl:px-auto w-full">
 				<Navigation userId={userId} />
 				<Footer />
 			</div>

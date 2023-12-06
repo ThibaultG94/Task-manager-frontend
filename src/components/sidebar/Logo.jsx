@@ -2,7 +2,7 @@ import React from 'react';
 
 const Logo = () => {
 	return (
-		<div className="md:mx-auto self-start">
+		<div className="xl:mx-auto self-start">
 			<img
 				src="../img/logo-tm-official.png"
 				alt="logo"

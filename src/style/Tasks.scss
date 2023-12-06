@@ -32,11 +32,11 @@
 	grid-template-columns: 80px 340px 150px 150px 150px 160px 60px 80px;
 
 	@media screen and (max-width: 1350px) {
-		grid-template-columns: 72px 306px 135px 135px 135px 144px 54px 72px;
+		grid-template-columns: 72px 306px 135px 135px 150px 144px 54px 60px;
 	}
 
 	@media screen and (max-width: 1200px) {
-		grid-template-columns: 65px 275px 121px 121px 121px 130px 49px 65px;
+		grid-template-columns: 65px 275px 121px 121px 149px 143px 49px 55px;
 	}
 
 	@media screen and (max-width: 1120px) {
@@ -48,7 +48,7 @@
 	}
 
 	@media screen and (max-width: 950px) {
-		grid-template-columns: 48px 201px 88px 88px 88px 95px 40px 48px;
+		grid-template-columns: 48px 201px 88px 88px 88px 40px 40px 48px;
 	}
 
 	@media screen and (max-width: 860px) {
@@ -257,6 +257,7 @@
 }
 
 .ellipsis {
+	max-width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;

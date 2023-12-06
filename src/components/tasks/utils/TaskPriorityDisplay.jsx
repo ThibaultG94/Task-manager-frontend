@@ -9,10 +9,12 @@ const TaskPriorityDisplay = ({ priority, convertedPriority }) => {
 	};
 
 	return (
-		<span>
+		<span className="flex justify-start overflow-hidden relative">
 			<i
 				className={`fas ${priorityIcon[convertedPriority]} block lg:hidden`}></i>
-			<span className="hidden lg:block">{convertedPriority}</span>
+			<span className="ellipsis hidden lg:block">
+				{convertedPriority}
+			</span>
 		</span>
 	);
 };

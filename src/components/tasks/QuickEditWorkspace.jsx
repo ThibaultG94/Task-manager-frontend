@@ -78,7 +78,7 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 					})
 				);
 			}}
-			className="cursor-auto flex items-center justify-start mx-auto overflow-hidden p-1.5 relative rounded-lg text-xs md:text-sm lg:text-base">
+			className="cursor-auto flex items-center ellipsis mx-auto overflow-hidden relative rounded-lg self-enter text-xs md:text-sm lg:text-base">
 			{!isEditingField.workspace && (
 				<span className="ellipsis">
 					{screenWidth < 480
