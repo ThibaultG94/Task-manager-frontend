@@ -87,33 +87,48 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 				</span>
 			)}
 			{isEditingField.workspace && editedTask?._id === task.taskId ? (
-				<form className="relative">
-					<select
-						className="block bg-transparent appearance-none border border-gray-300 hover:border-gray-500 px-0 pr-2 py-[1px] text-center rounded shadow leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
-						defaultValue={editedTask?.workspaceId}
-						ref={inputWorkspaceRef}
-						onChange={(e) => handleSubmitWorkspace(e.target.value)}
-						onDoubleClick={() => {
-							dispatch(
-								setEditingField({
-									field: 'workspace',
-									value: !isEditingField.workspace,
-								})
-							);
-						}}>
-						{workspaces &&
-							workspaces.map((workspace) => (
-								<option
-									value={workspace._id}
-									key={workspace._id}>
-									{workspace.title}
-								</option>
-							))}
-					</select>
-					<ArrowDown />
-				</form>
+				<>
+					<form className="relative sm:block hidden">
+						<select
+							className="block bg-transparent appearance-none border border-gray-300 hover:border-gray-500 px-0 pr-2 py-[1px] text-center rounded shadow leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
+							defaultValue={editedTask?.workspaceId}
+							ref={inputWorkspaceRef}
+							onChange={(e) =>
+								handleSubmitWorkspace(e.target.value)
+							}
+							onDoubleClick={() => {
+								dispatch(
+									setEditingField({
+										field: 'workspace',
+										value: !isEditingField.workspace,
+									})
+								);
+							}}>
+							{workspaces &&
+								workspaces.map((workspace) => (
+									<option
+										value={workspace._id}
+										key={workspace._id}>
+										{workspace.title}
+									</option>
+								))}
+						</select>
+						<ArrowDown />
+					</form>
+					<span className="ellipsis sm:hidden block">
+						{screenWidth < 480
+							? getInitials(task.workspaceTitle)
+							: task.workspaceTitle}
+					</span>
+				</>
 			) : (
-				isEditingField.workspace && <span>{task.workspaceTitle}</span>
+				isEditingField.workspace && (
+					<span className="ellipsis">
+						{screenWidth < 480
+							? getInitials(task.workspaceTitle)
+							: task.workspaceTitle}
+					</span>
+				)
 			)}
 		</div>
 	);
