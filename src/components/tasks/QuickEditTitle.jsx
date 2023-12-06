@@ -59,15 +59,22 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 				<span className="ellipsis">{task?.title}</span>
 			)}
 			{isEditingField.title && editedTask?._id === task.taskId ? (
-				<form className="w-full" onSubmit={(e) => handleSubmitTitle(e)}>
-					<input
-						type="text"
-						defaultValue={task?.title}
-						className="border-0 p-0 w-full"
-						maxLength={60}
-						ref={inputTitleRef}
-					/>
-				</form>
+				<>
+					<form
+						className="w-full md:block hidden"
+						onSubmit={(e) => handleSubmitTitle(e)}>
+						<input
+							type="text"
+							defaultValue={task?.title}
+							className="border-0 p-0 w-full"
+							maxLength={60}
+							ref={inputTitleRef}
+						/>
+					</form>
+					<span className="ellipsis md:hidden block">
+						{task?.title}
+					</span>
+				</>
 			) : (
 				isEditingField.title && (
 					<span className="ellipsis">{task?.title}</span>

@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import Flatpickr from 'react-flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr';
 import { formatDate } from './utils/formatDateForResponsive';
+import useWindowSize from '../utils/useWindowSize';
 
 const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -23,6 +24,8 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
 	const [convertedDeadline, setConvertedDeadline] = useState('');
+	const [width] = useWindowSize();
+	const isLargeScreen = width > 767;
 
 	const dayWeek = [
 		'Lundi',
@@ -126,29 +129,42 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 				</>
 			)}
 			{isEditingField.deadline && editedTask?._id === task.taskId ? (
-				<div className="relative">
-					<form>
-						<Flatpickr
-							ref={flatpickrRef}
-							value={convertedDeadline}
-							onChange={(date) => {
-								handleSubmitDeadlineOnEnter(date);
-							}}
-							options={{
-								dateFormat: 'd/m/Y',
-								locale: French,
-							}}
-							className="w-[85px] h-[10px] border-none px-0"
-						/>
-					</form>
-				</div>
+				<>
+					{isLargeScreen ? (
+						<div className="relative hidden sm:block">
+							<form>
+								<Flatpickr
+									ref={flatpickrRef}
+									value={convertedDeadline}
+									onChange={(date) => {
+										handleSubmitDeadlineOnEnter(date);
+									}}
+									options={{
+										dateFormat: 'd/m/Y',
+										locale: French,
+									}}
+									className="w-14 sm:w-16 md:w-20 lg:w-24 h-2.5 border-none px-0"
+								/>
+							</form>
+						</div>
+					) : (
+						<span className="ellipsis">
+							{formatDate(task.deadline)}
+						</span>
+					)}
+				</>
 			) : (
 				isEditingField.deadline && (
-					<span>
-						{task.status === 'Archived'
-							? inverseDateFormat(task.deadline)
-							: task.day}
-					</span>
+					<>
+						<span className="block lg:hidden">
+							{formatDate(task.deadline)}{' '}
+						</span>
+						<span className="hidden lg:block">
+							{task.status === 'Archived'
+								? inverseDateFormat(task.deadline)
+								: task.day}{' '}
+						</span>
+					</>
 				)
 			)}
 		</div>

@@ -12,6 +12,7 @@ import { useEditTask } from '../../api/editTask';
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ArrowDown from '../modal/ArrowDown';
+import TaskStatusDisplay from './utils/TaskStatusDisplay';
 
 const QuickEditStatus = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -75,65 +76,47 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 				task.convertedStatus
 			}>
 			{!isEditingField.status && (
-				<span>
-					{task.status === 'Archived' ? (
-						<>
-							<i className="fas fa-archive md:hidden"></i>
-							<span className="hidden md:inline">
-								{task.convertedStatus}
-							</span>
-						</>
-					) : task.status === 'Completed' ? (
-						<>
-							<i className="fas fa-check md:hidden"></i>
-							<span className="hidden md:inline">
-								{task.convertedStatus}
-							</span>
-						</>
-					) : task.status === 'In Progress' ? (
-						<>
-							<i className="fas fa-spinner md:hidden"></i>
-							<span className="hidden md:inline">
-								{task.convertedStatus}
-							</span>
-						</>
-					) : task.status === 'Pending' ? (
-						<>
-							<i className="fas fa-list md:hidden"></i>
-							<span className="hidden md:inline">
-								{task.convertedStatus}
-							</span>
-						</>
-					) : (
-						<span>{task.convertedStatus}</span>
-					)}
-				</span>
+				<TaskStatusDisplay
+					status={task.status}
+					convertedStatus={task.convertedStatus}
+				/>
 			)}
 
 			{isEditingField.status && editedTask?._id === task.taskId ? (
-				<form>
-					<select
-						className="block bg-transparent appearance-none w-full text-center p-0 pr-2 rounded border-0 cursor-pointer"
-						defaultValue={editedTask?.status}
-						ref={inputStatusRef}
-						onChange={(e) => handleSubmitStatus(e.target.value)}
-						onDoubleClick={() => {
-							dispatch(
-								setEditingField({
-									field: 'status',
-									value: !isEditingField.status,
-								})
-							);
-						}}>
-						<option value="Pending">À faire</option>
-						<option value="In Progress">En cours</option>
-						<option value="Completed">Terminé</option>
-						<option value="Archived">Archivé</option>
-					</select>
-					<ArrowDown />
-				</form>
+				<>
+					<form className="md:block hidden">
+						<select
+							className="block bg-transparent appearance-none w-full text-center p-0 pr-2 rounded border-0 cursor-pointer"
+							defaultValue={editedTask?.status}
+							ref={inputStatusRef}
+							onChange={(e) => handleSubmitStatus(e.target.value)}
+							onDoubleClick={() => {
+								dispatch(
+									setEditingField({
+										field: 'status',
+										value: !isEditingField.status,
+									})
+								);
+							}}>
+							<option value="Pending">À faire</option>
+							<option value="In Progress">En cours</option>
+							<option value="Completed">Terminé</option>
+							<option value="Archived">Archivé</option>
+						</select>
+						<ArrowDown />
+					</form>
+					<TaskStatusDisplay
+						status={task.status}
+						convertedStatus={task.convertedStatus}
+					/>
+				</>
 			) : (
-				isEditingField.status && <span>{task.convertedStatus}</span>
+				isEditingField.status && (
+					<TaskStatusDisplay
+						status={task.status}
+						convertedStatus={task.convertedStatus}
+					/>
+				)
 			)}
 		</div>
 	);
