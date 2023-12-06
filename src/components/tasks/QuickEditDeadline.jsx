@@ -113,7 +113,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 				);
 			}}
 			className={
-				`cursor-auto flex items-center mx-auto p-0.5 md:p-1 lg:p-1.5 md:p px-1 sm:px-1.5 md:px-2 lg:px-2.5 rounded-lg text-xs md:text-sm relative lg:text-base ` +
+				`cursor-auto flex items-center mx-auto p-0.5 md:p-1 lg:p-1.5 md:p px-1 sm:px-1.5 md:px-2 lg:px-2.5 rounded-lg select-none text-xs md:text-sm relative lg:text-base ` +
 				classInFunctionOfDayorCategory
 			}>
 			{!isEditingField.deadline && (
@@ -131,7 +131,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 			{isEditingField.deadline && editedTask?._id === task.taskId ? (
 				<>
 					{isLargeScreen ? (
-						<div className="relative hidden sm:block">
+						<div className="relative hidden sm:block select-none">
 							<form>
 								<Flatpickr
 									ref={flatpickrRef}
@@ -143,7 +143,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 										dateFormat: 'd/m/Y',
 										locale: French,
 									}}
-									className="w-14 sm:w-16 md:w-20 lg:w-24 h-2.5 border-none px-0"
+									className="w-14 sm:w-16 md:w-20 lg:w-24 h-6 select-none border-none px-0"
 								/>
 							</form>
 						</div>

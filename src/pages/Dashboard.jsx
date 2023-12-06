@@ -73,7 +73,7 @@ const Dashboard = () => {
 			<section className="bg-dark-blue fixed text-center text-white z-10">
 				<SideBar userId={userId} />
 			</section>
-			<div className="flex flex-col md:ml-24 mt-16 md:mt-0 px-4 w-full">
+			<div className="flex flex-col xl:ml-24 mt-16 xl:mt-0 px-0 sm:px-1 md:px-2 lg:px-3 xl:px-4 w-full">
 				<Header />
 				<main className="dashboard-container mt-1">
 					<Calendar />

@@ -42,7 +42,6 @@ const DisplayThisWeekendTasks = ({
 		allTasks.userTodayTasks,
 		allTasks.userTomorrowTasks,
 		allTasks.userThisWeekTasks,
-		allTasks.userThisWeekendTasks,
 	]);
 
 	const toggleBlock = (blockId) => {

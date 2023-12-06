@@ -72,7 +72,7 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 				);
 			}}
 			className={
-				`cursor-auto flex items-center mx-auto px-2 mx:px-3 lg:px-4 p-1.5 md:p-1 lg:p-1.5 rounded-lg relative text-base md:text-sm lg:text-base ` +
+				`cursor-auto flex h-10 items-center m-auto px-2 mx:px-3 lg:px-4 p-1.5 md:p-1 lg:p-1 rounded-lg relative select-none text-base md:text-sm lg:text-base ` +
 				task.convertedStatus
 			}>
 			{!isEditingField.status && (
@@ -89,25 +89,41 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 							className="block bg-transparent appearance-none w-full text-center p-0 pr-2 rounded border-0 cursor-pointer"
 							defaultValue={editedTask?.status}
 							ref={inputStatusRef}
-							onChange={(e) => handleSubmitStatus(e.target.value)}
-							onDoubleClick={() => {
-								dispatch(
-									setEditingField({
-										field: 'status',
-										value: !isEditingField.status,
-									})
-								);
-							}}>
+							onChange={(e) =>
+								handleSubmitStatus(e.target.value)
+							}>
 							<option value="Pending">À faire</option>
 							<option value="In Progress">En cours</option>
 							<option value="Completed">Terminé</option>
 							<option value="Archived">Archivé</option>
 						</select>
 						<ArrowDown />
+						<button
+							onClick={() => {
+								dispatch(
+									setEditingField({
+										field: 'status',
+										value: false,
+									})
+								);
+							}}
+							className="absolute bottom-2 left-28 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none">
+							<svg
+								className="w-4 h-4"
+								fill="none"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								viewBox="0 0 24 24"
+								stroke="currentColor">
+								<path d="M6 18L18 6M6 6l12 12"></path>
+							</svg>
+						</button>
 					</form>
 					<TaskStatusDisplay
 						status={task.status}
 						convertedStatus={task.convertedStatus}
+						className="block md:hidden"
 					/>
 				</>
 			) : (

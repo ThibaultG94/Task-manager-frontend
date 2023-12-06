@@ -1,7 +1,6 @@
-// TaskStatusDisplay.js
 import React from 'react';
 
-const TaskStatusDisplay = ({ status, convertedStatus }) => {
+const TaskStatusDisplay = ({ status, convertedStatus, className }) => {
 	const statusIcon = {
 		Archived: 'fa-archive',
 		Completed: 'fa-check',
@@ -10,7 +9,7 @@ const TaskStatusDisplay = ({ status, convertedStatus }) => {
 	};
 
 	return (
-		<span>
+		<span className={className}>
 			<i className={`fas ${statusIcon[status]} block md:hidden`}></i>
 			<span className="hidden md:inline">{convertedStatus}</span>
 		</span>
