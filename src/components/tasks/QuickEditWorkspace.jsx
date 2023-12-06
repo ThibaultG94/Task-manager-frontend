@@ -11,19 +11,20 @@ import {
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { toast } from 'react-toastify';
-import { useGetWorkspace } from '../../api/getWorkspace';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import ArrowDown from '../modal/ArrowDown';
+import { useWindowWidth } from './utils/useWindowWidth';
+import { getInitials } from './utils/getInitials';
 
 const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
-	const getWorkspace = useGetWorkspace();
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
 	const inputWorkspaceRef = useRef(null);
+	const screenWidth = useWindowWidth();
 	const [workspaces, setWorkspaces] = useState([]);
 
 	const handleClickOutside = (event) => {
@@ -79,7 +80,11 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 			}}
 			className="cursor-auto flex items-center justify-start mx-auto overflow-hidden p-1.5 relative rounded-lg text-xs md:text-sm lg:text-base">
 			{!isEditingField.workspace && (
-				<span className="ellipsis">{task.workspaceTitle}</span>
+				<span className="ellipsis">
+					{screenWidth < 480
+						? getInitials(task.workspaceTitle)
+						: task.workspaceTitle}
+				</span>
 			)}
 			{isEditingField.workspace && editedTask?._id === task.taskId ? (
 				<form className="relative">

@@ -69,7 +69,7 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 				);
 			}}
 			className={
-				`text-left mx-auto p-1.5 lg:px-2.5 rounded-lg relative cursor-auto ` +
+				`cursor-auto flex items-center mx-auto p-1.5 px-2 lg:px-2.5 relative rounded-lg ` +
 				task.convertedPriority
 			}>
 			{!isEditingField.priority && (
