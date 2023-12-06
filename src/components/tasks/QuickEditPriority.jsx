@@ -12,6 +12,7 @@ import {
 } from '../../store/feature/editState.slice';
 import { toast } from 'react-toastify';
 import ArrowDown from '../modal/ArrowDown';
+import TaskPriorityDisplay from './utils/TaskPriorityDisplay';
 
 const QuickEditPriority = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -73,50 +74,48 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 				task.convertedPriority
 			}>
 			{!isEditingField.priority && (
-				<>
-					<span className="block lg:hidden">
-						{task.priority === 'Urgent' && (
-							<i className="fas fa-exclamation-triangle"></i>
-						)}
-						{task.convertedPriority === 'Priorité haute' && (
-							<i className="fas fa-arrow-up"></i>
-						)}
-						{task.convertedPriority === 'Priorité moyenne' && (
-							<i className="fas fa-equals"></i>
-						)}
-						{task.convertedPriority === 'Priorité faible' && (
-							<i className="fas fa-arrow-down"></i>
-						)}
-					</span>
-					<span className="hidden lg:block">
-						{task.convertedPriority}
-					</span>
-				</>
-			)}{' '}
+				<TaskPriorityDisplay
+					priority={task.priority}
+					convertedPriority={task.convertedPriority}
+				/>
+			)}
 			{isEditingField.priority && editedTask?._id === task.taskId ? (
-				<form>
-					<select
-						className="block bg-transparent appearance-none w-full text-center p-0 pl-2 pr-6 rounded border-0 cursor-pointer"
-						defaultValue={editedTask?.priority}
-						ref={inputPriorityRef}
-						onChange={(e) => handleSubmitPriority(e.target.value)}
-						onDoubleClick={() => {
-							dispatch(
-								setEditingField({
-									field: 'priority',
-									value: !isEditingField.priority,
-								})
-							);
-						}}>
-						<option value="Low">Faible</option>
-						<option value="Medium">Moyenne</option>
-						<option value="High">Haute</option>
-						<option value="Urgent">Urgent</option>
-					</select>
-					<ArrowDown />
-				</form>
+				<>
+					<form className="md:block hidden">
+						<select
+							className="block bg-transparent appearance-none w-full text-center p-0 pl-2 pr-6 rounded border-0 cursor-pointer"
+							defaultValue={editedTask?.priority}
+							ref={inputPriorityRef}
+							onChange={(e) =>
+								handleSubmitPriority(e.target.value)
+							}
+							onDoubleClick={() => {
+								dispatch(
+									setEditingField({
+										field: 'priority',
+										value: !isEditingField.priority,
+									})
+								);
+							}}>
+							<option value="Low">Faible</option>
+							<option value="Medium">Moyenne</option>
+							<option value="High">Haute</option>
+							<option value="Urgent">Urgent</option>
+						</select>
+						<ArrowDown />
+					</form>
+					<TaskPriorityDisplay
+						priority={task.priority}
+						convertedPriority={task.convertedPriority}
+					/>
+				</>
 			) : (
-				isEditingField.priority && <span>{task.convertedPriority}</span>
+				isEditingField.priority && (
+					<TaskPriorityDisplay
+						priority={task.priority}
+						convertedPriority={task.convertedPriority}
+					/>
+				)
 			)}
 		</div>
 	);
