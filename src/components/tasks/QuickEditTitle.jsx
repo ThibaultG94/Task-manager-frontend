@@ -11,6 +11,7 @@ import { setEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/editTask';
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 import { toast } from 'react-toastify';
+import CloseTitle from './utils/CloseTitle';
 
 const QuickEditTitle = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -59,22 +60,23 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 				<span className="ellipsis">{task?.title}</span>
 			)}
 			{isEditingField.title && editedTask?._id === task.taskId ? (
-				<>
+				<div className="md:w-10/12">
 					<form
 						className="w-full md:block hidden"
 						onSubmit={(e) => handleSubmitTitle(e)}>
 						<input
 							type="text"
 							defaultValue={task?.title}
-							className="border-0 p-0 w-full"
+							className="border-0 p-1 w-full rounded-md"
 							maxLength={60}
 							ref={inputTitleRef}
 						/>
+						<CloseTitle />
 					</form>
 					<span className="ellipsis md:hidden block">
 						{task?.title}
 					</span>
-				</>
+				</div>
 			) : (
 				isEditingField.title && (
 					<span className="ellipsis">{task?.title}</span>

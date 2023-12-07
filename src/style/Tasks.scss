@@ -40,27 +40,31 @@
 	}
 
 	@media screen and (max-width: 1100px) {
-		grid-template-columns: 60px 250px 109px 109px 148px 150px 44px 59px;
+		grid-template-columns: 60px 300px 109px 109px 148px 140px 44px 59px;
 	}
 
 	@media screen and (max-width: 1023px) {
-		grid-template-columns: 60px 300px 100px 100px 70px 150px 44px 59px;
+		grid-template-columns: 60px 300px 100px 110px 90px 120px 44px 59px;
 	}
 
 	@media screen and (max-width: 950px) {
-		grid-template-columns: 53px 223px 98px 100px 70px 106px 40px 53px;
+		grid-template-columns: 53px 290px 98px 105px 90px 106px 40px 53px;
 	}
 
 	@media screen and (max-width: 860px) {
-		grid-template-columns: 43px 181px 79px 100px 70px 86px 40px 43px;
+		grid-template-columns: 43px 260px 79px 105px 90px 86px 40px 43px;
 	}
 
 	@media screen and (max-width: 800px) {
-		grid-template-columns: 39px 163px 71px 100px 70px 78px 40px 39px;
+		grid-template-columns: 39px 240px 71px 105px 90px 78px 40px 39px;
 	}
 
 	@media screen and (max-width: 767px) {
-		grid-template-columns: 46px 196px 60px 60px 60px 93px 40px 46px;
+		grid-template-columns: 46px 260px 60px 60px 60px 93px 40px 46px;
+	}
+
+	@media screen and (max-width: 700px) {
+		grid-template-columns: 46px 220px 60px 60px 60px 93px 40px 46px;
 	}
 
 	@media screen and (max-width: 660px) {

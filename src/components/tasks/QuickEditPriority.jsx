@@ -75,7 +75,10 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 							<option value="Urgent">Urgent</option>
 						</select>
 						<ArrowDown />
-						<CloseField selectedField="priority" />
+						<CloseField
+							left="left-24 lg:left-28"
+							selectedField="priority"
+						/>
 					</form>
 					<TaskPriorityDisplay
 						className="block lg:hidden"
