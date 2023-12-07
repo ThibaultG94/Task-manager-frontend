@@ -8,7 +8,7 @@ import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { setEditedTask } from '../../store/feature/tasks.slice';
 import {
 	resetEditState,
-	setEditingField,
+	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { toast } from 'react-toastify';
@@ -16,6 +16,7 @@ import Flatpickr from 'react-flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr';
 import { formatDate } from './utils/formatDateForResponsive';
 import useWindowSize from '../utils/useWindowSize';
+import CloseDeadline from './utils/CloseDeadline';
 
 const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const editedTask = useSelector(selectEditedTask);
 	const [convertedDeadline, setConvertedDeadline] = useState('');
 	const [width] = useWindowSize();
-	const isLargeScreen = width > 767;
+	const isLargeScreen = width > 1023;
 
 	const dayWeek = [
 		'Lundi',
@@ -105,12 +106,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 			onClick={(e) => e.stopPropagation()}
 			onDoubleClick={() => {
 				setSelectedTask(task);
-				dispatch(
-					setEditingField({
-						field: 'deadline',
-						value: !isEditingField.deadline,
-					})
-				);
+				dispatch(setExclusiveEditingField('deadline'));
 			}}
 			className={
 				`cursor-auto flex items-center mx-auto p-0.5 md:p-1 lg:p-1.5 md:p px-1 sm:px-1.5 md:px-2 lg:px-2.5 rounded-lg select-none text-xs md:text-sm relative lg:text-base ` +
@@ -143,8 +139,9 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 										dateFormat: 'd/m/Y',
 										locale: French,
 									}}
-									className="w-14 sm:w-16 md:w-20 lg:w-24 h-6 select-none border-none px-0"
+									className="w-14 sm:w-16 md:w-20 lg:w-24 h-6 select-none border-none rounded pl-1"
 								/>
+								<CloseDeadline />
 							</form>
 						</div>
 					) : (

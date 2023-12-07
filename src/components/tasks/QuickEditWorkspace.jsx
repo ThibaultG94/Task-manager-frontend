@@ -7,7 +7,7 @@ import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { setEditedTask } from '../../store/feature/tasks.slice';
 import {
 	resetEditState,
-	setEditingField,
+	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { toast } from 'react-toastify';
@@ -15,6 +15,7 @@ import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import ArrowDown from '../modal/ArrowDown';
 import { useWindowWidth } from './utils/useWindowWidth';
 import { getInitials } from './utils/getInitials';
+import CloseWorkspace from './utils/CloseWorkspace';
 
 const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -26,25 +27,6 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 	const inputWorkspaceRef = useRef(null);
 	const screenWidth = useWindowWidth();
 	const [workspaces, setWorkspaces] = useState([]);
-
-	const handleClickOutside = (event) => {
-		if (
-			inputWorkspaceRef.current &&
-			!inputWorkspaceRef.current.contains(event.target)
-		) {
-			dispatch(setEditingField({ field: 'workspace', value: false }));
-		}
-	};
-
-	useEffect(() => {
-		if (isEditingField.workspace) {
-			document.addEventListener('mousedown', handleClickOutside);
-		}
-
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, [isEditingField.workspace, dispatch]);
 
 	useEffect(() => {
 		setWorkspaces(userWorkspaces);
@@ -71,14 +53,9 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 			onClick={(e) => e.stopPropagation()}
 			onDoubleClick={() => {
 				setSelectedTask(task);
-				dispatch(
-					setEditingField({
-						field: 'workspace',
-						value: !isEditingField.workspace,
-					})
-				);
+				dispatch(setExclusiveEditingField('workspace'));
 			}}
-			className="cursor-auto flex items-center ellipsis mx-auto overflow-hidden relative rounded-lg self-enter text-xs md:text-sm lg:text-base">
+			className="cursor-auto flex h-10 items-center m-auto relative rounded-lg self-enter text-xs lg:text-sm xl:text-base">
 			{!isEditingField.workspace && (
 				<span className="ellipsis">
 					{screenWidth < 480
@@ -88,22 +65,14 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 			)}
 			{isEditingField.workspace && editedTask?._id === task.taskId ? (
 				<>
-					<form className="relative sm:block hidden">
+					<form className="relative lg:block hidden">
 						<select
-							className="block bg-transparent appearance-none border border-gray-300 hover:border-gray-500 px-0 pr-2 py-[1px] text-center rounded shadow leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
+							className="block bg-transparent appearance-none border border-gray-300 hover:border-gray-500 py-1 pr-2 text-center rounded shadow leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
 							defaultValue={editedTask?.workspaceId}
 							ref={inputWorkspaceRef}
 							onChange={(e) =>
 								handleSubmitWorkspace(e.target.value)
-							}
-							onDoubleClick={() => {
-								dispatch(
-									setEditingField({
-										field: 'workspace',
-										value: !isEditingField.workspace,
-									})
-								);
-							}}>
+							}>
 							{workspaces &&
 								workspaces.map((workspace) => (
 									<option
@@ -114,8 +83,9 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 								))}
 						</select>
 						<ArrowDown />
+						<CloseWorkspace />
 					</form>
-					<span className="ellipsis sm:hidden block">
+					<span className="ellipsis lg:hidden block">
 						{screenWidth < 480
 							? getInitials(task.workspaceTitle)
 							: task.workspaceTitle}

@@ -5,6 +5,7 @@ import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import {
 	resetEditState,
 	setEditingField,
+	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { setEditedTask } from '../../store/feature/tasks.slice';
@@ -48,12 +49,7 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 		<div
 			onDoubleClick={() => {
 				setSelectedTask(task);
-				dispatch(
-					setEditingField({
-						field: 'title',
-						value: !isEditingField.title,
-					})
-				);
+				dispatch(setExclusiveEditingField('title'));
 			}}
 			className="cursor-auto flex justify-start overflow-hidden relative rounded-md self-center text-xs sm:text-sm md:text-base">
 			{!isEditingField.title && (
