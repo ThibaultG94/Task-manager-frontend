@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import {
 	resetEditState,
 	setEditingField,
+	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
@@ -45,12 +46,7 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 			onClick={(e) => e.stopPropagation()}
 			onDoubleClick={() => {
 				setSelectedTask(task);
-				dispatch(
-					setEditingField({
-						field: 'status',
-						value: !isEditingField.status,
-					})
-				);
+				dispatch(setExclusiveEditingField('status'));
 			}}
 			className={
 				`cursor-auto flex h-10 items-center m-auto px-2 sm:px-3 md:px-4 p-1.5 rounded-lg relative select-none text-base md:text-sm lg:text-base ` +

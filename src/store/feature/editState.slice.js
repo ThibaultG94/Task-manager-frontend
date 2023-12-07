@@ -37,6 +37,16 @@ const editStateSlice = createSlice({
 			const { field, value } = action.payload;
 			state.isEditing[field] = value;
 		},
+		setExclusiveEditingField: (state, action) => {
+			const fieldToEdit = action.payload;
+
+			Object.keys(state.isEditing).forEach((field) => {
+				state.isEditing[field] = false;
+			});
+
+			state.isEditing[fieldToEdit] = true;
+		},
+
 		setHasEdited: (state, action) => {
 			state.hasEdited = action.payload;
 		},
@@ -103,6 +113,7 @@ const editStateSlice = createSlice({
 
 export const {
 	setEditingField,
+	setExclusiveEditingField,
 	setHasEdited,
 	setHasBeenUpdated,
 	setOverdueTasksHasBeenUpdated,
