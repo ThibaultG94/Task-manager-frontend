@@ -22,25 +22,6 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 	const editedTask = useSelector(selectEditedTask);
 	const inputStatusRef = useRef(null);
 
-	const handleClickOutside = (event) => {
-		if (
-			inputStatusRef.current &&
-			!inputStatusRef.current.contains(event.target)
-		) {
-			dispatch(setEditingField({ field: 'status', value: false }));
-		}
-	};
-
-	useEffect(() => {
-		if (isEditingField.status) {
-			document.addEventListener('mousedown', handleClickOutside);
-		}
-
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, [isEditingField.status, dispatch]);
-
 	const handleSubmitStatus = async (status) => {
 		const newStatus = status;
 		dispatch(setEditedTask({ status: newStatus }));
@@ -72,7 +53,7 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 				);
 			}}
 			className={
-				`cursor-auto flex h-10 items-center m-auto px-2 mx:px-3 lg:px-4 p-1.5 md:p-1 lg:p-1 rounded-lg relative select-none text-base md:text-sm lg:text-base ` +
+				`cursor-auto flex h-10 items-center m-auto px-2 sm:px-3 md:px-4 p-1.5 rounded-lg relative select-none text-base md:text-sm lg:text-base ` +
 				task.convertedStatus
 			}>
 			{!isEditingField.status && (
@@ -107,9 +88,9 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 									})
 								);
 							}}
-							className="absolute bottom-2 left-28 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none">
+							className="absolute bottom-2.5 left-24 lg:left-28 ml-1 lg:ml-0 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none">
 							<svg
-								className="w-4 h-4"
+								className="w-3 lg:w-4 h-3 lg:h-4"
 								fill="none"
 								strokeLinecap="round"
 								strokeLinejoin="round"

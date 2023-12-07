@@ -43,20 +43,20 @@
 		grid-template-columns: 60px 250px 109px 109px 148px 150px 44px 59px;
 	}
 
-	@media screen and (max-width: 1024px) {
-		grid-template-columns: 53px 223px 98px 98px 98px 106px 40px 53px;
+	@media screen and (max-width: 1023px) {
+		grid-template-columns: 60px 300px 100px 100px 100px 150px 44px 59px;
 	}
 
 	@media screen and (max-width: 950px) {
-		grid-template-columns: 48px 201px 88px 88px 88px 40px 40px 48px;
+		grid-template-columns: 53px 223px 98px 100px 95px 106px 40px 53px;
 	}
 
 	@media screen and (max-width: 860px) {
-		grid-template-columns: 43px 181px 79px 79px 79px 86px 40px 43px;
+		grid-template-columns: 43px 181px 79px 100px 90px 86px 40px 43px;
 	}
 
 	@media screen and (max-width: 800px) {
-		grid-template-columns: 39px 163px 71px 71px 71px 78px 40px 39px;
+		grid-template-columns: 39px 163px 71px 100px 85px 78px 40px 39px;
 	}
 
 	@media screen and (max-width: 767px) {
