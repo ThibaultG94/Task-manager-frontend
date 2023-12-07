@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TaskStatusDisplay = ({ status, convertedStatus, className }) => {
+const TaskStatusDisplay = ({ className, convertedStatus, status }) => {
 	const statusIcon = {
 		Archived: 'fa-archive',
 		Completed: 'fa-check',

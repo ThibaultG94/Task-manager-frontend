@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import {
 	resetEditState,
-	setEditingField,
 	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
@@ -14,6 +13,7 @@ import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ArrowDown from '../modal/ArrowDown';
 import TaskStatusDisplay from './utils/TaskStatusDisplay';
+import CloseField from './utils/CloseField';
 
 const QuickEditStatus = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -75,32 +75,12 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 							<option value="Archived">Archivé</option>
 						</select>
 						<ArrowDown />
-						<button
-							onClick={() => {
-								dispatch(
-									setEditingField({
-										field: 'status',
-										value: false,
-									})
-								);
-							}}
-							className="absolute bottom-2.5 left-24 lg:left-28 ml-1 lg:ml-0 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none">
-							<svg
-								className="w-3 lg:w-4 h-3 lg:h-4"
-								fill="none"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								viewBox="0 0 24 24"
-								stroke="currentColor">
-								<path d="M6 18L18 6M6 6l12 12"></path>
-							</svg>
-						</button>
+						<CloseField selectedField="status" />
 					</form>
 					<TaskStatusDisplay
-						status={task.status}
-						convertedStatus={task.convertedStatus}
 						className="block md:hidden"
+						convertedStatus={task.convertedStatus}
+						status={task.status}
 					/>
 				</>
 			) : (

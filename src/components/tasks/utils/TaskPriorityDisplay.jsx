@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TaskPriorityDisplay = ({ priority, convertedPriority }) => {
+const TaskPriorityDisplay = ({ className, convertedPriority }) => {
 	const priorityIcon = {
 		Urgent: 'fa-exclamation-triangle',
 		'Priorité haute': 'fa-arrow-up',
@@ -9,10 +9,10 @@ const TaskPriorityDisplay = ({ priority, convertedPriority }) => {
 	};
 
 	return (
-		<span className="flex justify-start overflow-hidden relative">
+		<span className={className}>
 			<i
 				className={`fas ${priorityIcon[convertedPriority]} block lg:hidden`}></i>
-			<span className="ellipsis hidden lg:block">
+			<span className="ellipsis hidden lg:inline">
 				{convertedPriority}
 			</span>
 		</span>
