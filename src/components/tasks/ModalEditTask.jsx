@@ -56,7 +56,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 
 	return (
 		<form
-			className="max-w-lg mx-auto px-2 md:px-4 rounded-lg"
+			className="max-w-lg mx-auto pl-2 pr-0 md:pl-4 md:pr-2 rounded-lg"
 			onSubmit={(e) => e.stopPropagation()}>
 			<div className="text-center pt-4 px-2 md:px-4">
 				<h5 className="text-gray-900 text-base md:text-lg leading-tight font-medium mb-2">

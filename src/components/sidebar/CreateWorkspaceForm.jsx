@@ -4,8 +4,11 @@ import { toast } from 'react-toastify';
 import TitleInput from '../modal/TitleInput';
 import DescriptionTextarea from '../modal/DescriptionTextarea';
 import SubmitButton from '../modal/SubmitButton';
+import { useDispatch } from 'react-redux';
+import { setWorkspacesHasBeenUpdated } from '../../store/feature/editState.slice';
 
 const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
+	const dispatch = useDispatch();
 	const createWorkspace = useCreateWorkspace();
 	const [workspaceTitle, setWorkspaceTitle] = useState('');
 	const [workspaceDescription, setWorkspaceDescription] = useState('');
@@ -23,6 +26,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 
 		try {
 			await createWorkspace(workspace);
+			dispatch(setWorkspacesHasBeenUpdated(true));
 			toast.success('Workspace créé !');
 			setIsModalOpen(false);
 		} catch (err) {
