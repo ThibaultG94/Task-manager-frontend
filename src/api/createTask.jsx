@@ -27,6 +27,7 @@ export const useCreateTask = () => {
 					workspaceId: task.workspaceId,
 					deadline: task.deadline,
 					assignedTo: task.assignedTo,
+					archived: task.archived,
 				},
 				{
 					withCredentials: true,

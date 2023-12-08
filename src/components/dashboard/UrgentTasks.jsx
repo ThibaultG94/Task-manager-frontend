@@ -83,6 +83,7 @@ const UrgentTasks = () => {
 						comments: urgentTasks[i].comments,
 						workspace: urgentTasks[i].workspaceId,
 						assignedTo: urgentTasks[i].assignedTo,
+						archiveDate: urgentTasks[i].archiveDate,
 						taskId: urgentTasks[i]._id,
 						isOverdue: formattedDate === 'En retard',
 						category: category,

@@ -66,6 +66,7 @@ const HandleModalTask = ({
 								handleCancelEdit={handleCancelEdit}
 							/>
 							<SaveEditedTask
+								setIsEditing={setIsEditing}
 								setIsModalOpen={setIsModalOpen}
 								taskData={taskData}
 							/>

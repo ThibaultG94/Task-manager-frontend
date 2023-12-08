@@ -293,6 +293,7 @@ export const tasksSlice = createSlice({
 						deadline: action.payload.deadline,
 						comments: action.payload.comments,
 						assignedTo: action.payload.assignedTo,
+						archiveDate: action.payload.archiveDate,
 					};
 				} else {
 					return task;

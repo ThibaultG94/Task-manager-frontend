@@ -47,6 +47,7 @@ export const updateDisplayTasks = async (
 				taskId: userTasks[i]._id,
 				category: category,
 				day: day,
+				archiveDate: userTasks[i].archiveDate,
 			});
 		}
 	}

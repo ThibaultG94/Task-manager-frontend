@@ -17,6 +17,7 @@ import { French } from 'flatpickr/dist/l10n/fr';
 import { formatDate } from './utils/formatDateForResponsive';
 import useWindowSize from '../utils/useWindowSize';
 import CloseDeadline from './utils/CloseDeadline';
+import { formatDateArchived } from './utils/formatDateArchived';
 
 const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -119,8 +120,8 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 					</span>
 					<span className="hidden lg:block">
 						{task.status === 'Archived'
-							? inverseDateFormat(task.deadline)
-							: task.day}{' '}
+							? formatDateArchived(task.archiveDate)
+							: task.day}
 					</span>
 				</>
 			)}

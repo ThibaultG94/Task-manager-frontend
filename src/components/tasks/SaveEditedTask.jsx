@@ -8,7 +8,7 @@ import {
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 
-const SaveEditedTask = ({ setIsModalOpen, taskData }) => {
+const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 	const dispatch = useDispatch();
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
@@ -24,7 +24,6 @@ const SaveEditedTask = ({ setIsModalOpen, taskData }) => {
 			description: taskData.description,
 			workspaceId: taskData.selectedWorkspace,
 			assignedTo: taskData.selectedMember,
-			category: taskData.category,
 		});
 	}, [taskData]);
 
@@ -44,6 +43,7 @@ const SaveEditedTask = ({ setIsModalOpen, taskData }) => {
 	const handleSave = async () => {
 		await updateTask();
 		setIsModalOpen(false);
+		setIsEditing(false);
 	};
 
 	return (
