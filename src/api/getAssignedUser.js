@@ -6,6 +6,7 @@ export const getAssignedUser = async (userId) => {
 		const res = await axios.get(`${API_URL}/users/${userId}/account`, {
 			withCredentials: true,
 		});
+		// console.log(res.data.user);
 		return res.data.user;
 	} catch (error) {
 		console.log(error);
