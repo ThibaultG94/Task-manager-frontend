@@ -69,10 +69,13 @@ const UrgentTasks = () => {
 						urgentTasks[i].status,
 						urgentTasks[i].deadline
 					);
-					const workspaceName = await workspaces?.find(
-						(workspace) =>
-							workspace._id === urgentTasks[i].workspaceId
-					).title;
+					const workspacesMap = {};
+					workspaces.forEach((workspace) => {
+						workspacesMap[workspace._id] = workspace.title;
+					});
+					const workspaceName =
+						workspacesMap[urgentTasks[i].workspaceId];
+
 					updatedTasks.push({
 						title: urgentTasks[i].title,
 						date: formattedDate,
