@@ -11,6 +11,7 @@ export async function getCategoryDay(day, status, taskDate) {
 	const isThisWeek = todayDayOfWeek < taskDayOfWeek;
 	const isThisWeekOrNextWeek = taskDayOfWeek - todayDayOfWeek;
 	const isThisMonth = todayMonth === taskMonth;
+	const isNextMonth = taskMonth === todayMonth + 1;
 	const isThisYear = todayYear === taskYear;
 	const isNextYear = taskYear === todayYear + 1;
 
@@ -18,17 +19,22 @@ export async function getCategoryDay(day, status, taskDate) {
 	if (day === 'En retard') return 'retard-tasks';
 	if (day === "Aujourd'hui") return 'today-tasks';
 	if (day === 'Demain') return 'tomorrow-tasks';
-	if (day === 'Lundi' || day === 'Mardi')
-		return isThisWeekOrNextWeek < 7 ? 'this-week-tasks' : 'next-week-tasks';
+	if (day === 'Lundi' || day === 'Mardi') {
+		return isThisWeekOrNextWeek < 3 && isThisWeekOrNextWeek > 0
+			? 'this-week-tasks'
+			: 'next-week-tasks';
+	}
 	if (['Mercredi', 'Jeudi', 'Vendredi'].includes(day))
 		return isThisWeek ? 'this-week-tasks' : 'next-week-tasks';
 	if (day === 'Samedi')
 		return isThisWeek ? 'this-weekend-tasks' : 'next-weekend-tasks';
+	if (day === 'Dimanche') return 'this-weekend-tasks';
 	if (day === '7 jours') {
 		return taskDayOfWeek === 0 ? 'this-weekend-tasks' : 'next-week-tasks';
 	}
 	if (dayInt > 7 && dayInt < 14) {
-		if (taskDayOfWeek > 5) return 'next-weekend-tasks';
+		if (taskDayOfWeek > 5 || taskDayOfWeek === 0)
+			return 'next-weekend-tasks';
 		if (isThisWeek) return 'next-week-tasks';
 		return isThisMonth ? 'this-month-tasks' : 'next-month-tasks';
 	}
@@ -37,8 +43,11 @@ export async function getCategoryDay(day, status, taskDate) {
 	}
 	if (dayInt >= 14 && dayInt < 31)
 		return isThisMonth ? 'this-month-tasks' : 'next-month-tasks';
-	if (dayInt >= 31 && dayInt <= 365)
-		return isThisYear ? 'this-year-tasks' : 'next-year-tasks';
+	if (dayInt >= 31 && dayInt <= 365) {
+		if (todayMonth > taskMonth) return 'next-month-tasks';
+		if (isThisYear) return 'this-year-tasks';
+		if (isNextYear) return 'next-year-tasks';
+	}
 	if (dayInt > 365) return isNextYear ? 'next-year-tasks' : 'becoming-tasks';
 
 	return 'uncategorized-tasks'; // default case
