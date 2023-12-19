@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { useGetUser } from '../../api/getUser';
 import DeadlineInput from '../modal/DeadlineInput';
 import WorkspaceSelect from '../modal/WorkspaceSelect';
 import MemberSelect from '../modal/MemberSelect';
@@ -9,9 +8,10 @@ import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import ArrowDown from '../modal/ArrowDown';
 
 const ModalEditTask = ({ taskData, setTaskData }) => {
-	const getUser = useGetUser();
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const editedTask = useSelector(selectEditedTask);
+	const [workspaceMembers, setWorkspaceMembers] = useState('');
+	const [selectedMember, setSelectedMember] = useState('default');
 
 	useEffect(() => {
 		if (taskData.selectedWorkspace && userWorkspaces) {
@@ -19,25 +19,10 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 				(ws) => ws._id === taskData.selectedWorkspace
 			);
 			if (workspace) {
-				setTaskData((prev) => ({
-					...prev,
-					workspaceMembersIds: workspace.members,
-				}));
+				setWorkspaceMembers(workspace.members);
 			}
 		}
 	}, [taskData.selectedWorkspace]);
-
-	useEffect(() => {
-		const getMembers = async () => {
-			const memberPromises = taskData.workspaceMembersIds.map((id) =>
-				getUser(id)
-			);
-			const members = await Promise.all(memberPromises);
-			setTaskData((prev) => ({ ...prev, workspaceMembers: members }));
-		};
-
-		taskData.workspaceMembersIds.length && getMembers();
-	}, [taskData.workspaceMembersIds]);
 
 	useEffect(() => {
 		setTaskData((prevState) => ({
@@ -49,7 +34,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 			deadline: editedTask?.deadline,
 			description: editedTask?.description,
 			selectedWorkspace: editedTask?.workspaceId,
-			selectedMember: editedTask?.assignedTo,
+			selectedMember: editedTask?.assignedTo[0],
 			category: editedTask?.category,
 		}));
 	}, [editedTask]);
@@ -110,14 +95,9 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 						Assigné à
 					</span>
 					<MemberSelect
-						selectedMember={taskData.selectedMember}
-						setSelectedMember={(value) =>
-							setTaskData((prev) => ({
-								...prev,
-								selectedMember: value,
-							}))
-						}
-						workspaceMembers={taskData.workspaceMembers}
+						selectedMember={selectedMember}
+						setSelectedMember={setSelectedMember}
+						workspaceMembers={workspaceMembers}
 					/>
 				</div>
 

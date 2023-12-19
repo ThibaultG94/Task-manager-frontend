@@ -36,7 +36,7 @@ import {
 } from '../../store/selectors/taskSelectors';
 import HandleModalTask from './HandleModalTask';
 
-const DisplayTasks = ({ userId }) => {
+const DisplayTasks = () => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const hasEdited = useSelector(selectHasEdited);

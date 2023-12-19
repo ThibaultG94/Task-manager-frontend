@@ -6,7 +6,6 @@ import { convertStatus } from '../utils/convertStatus';
 import { convertPriority } from '../utils/convertPriority';
 import { frenchFormattedDate } from '../utils/frenchFormattedDate';
 import { useGetWorkspace } from '../../api/getWorkspace';
-import { useGetUser } from '../../api/getUser';
 
 const ModalDisplayTask = () => {
 	const editedTask = useSelector(selectEditedTask);
@@ -17,7 +16,6 @@ const ModalDisplayTask = () => {
 	const [convertedMember, setConvertedMember] = useState('');
 
 	const getWorkspace = useGetWorkspace();
-	const getUser = useGetUser();
 
 	useEffect(() => {
 		const fetchConvertedStatus = async () => {
@@ -37,8 +35,7 @@ const ModalDisplayTask = () => {
 			setConvertedWorkspace(workspace?.title);
 		};
 		const fetchConvertedMember = async () => {
-			const user = await getUser(editedTask?.assignedTo);
-			setConvertedMember(user?.username);
+			setConvertedMember(editedTask?.assignedTo[0].username);
 		};
 
 		fetchConvertedStatus();

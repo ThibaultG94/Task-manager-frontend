@@ -33,10 +33,7 @@ const ListWorkspaces = () => {
 			const updatedWorkspaces = [];
 			for (let i = 0; i < 6; i++) {
 				if (workspaces && workspaces[i]) {
-					const membersPromises = workspaces[i].members.map(
-						(member) => getUser(member)
-					);
-					const members = await Promise.all(membersPromises);
+					const members = workspaces[i].members;
 					const membersName = members.map((user) => user?.username);
 					const taskStatusCount = await getWorkspaceTaskStatusCount(
 						workspaces[i]._id

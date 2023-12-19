@@ -68,6 +68,9 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 							ref={inputTitleRef}
 						/>
 						<CloseTitle />
+						<button
+							type="submit"
+							style={{ display: 'none' }}></button>
 					</form>
 					<span className="ellipsis md:hidden block">
 						{task?.title}

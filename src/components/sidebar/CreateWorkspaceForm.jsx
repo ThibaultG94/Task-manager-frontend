@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCreateWorkspace } from '../../api/createWorkspace';
 import { toast } from 'react-toastify';
 import TitleInput from '../modal/TitleInput';
@@ -6,12 +6,22 @@ import DescriptionTextarea from '../modal/DescriptionTextarea';
 import SubmitButton from '../modal/SubmitButton';
 import { useDispatch } from 'react-redux';
 import { setWorkspacesHasBeenUpdated } from '../../store/feature/editState.slice';
+import { getAssignedUser } from '../../api/getAssignedUser';
 
 const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const dispatch = useDispatch();
 	const createWorkspace = useCreateWorkspace();
 	const [workspaceTitle, setWorkspaceTitle] = useState('');
 	const [workspaceDescription, setWorkspaceDescription] = useState('');
+	const [member, setMember] = useState('');
+
+	useEffect(() => {
+		const getUserInfos = async (userId) => {
+			const assignedUser = await getAssignedUser(userId);
+			setMember(assignedUser);
+		};
+		getUserInfos(userId);
+	}, [userId]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -20,7 +30,13 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 			title: workspaceTitle,
 			userId,
 			description: workspaceDescription,
-			members: [userId],
+			members: [
+				{
+					userId: member._id,
+					username: member.username,
+					email: member.email,
+				},
+			],
 			isDefault: false,
 		};
 

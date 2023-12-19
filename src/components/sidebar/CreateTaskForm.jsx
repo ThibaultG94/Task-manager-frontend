@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { useGetUser } from '../../api/getUser';
 import { useCreateTask } from '../../api/createTask';
 import { useTasksHasBeenUpdated } from '../tasks/TasksHasBeenUpdated';
 import TitleInput from '../modal/TitleInput';
@@ -15,7 +14,6 @@ import SubmitButton from '../modal/SubmitButton';
 import { toast } from 'react-toastify';
 
 const CreateTaskForm = ({ userId, setIsModalOpen }) => {
-	const getUser = useGetUser();
 	const createTask = useCreateTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const userWorkspaces = useSelector(selectWorkspaces);
@@ -25,7 +23,6 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const [taskDeadline, setTaskDeadline] = useState('');
 	const [taskDescription, setTaskDescription] = useState('');
 	const [selectedWorkspace, setSelectedWorkspace] = useState('default');
-	const [workspaceMembersIds, setWorkspaceMembersIds] = useState('');
 	const [workspaceMembers, setWorkspaceMembers] = useState('');
 	const [selectedMember, setSelectedMember] = useState('default');
 
@@ -35,23 +32,17 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 				(ws) => ws._id === selectedWorkspace
 			);
 			if (workspace) {
-				setWorkspaceMembersIds(workspace.members);
+				setWorkspaceMembers(workspace.members);
 			}
 		}
 	}, [selectedWorkspace]);
 
-	useEffect(() => {
-		const getMembers = async () => {
-			const memberPromises = workspaceMembersIds.map((id) => getUser(id));
-			const members = await Promise.all(memberPromises);
-			setWorkspaceMembers(members);
-		};
-
-		workspaceMembersIds && getMembers();
-	}, [workspaceMembersIds]);
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		const assignedUser = workspaceMembers.find(
+			(member) => member.userId === selectedMember
+		);
 
 		const task = {
 			title: taskTitle,
@@ -61,7 +52,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 			priority: taskPriority,
 			workspaceId: selectedWorkspace,
 			deadline: taskDeadline,
-			assignedTo: selectedMember,
+			assignedTo: assignedUser,
 		};
 
 		try {

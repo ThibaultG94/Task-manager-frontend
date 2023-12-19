@@ -1,4 +1,3 @@
-import { getAssignedUser } from '../../api/getAssignedUser';
 import { convertPriority } from './convertPriority';
 import { convertStatus } from './convertStatus';
 import { formatDateForDisplay } from './formatDateForDisplay';
@@ -28,7 +27,6 @@ export const updateDisplayTasks = async (
 				(singleWorkspace) =>
 					singleWorkspace._id === userTasks[i].workspaceId
 			);
-			const userAssigned = await getAssignedUser(userTasks[i].assignedTo);
 			updatedTasks.push({
 				title: userTasks[i].title,
 				date: formattedDate,
@@ -42,8 +40,8 @@ export const updateDisplayTasks = async (
 				workspace: workspace?._id,
 				workspaceTitle:
 					workspace && workspace.title && workspace?.title,
-				assignedTo: userAssigned?._id,
-				assignedToLetter: userAssigned?.username[0],
+				assignedTo: userTasks[i].assignedTo,
+				assignedToLetter: userTasks[i].assignedTo[0].username[0],
 				taskId: userTasks[i]._id,
 				category: category,
 				day: day,

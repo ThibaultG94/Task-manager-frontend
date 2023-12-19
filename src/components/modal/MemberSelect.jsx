@@ -8,7 +8,7 @@ const MemberSelect = ({
 }) => {
 	useEffect(() => {
 		if (workspaceMembers && workspaceMembers.length === 1) {
-			setSelectedMember(workspaceMembers[0]._id);
+			setSelectedMember(workspaceMembers[0].userId);
 		}
 	}, [workspaceMembers, setSelectedMember]);
 
@@ -25,7 +25,7 @@ const MemberSelect = ({
 				</option>
 				{workspaceMembers &&
 					workspaceMembers.map((member) => (
-						<option key={member._id} value={member._id}>
+						<option key={member.userId} value={member.userId}>
 							{member.username}
 						</option>
 					))}
