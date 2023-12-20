@@ -34,6 +34,7 @@ import {
 } from '../store/selectors/taskSelectors';
 import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
 import { ToastContainer } from 'react-toastify';
+import TaskPageTip from '../components/tasks/TaskPageTip';
 
 const Tasks = () => {
 	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);
@@ -117,6 +118,7 @@ const Tasks = () => {
 				<Header />
 				<main className="mt-1">
 					<DisplayTasks />
+					<TaskPageTip />
 				</main>
 			</div>
 		</div>

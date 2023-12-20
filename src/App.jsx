@@ -9,6 +9,7 @@ import Workspaces from './pages/Workspaces';
 import ResetPassword from './pages/ResetPassword';
 import Tasks from './pages/Tasks';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-tooltip/dist/react-tooltip.css';
 
 const App = () => {
 	return (

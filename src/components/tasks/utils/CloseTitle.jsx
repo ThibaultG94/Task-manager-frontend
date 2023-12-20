@@ -9,7 +9,6 @@ const CloseTitle = () => {
 		<button
 			className="absolute bottom-1 right-3 ml-1 lg:ml-0 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none"
 			onClick={() => {
-				console.log('wesh');
 				dispatch(
 					setEditingField({
 						field: 'title',

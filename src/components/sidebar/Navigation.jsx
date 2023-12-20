@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import CreateTaskAndWorkspace from './CreateTaskAndWorkspace';
+import { Tooltip } from 'react-tooltip';
 
 const Navigation = ({ userId }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,9 +25,14 @@ const Navigation = ({ userId }) => {
 						? 'cursor-pointer text-xl font-bold xl:mb-6 mr-6 xl:mr-0 text-orange-primary'
 						: 'cursor-pointer text-xl xl:mb-6 mr-6 xl:mr-0'
 				}>
-				<li>
+				<li
+					data-tooltip-class-name="text-xs font-normal"
+					data-tooltip-content="Dashboard"
+					data-tooltip-id="icon-home"
+					data-tooltip-variant="info">
 					<i className="fas fa-home mr-1"></i>
 				</li>
+				<Tooltip id="icon-home" place="top" />
 			</NavLink>
 
 			<NavLink
@@ -60,11 +66,15 @@ const Navigation = ({ userId }) => {
 			</NavLink>
 
 			<li
-				id="addWorkspaceOrTaskButton"
 				className="cursor-pointer text-xl"
+				data-tooltip-content="Créer une tâche ou un workspace"
+				data-tooltip-id="icon-create"
+				data-tooltip-variant="info"
+				id="addWorkspaceOrTaskButton"
 				onClick={() => setIsModalOpen(true)}>
 				<i className="fas fa-plus-square mr-1"></i>
 			</li>
+			<Tooltip id="icon-create" place="bottom" />
 
 			{isModalOpen && (
 				<CreateTaskAndWorkspace
