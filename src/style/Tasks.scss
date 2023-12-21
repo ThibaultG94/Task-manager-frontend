@@ -413,10 +413,16 @@
 // Tooltip
 
 .tooltip-container {
+	opacity: 0;
+	position: fixed;
+	top: 1rem;
+	right: 6rem;
+	animation: slideDown 0.3s ease-in-out 2s forwards;
+
 	@keyframes slideDown {
 		0% {
-			transform: translateY(-20px);
-			opacity: 0.5;
+			transform: translateY(-120px);
+			opacity: 0;
 		}
 		100% {
 			transform: translateY(0);
@@ -424,10 +430,9 @@
 		}
 	}
 
-	position: fixed;
-	top: 1rem;
-	right: 6rem;
-	animation: slideDown 1.5s ease-out;
+	@media (max-width: 1280px) {
+		top: 5rem;
+	}
 
 	.tooltip-box {
 		position: relative;
@@ -443,9 +448,9 @@
 			// Arrow at the top of the bubble
 			content: '';
 			position: absolute;
-			bottom: 100%;
+			top: -8px;
 			left: 50%;
-			transform: translateX(-50%) translateY(50%);
+			transform: translateX(-50%) translateY(-50%);
 			border-width: 0.5rem;
 			border-style: solid;
 			border-color: transparent transparent #f9f871 transparent;
