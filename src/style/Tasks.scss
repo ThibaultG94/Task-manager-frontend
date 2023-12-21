@@ -415,10 +415,8 @@
 .tooltip-container {
 	@keyframes slideDown {
 		0% {
-			transform: translateY(
-				-20px
-			); // La bulle "tombe" de 20px vers sa position finale
-			opacity: 0;
+			transform: translateY(-20px);
+			opacity: 0.5;
 		}
 		100% {
 			transform: translateY(0);
@@ -427,40 +425,40 @@
 	}
 
 	position: fixed;
-	top: 1rem; // Position en haut de l'écran avec un peu d'espace
-	right: 6rem; // Distance du côté droit
-	animation: slideDown 1.5s ease-out; // Animation pour faire apparaître la bulle
+	top: 1rem;
+	right: 6rem;
+	animation: slideDown 1.5s ease-out;
 
 	.tooltip-box {
 		position: relative;
-		background: #f9f871; // Couleur de fond jaune
-		color: #0369a1; // Couleur de texte bleu
-		padding: 1rem; // Espacement interne
-		border-radius: 0.5rem; // Bordures arrondies
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Ombre portée légère
-		max-width: 300px; // Largeur maximale de la bulle
-		text-align: left; // Alignement du texte à gauche
+		background: #f9f871;
+		color: #0369a1;
+		padding: 1rem;
+		border-radius: 0.5rem;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		max-width: 300px;
+		text-align: left;
 
 		&:before {
-			// Flèche en haut de la bulle
+			// Arrow at the top of the bubble
 			content: '';
 			position: absolute;
-			bottom: 100%; // Position en bas de l'élément (donc en haut visuellement)
-			left: 50%; // Centrage horizontal
-			transform: translateX(-50%) translateY(50%); // Ajustement fin pour que la flèche pointe vers le haut
-			border-width: 0.5rem; // Taille de la flèche
-			border-style: solid; // Style de bordure solide
-			border-color: transparent transparent #f9f871 transparent; // Couleur de bordure adaptée pour la flèche
+			bottom: 100%;
+			left: 50%;
+			transform: translateX(-50%) translateY(50%);
+			border-width: 0.5rem;
+			border-style: solid;
+			border-color: transparent transparent #f9f871 transparent;
 		}
 
 		button.close-button {
 			position: absolute;
-			transform: translateX(50%) translateY(-50%); // Ajustement fin pour centrer le bouton
-			top: 1rem; // Position initiale pour la croix
-			right: 1rem; // Position initiale pour la croix
-			background: transparent; // Fond transparent pour le bouton
-			border: none; // Pas de bordure pour le bouton
-			font-size: 2rem; // Taille de la police pour la croix
+			transform: translateX(50%) translateY(-50%);
+			top: 1rem;
+			right: 1rem;
+			background: transparent;
+			border: none;
+			font-size: 2rem;
 			color: #0369a1;
 			cursor: pointer;
 		}

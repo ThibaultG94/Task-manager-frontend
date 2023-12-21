@@ -14,7 +14,7 @@ const sendResetEmail = () => {
 			.then((res) => {
 				span.textContent = `Bonjour ${res.data.username}, nous allons vous envoyer un mail avec un nouveau mot de passe, restez vigilant ! `;
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => console.error('Error with ForgetPassword', err));
 	});
 };
 

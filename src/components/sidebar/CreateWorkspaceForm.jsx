@@ -46,7 +46,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 			toast.success('Workspace créé !');
 			setIsModalOpen(false);
 		} catch (err) {
-			console.log(err);
+			console.error('Error with CreateWorkspaceForm', err);
 			toast.error('Une erreur est survenue');
 		}
 	};

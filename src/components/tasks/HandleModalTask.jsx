@@ -24,6 +24,7 @@ const HandleModalTask = ({
 		selectedWorkspace: 'default',
 		workspaceMembersIds: '',
 		workspaceMembers: '',
+		assignedTo: [],
 		selectedMember: 'default',
 		category: '',
 	});

@@ -35,6 +35,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 			description: editedTask?.description,
 			selectedWorkspace: editedTask?.workspaceId,
 			selectedMember: editedTask?.assignedTo[0],
+			assignedTo: editedTask?.assignedTo,
 			category: editedTask?.category,
 		}));
 	}, [editedTask]);

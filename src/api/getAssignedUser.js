@@ -8,6 +8,6 @@ export const getAssignedUser = async (userId) => {
 		});
 		return res.data.user;
 	} catch (error) {
-		console.log(error);
+		console.error('Error with getAssignedUser', error);
 	}
 };
