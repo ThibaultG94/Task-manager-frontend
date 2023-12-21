@@ -17,7 +17,7 @@ const TaskPageTip = () => {
 		<div className="tooltip-container">
 			<div className="tooltip-box">
 				<p>
-					Astuce : Double-cliquez sur un champ (titre, date, etc.)
+					<em>Astuce :</em> Double-cliquez sur un champ d'une task
 					pour le modifier instantanément.
 				</p>
 				<button

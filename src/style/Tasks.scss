@@ -417,7 +417,8 @@
 	position: fixed;
 	top: 1rem;
 	right: 6rem;
-	animation: slideDown 0.3s ease-in-out 2s forwards;
+	animation: slideDown 0.3s ease-in-out 12s forwards,
+		fadeOut 0.3s ease-in-out 22s forwards;
 
 	@keyframes slideDown {
 		0% {
@@ -430,6 +431,17 @@
 		}
 	}
 
+	@keyframes fadeOut {
+		0% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		100% {
+			opacity: 0;
+			transform: translateY(-120px);
+		}
+	}
+
 	@media (max-width: 1280px) {
 		top: 5rem;
 	}
@@ -438,7 +450,7 @@
 		position: relative;
 		background: #f9f871;
 		color: #0369a1;
-		padding: 1rem;
+		padding: 1.1rem;
 		border-radius: 0.5rem;
 		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 		max-width: 300px;
@@ -463,7 +475,8 @@
 			right: 1rem;
 			background: transparent;
 			border: none;
-			font-size: 2rem;
+			font-size: 2.5rem;
+			font-weight: 300;
 			color: #0369a1;
 			cursor: pointer;
 		}
