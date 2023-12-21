@@ -417,8 +417,12 @@
 	position: fixed;
 	top: 1rem;
 	right: 6rem;
-	animation: slideDown 0.3s ease-in-out 12s forwards,
-		fadeOut 0.3s ease-in-out 22s forwards;
+	animation: slideDown 0.3s ease-in-out 2s forwards,
+		fadeOut 0.3s ease-in-out 12s forwards;
+
+	&.closing {
+		animation: fadeOutClose 0.3s ease-in-out forwards;
+	}
 
 	@keyframes slideDown {
 		0% {
@@ -432,6 +436,17 @@
 	}
 
 	@keyframes fadeOut {
+		0% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		100% {
+			opacity: 0;
+			transform: translateY(-120px);
+		}
+	}
+
+	@keyframes fadeOutClose {
 		0% {
 			opacity: 1;
 			transform: translateY(0);

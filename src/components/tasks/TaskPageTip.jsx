@@ -1,15 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const TaskPageTip = () => {
 	const [showTip, setShowTip] = useState(false);
 
 	useEffect(() => {
-		const tipShown = sessionStorage.getItem('taskPageTipShown');
-		if (!tipShown) {
-			setShowTip(true);
-			sessionStorage.setItem('taskPageTipShown', 'true');
-		}
+		setTimeout(() => {
+			const tipInfo = JSON.parse(localStorage.getItem('taskPageTipInfo'));
+
+			if (!tipInfo) {
+				const expiryDate = new Date();
+				expiryDate.setDate(expiryDate.getDate() + 7);
+				localStorage.setItem(
+					'taskPageTipInfo',
+					JSON.stringify({
+						shown: true,
+						expiryDate: expiryDate.toISOString(),
+					})
+				);
+				setShowTip(true);
+			} else if (tipInfo.expiryDate === 'Infinity') {
+				setShowTip(false);
+			} else if (new Date() > new Date(tipInfo.expiryDate)) {
+				setShowTip(true);
+			} else {
+				setShowTip(false);
+			}
+		}, 10000);
 	}, []);
+
+	const handleClose = (doNotWatchAgainUntil) => {
+		const expiryDate = new Date();
+		if (doNotWatchAgainUntil === 'Infinity') {
+			localStorage.setItem(
+				'taskPageTipInfo',
+				JSON.stringify({ shown: true, expiryDate: 'Infinity' })
+			);
+		} else if (doNotWatchAgainUntil === 'Month') {
+			expiryDate.setDate(expiryDate.getDate() + 30);
+			localStorage.setItem(
+				'taskPageTipInfo',
+				JSON.stringify({ shown: true, expiryDate })
+			);
+		}
+
+		const tooltipContainer = document.querySelector('.tooltip-container');
+		tooltipContainer.style.animation =
+			'fadeOutClose 0.3s ease-in-out forwards';
+
+		setTimeout(() => {
+			tooltipContainer.style.display = 'none';
+		}, 300);
+	};
 
 	if (!showTip) return null;
 
@@ -20,9 +61,16 @@ const TaskPageTip = () => {
 					<em>Astuce :</em> Double-cliquez sur un champ d'une task
 					pour le modifier instantanément.
 				</p>
+				<label>
+					<input
+						type="checkbox"
+						onChange={() => handleClose('Infinity')}
+					/>
+					<span className="ml-2">Ne plus montrer cette astuce</span>
+				</label>
 				<button
 					className="close-button"
-					onClick={() => setShowTip(false)}>
+					onClick={() => handleClose('Month')}>
 					&times;
 				</button>
 			</div>
