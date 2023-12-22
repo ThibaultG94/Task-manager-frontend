@@ -11,7 +11,8 @@ export async function getCategoryDay(day, status, taskDate) {
 	const isThisWeek = todayDayOfWeek < taskDayOfWeek;
 	const isThisWeekOrNextWeek = taskDayOfWeek - todayDayOfWeek;
 	const isThisMonth = todayMonth === taskMonth;
-	const isNextMonth = taskMonth === todayMonth + 1;
+	const isNextMonth =
+		taskMonth === todayMonth + 1 || taskMonth === todayMonth - 11;
 	const isThisYear = todayYear === taskYear;
 	const isNextYear = taskYear === todayYear + 1;
 
@@ -41,10 +42,19 @@ export async function getCategoryDay(day, status, taskDate) {
 	if (dayInt === 14) {
 		if (taskDayOfWeek === 0) return 'next-weekend-tasks';
 	}
-	if (dayInt >= 14 && dayInt < 31)
-		return isThisMonth ? 'this-month-tasks' : 'next-month-tasks';
+	if (dayInt >= 14 && dayInt < 31) {
+		if (isThisMonth) {
+			return 'this-month-tasks';
+		} else if (isNextMonth) {
+			return 'next-month-tasks';
+		} else if (isThisYear) {
+			return 'this-year-tasks';
+		} else if (isNextYear) {
+			return 'next-year-tasks';
+		}
+	}
 	if (dayInt >= 31 && dayInt <= 365) {
-		if (todayMonth > taskMonth) return 'next-month-tasks';
+		if (isNextMonth) return 'next-month-tasks';
 		if (isThisYear) return 'this-year-tasks';
 		if (isNextYear) return 'next-year-tasks';
 	}
