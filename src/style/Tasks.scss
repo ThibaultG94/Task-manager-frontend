@@ -3,7 +3,6 @@
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: column;
-	margin-top: 10px;
 	overflow: hidden;
 	max-height: 0;
 	transition: max-height 0.3s ease;
@@ -417,11 +416,11 @@
 	position: fixed;
 	top: 1rem;
 	right: 6rem;
-	animation: slideDown 0.3s ease-in-out 2s forwards,
-		fadeOut 0.3s ease-in-out 12s forwards;
+	animation: slideDown 0.2s ease-in-out 1s forwards,
+		fadeOut 0.2s ease-in-out 10s forwards;
 
 	&.closing {
-		animation: fadeOutClose 0.3s ease-in-out forwards;
+		animation: fadeOutClose 0.2s ease-in-out forwards;
 	}
 
 	@keyframes slideDown {
