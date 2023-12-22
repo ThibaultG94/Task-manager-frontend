@@ -42,27 +42,38 @@ const HandleModalTask = ({
 			className="bg-black bg-opacity-50 fixed h-full inset-0 w-full z-10"
 			onClick={closeModal}>
 			<div
-				className="bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-y-auto transform -translate-x-1/2 top-10 rounded-lg shadow-md custom-xs:min-w-[400px] min-w-[300px] z-10"
+				className="flex flex-col bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-hidden transform -translate-x-1/2 top-10 rounded-lg shadow-md custom-xs:min-w-[400px] min-w-[300px] z-10"
 				ref={modalRef}
 				onClick={(e) => e.stopPropagation()}>
-				{!isEditing && (
-					<div>
-						<CloseButton onClose={closeModal} modalTabs={false} />
-						<ModalDisplayTask />
-						<div className="flex justify-end">
-							<DeleteTask setIsModalOpen={setIsModalOpen} />
-							<EditTask handleEditTask={handleEditTask} />
-						</div>
-					</div>
-				)}
+				<div className="flex-grow overflow-y-auto">
+					{!isEditing ? (
+						<>
+							<CloseButton
+								onClose={closeModal}
+								modalTabs={false}
+							/>
+							<ModalDisplayTask />
+						</>
+					) : (
+						<>
+							<ModalEditTask
+								taskData={taskData}
+								setTaskData={setTaskData}
+							/>
+						</>
+					)}
+				</div>
 
-				{isEditing && (
-					<div>
-						<ModalEditTask
-							taskData={taskData}
-							setTaskData={setTaskData}
-						/>
-						<div className="flex justify-between mt-1 mb-3 md:my-4 px-4 md:px-6">
+				<div className="mt-auto p-2">
+					{!isEditing ? (
+						<div className="flex justify-end">
+							<div className="flex justify-between">
+								<DeleteTask setIsModalOpen={setIsModalOpen} />
+								<EditTask handleEditTask={handleEditTask} />
+							</div>
+						</div>
+					) : (
+						<div className="flex justify-between px-2">
 							<CancelEditTask
 								handleCancelEdit={handleCancelEdit}
 							/>
@@ -72,8 +83,8 @@ const HandleModalTask = ({
 								taskData={taskData}
 							/>
 						</div>
-					</div>
-				)}
+					)}
+				</div>
 			</div>
 		</section>
 	);
