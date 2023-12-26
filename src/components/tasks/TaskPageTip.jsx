@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../store/selectors/userSelectors';
 
 const TaskPageTip = () => {
+	const currentUser = useSelector(selectCurrentUser);
+	const [isUserAcceptTips, setIsUserAcceptTips] = useState(false);
 	const [showTip, setShowTip] = useState(false);
 
 	useEffect(() => {
+		if (currentUser) setIsUserAcceptTips(currentUser.tips);
+	}, [currentUser]);
+
+	useEffect(() => {
 		setTimeout(() => {
+			if (!isUserAcceptTips) setShowTip(false);
 			const tipInfo = JSON.parse(localStorage.getItem('taskPageTipInfo'));
 
 			if (!tipInfo) {
