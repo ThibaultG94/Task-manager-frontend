@@ -35,6 +35,8 @@ import {
 import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
 import { ToastContainer } from 'react-toastify';
 import TaskPageTip from '../components/tasks/TaskPageTip';
+import { useGetTips } from '../api/getTips';
+import { selectCurrentUser } from '../store/selectors/userSelectors';
 
 const Tasks = () => {
 	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);
@@ -52,6 +54,8 @@ const Tasks = () => {
 	const isThisYearTasksLoaded = useSelector(selectIsThisYearTasksLoaded);
 	const isNextYearTasksLoaded = useSelector(selectIsNextYearTasksLoaded);
 	const isBecomingTasksLoaded = useSelector(selectIsBecomingTasksLoaded);
+
+	const currentUser = useSelector(selectCurrentUser);
 
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
@@ -76,6 +80,7 @@ const Tasks = () => {
 	const getThisYearTasks = useGetThisYearTasks();
 	const getNextYearTasks = useGetNextYearTasks();
 	const getBecomingTasks = useGetBecomingTasks();
+	const getTips = useGetTips();
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
@@ -102,10 +107,21 @@ const Tasks = () => {
 				if (!isNextYearTasksLoaded) await getNextYearTasks(userId);
 				if (!isBecomingTasksLoaded) await getBecomingTasks(userId);
 			}
+
+			await getTips();
 		};
 
 		getData();
 	}, [userId]);
+
+	useEffect(() => {
+		const userGetTips = async () => {
+			if (currentUser.tips) {
+				await getTips();
+			}
+		};
+		userGetTips();
+	}, [currentUser]);
 
 	return (
 		<div className="bg-light-blue flex relative">

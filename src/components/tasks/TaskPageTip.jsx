@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/selectors/userSelectors';
+import { selectTips } from '../../store/selectors/tipsSelectors';
 
 const TaskPageTip = () => {
 	const currentUser = useSelector(selectCurrentUser);
+	const tips = useSelector(selectTips);
 	const [isUserAcceptTips, setIsUserAcceptTips] = useState(false);
 	const [showTip, setShowTip] = useState(false);
 
@@ -67,8 +69,7 @@ const TaskPageTip = () => {
 		<div className="tooltip-container">
 			<div className="tooltip-box">
 				<p>
-					<em>Astuce :</em> Double-cliquez sur un champ d'une task
-					pour le modifier instantanément.
+					<em>Astuce :</em> {tips && tips[0]?.content}
 				</p>
 				<label>
 					<input
