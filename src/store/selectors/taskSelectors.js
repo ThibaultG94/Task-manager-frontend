@@ -172,6 +172,11 @@ export const selectIsArchivedTasksLoaded = createSelector(
 	(tasks) => tasks.isArchivedTasksLoaded
 );
 
+export const selectTotalArchivedTasks = createSelector(
+	[selectTasksState],
+	(tasks) => tasks.totalArchivedTasks
+);
+
 export const selectTasksLoading = createSelector(
 	[selectTasksState],
 	(tasks) => tasks.loading

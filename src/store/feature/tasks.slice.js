@@ -37,6 +37,7 @@ export const tasksSlice = createSlice({
 		isBecomingTasksLoaded: false,
 		archivedTasks: [],
 		isArchivedTasksLoaded: false,
+		totalArchivedTasks: 0,
 		editedTask: null,
 		loading: false,
 		error: null,
@@ -319,6 +320,9 @@ export const tasksSlice = createSlice({
 			state.loading = false;
 			state.error = action.payload;
 		},
+		setTotalArchivedTasks: (state, action) => {
+			state.totalArchivedTasks = action.payload;
+		},
 		setInitialEditedTask: (state, action) => {
 			state.editedTask = action.payload;
 		},
@@ -398,6 +402,7 @@ export const {
 	deleteTaskAction,
 	deleteTaskSuccess,
 	deleteTaskFailed,
+	setTotalArchivedTasks,
 	setInitialEditedTask,
 	setEditedTask,
 	updateEditedTask,

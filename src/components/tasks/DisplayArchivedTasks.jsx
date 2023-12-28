@@ -4,19 +4,24 @@ import { useSelector } from 'react-redux';
 import {
 	selectArchivedTasks,
 	selectIsArchivedTasksLoaded,
+	selectTotalArchivedTasks,
 } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import getUserId from '../../api/getUserId';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import HeaderBlock from './HeaderBlock';
+import Pagination from './Pagination';
 
 const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(0);
 	const [userId, setUserId] = useState(null);
 	const getArchivedTasks = useGetArchivedTasks();
 	const [isArchivedTasksHasBeenCalled, setIsArchivedTasksHasBeenCalled] =
 		useState(false);
 	const userArchivedTasks = useSelector(selectArchivedTasks);
+	const totalArchivedTasks = useSelector(selectTotalArchivedTasks);
 	const [displayArchivedTasks, setDisplayArchivedTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 	const isArchivedTasksLoaded = useSelector(selectIsArchivedTasksLoaded);
@@ -39,9 +44,13 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 
 	useEffect(() => {
 		if (!isArchivedTasksLoaded) {
-			if (userId) getArchivedTasks(userId);
+			if (userId) getArchivedTasks(userId, currentPage, 10);
 		}
 	}, [userId]);
+
+	useEffect(() => {
+		if (userId) getArchivedTasks(userId, currentPage, 10);
+	}, [currentPage]);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({
@@ -65,6 +74,11 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 
 		updateDisplayArchivedTasks();
 	}, [userArchivedTasks]);
+
+	useEffect(() => {
+		const pages = Math.ceil(totalArchivedTasks / 10);
+		setTotalPages(pages);
+	}, [totalArchivedTasks]);
 
 	return (
 		<div
@@ -95,6 +109,13 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 							))
 					: null}
 			</div>
+			{expandedBlocks && expandedBlocks['archived-tasks'] ? (
+				<Pagination
+					currentPage={currentPage}
+					setPage={setCurrentPage}
+					totalPages={totalPages}
+				/>
+			) : null}
 		</div>
 	);
 };

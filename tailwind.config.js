@@ -20,6 +20,7 @@ module.exports = {
 				'red-error-overdue': '#fdded1',
 				'light-grey': '#a8a9b4',
 				'orange-primary': '#ffb360',
+				'pink-primary': '#FFEECA',
 				'yellow-primary': '#F9F871',
 				'modal-task-bg': '#f9f9f9',
 			},
