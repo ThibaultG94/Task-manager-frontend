@@ -10,7 +10,8 @@ const TaskPageTip = () => {
 	const [showTip, setShowTip] = useState(false);
 
 	useEffect(() => {
-		if (currentUser) setIsUserAcceptTips(currentUser.tips);
+		if (currentUser && currentUser.tips)
+			setIsUserAcceptTips(currentUser?.tips);
 	}, [currentUser]);
 
 	useEffect(() => {
