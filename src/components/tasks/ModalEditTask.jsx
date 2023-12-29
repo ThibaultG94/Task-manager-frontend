@@ -165,7 +165,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 
 			<div className="md:mt-4 px-2">
 				<textarea
-					className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 flex-grow focus:outline-none focus:shadow-outline leading-tight p-2 resize-none rounded shadow w-full"
+					className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 flex-grow focus:outline-none focus:shadow-outline p-2 resize-none rounded shadow w-full"
 					cols="30"
 					name="description"
 					placeholder="Description (optionnel)"

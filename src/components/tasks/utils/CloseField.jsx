@@ -15,7 +15,7 @@ const CloseField = ({ selectedField }) => {
 					})
 				);
 			}}
-			className="absolute bottom-2 left-24 lg:left-28 ml-1 lg:ml-0 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none">
+			className="absolute bottom-2 left-24 lg:left-[110px] ml-1 lg:ml-0 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none">
 			<svg
 				className="w-3 lg:w-4 h-3 lg:h-4"
 				fill="none"
