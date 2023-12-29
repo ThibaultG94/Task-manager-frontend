@@ -31,6 +31,15 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 	const handleSubmitTitle = async (e) => {
 		e.preventDefault();
 		const newTitle = inputTitleRef.current.value;
+		if (!newTitle) {
+			toast.error('Le titre ne peut pas être vide.');
+			return;
+		}
+		if (newTitle === task.title) {
+			dispatch(resetEditState());
+			dispatch(setHasEdited(false));
+			return;
+		}
 		dispatch(setEditedTask({ title: newTitle }));
 		try {
 			await editTask({ ...editedTask, title: newTitle });
