@@ -42,6 +42,10 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 	};
 
 	const handleSave = async () => {
+		if (editedTask.title === '') {
+			toast.error('Veuillez saisir un titre.');
+			return;
+		}
 		await updateTask();
 		setIsModalOpen(false);
 		setIsEditing(false);

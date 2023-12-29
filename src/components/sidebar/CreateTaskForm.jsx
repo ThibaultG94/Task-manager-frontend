@@ -40,6 +40,11 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		if (selectedWorkspace === 'default') {
+			toast.error('Veuillez sélectionner un workspace.');
+			return;
+		}
+
 		const assignedUser = workspaceMembers.find(
 			(member) => member.userId === selectedMember
 		);

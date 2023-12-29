@@ -12,8 +12,9 @@ const WorkspaceSelect = ({
 				className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
 				name="workspaceId"
 				onChange={(e) => setSelectedWorkspace(e.target.value)}
+				required
 				value={selectedWorkspace}>
-				<option value="default" disabled>
+				<option value="default" disabled selected>
 					Sélectionnez un workspace
 				</option>
 				{userWorkspaces &&
