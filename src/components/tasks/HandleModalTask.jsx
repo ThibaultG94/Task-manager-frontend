@@ -73,7 +73,7 @@ const HandleModalTask = ({
 							</div>
 						</div>
 					) : (
-						<div className="flex justify-between px-2">
+						<div className="flex justify-between px-2 mb-2 mt-0.5">
 							<CancelEditTask
 								handleCancelEdit={handleCancelEdit}
 							/>

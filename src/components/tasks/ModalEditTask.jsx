@@ -164,13 +164,11 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 			</div>
 
 			<div className="md:mt-4 px-2">
-				<h5 className="hidden md:block text-sm font-bold text-gray-500 mb-2">
-					Description
-				</h5>
 				<textarea
 					className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 flex-grow focus:outline-none focus:shadow-outline leading-tight p-2 resize-none rounded shadow w-full"
 					cols="30"
 					name="description"
+					placeholder="Description (optionnel)"
 					onChange={(e) =>
 						setTaskData((prev) => ({
 							...prev,

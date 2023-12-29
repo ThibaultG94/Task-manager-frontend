@@ -46,7 +46,7 @@ const ModalDisplayTask = () => {
 	}, [editedTask]);
 
 	return (
-		<div className="max-w-lg mx-auto px-4 rounded-lg">
+		<div className="max-w-lg mx-auto px-6 rounded-lg">
 			<div className="text-center pt-4 px-6">
 				<h5 className="text-gray-900 text-lg md:text-xl leading-tight font-medium mb-2">
 					{editedTask?.title}
@@ -121,16 +121,15 @@ const ModalDisplayTask = () => {
 				</div>
 			</div>
 
-			<div className="mt-4 px-2">
-				<h5 className="text-sm font-bold text-gray-500 mb-2">
-					Description
-				</h5>
-				<div className="bg-gray-100 description-icon p-3 rounded-lg">
-					<span className="ml-2 text-gray-600 whitespace-pre-line">
-						{editedTask?.description}
-					</span>
+			{editedTask?.description ? (
+				<div className="mt-4 px-2">
+					<div className="bg-gray-100 description-icon p-3 rounded-lg">
+						<span className="ml-2 text-gray-600 whitespace-pre-line">
+							{editedTask?.description}
+						</span>
+					</div>
 				</div>
-			</div>
+			) : null}
 			{/* <TaskDisplayComments /> */}
 		</div>
 	);
