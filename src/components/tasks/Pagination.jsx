@@ -16,7 +16,10 @@ const Pagination = ({ currentPage, setPage, totalPages }) => {
 								? 'bg-orange-primary text-white'
 								: 'bg-white text-gray-700 hover:bg-pink-primary'
 						} sm:inline-block sm:mr-2`}
-						onClick={() => setPage(page)}
+						onClick={(e) => {
+							e.stopPropagation();
+							setPage(page);
+						}}
 						onKeyDown={(event) => handleKeyDown(event, page)}
 						aria-label={`Go to page ${page}`}>
 						{page}
