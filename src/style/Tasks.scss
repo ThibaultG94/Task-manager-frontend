@@ -119,15 +119,19 @@
 	}
 
 	@media screen and (max-width: 820px) {
-		grid-template-columns: 41px 250px 75px 105px 90px 82px 40px 41px;
+		grid-template-columns: 41px 250px 75px 105px 90px 82px 40px 32px;
 	}
 
 	@media screen and (max-width: 800px) {
-		grid-template-columns: 39px 240px 71px 105px 90px 78px 40px 39px;
+		grid-template-columns: 39px 240px 71px 105px 90px 78px 40px 31px;
+	}
+
+	@media screen and (max-width: 780px) {
+		grid-template-columns: 39px 220px 71px 105px 90px 78px 40px 31px;
 	}
 
 	@media screen and (max-width: 767px) {
-		grid-template-columns: 46px 280px 60px 60px 60px 93px 40px 60px;
+		grid-template-columns: 46px 280px 60px 60px 60px 93px 40px 30px;
 	}
 
 	@media screen and (max-width: 750px) {
@@ -333,15 +337,15 @@
 	background-color: #f5f5f5;
 }
 
-.faible {
+.Faible {
 	color: #0288d1;
 	background-color: #b3e5fc;
 }
-.moyenne {
+.Moyenne {
 	color: #c2185b;
 	background-color: #f8bbd0;
 }
-.haute {
+.Haute {
 	color: #c2185b;
 	background-color: #f8bbd0;
 }
@@ -368,7 +372,7 @@
 	cursor: pointer;
 	padding: 4px;
 	position: absolute;
-	right: 10px;
+	right: 15px;
 	top: 50%;
 	transform: translateY(-50%);
 	transition: all 0.3s ease-in-out;

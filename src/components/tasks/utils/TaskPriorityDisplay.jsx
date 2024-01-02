@@ -3,9 +3,9 @@ import React from 'react';
 const TaskPriorityDisplay = ({ className, convertedPriority }) => {
 	const priorityIcon = {
 		Urgent: 'fa-exclamation-triangle',
-		'Priorité haute': 'fa-arrow-up',
-		'Priorité moyenne': 'fa-equals',
-		'Priorité faible': 'fa-arrow-down',
+		Haute: 'fa-arrow-up',
+		Moyenne: 'fa-equals',
+		Faible: 'fa-arrow-down',
 	};
 
 	return (

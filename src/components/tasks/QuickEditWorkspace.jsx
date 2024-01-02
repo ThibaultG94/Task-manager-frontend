@@ -55,7 +55,7 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 				setSelectedTask(task);
 				dispatch(setExclusiveEditingField('workspace'));
 			}}
-			className="cursor-auto flex h-10 items-center m-auto relative rounded-lg self-enter text-xs lg:text-sm xl:text-base">
+			className="cursor-auto ellipsis flex h-10 items-center m-auto relative rounded-lg self-enter text-xs lg:text-sm xl:text-base">
 			{!isEditingField.workspace && (
 				<span className="ellipsis">
 					{screenWidth < 480

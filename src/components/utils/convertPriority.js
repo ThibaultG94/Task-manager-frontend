@@ -1,11 +1,11 @@
 export async function convertPriority(priority) {
 	switch (priority) {
 		case 'Low':
-			return 'Priorité faible';
+			return 'Faible';
 		case 'Medium':
-			return 'Priorité moyenne';
+			return 'Moyenne';
 		case 'High':
-			return 'Priorité haute';
+			return 'Haute';
 		case 'Urgent':
 			return 'Urgent';
 
