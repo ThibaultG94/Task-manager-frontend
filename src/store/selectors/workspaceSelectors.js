@@ -21,3 +21,8 @@ export const selectWorkspacesError = createSelector(
 	[selectWorkspacesState],
 	(workspaces) => workspaces.error
 );
+
+export const selectEditedWorkspace = createSelector(
+	[selectWorkspacesState],
+	(workspaces) => workspaces.editedWorkspace
+);

@@ -90,6 +90,7 @@ body {
 .workspaces-container {
 	grid-area: work;
 	position: relative;
+	padding: 10px 0;
 }
 
 .coworkers-container {
@@ -377,4 +378,19 @@ body {
 
 .bg-status-archived {
 	background-color: #bbbfe2;
+}
+
+.workspace {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	justify-content: space-between;
+	padding: 10px 0;
+	position: relative;
+	transition: 0.1s ease;
+
+	&:hover,
+	&:focus {
+		background: #ffb360;
+	}
 }

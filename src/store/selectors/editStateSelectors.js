@@ -12,6 +12,11 @@ export const selectIsEditingField = createSelector(
 	(editState) => editState.isEditing
 );
 
+export const selectIsEditingWorkspace = createSelector(
+	[selectEditState],
+	(editState) => editState.isEditingWorkspace
+);
+
 export const selectHasEdited = createSelector(
 	[selectEditState],
 	(editState) => editState.hasEdited

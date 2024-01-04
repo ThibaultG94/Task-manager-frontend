@@ -5,6 +5,7 @@ export const workspacesSlice = createSlice({
 	initialState: {
 		workspaces: [],
 		singleWorkspace: null,
+		editedWorkspace: null,
 		loading: false,
 		error: null,
 	},
@@ -59,7 +60,7 @@ export const workspacesSlice = createSlice({
 			state.loading = false;
 			state.error = action.payload;
 		},
-		deleteWorkspace: (state) => {
+		deleteWorkspaceAction: (state) => {
 			state.loading = true;
 		},
 		deleteWorkspaceSuccess: (state, action) => {
@@ -72,6 +73,9 @@ export const workspacesSlice = createSlice({
 		deleteWorkspaceFailed: (state, action) => {
 			state.loading = false;
 			state.error = action.payload;
+		},
+		setInitialEditedWorkspace: (state, action) => {
+			state.editedWorkspace = action.payload;
 		},
 	},
 });
@@ -89,8 +93,9 @@ export const {
 	editWorkspace,
 	editWorkspaceSuccess,
 	editWorkspaceFailed,
-	deleteWorkspace,
+	deleteWorkspaceAction,
 	deleteWorkspaceSuccess,
 	deleteWorkspaceFailed,
+	setInitialEditedWorkspace,
 } = workspacesSlice.actions;
 export default workspacesSlice.reducer;

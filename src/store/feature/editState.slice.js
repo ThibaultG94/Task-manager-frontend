@@ -11,6 +11,7 @@ const initialState = {
 		workspace: false,
 		assignedTo: false,
 	},
+	isEditingWorkspace: false,
 	hasEdited: false,
 	hasBeenUpdated: false,
 	overdueTasksHasBeenUpdated: false,
@@ -46,7 +47,9 @@ const editStateSlice = createSlice({
 
 			state.isEditing[fieldToEdit] = true;
 		},
-
+		setIsEditingWorkspace: (state, action) => {
+			state.isEditingWorkspace = action.payload;
+		},
 		setHasEdited: (state, action) => {
 			state.hasEdited = action.payload;
 		},
@@ -107,6 +110,7 @@ const editStateSlice = createSlice({
 				assignedTo: false,
 			};
 			state.hasEdited = false;
+			state.isEditingWorkspace = false;
 		},
 	},
 });
