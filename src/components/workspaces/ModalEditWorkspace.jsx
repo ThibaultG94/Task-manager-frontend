@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { selectEditedWorkspace } from '../../store/selectors/workspaceSelectors';
+import { useSelector } from 'react-redux';
 
 const ModalEditWorkspace = ({ workspaceData, setWorkspaceData }) => {
-	// useEffect(() => {
-	// 	setWorkspaceData((prevState) => ({
-	// 		...prevState,
-	// 		_id: editedTask?._id,
-	// 		title: editedTask?.title,
-	// 		status: editedTask?.status,
-	// 		priority: editedTask?.priority,
-	// 		deadline: editedTask?.deadline,
-	// 		description: editedTask?.description,
-	// 		selectedWorkspace: editedTask?.workspaceId,
-	// 		assignedTo: editedTask?.assignedTo,
-	// 		category: editedTask?.category,
-	// 	}));
-	// }, [editedTask]);
+	const editedWorkspace = useSelector(selectEditedWorkspace);
+
+	useEffect(() => {
+		setWorkspaceData((prevState) => ({
+			...prevState,
+			_id: editedWorkspace?._id,
+			title: editedWorkspace?.title,
+			description: editedWorkspace?.description,
+		}));
+	}, [editedWorkspace]);
 
 	return (
 		<form

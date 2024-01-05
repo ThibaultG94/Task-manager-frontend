@@ -4,6 +4,7 @@ import ModalDisplayWorkspace from './ModalDisplayWorkspace';
 import DeleteWorkspace from './DeleteWorkspace';
 import EditWorkspace from './EditWorkspace';
 import ModalEditWorkspace from './ModalEditWorkspace';
+import CancelEditWorkspace from './CancelEditWorkspace';
 
 const HandleModalWorkspace = ({
 	closeModalWorkspace,
@@ -87,12 +88,12 @@ const HandleModalWorkspace = ({
 						</div>
 					) : (
 						<div className="flex justify-between px-2 mb-2 mt-0.5">
-							{/* <CancelEditTask
+							<CancelEditWorkspace
 								handleCancelEditWorkspace={
 									handleCancelEditWorkspace
 								}
 							/>
-							<SaveEditedTask
+							{/* <SaveEditedTask
 								setIsEditingWorkspace={setIsEditingWorkspace}
 								setIsModalWorkspaceOpen={
 									setIsModalWorkspaceOpen
