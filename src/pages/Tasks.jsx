@@ -116,7 +116,7 @@ const Tasks = () => {
 
 	useEffect(() => {
 		const userGetTips = async () => {
-			if (currentUser.tips) {
+			if (currentUser && currentUser.tips) {
 				await getTips();
 			}
 		};

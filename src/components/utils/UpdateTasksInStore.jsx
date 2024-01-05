@@ -44,10 +44,13 @@ import {
 	setTomorrowTasksHasBeenUpdated,
 } from '../../store/feature/editState.slice';
 import getUserId from '../../api/getUserId';
+import { selectCurrentArchivedPage } from '../../store/selectors/pagesSelectors';
 
 export const useUpdateTasksInStore = () => {
 	const dispatch = useDispatch();
 	const [userId, setUserId] = useState(null);
+	const currentArchivedTasks = useSelector(selectCurrentArchivedPage);
+	const [currentPage, setCurrentPage] = useState(0);
 
 	const overdueTasksHasBeenUpdated = useSelector(
 		selectOverdueTasksHasBeenUpdated
@@ -198,8 +201,15 @@ export const useUpdateTasksInStore = () => {
 
 	useEffect(() => {
 		if (archivedTasksHasBeenUpdated) {
-			userId !== null && getArchivedTasks(userId);
+			setCurrentPage(0);
+			setCurrentPage(currentArchivedTasks);
 			dispatch(setArchivedTasksHasBeenUpdated(false));
 		}
 	}, [archivedTasksHasBeenUpdated]);
+
+	useEffect(() => {
+		if (currentPage && currentPage !== 0) {
+			userId !== null && getArchivedTasks(userId, currentPage, 10);
+		}
+	}, [currentPage, archivedTasksHasBeenUpdated]);
 };

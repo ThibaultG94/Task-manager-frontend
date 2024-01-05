@@ -68,7 +68,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Status
 					</span>
-					<div className="mb-1 md:mb-2 md:mr-2 md:mb-0 relative w-full md:w-1/2">
+					<div className="mb-1 md:mr-2 md:mb-0 relative w-full md:w-1/2">
 						<select
 							className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
 							name="status"

@@ -4,6 +4,7 @@ import tasksSlice from './feature/tasks.slice';
 import workspacesSlice from './feature/workspaces.slice';
 import editStateSlice from './feature/editState.slice';
 import tipsSlice from './feature/tips.slice';
+import pagesSlice from './feature/pages.slice';
 
 const store = configureStore({
 	reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
 		workspaces: workspacesSlice,
 		editState: editStateSlice,
 		tips: tipsSlice,
+		pages: pagesSlice,
 	},
 });
 

@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import CloseButton from '../modal/CloseButton';
 import ModalDisplayWorkspace from './ModalDisplayWorkspace';
 import DeleteWorkspace from './DeleteWorkspace';
+import EditWorkspace from './EditWorkspace';
+import ModalEditWorkspace from './ModalEditWorkspace';
 
 const HandleModalWorkspace = ({
 	closeModalWorkspace,
@@ -60,10 +62,10 @@ const HandleModalWorkspace = ({
 						</>
 					) : (
 						<>
-							{/* <ModalEditTask
+							<ModalEditWorkspace
 								workspaceData={workspaceData}
 								setWorkspaceData={setWorkspaceData}
-							/> */}
+							/>
 						</>
 					)}
 				</div>
@@ -78,9 +80,9 @@ const HandleModalWorkspace = ({
 									}
 									workspaceData={workspaceData}
 								/>
-								{/* <EditTask
+								<EditWorkspace
 									handleEditWorkspace={handleEditWorkspace}
-								/> */}
+								/>
 							</div>
 						</div>
 					) : (

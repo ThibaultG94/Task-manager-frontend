@@ -1,7 +1,13 @@
+import { useDispatch } from 'react-redux';
+import { setCurrentArchivedPage } from '../../store/feature/pages.slice';
+
 const Pagination = ({ currentPage, setPage, totalPages }) => {
+	const dispatch = useDispatch();
+
 	const handleKeyDown = (event, page) => {
 		if (event.key === 'Enter') {
 			setPage(page);
+			dispatch(setCurrentArchivedPage(page));
 		}
 	};
 
@@ -19,6 +25,7 @@ const Pagination = ({ currentPage, setPage, totalPages }) => {
 						onClick={(e) => {
 							e.stopPropagation();
 							setPage(page);
+							dispatch(setCurrentArchivedPage(page));
 						}}
 						onKeyDown={(event) => handleKeyDown(event, page)}
 						aria-label={`Go to page ${page}`}>

@@ -12,8 +12,10 @@ import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import HeaderBlock from './HeaderBlock';
 import Pagination from './Pagination';
+import { selectCurrentArchivedPage } from '../../store/selectors/pagesSelectors';
 
 const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
+	const currentArchivedTasks = useSelector(selectCurrentArchivedPage);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);
 	const [userId, setUserId] = useState(null);
@@ -43,13 +45,13 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	};
 
 	useEffect(() => {
-		if (!isArchivedTasksLoaded) {
+		if (!isArchivedTasksLoaded && currentPage) {
 			if (userId) getArchivedTasks(userId, currentPage, 10);
 		}
 	}, [userId]);
 
 	useEffect(() => {
-		if (userId) getArchivedTasks(userId, currentPage, 10);
+		if (userId && currentPage) getArchivedTasks(userId, currentPage, 10);
 	}, [currentPage]);
 
 	const toggleBlock = (blockId) => {
@@ -79,6 +81,10 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 		const pages = Math.ceil(totalArchivedTasks / 10);
 		setTotalPages(pages);
 	}, [totalArchivedTasks]);
+
+	useEffect(() => {
+		if (currentArchivedTasks) setCurrentPage(currentArchivedTasks);
+	}, [currentArchivedTasks]);
 
 	return (
 		<div

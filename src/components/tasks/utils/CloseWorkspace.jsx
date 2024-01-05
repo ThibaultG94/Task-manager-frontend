@@ -15,7 +15,7 @@ const CloseWorkspace = () => {
 					})
 				);
 			}}
-			className="absolute bottom-0.5 left-28 lg:left-32 ml-2 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none">
+			className="absolute bottom-0.5 right-0 lg:right-[-27px] ml-2 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none">
 			<svg
 				className="w-4 h-4"
 				fill="none"
