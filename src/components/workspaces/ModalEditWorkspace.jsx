@@ -6,12 +6,14 @@ const ModalEditWorkspace = ({ workspaceData, setWorkspaceData }) => {
 	const editedWorkspace = useSelector(selectEditedWorkspace);
 
 	useEffect(() => {
-		setWorkspaceData((prevState) => ({
-			...prevState,
-			_id: editedWorkspace?._id,
-			title: editedWorkspace?.title,
-			description: editedWorkspace?.description,
-		}));
+		if (editedWorkspace) {
+			setWorkspaceData((prevState) => ({
+				...prevState,
+				_id: editedWorkspace._id,
+				title: editedWorkspace.title,
+				description: editedWorkspace.description,
+			}));
+		}
 	}, [editedWorkspace]);
 
 	return (

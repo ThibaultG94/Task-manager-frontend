@@ -4,17 +4,9 @@ import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetWorkspaceTaskStatusCount } from '../../api/getWorkspaceTaskStatusCount';
 import { TaskStatusCount } from './TaskStatusCount';
 import { useMediaQuery } from 'react-responsive';
-import {
-	FaUser,
-	FaClipboardList,
-	FaCheck,
-	FaArchive,
-	FaSpinner,
-} from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 import { TaskStatusIcon } from './TaskStatusIcon';
 import useCheckIfEditedWorkspace from './utils/checkIfEditedWorkspace';
-import { formatWorkspaceForEditing } from '../workspaces/utils/formatWorkspaceForEditing';
-import { setInitialEditedWorkspace } from '../../store/feature/workspaces.slice';
 import HandleModalWorkspace from '../workspaces/HandleModalWorkspace';
 
 const ListWorkspaces = () => {
@@ -26,13 +18,6 @@ const ListWorkspaces = () => {
 	const [selectedWorkspace, setSelectedWorkspace] = useState(null);
 	const [isModalWorkspaceOpen, setIsModalWorkspaceOpen] = useState(false);
 	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
-
-	const statusToIcon = {
-		Pending: <FaClipboardList />,
-		'In Progress': <FaSpinner />,
-		Completed: <FaCheck />,
-		Archived: <FaArchive />,
-	};
 
 	const checkIfEditedWorkspace = useCheckIfEditedWorkspace({
 		setIsModalWorkspaceOpen,
@@ -48,18 +33,6 @@ const ListWorkspaces = () => {
 	const closeModalWorkspace = async () => {
 		await checkIfEditedWorkspace();
 	};
-
-	useEffect(() => {
-		const resetEditedWorkspace = async () => {
-			// const formattedWorkspace = await formatWorkspaceForEditing(
-			// 	selectedWorkspace
-			// );
-			// if (formattedWorkspace) {
-			// 	dispatch(setInitialEditedWorkspace(formattedWorkspace));
-			// }
-		};
-		resetEditedWorkspace();
-	}, [selectedWorkspace]);
 
 	useEffect(() => {
 		setAllWorkspaces(workspaces);
@@ -127,7 +100,7 @@ const ListWorkspaces = () => {
 											)
 										)}
 									</div>
-									<div className="ml-4">
+									<div className="ml-4 mr-2">
 										<FaUser
 											title={`${workspace?.members.length} membre(s)`}
 										/>

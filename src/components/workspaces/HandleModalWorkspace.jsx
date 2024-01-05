@@ -5,6 +5,7 @@ import DeleteWorkspace from './DeleteWorkspace';
 import EditWorkspace from './EditWorkspace';
 import ModalEditWorkspace from './ModalEditWorkspace';
 import CancelEditWorkspace from './CancelEditWorkspace';
+import SaveEditedWorkspace from './SaveEditedWorkspace';
 
 const HandleModalWorkspace = ({
 	closeModalWorkspace,
@@ -93,13 +94,13 @@ const HandleModalWorkspace = ({
 									handleCancelEditWorkspace
 								}
 							/>
-							{/* <SaveEditedTask
+							<SaveEditedWorkspace
 								setIsEditingWorkspace={setIsEditingWorkspace}
 								setIsModalWorkspaceOpen={
 									setIsModalWorkspaceOpen
 								}
 								workspaceData={workspaceData}
-							/> */}
+							/>
 						</div>
 					)}
 				</div>

@@ -46,7 +46,7 @@ export const workspacesSlice = createSlice({
 			state.loading = false;
 			state.error = action.payload;
 		},
-		editWorkspace: (state) => {
+		editWorkspaceAction: (state) => {
 			state.loading = true;
 		},
 		editWorkspaceSuccess: (state, action) => {
@@ -90,7 +90,7 @@ export const {
 	createWorkspaceAction,
 	createWorkspaceSuccess,
 	createWorkspaceFailed,
-	editWorkspace,
+	editWorkspaceAction,
 	editWorkspaceSuccess,
 	editWorkspaceFailed,
 	deleteWorkspaceAction,
