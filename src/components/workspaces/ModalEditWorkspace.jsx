@@ -24,7 +24,7 @@ const ModalEditWorkspace = ({ workspaceData, setWorkspaceData }) => {
 				<h5 className="text-gray-900 text-base md:text-lg leading-tight font-medium mb-2">
 					<input
 						className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 focus:outline-none focus:shadow-outline leading-tight p-2 rounded shadow w-full"
-						maxLength={50}
+						maxLength={30}
 						name="title"
 						onChange={(e) =>
 							setWorkspaceData((prev) => ({

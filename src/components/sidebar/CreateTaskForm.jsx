@@ -84,6 +84,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 							title={taskTitle}
 							setTitle={setTaskTitle}
 							label={'Nom de la tâche'}
+							length={60}
 						/>
 						<div className="flex flex-col sm:flex-row mb-2 sm:mb-4 md:mb-5">
 							<StatusSelect

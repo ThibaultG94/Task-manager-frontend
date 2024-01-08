@@ -55,7 +55,7 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 				setSelectedTask(task);
 				dispatch(setExclusiveEditingField('workspace'));
 			}}
-			className="cursor-auto flex h-10 items-center m-auto relative rounded-lg self-enter text-xs lg:text-sm xl:text-base">
+			className="cursor-auto ellipsis flex h-10 items-center m-auto relative rounded-lg self-enter text-xs lg:text-sm xl:text-base">
 			{!isEditingField.workspace && (
 				<span className="ellipsis">
 					{screenWidth < 480
@@ -67,7 +67,7 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 				<>
 					<form className="relative lg:block hidden">
 						<select
-							className="block bg-transparent appearance-none border border-gray-300 hover:border-gray-500 py-1 pr-2 text-center rounded shadow leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
+							className="block bg-transparent appearance-none border border-gray-300 hover:border-gray-500 py-1 pr-2 text-center rounded shadow leading-tight focus:outline-none focus:shadow-outline cursor-pointer ellipsis"
 							defaultValue={editedTask?.workspaceId}
 							ref={inputWorkspaceRef}
 							onChange={(e) =>
@@ -85,7 +85,7 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 						{/* <ArrowDown /> */}
 						<CloseWorkspace />
 					</form>
-					<span className="ellipsis lg:hidden block">
+					<span className="ellipsis max-w-16 lg:hidden block">
 						{screenWidth < 480
 							? getInitials(task.workspaceTitle)
 							: task.workspaceTitle}
@@ -93,7 +93,7 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 				</>
 			) : (
 				isEditingField.workspace && (
-					<span className="ellipsis">
+					<span className="ellipsis max-w-16">
 						{screenWidth < 480
 							? getInitials(task.workspaceTitle)
 							: task.workspaceTitle}
