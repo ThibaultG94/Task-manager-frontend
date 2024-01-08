@@ -27,6 +27,8 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 	const inputWorkspaceRef = useRef(null);
 	const screenWidth = useWindowWidth();
 	const [workspaces, setWorkspaces] = useState([]);
+	const classDiv =
+		'cursor-auto flex h-10 items-center m-auto relative rounded-lg self-enter text-xs lg:text-sm xl:text-base';
 
 	useEffect(() => {
 		setWorkspaces(userWorkspaces);
@@ -51,11 +53,15 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 	return (
 		<div
 			onClick={(e) => e.stopPropagation()}
-			onDoubleClick={() => {
-				setSelectedTask(task);
-				dispatch(setExclusiveEditingField('workspace'));
-			}}
-			className="cursor-auto ellipsis flex h-10 items-center m-auto relative rounded-lg self-enter text-xs lg:text-sm xl:text-base">
+			// onDoubleClick={() => {
+			// 	setSelectedTask(task);
+			// 	dispatch(setExclusiveEditingField('workspace'));
+			// }}
+			className={
+				isEditingField.workspace
+					? `${classDiv} z-10`
+					: `${classDiv} ellipsis`
+			}>
 			{!isEditingField.workspace && (
 				<span className="ellipsis">
 					{screenWidth < 480
@@ -67,7 +73,7 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 				<>
 					<form className="relative lg:block hidden">
 						<select
-							className="block bg-transparent appearance-none border border-gray-300 hover:border-gray-500 py-1 pr-2 text-center rounded shadow leading-tight focus:outline-none focus:shadow-outline cursor-pointer ellipsis"
+							className="block bg-white appearance-none border border-gray-300 hover:border-gray-500 py-1 text-center rounded shadow leading-tight focus:outline-none focus:shadow-outline cursor-pointer pl-2 pr-4"
 							defaultValue={editedTask?.workspaceId}
 							ref={inputWorkspaceRef}
 							onChange={(e) =>
@@ -82,7 +88,7 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 									</option>
 								))}
 						</select>
-						{/* <ArrowDown /> */}
+						<ArrowDown />
 						<CloseWorkspace />
 					</form>
 					<span className="ellipsis max-w-16 lg:hidden block">

@@ -27,7 +27,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 		}
 	};
 	return (
-		<div className="task-item relative py-5 px-2 sm:px-3 md:px-4 mx-auto">
+		<div className="task-item relative py-6 px-2 sm:px-3 md:px-4 mx-auto">
 			<ButtonToGrab />
 			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} />
