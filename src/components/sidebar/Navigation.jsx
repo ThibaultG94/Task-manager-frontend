@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import CreateTaskAndWorkspace from './CreateTaskAndWorkspace';
 import { Tooltip } from 'react-tooltip';
+import InviteMemberModal from '../invitation/InviteMemberModal';
 
 const Navigation = ({ userId }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
 	const location = useLocation();
+	const classIcone = 'cursor-pointer text-xl xl:mb-6 mr-6 xl:mr-0';
+	const classIconeActive =
+		'cursor-pointer text-xl xl:mb-6 mr-6 xl:mr-0 font-bold text-orange-primary';
 
 	const isActiveLink = (paths) => {
 		return paths.includes(location.pathname);
@@ -21,9 +26,11 @@ const Navigation = ({ userId }) => {
 						'/pages/dashboard',
 						'/pages/tasks',
 						'/pages/workspaces',
-					])
-						? 'cursor-pointer text-xl font-bold xl:mb-6 mr-6 xl:mr-0 text-orange-primary'
-						: 'cursor-pointer text-xl xl:mb-6 mr-6 xl:mr-0'
+					]) &&
+					!isModalOpen &&
+					!isInvitationModalOpen
+						? classIconeActive
+						: classIcone
 				}>
 				<li
 					data-tooltip-class-name="text-xs font-normal"
@@ -39,10 +46,7 @@ const Navigation = ({ userId }) => {
 				id="calendarlink"
 				to="/pages/calendar"
 				className={(nav) =>
-					nav.isActive
-						? 'cursor-pointer text-xl font-bold mb-6 text-custom-orange'
-						: // : 'cursor-pointer text-xl'
-						  'cursor-default text-xl mb-6'
+					nav.isActive ? classIconeActive : classIcone
 				}
 				style={{ display: 'none' }}>
 				<li>
@@ -54,10 +58,7 @@ const Navigation = ({ userId }) => {
 				id="overviewlink"
 				to="/pages/overview"
 				className={(nav) =>
-					nav.isActive
-						? 'cursor-pointer text-xl font-bold text-custom-orange mb-6'
-						: // : 'cursor-pointer text-xl'
-						  'cursor-default text-xl mb-6'
+					nav.isActive ? classIconeActive : classIcone
 				}
 				style={{ display: 'none' }}>
 				<li>
@@ -66,7 +67,7 @@ const Navigation = ({ userId }) => {
 			</NavLink>
 
 			<li
-				className="cursor-pointer text-xl"
+				className={isModalOpen ? classIconeActive : classIcone}
 				data-tooltip-content="Créer une tâche ou un workspace"
 				data-tooltip-id="icon-create"
 				data-tooltip-variant="info"
@@ -74,12 +75,31 @@ const Navigation = ({ userId }) => {
 				onClick={() => setIsModalOpen(true)}>
 				<i className="fas fa-plus-square mr-1"></i>
 			</li>
-			<Tooltip id="icon-create" place="bottom" />
+
+			<li
+				className={
+					isInvitationModalOpen ? classIconeActive : classIcone
+				}
+				data-tooltip-content="Ajouter un contact"
+				data-tooltip-id="icon-plus"
+				data-tooltip-variant="info"
+				onClick={() => setIsInvitationModalOpen(true)}>
+				<i className="fa-solid fa-user-plus"></i>
+			</li>
+			<Tooltip id="icon-create" place="right" />
+			<Tooltip id="icon-plus" place="bottom" />
 
 			{isModalOpen && (
 				<CreateTaskAndWorkspace
 					userId={userId}
 					setIsModalOpen={setIsModalOpen}
+				/>
+			)}
+
+			{isInvitationModalOpen && (
+				<InviteMemberModal
+					userId={userId}
+					setIsInvitationModalOpen={setIsInvitationModalOpen}
 				/>
 			)}
 		</nav>
