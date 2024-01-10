@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import EmailInput from './EmailInput';
 import MessageTextarea from './MessageTextarea';
 import { useSendInvitation } from '../../api/sendInvitation';
 import SubmitButton from '../modal/SubmitButton';
 import { toast } from 'react-toastify';
+import ErrorInvitation from './ErrorInvitation';
+import {
+	sendInvitationFailure,
+	sendInvitationSuccess,
+} from '../../store/feature/invitations.slice';
 
 const SendInviteForm = ({ userId }) => {
+	const dispatch = useDispatch();
 	const sendInvitation = useSendInvitation();
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
+	const [error, setError] = useState(null);
+	const [errorCode, setErrorCode] = useState(null);
+	const [errors, setErrors] = useState({
+		email: null,
+	});
+	const [displayErrors, setDisplayErrors] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -20,11 +33,24 @@ const SendInviteForm = ({ userId }) => {
 		};
 
 		try {
-			await sendInvitation(invitation);
-			toast.success('Invitation envoyée !');
+			const res = await sendInvitation(invitation);
+			if (res.status === 200) {
+				setEmail('');
+				setMessage('');
+				toast.success('Invitation envoyée !');
+				dispatch(sendInvitationSuccess(res.data.invitation));
+			} else {
+				setError(res);
+			}
 		} catch (error) {
-			console.error('Error with SendInviteForm', error);
-			toast.error('Une erreur est survenue');
+			if (error.response) {
+				setErrorCode(error.response.status);
+				setError(error);
+			} else {
+				setErrorCode(null);
+			}
+			setDisplayErrors(true);
+			dispatch(sendInvitationFailure(error));
 		}
 	};
 
@@ -38,7 +64,11 @@ const SendInviteForm = ({ userId }) => {
 				onSubmit={handleSubmit}>
 				<div className="flex flex-col md:flex-row mb-2 sm:mb-4 md:mb-5">
 					<div className="flex flex-col md:w-1/2 sm:pr-1 md:pr-2">
-						<EmailInput email={email} setEmail={setEmail} />
+						<EmailInput
+							email={email}
+							setEmail={setEmail}
+							errors={errors}
+						/>
 					</div>
 					<MessageTextarea
 						message={message}
@@ -46,6 +76,14 @@ const SendInviteForm = ({ userId }) => {
 					/>
 				</div>
 				<SubmitButton label={"Envoyer l'invitation"} />
+
+				{displayErrors && (
+					<ErrorInvitation
+						error={error}
+						setErrors={setErrors}
+						errorCode={errorCode}
+					/>
+				)}
 			</form>
 		</div>
 	);

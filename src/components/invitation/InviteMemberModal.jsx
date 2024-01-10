@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SendInviteForm from './SendInviteForm';
 import ReceivedInvitesList from './ReceivedInvitesList';
 import Tabs from '../modal/Tabs';
+import SentOutInvitations from './SentOutInvitations';
 
 const InviteMemberModal = ({ userId, setIsInvitationModalOpen }) => {
 	const [activeTab, setActiveTab] = useState('tab1');
@@ -13,12 +14,13 @@ const InviteMemberModal = ({ userId, setIsInvitationModalOpen }) => {
 		},
 		{
 			id: 'tab2',
+			label: 'Invitations Envoyées',
+			component: <SentOutInvitations userId={userId} />,
+		},
+		{
+			id: 'tab3',
 			label: 'Invitations Reçues',
-			component: (
-				<ReceivedInvitesList
-					setIsInvitationModalOpen={setIsInvitationModalOpen}
-				/>
-			),
+			component: <ReceivedInvitesList userId={userId} />,
 		},
 	];
 
