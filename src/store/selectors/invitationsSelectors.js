@@ -6,3 +6,8 @@ export const selectDispathedInvitations = createSelector(
 	[selectInvitationsState],
 	(invitations) => invitations.dispatchedInvitations
 );
+
+export const selectReceivedInvitations = createSelector(
+	[selectInvitationsState],
+	(invitations) => invitations.receivedInvitations
+);

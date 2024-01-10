@@ -4,7 +4,7 @@ import CloseButton from './CloseButton';
 const Tabs = ({ tabs, activeTab, setActiveTab, closeModal }) => {
 	return (
 		<div className="flex flex-col">
-			<div className="flex items-center justify-between">
+			<div className="flex items-center justify-between bg-light-blue rounded-t-lg">
 				<div className="flex">
 					{tabs.map((tab, index) => (
 						<button

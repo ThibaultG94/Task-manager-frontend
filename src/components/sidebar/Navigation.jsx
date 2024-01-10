@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import CreateTaskAndWorkspace from './CreateTaskAndWorkspace';
 import { Tooltip } from 'react-tooltip';
 import InviteMemberModal from '../invitation/InviteMemberModal';
+import { useGetSentOutInvitations } from '../../api/getSentOutInvitations';
+import { useGetReceivedInvitations } from '../../api/getReceivedInvitations';
 
 const Navigation = ({ userId }) => {
+	const getSentOutInvitations = useGetSentOutInvitations();
+	const getReceivedInvitations = useGetReceivedInvitations();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
 	const location = useLocation();
@@ -15,6 +19,13 @@ const Navigation = ({ userId }) => {
 	const isActiveLink = (paths) => {
 		return paths.includes(location.pathname);
 	};
+
+	useEffect(() => {
+		if (userId) {
+			getSentOutInvitations(userId);
+			getReceivedInvitations(userId);
+		}
+	}, [isInvitationModalOpen]);
 
 	return (
 		<nav className="flex flex-row xl:flex-col justify-between self-center xl:self-end xl:w-full">

@@ -68,7 +68,7 @@ const ListWorkspaces = () => {
 	return (
 		<div className="dashboard-card workspaces-container">
 			<h4 className="pl-4">Workspaces</h4>
-			<div className="flex flex-col">
+			<div className="flex flex-col h-full">
 				{displayWorkspaces &&
 					displayWorkspaces.map((workspace, index) => (
 						<div
@@ -164,8 +164,10 @@ const ListWorkspaces = () => {
 						</div>
 					))}
 				{displayWorkspaces.length === 0 && (
-					<div className="noWorkspace">
-						Vous n'avez aucun espace de travail actuellement
+					<div className="h-full flex items-center justify-center">
+						<span>
+							Vous n'avez aucun espace de travail actuellement
+						</span>
 					</div>
 				)}
 			</div>

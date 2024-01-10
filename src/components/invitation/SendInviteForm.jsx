@@ -37,6 +37,9 @@ const SendInviteForm = ({ userId }) => {
 			if (res.status === 200) {
 				setEmail('');
 				setMessage('');
+				setErrors({
+					email: null,
+				});
 				toast.success('Invitation envoyée !');
 				dispatch(sendInvitationSuccess(res.data.invitation));
 			} else {
@@ -56,7 +59,7 @@ const SendInviteForm = ({ userId }) => {
 
 	return (
 		<div id="tab-content1" className="mt-4">
-			<h2 className="font-light mb-2 sm:mb-4 md:mb-6 text-lg sm:text-xl md:text-2xl text-center">
+			<h2 className="text-dark-blue font-semibold mb-4 text-xl sm:text-2xl text-center">
 				Ajouter un contact
 			</h2>
 			<form

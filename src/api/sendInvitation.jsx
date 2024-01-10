@@ -1,11 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { useErrorApi } from '../components/utils/ErrorApi';
 import { sendInvitationAction } from '../store/feature/invitations.slice';
 import axios from 'axios';
 
 export const useSendInvitation = () => {
 	const dispatch = useDispatch();
-	const errorApi = useErrorApi();
 
 	const sendInvitation = async (invitation) => {
 		dispatch(sendInvitationAction());
