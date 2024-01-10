@@ -389,3 +389,73 @@ body {
 		background: #ffb360;
 	}
 }
+
+// INVITATIONS
+
+.invitation-list {
+	position: relative;
+
+	.accept-icon,
+	.decline-icon {
+		border: 2px solid #4b5563;
+		border-radius: 50%;
+		cursor: pointer;
+		padding: 4px;
+		transition: all 0.3s ease-in-out;
+
+		&:hover,
+		&:focus {
+			background-color: #f0fff4;
+			svg {
+				stroke: currentColor;
+			}
+		}
+
+		svg {
+			height: 20px;
+			stroke: #4b5563;
+			width: 20px;
+
+			@media screen and (max-width: 800px) {
+				height: 15px;
+				width: 15px;
+			}
+
+			@media screen and (max-width: 479px) {
+				height: 10px;
+				width: 10px;
+			}
+
+			@media screen and (max-width: 430px) {
+				height: 7px;
+				width: 7px;
+			}
+		}
+
+		@media screen and (max-width: 300px) {
+			display: none;
+		}
+	}
+
+	.accept-icon {
+		border-color: #10b981;
+		color: #4ade80;
+
+		&:hover,
+		&:focus {
+			border-color: #10b981;
+			color: #4ade80;
+		}
+	}
+
+	.decline-icon {
+		border-color: #ef4444;
+		color: #f87171;
+
+		&:hover,
+		&:focus {
+			border-color: #ef4444;
+			color: #f87171;
+		}
+	}
+}
