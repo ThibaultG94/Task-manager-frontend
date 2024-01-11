@@ -10,10 +10,13 @@ import {
 	sendInvitationFailure,
 	sendInvitationSuccess,
 } from '../../store/feature/invitations.slice';
+import { useGetSentOutInvitations } from '../../api/getSentOutInvitations';
 
 const SendInviteForm = ({ userId }) => {
 	const dispatch = useDispatch();
 	const sendInvitation = useSendInvitation();
+	const getSendOutInvitations = useGetSentOutInvitations();
+
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
 	const [error, setError] = useState(null);
@@ -40,6 +43,7 @@ const SendInviteForm = ({ userId }) => {
 				setErrors({
 					email: null,
 				});
+				await getSendOutInvitations(userId);
 				toast.success('Invitation envoyée !');
 				dispatch(sendInvitationSuccess(res.data.invitation));
 			} else {

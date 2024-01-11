@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectDispathedInvitations } from '../../store/selectors/invitationsSelectors';
+import { useCancelInvitation } from '../../api/cancelInvitation';
+import { toast } from 'react-toastify';
+import { useGetSentOutInvitations } from '../../api/getSentOutInvitations';
 
 const SentOutInvitations = ({ userId }) => {
 	const invitations = useSelector(selectDispathedInvitations);
+	const cancelInvitation = useCancelInvitation();
+	const getSendOutInvitations = useGetSentOutInvitations();
 	const [invitationsPending, setInvitationsPending] = useState([]);
 	const [invitationsAccepted, setInvitationsAccepted] = useState([]);
+
+	const handleCancelInvitation = async (invitationId) => {
+		try {
+			await cancelInvitation(invitationId);
+			await getSendOutInvitations(userId);
+			toast.success("L'invitation a été annulée");
+		} catch (error) {
+			toast.error("Échec de l'annulation de l'invitation");
+			return;
+		}
+	};
 
 	useEffect(() => {
 		if (invitations) {
@@ -46,12 +62,11 @@ const SentOutInvitations = ({ userId }) => {
 									<div className="flex flex-col gap-2 ml-2 invitation-list">
 										<button
 											className="decline-icon"
-											// onClick={() =>
-											// 	handleCancelInvitation(
-											// 		invitation.invitationId
-											// 	)
-											// }
-										>
+											onClick={() =>
+												handleCancelInvitation(
+													invitation.invitationId
+												)
+											}>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
 												fill="none"

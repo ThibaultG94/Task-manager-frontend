@@ -8,6 +8,11 @@
 	text-decoration: none;
 }
 
+#root {
+	background: #eaefff;
+	min-height: 100vh;
+}
+
 .status-icon::before {
 	content: '\f110';
 	font-family: 'Font Awesome 5 Free';
