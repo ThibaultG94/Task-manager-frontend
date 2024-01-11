@@ -56,6 +56,17 @@ export const invitationsSlice = createSlice({
 			state.error = action.payload;
 			state.loading = false;
 		},
+		declineInvitationAction: (state) => {
+			state.loading = true;
+		},
+		declineInvitationSuccess: (state) => {
+			state.loading = false;
+			state.error = null;
+		},
+		declineInvitationFailure: (state, action) => {
+			state.error = action.payload;
+			state.loading = false;
+		},
 	},
 });
 
@@ -72,6 +83,9 @@ export const {
 	cancelInvitationAction,
 	cancelInvitationSuccess,
 	cancelInvitationFailure,
+	declineInvitationAction,
+	declineInvitationSuccess,
+	declineInvitationFailure,
 } = invitationsSlice.actions;
 
 export default invitationsSlice.reducer;

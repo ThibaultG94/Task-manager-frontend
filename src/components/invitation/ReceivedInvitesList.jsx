@@ -1,13 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectReceivedInvitations } from '../../store/selectors/invitationsSelectors';
+import { useGetReceivedInvitations } from '../../api/getReceivedInvitations';
+import { toast } from 'react-toastify';
+import { useDeclineInvitation } from '../../api/declineInvitation';
 
 const ReceivedInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedInvitations);
+	const declineInvitation = useDeclineInvitation();
+	const getReceivedInvitations = useGetReceivedInvitations();
 	const [receivedInvitationsPending, setReceivedInvitationsPending] =
 		useState();
 	const [receivedInvitationsAccepted, setReceivedInvitationsAccepted] =
 		useState();
+
+	const handleDeclineInvitation = async (invitationId) => {
+		try {
+			await declineInvitation(invitationId, userId);
+			await getReceivedInvitations(userId);
+			toast.success("L'invitation a été déclinée");
+		} catch (error) {
+			toast.error("Échec du rejet de l'invitation");
+			return;
+		}
+	};
 
 	useEffect(() => {
 		if (invitations) {
@@ -61,7 +77,13 @@ const ReceivedInvitesList = ({ userId }) => {
 												/>
 											</svg>
 										</button>
-										<button className="decline-icon">
+										<button
+											className="decline-icon"
+											onClick={() =>
+												handleDeclineInvitation(
+													invitation.invitationId
+												)
+											}>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
 												fill="none"
