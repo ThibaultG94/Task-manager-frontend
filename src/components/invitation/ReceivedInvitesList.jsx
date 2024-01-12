@@ -5,11 +5,11 @@ import { useGetReceivedInvitations } from '../../api/invitations/getReceivedInvi
 import { toast } from 'react-toastify';
 import { useDeclineInvitation } from '../../api/invitations/declineInvitation';
 import { useAcceptInvitation } from '../../api/invitations/acceptInvitation';
-import { useGetUser } from '../../api/users/getUser';
+import { useGetContacts } from '../../api/users/getContacts';
 
 const ReceivedInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedInvitations);
-	const getUser = useGetUser();
+	const getContacts = useGetContacts();
 	const acceptInvitation = useAcceptInvitation();
 	const declineInvitation = useDeclineInvitation();
 	const getReceivedInvitations = useGetReceivedInvitations();
@@ -23,7 +23,7 @@ const ReceivedInvitesList = ({ userId }) => {
 			await acceptInvitation(invitationId, userId);
 			await getReceivedInvitations(userId);
 			toast.success("L'invitation a été acceptée");
-			await getUser(userId);
+			await getContacts(userId);
 		} catch (error) {
 			toast.error("Échec de l'acceptation de l'invitation");
 			return;

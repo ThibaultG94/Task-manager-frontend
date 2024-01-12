@@ -21,3 +21,8 @@ export const selectError = createSelector(
 	[selectUsersState],
 	(users) => users.error
 );
+
+export const selectUserContacts = createSelector(
+	[selectUsersState],
+	(users) => users.userContacts
+);

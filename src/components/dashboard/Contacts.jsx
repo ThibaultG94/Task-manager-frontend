@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../store/selectors/userSelectors';
+import { selectUserContacts } from '../../store/selectors/userSelectors';
 import { useGetSentOutInvitations } from '../../api/invitations/getSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/getReceivedInvitations';
 import InviteMemberModal from '../invitation/InviteMemberModal';
@@ -8,13 +8,13 @@ import InviteMemberModal from '../invitation/InviteMemberModal';
 const Contacts = ({ userId }) => {
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
-	const currentUser = useSelector(selectCurrentUser);
-	const [user, setUser] = useState();
+	const contacts = useSelector(selectUserContacts);
+	const [userContacts, setUserContacts] = useState();
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
 
 	useEffect(() => {
-		setUser(currentUser);
-	}, [currentUser]);
+		if (contacts) setUserContacts(contacts);
+	}, [contacts]);
 
 	useEffect(() => {
 		if (userId) {
@@ -27,11 +27,13 @@ const Contacts = ({ userId }) => {
 		<div className="coworkers-container dashboard-card">
 			<h4 className="pl-2">Contacts</h4>
 			<div className="h-4/5 flex flex-col justify-center items-center">
-				{user && user.contacts.length > 0 ? (
+				{userContacts && userContacts.length > 0 ? (
 					<ul>
-						{user.contacts.map((contact) => (
-							<li key={contact} className="text-lg my-2">
-								{contact}
+						{userContacts.map((contact) => (
+							<li key={contact.id} className="text-lg my-2">
+								<span>{contact.username}</span>
+								<span> </span>
+								<span>({contact.email})</span>
 							</li>
 						))}
 					</ul>

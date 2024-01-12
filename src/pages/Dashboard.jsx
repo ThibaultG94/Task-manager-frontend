@@ -21,6 +21,7 @@ import {
 } from '../store/feature/editState.slice';
 import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
 import { ToastContainer } from 'react-toastify';
+import { useGetContacts } from '../api/users/getContacts';
 
 const Dashboard = () => {
 	const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const Dashboard = () => {
 	const getUser = useGetUser();
 	const getUrgentTasks = useGetUrgentTasks();
 	const getWorkspaces = useGetWorkspaces();
+	const getContacts = useGetContacts();
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
@@ -51,6 +53,7 @@ const Dashboard = () => {
 			getUser(userId);
 			getUrgentTasks(userId);
 			getWorkspaces(userId);
+			getContacts(userId);
 		}
 	}, [userId]);
 
