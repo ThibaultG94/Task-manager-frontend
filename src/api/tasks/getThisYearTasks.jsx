@@ -16,9 +16,12 @@ export const useGetThisYearTasks = () => {
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.get(`${API_URL}/task/${userId}/this-year`, {
-				withCredentials: true,
-			});
+			const res = await axios.get(
+				`${API_URL}/tasks/${userId}/this-year`,
+				{
+					withCredentials: true,
+				}
+			);
 			dispatch(setThisYearTasksSuccess(res.data.thisYearTasks));
 			return res.data.thisYearTasks;
 		} catch (error) {

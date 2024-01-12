@@ -17,7 +17,7 @@ export const useCreateTask = () => {
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.post(
-				`${API_URL}/task/`,
+				`${API_URL}/tasks/`,
 				{
 					title: task.title,
 					userId: task.userId,

@@ -16,7 +16,7 @@ export const useGetTomorrowTasks = () => {
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.get(`${API_URL}/task/${userId}/tomorrow`, {
+			const res = await axios.get(`${API_URL}/tasks/${userId}/tomorrow`, {
 				withCredentials: true,
 			});
 			dispatch(setTomorrowTasksSuccess(res.data.tomorrowTasks));

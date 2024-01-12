@@ -16,7 +16,7 @@ export const useEditTask = () => {
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.put(`${API_URL}/task/${task._id}`, task, {
+			const res = await axios.put(`${API_URL}/tasks/${task._id}`, task, {
 				withCredentials: true,
 			});
 			dispatch(editTaskSuccess(res.data.task));

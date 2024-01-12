@@ -16,7 +16,7 @@ export const useDeleteTask = () => {
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.delete(`${API_URL}/task/${taskId}`, {
+			const res = await axios.delete(`${API_URL}/tasks/${taskId}`, {
 				withCredentials: true,
 			});
 			dispatch(deleteTaskSuccess(res.data));

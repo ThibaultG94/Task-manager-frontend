@@ -17,7 +17,7 @@ export const useGetWorkspaceTasks = () => {
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
-				`${API_URL}/task/workspace/${workspaceId}`,
+				`${API_URL}/tasks/workspace/${workspaceId}`,
 				{
 					withCredentials: true,
 				}

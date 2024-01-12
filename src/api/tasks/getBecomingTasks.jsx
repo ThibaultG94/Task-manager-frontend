@@ -16,7 +16,7 @@ export const useGetBecomingTasks = () => {
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.get(`${API_URL}/task/${userId}/becoming`, {
+			const res = await axios.get(`${API_URL}/tasks/${userId}/becoming`, {
 				withCredentials: true,
 			});
 			dispatch(setBecomingTasksSuccess(res.data.becomingTasks));

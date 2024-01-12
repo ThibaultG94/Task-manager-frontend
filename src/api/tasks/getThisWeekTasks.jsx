@@ -16,9 +16,12 @@ export const useGetThisWeekTasks = () => {
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.get(`${API_URL}/task/${userId}/this-week`, {
-				withCredentials: true,
-			});
+			const res = await axios.get(
+				`${API_URL}/tasks/${userId}/this-week`,
+				{
+					withCredentials: true,
+				}
+			);
 			dispatch(setThisWeekTasksSuccess(res.data.thisWeekTasks));
 			return res.data.thisWeekTasks;
 		} catch (error) {

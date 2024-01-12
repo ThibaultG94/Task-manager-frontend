@@ -16,7 +16,7 @@ export const useGetUrgentTasks = () => {
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.get(`${API_URL}/task/${userId}/urgent`, {
+			const res = await axios.get(`${API_URL}/tasks/${userId}/urgent`, {
 				withCredentials: true,
 			});
 			dispatch(setUrgentTasksSuccess(res.data.urgentTasks));

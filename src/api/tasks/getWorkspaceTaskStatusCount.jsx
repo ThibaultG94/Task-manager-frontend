@@ -17,7 +17,7 @@ export const useGetWorkspaceTaskStatusCount = () => {
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
-				`${API_URL}/task/workspace/${workspaceId}/status-count`,
+				`${API_URL}/tasks/workspace/${workspaceId}/status-count`,
 				{
 					withCredentials: true,
 				}

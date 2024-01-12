@@ -17,7 +17,7 @@ export const useGetThisWeekendTasks = () => {
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
-				`${API_URL}/task/${userId}/this-weekend`,
+				`${API_URL}/tasks/${userId}/this-weekend`,
 				{
 					withCredentials: true,
 				}

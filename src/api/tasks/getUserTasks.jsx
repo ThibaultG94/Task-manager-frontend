@@ -16,9 +16,12 @@ export const useGetUserTasks = () => {
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
-			const res = await axios.get(`${API_URL}/task/${userId}/all-tasks`, {
-				withCredentials: true,
-			});
+			const res = await axios.get(
+				`${API_URL}/tasks/${userId}/all-tasks`,
+				{
+					withCredentials: true,
+				}
+			);
 			dispatch(setTasksSuccess(res.data.userTasks));
 			return res.data.userTasks;
 		} catch (error) {
