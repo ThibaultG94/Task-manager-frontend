@@ -4,15 +4,28 @@ import { selectReceivedInvitations } from '../../store/selectors/invitationsSele
 import { useGetReceivedInvitations } from '../../api/getReceivedInvitations';
 import { toast } from 'react-toastify';
 import { useDeclineInvitation } from '../../api/declineInvitation';
+import { useAcceptInvitation } from '../../api/acceptInvitation';
 
 const ReceivedInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedInvitations);
+	const acceptInvitation = useAcceptInvitation();
 	const declineInvitation = useDeclineInvitation();
 	const getReceivedInvitations = useGetReceivedInvitations();
 	const [receivedInvitationsPending, setReceivedInvitationsPending] =
 		useState();
 	const [receivedInvitationsAccepted, setReceivedInvitationsAccepted] =
 		useState();
+
+	const handleAcceptInvitation = async (invitationId) => {
+		try {
+			await acceptInvitation(invitationId, userId);
+			await getReceivedInvitations(userId);
+			toast.success("L'invitation a été acceptée");
+		} catch (error) {
+			toast.error("Échec de l'acceptation de l'invitation");
+			return;
+		}
+	};
 
 	const handleDeclineInvitation = async (invitationId) => {
 		try {
@@ -62,7 +75,13 @@ const ReceivedInvitesList = ({ userId }) => {
 										</p>
 									</div>
 									<div className="flex flex-col gap-2 ml-2 invitation-list">
-										<button className="accept-icon">
+										<button
+											className="accept-icon"
+											onClick={() =>
+												handleAcceptInvitation(
+													invitation.invitationId
+												)
+											}>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
 												fill="none"
