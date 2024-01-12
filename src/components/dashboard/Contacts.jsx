@@ -26,14 +26,31 @@ const Contacts = ({ userId }) => {
 	return (
 		<div className="coworkers-container dashboard-card">
 			<h4 className="pl-2">Contacts</h4>
-			<div className="h-4/5 flex flex-col justify-center items-center">
+			<div className="flex flex-col justify-center">
 				{userContacts && userContacts.length > 0 ? (
 					<ul>
 						{userContacts.map((contact) => (
-							<li key={contact.id} className="text-lg my-2">
-								<span>{contact.username}</span>
-								<span> </span>
-								<span>({contact.email})</span>
+							<li
+								className="flex items-center justify-start p-1 md:p-2 py-2.5 relative transition duration-100 ease-in-out"
+								key={contact.id}>
+								<div className="flex h-8 items-center">
+									<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">
+										<i className="fa-solid fa-user"></i>{' '}
+									</div>
+									<div className="flex items-center">
+										<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8">
+											<span id="avatarLetterAssigned">
+												{contact.username[0]}
+											</span>
+										</div>
+									</div>
+									<div className="text-sm md:text-base ml-2">
+										<span className="mr-1">
+											{contact.username}
+										</span>
+										<span>({contact.email})</span>
+									</div>
+								</div>
 							</li>
 						))}
 					</ul>
