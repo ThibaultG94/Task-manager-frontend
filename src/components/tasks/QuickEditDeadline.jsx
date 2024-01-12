@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { inverseDateFormat } from '../utils/inverseDateFormat';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEditTask } from '../../api/editTask';
+import { useEditTask } from '../../api/tasks/editTask';
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';

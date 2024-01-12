@@ -6,7 +6,7 @@ import {
 	setWorkspacesHasBeenUpdated,
 } from '../../store/feature/editState.slice';
 import { toast } from 'react-toastify';
-import { useDeleteWorkspace } from '../../api/deleteWorkspace';
+import { useDeleteWorkspace } from '../../api/workspaces/deleteWorkspace';
 import {
 	deleteWorkspaceAction,
 	deleteWorkspaceSuccess,

@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import getUserId from '../../api/getUserId';
+import getUserId from '../../api/users/getUserId';
 import ErrorUserId from './ErrorUserId';
 import { useEffect, useState } from 'react';
 

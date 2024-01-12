@@ -9,7 +9,7 @@ import {
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { setEditedTask } from '../../store/feature/tasks.slice';
-import { useEditTask } from '../../api/editTask';
+import { useEditTask } from '../../api/tasks/editTask';
 import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import CloseTitle from './utils/CloseTitle';

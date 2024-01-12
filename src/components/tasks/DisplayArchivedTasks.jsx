@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useGetArchivedTasks } from '../../api/getArchivedTasks';
+import { useGetArchivedTasks } from '../../api/tasks/getArchivedTasks';
 import { useSelector } from 'react-redux';
 import {
 	selectArchivedTasks,
@@ -7,7 +7,7 @@ import {
 	selectTotalArchivedTasks,
 } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
-import getUserId from '../../api/getUserId';
+import getUserId from '../../api/users/getUserId';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import HeaderBlock from './HeaderBlock';

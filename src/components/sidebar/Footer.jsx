@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLogoutUser } from '../../api/logoutUser';
+import { useLogoutUser } from '../../api/users/logoutUser';
 
 const Footer = () => {
 	const logoutUser = useLogoutUser();

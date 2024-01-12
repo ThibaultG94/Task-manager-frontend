@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useResetPassword } from '../api/resetPassword';
+import { useResetPassword } from '../api/users/resetPassword';
 import { toast } from 'react-toastify';
 
 const ResetPassword = () => {

@@ -7,7 +7,7 @@ import { formatTaskForEditing } from '../utils/formatTaskForEditing';
 import { getCategoryDay } from '../utils/getCategoryDay';
 import HandleModalTask from '../tasks/HandleModalTask';
 import useCheckIfEdited from './utils/checkIfEdited';
-import { useEditTask } from '../../api/editTask';
+import { useEditTask } from '../../api/tasks/editTask';
 import { toast } from 'react-toastify';
 import { useTasksHasBeenUpdated } from '../tasks/TasksHasBeenUpdated';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';

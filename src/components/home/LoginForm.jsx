@@ -5,7 +5,7 @@ import ErrorLogin from './utils/login/ErrorLogin';
 import EmailLogin from './utils/login/EmailLogin';
 import PasswordLogin from './utils/login/PasswordLogin';
 import PasswordResetModal from './PasswordResetModal';
-import { useForgotPassword } from '../../api/forgotPassword';
+import { useForgotPassword } from '../../api/users/forgotPassword';
 
 const LoginForm = ({ setShowLoginForm }) => {
 	const [errorCode, setErrorCode] = useState(null);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import EmailInput from './EmailInput';
 import MessageTextarea from './MessageTextarea';
-import { useSendInvitation } from '../../api/sendInvitation';
+import { useSendInvitation } from '../../api/invitations/sendInvitation';
 import SubmitButton from '../modal/SubmitButton';
 import { toast } from 'react-toastify';
 import ErrorInvitation from './ErrorInvitation';
@@ -10,7 +10,7 @@ import {
 	sendInvitationFailure,
 	sendInvitationSuccess,
 } from '../../store/feature/invitations.slice';
-import { useGetSentOutInvitations } from '../../api/getSentOutInvitations';
+import { useGetSentOutInvitations } from '../../api/invitations/getSentOutInvitations';
 
 const SendInviteForm = ({ userId }) => {
 	const dispatch = useDispatch();

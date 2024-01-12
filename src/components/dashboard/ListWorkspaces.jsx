@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { useGetWorkspaceTaskStatusCount } from '../../api/getWorkspaceTaskStatusCount';
+import { useGetWorkspaceTaskStatusCount } from '../../api/tasks/getWorkspaceTaskStatusCount';
 import { TaskStatusCount } from './TaskStatusCount';
 import { useMediaQuery } from 'react-responsive';
 import { FaUser } from 'react-icons/fa';

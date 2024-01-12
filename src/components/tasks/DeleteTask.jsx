@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useDeleteTask } from '../../api/deleteTask';
+import { useDeleteTask } from '../../api/tasks/deleteTask';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import {
 	resetEditState,

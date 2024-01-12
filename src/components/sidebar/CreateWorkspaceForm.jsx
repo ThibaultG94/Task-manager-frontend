@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useCreateWorkspace } from '../../api/createWorkspace';
+import { useCreateWorkspace } from '../../api/workspaces/createWorkspace';
 import { toast } from 'react-toastify';
 import TitleInput from '../modal/TitleInput';
 import DescriptionTextarea from '../modal/DescriptionTextarea';
 import SubmitButton from '../modal/SubmitButton';
 import { useDispatch } from 'react-redux';
 import { setWorkspacesHasBeenUpdated } from '../../store/feature/editState.slice';
-import { getAssignedUser } from '../../api/getAssignedUser';
+import { getAssignedUser } from '../../api/users/getAssignedUser';
 
 const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const dispatch = useDispatch();

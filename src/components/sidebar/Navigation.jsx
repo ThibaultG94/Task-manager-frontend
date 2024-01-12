@@ -3,8 +3,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import CreateTaskAndWorkspace from './CreateTaskAndWorkspace';
 import { Tooltip } from 'react-tooltip';
 import InviteMemberModal from '../invitation/InviteMemberModal';
-import { useGetSentOutInvitations } from '../../api/getSentOutInvitations';
-import { useGetReceivedInvitations } from '../../api/getReceivedInvitations';
+import { useGetSentOutInvitations } from '../../api/invitations/getSentOutInvitations';
+import { useGetReceivedInvitations } from '../../api/invitations/getReceivedInvitations';
 
 const Navigation = ({ userId }) => {
 	const getSentOutInvitations = useGetSentOutInvitations();

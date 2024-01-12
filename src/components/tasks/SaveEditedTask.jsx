@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useEditTask } from '../../api/editTask';
+import { useEditTask } from '../../api/tasks/editTask';
 import { useDispatch } from 'react-redux';
 import {
 	resetEditState,

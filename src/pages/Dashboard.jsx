@@ -6,10 +6,10 @@ import UrgentTasks from '../components/dashboard/UrgentTasks';
 import ListWorkspaces from '../components/dashboard/ListWorkspaces';
 import Coworkers from '../components/dashboard/Coworkers';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
-import getUserId from '../api/getUserId';
-import { useGetUser } from '../api/getUser';
-import { useGetUrgentTasks } from '../api/getUrgentTasks';
-import { useGetWorkspaces } from '../api/getWorkspaces';
+import getUserId from '../api/users/getUserId';
+import { useGetUser } from '../api/users/getUser';
+import { useGetUrgentTasks } from '../api/tasks/getUrgentTasks';
+import { useGetWorkspaces } from '../api/workspaces/getWorkspaces';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectHasBeenUpdated,

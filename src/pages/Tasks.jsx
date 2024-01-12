@@ -4,21 +4,21 @@ import Header from '../components/header/Header';
 import DisplayTasks from '../components/tasks/DisplayTasks';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
 import { useSelector } from 'react-redux';
-import getUserId from '../api/getUserId';
-import { useGetUser } from '../api/getUser';
-import { useGetWorkspaces } from '../api/getWorkspaces';
-import { useGetOverdueTasks } from '../api/getOverdueTasks';
-import { useGetTodayTasks } from '../api/getTodayTasks';
-import { useGetTomorrowTasks } from '../api/getTomorrowTasks';
-import { useGetThisWeekTasks } from '../api/getThisWeekTasks';
-import { useGetThisWeekendTasks } from '../api/getThisWeekendTasks';
-import { useGetNextWeekendTasks } from '../api/getNextWeekendTasks';
-import { useGetNextWeekTasks } from '../api/getNextWeekTasks';
-import { useGetThisMonthTasks } from '../api/getThisMonthTasks';
-import { useGetThisYearTasks } from '../api/getThisYearTasks';
-import { useGetNextYearTasks } from '../api/getNextYearTasks';
-import { useGetBecomingTasks } from '../api/getBecomingTasks';
-import { useGetNextMonthTasks } from '../api/getNextMonthTasks';
+import getUserId from '../api/users/getUserId';
+import { useGetUser } from '../api/users/getUser';
+import { useGetWorkspaces } from '../api/workspaces/getWorkspaces';
+import { useGetOverdueTasks } from '../api/tasks/getOverdueTasks';
+import { useGetTodayTasks } from '../api/tasks/getTodayTasks';
+import { useGetTomorrowTasks } from '../api/tasks/getTomorrowTasks';
+import { useGetThisWeekTasks } from '../api/tasks/getThisWeekTasks';
+import { useGetThisWeekendTasks } from '../api/tasks/getThisWeekendTasks';
+import { useGetNextWeekendTasks } from '../api/tasks/getNextWeekendTasks';
+import { useGetNextWeekTasks } from '../api/tasks/getNextWeekTasks';
+import { useGetThisMonthTasks } from '../api/tasks/getThisMonthTasks';
+import { useGetThisYearTasks } from '../api/tasks/getThisYearTasks';
+import { useGetNextYearTasks } from '../api/tasks/getNextYearTasks';
+import { useGetBecomingTasks } from '../api/tasks/getBecomingTasks';
+import { useGetNextMonthTasks } from '../api/tasks/getNextMonthTasks';
 import {
 	selectIsBecomingTasksLoaded,
 	selectIsNextMonthTasksLoaded,
@@ -35,7 +35,7 @@ import {
 import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
 import { ToastContainer } from 'react-toastify';
 import TaskPageTip from '../components/tasks/TaskPageTip';
-import { useGetTips } from '../api/getTips';
+import { useGetTips } from '../api/tips/getTips';
 import { selectCurrentUser } from '../store/selectors/userSelectors';
 
 const Tasks = () => {

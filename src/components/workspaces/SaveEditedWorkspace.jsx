@@ -6,7 +6,7 @@ import {
 	setWorkspacesHasBeenUpdated,
 } from '../../store/feature/editState.slice';
 import { toast } from 'react-toastify';
-import { useEditWorkspace } from '../../api/editWorkspace';
+import { useEditWorkspace } from '../../api/workspaces/editWorkspace';
 
 const SaveEditedWorkspace = ({
 	setIsEditingWorkspace,

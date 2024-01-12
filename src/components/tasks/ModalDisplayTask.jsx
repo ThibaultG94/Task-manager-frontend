@@ -5,7 +5,7 @@ import TaskDisplayComments from './TaskDisplayComments';
 import { convertStatus } from '../utils/convertStatus';
 import { convertPriority } from '../utils/convertPriority';
 import { frenchFormattedDate } from '../utils/frenchFormattedDate';
-import { useGetWorkspace } from '../../api/getWorkspace';
+import { useGetWorkspace } from '../../api/workspaces/getWorkspace';
 
 const ModalDisplayTask = () => {
 	const editedTask = useSelector(selectEditedTask);

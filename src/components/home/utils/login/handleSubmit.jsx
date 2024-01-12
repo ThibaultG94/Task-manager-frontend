@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../../../api/loginUser';
+import { login } from '../../../../api/users/loginUser';
 
 const useHandleSubmit = ({
 	formData,

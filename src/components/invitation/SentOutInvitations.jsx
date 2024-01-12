@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectDispathedInvitations } from '../../store/selectors/invitationsSelectors';
-import { useCancelInvitation } from '../../api/cancelInvitation';
+import { useCancelInvitation } from '../../api/invitations/cancelInvitation';
 import { toast } from 'react-toastify';
-import { useGetSentOutInvitations } from '../../api/getSentOutInvitations';
+import { useGetSentOutInvitations } from '../../api/invitations/getSentOutInvitations';
 
 const SentOutInvitations = ({ userId }) => {
 	const invitations = useSelector(selectDispathedInvitations);
