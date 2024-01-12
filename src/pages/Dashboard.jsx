@@ -4,7 +4,7 @@ import Header from '../components/header/Header';
 import Calendar from '../components/dashboard/Calendar';
 import UrgentTasks from '../components/dashboard/UrgentTasks';
 import ListWorkspaces from '../components/dashboard/ListWorkspaces';
-import Coworkers from '../components/dashboard/Coworkers';
+import Contacts from '../components/dashboard/Contacts';
 import CheckAuthentication from '../components/utils/CheckAuthentication';
 import getUserId from '../api/users/getUserId';
 import { useGetUser } from '../api/users/getUser';
@@ -79,7 +79,7 @@ const Dashboard = () => {
 					<Calendar />
 					<UrgentTasks />
 					<ListWorkspaces />
-					<Coworkers />
+					<Contacts userId={userId} />
 				</main>
 			</div>
 		</div>
