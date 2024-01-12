@@ -30,28 +30,30 @@ body {
 
 	@media (max-width: 1100px) {
 		grid-template-areas:
-			'cal cow'
 			'task task'
+			'cal cow'
 			'work work';
 		grid-template-columns: 310px 1fr;
+		grid-template-rows: 285px 255px 245px;
 	}
 
 	@media (max-width: 768px) {
 		grid-template-areas:
-			'cal cow'
 			'task task'
+			'cal cow'
 			'work work';
 		grid-template-columns: 310px 1fr;
+		grid-template-rows: 285px 255px 245px;
 	}
 
 	@media (max-width: 600px) {
 		grid-template-areas:
-			'cal'
 			'task'
+			'cal'
 			'work'
 			'cow';
 		grid-template-columns: 1fr;
-		grid-template-rows: 290px 240px 240px 200px;
+		grid-template-rows: 280px 255px 250px 220px;
 	}
 }
 
