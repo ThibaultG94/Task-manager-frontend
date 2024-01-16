@@ -63,7 +63,7 @@ const SendInviteForm = ({ userId }) => {
 
 	return (
 		<div id="tab-content1" className="mt-4">
-			<h2 className="text-dark-blue font-semibold mb-4 text-xl sm:text-2xl text-center">
+			<h2 className="text-dark-blue mb-4 text-xl sm:text-2xl text-center">
 				Ajouter un contact
 			</h2>
 			<form

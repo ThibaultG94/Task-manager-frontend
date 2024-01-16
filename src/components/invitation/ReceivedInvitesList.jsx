@@ -52,14 +52,12 @@ const ReceivedInvitesList = ({ userId }) => {
 		<div
 			id="tab-content3"
 			className="p-4 md:p-6 bg-white shadow-lg rounded-lg">
-			<h2 className="text-dark-blue font-semibold mb-4 text-xl sm:text-2xl text-center">
+			<h2 className="text-dark-blue mb-4 text-xl sm:text-2xl text-center">
 				Invitations reçues
 			</h2>
 			<div className="flex flex-wrap md:flex-nowrap max-h-96 overflow-auto">
 				<div className="flex-1">
-					<h3 className="text-lg font-semibold text-center mb-4">
-						En attente
-					</h3>
+					<h3 className="text-lg text-center mb-4">En attente</h3>
 					{receivedInvitationsPending &&
 						receivedInvitationsPending.map((invitation) => (
 							<div
@@ -132,14 +130,12 @@ const ReceivedInvitesList = ({ userId }) => {
 						)}
 				</div>
 				<div className="flex-1 mt-6 md:mt-0 md:ml-8">
-					<h3 className="text-lg font-semibold text-center mb-4">
-						Acceptés
-					</h3>
+					<h3 className="text-lg text-center mb-4">Acceptés</h3>
 					{receivedInvitationsAccepted &&
 						receivedInvitationsAccepted.map((invitation) => (
 							<div
 								key={invitation.invitationId}
-								className="bg-green-100 rounded-lg p-4 mb-4 last:mb-0 hover:bg-green-200 transition duration-300 ease-in-out">
+								className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-yellow-primary transition duration-300 ease-in-out">
 								<p className="text-dark-blue font-medium">
 									{invitation.senderUsername}{' '}
 									<span className="text-gray-500">

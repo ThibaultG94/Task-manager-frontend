@@ -441,7 +441,11 @@ body {
 
 	.accept-icon {
 		border-color: #10b981;
-		color: #4ade80;
+		background-color: #fff;
+
+		svg {
+			stroke: #67557c;
+		}
 
 		&:hover,
 		&:focus {
@@ -451,8 +455,12 @@ body {
 	}
 
 	.decline-icon {
-		border-color: #ef4444;
-		color: #f87171;
+		border-color: #67557c;
+		background-color: #fff;
+
+		svg {
+			stroke: #67557c;
+		}
 
 		&:hover,
 		&:focus {

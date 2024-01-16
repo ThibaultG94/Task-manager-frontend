@@ -34,19 +34,17 @@ const SentOutInvitations = ({ userId }) => {
 		<div
 			id="tab-content2"
 			className="p-4 md:p-6 bg-white shadow-lg rounded-lg">
-			<h2 className="text-dark-blue font-semibold mb-6 text-xl sm:text-2xl text-center">
+			<h2 className="text-dark-blue mb-6 text-xl sm:text-2xl text-center">
 				Invitations envoyées
 			</h2>
 			<div className="flex flex-wrap md:flex-nowrap max-h-96 overflow-auto">
 				<div className="flex-1">
-					<h3 className="text-lg font-semibold text-center mb-4">
-						En attente
-					</h3>
+					<h3 className="text-lg text-center mb-4">En attente</h3>
 					{invitationsPending &&
 						invitationsPending.map((invitation) => (
 							<div
 								key={invitation.invitationId}
-								className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out relative">
+								className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-yellow-primary transition duration-300 ease-in-out relative">
 								<div className="flex justify-between items-center">
 									<div>
 										<p className="text-dark-blue font-medium">
@@ -93,9 +91,7 @@ const SentOutInvitations = ({ userId }) => {
 					)}
 				</div>
 				<div className="flex-1 mt-6 md:mt-0 md:ml-8">
-					<h3 className="text-lg font-semibold text-center mb-4">
-						Acceptés
-					</h3>
+					<h3 className="text-lg text-center mb-4">Acceptés</h3>
 					{invitationsAccepted &&
 						invitationsAccepted.map((invitation) => (
 							<div
