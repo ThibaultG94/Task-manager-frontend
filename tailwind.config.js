@@ -19,6 +19,7 @@ module.exports = {
 				'red-error-2': '#98000d',
 				'red-error-overdue': '#fdded1',
 				'light-grey': '#a8a9b4',
+				'dark-grey': '#747687',
 				'green-primary': '#007D57',
 				'green-primary-2': '#00B389',
 				'orange-primary': '#ffb360',
