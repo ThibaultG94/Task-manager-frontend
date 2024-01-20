@@ -11,10 +11,12 @@ import {
 	sendInvitationSuccess,
 } from '../../store/feature/invitations.slice';
 import { useGetSentOutInvitations } from '../../api/invitations/getSentOutInvitations';
+import { useSetInvitationNotification } from '../../api/notifications/setInvitationNotification';
 
 const SendInviteForm = ({ userId }) => {
 	const dispatch = useDispatch();
 	const sendInvitation = useSendInvitation();
+	const setInvitationNotification = useSetInvitationNotification();
 	const getSendOutInvitations = useGetSentOutInvitations();
 
 	const [email, setEmail] = useState('');
@@ -38,6 +40,7 @@ const SendInviteForm = ({ userId }) => {
 		try {
 			const res = await sendInvitation(invitation);
 			if (res.status === 200) {
+				await setInvitationNotification(res.data.invitation, userId);
 				setEmail('');
 				setMessage('');
 				setErrors({

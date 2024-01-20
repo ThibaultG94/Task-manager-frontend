@@ -13,9 +13,9 @@ const HeaderAvatar = ({ currentUser, notifications }) => {
 
 	return (
 		<div className="flex">
-			<div className="flex items-center justify-center relative mr-2">
+			<div className="flex relative mr-4 h-8 sm:h-10 md:h-12 mt-2 md:mt-0 items-center justify-center">
 				<span className="text-dark-blue text-xl sm:text-2xl md:text-3xl">
-					<i className="fa-solid fa-bell"></i>
+					<i className="fa-regular fa-bell"></i>
 				</span>
 				{hasNewNotification && (
 					<span className="absolute top-4 sm:top-3.5 right-0 h-2 sm:h-2.5 md:h-3 w-2 sm:w-2.5 md:w-3 bg-red-500 rounded-full"></span>
