@@ -5,9 +5,8 @@ export const useSetInvitationNotification = () => {
 	const errorApi = useErrorApi();
 
 	const setInvitationNotification = async (invitation, userId) => {
-		const API_URL = process.env.REACT_APP_API_URL;
-
 		try {
+			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.post(
 				`${API_URL}/notifications/set-notification`,
 				{

@@ -6,6 +6,7 @@ import editStateSlice from './feature/editState.slice';
 import tipsSlice from './feature/tips.slice';
 import pagesSlice from './feature/pages.slice';
 import invitationsSlice from './feature/invitations.slice';
+import notificationsSlice from './feature/notifications.slice';
 
 const store = configureStore({
 	reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
 		tips: tipsSlice,
 		pages: pagesSlice,
 		invitations: invitationsSlice,
+		notifications: notificationsSlice,
 	},
 });
 

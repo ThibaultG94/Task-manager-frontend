@@ -22,6 +22,7 @@ import {
 import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
 import { ToastContainer } from 'react-toastify';
 import { useGetContacts } from '../api/users/getContacts';
+import { useGetNotifications } from '../api/notifications/getNotifications';
 
 const Dashboard = () => {
 	const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const Dashboard = () => {
 	const getUrgentTasks = useGetUrgentTasks();
 	const getWorkspaces = useGetWorkspaces();
 	const getContacts = useGetContacts();
+	const getNotifications = useGetNotifications();
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
@@ -54,6 +56,7 @@ const Dashboard = () => {
 			getUrgentTasks(userId);
 			getWorkspaces(userId);
 			getContacts(userId);
+			getNotifications(userId);
 		}
 	}, [userId]);
 

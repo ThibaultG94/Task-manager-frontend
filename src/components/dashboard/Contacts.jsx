@@ -57,7 +57,7 @@ const Contacts = ({ userId }) => {
 						))}
 					</ul>
 				) : (
-					<div className="flex flex-col justify-center items-center">
+					<div className="flex flex-col justify-center items-center mt-6">
 						<p className="text-base">
 							Vous n'avez pas encore de contact
 						</p>

@@ -5,6 +5,7 @@ import HeaderSearch from './HeaderSearch';
 import HeaderAvatar from './HeaderAvatar';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/selectors/userSelectors';
+import HeaderNotifications from './HeaderNotifications';
 
 const Header = () => {
 	const currentUser = useSelector(selectCurrentUser);
@@ -15,7 +16,10 @@ const Header = () => {
 			<HeaderNav />
 			<div className="absolute flex h-full items-center right-0 top-0">
 				{/* <HeaderSearch /> */}
-				<HeaderAvatar currentUser={currentUser} />
+				<div className="flex">
+					<HeaderNotifications />
+					<HeaderAvatar currentUser={currentUser} />
+				</div>
 			</div>
 		</header>
 	);

@@ -1,0 +1,63 @@
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { selectNotifications } from '../../store/selectors/notificationSelectors';
+import NotificationsMenu from './NotificationsMenu';
+
+const HeaderNotifications = () => {
+	const [hasNewNotification, setHasNewNotification] = useState(false);
+	const receivedNotifications = useSelector(selectNotifications);
+	const [unreadNotifications, setUnreadNotifications] = useState([]);
+	const [readedNotifications, setReadedNotifications] = useState([]);
+	const [showNotifications, setShowNotifications] = useState(false);
+
+	const toggleNotifications = () => setShowNotifications(!showNotifications);
+
+	const markAsRead = (notificationId) => {
+		// Tu dois implémenter la logique pour marquer une notification comme lue
+		console.log(`Notification ${notificationId} marquée comme lue`);
+		// N'oublie pas de mettre à jour ton state après
+	};
+
+	useEffect(() => {
+		if (receivedNotifications && receivedNotifications.length > 0) {
+			const unread = receivedNotifications.filter(
+				(notification) => notification.read === false
+			);
+			const readed = receivedNotifications.filter(
+				(notification) => notification.read === true
+			);
+			setUnreadNotifications(unread);
+			setReadedNotifications(readed);
+		}
+	}, [receivedNotifications]);
+
+	useEffect(() => {
+		if (unreadNotifications && unreadNotifications.length > 0) {
+			setHasNewNotification(true);
+		}
+	}, [unreadNotifications]);
+
+	return (
+		<div
+			className="cursor-pointer flex relative mr-4 h-8 sm:h-10 md:h-12 mt-2 md:mt-0 items-center justify-center"
+			onClick={toggleNotifications}>
+			<span className="text-dark-blue text-xl sm:text-2xl md:text-3xl">
+				<i className="fa-regular fa-bell"></i>
+			</span>
+			{hasNewNotification && (
+				<span className="absolute top-2 sm:top-2.5 right-0 h-1.5 sm:h-2 md:h-2.5 w-1.5 sm:w-2 md:w-2.5 bg-red-500 rounded-full"></span>
+			)}
+			{showNotifications && (
+				<NotificationsMenu
+					notifications={[
+						...unreadNotifications,
+						...readedNotifications,
+					]}
+					onRead={markAsRead}
+				/>
+			)}
+		</div>
+	);
+};
+
+export default HeaderNotifications;

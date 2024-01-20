@@ -37,6 +37,7 @@ import { ToastContainer } from 'react-toastify';
 import TaskPageTip from '../components/tasks/TaskPageTip';
 import { useGetTips } from '../api/tips/getTips';
 import { selectCurrentUser } from '../store/selectors/userSelectors';
+import { useGetNotifications } from '../api/notifications/getNotifications';
 
 const Tasks = () => {
 	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);
@@ -81,6 +82,7 @@ const Tasks = () => {
 	const getNextYearTasks = useGetNextYearTasks();
 	const getBecomingTasks = useGetBecomingTasks();
 	const getTips = useGetTips();
+	const getNotifications = useGetNotifications();
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
@@ -108,6 +110,7 @@ const Tasks = () => {
 				if (!isBecomingTasksLoaded) await getBecomingTasks(userId);
 			}
 
+			await getNotifications(userId);
 			await getTips();
 		};
 
