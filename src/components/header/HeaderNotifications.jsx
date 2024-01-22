@@ -41,6 +41,7 @@ const HeaderNotifications = () => {
 
 	useEffect(() => {
 		if (receivedNewNotifications && receivedNewNotifications.length > 0) {
+			console.log(receivedNewNotifications);
 			setHasNewNotification(true);
 			setUnreadNotifications(receivedNewNotifications);
 		}
