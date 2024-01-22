@@ -22,7 +22,12 @@ export const useGetNotifications = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(getNotificationsSuccess(res.data));
+			dispatch(
+				getNotificationsSuccess({
+					newNotifications: res.data.newNotifications,
+					earlierNotifications: res.data.earlierNotifications,
+				})
+			);
 			return res.data;
 		} catch (error) {
 			dispatch(getNotificationsFailure(error));

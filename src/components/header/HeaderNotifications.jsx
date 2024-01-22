@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectNotifications } from '../../store/selectors/notificationSelectors';
+import {
+	selectEarlierNotifications,
+	selectNewNotifications,
+	selectNotifications,
+} from '../../store/selectors/notificationSelectors';
 import NotificationsMenu from './NotificationsMenu';
 
 const HeaderNotifications = () => {
 	const [hasNewNotification, setHasNewNotification] = useState(false);
 	const receivedNotifications = useSelector(selectNotifications);
+	const receivedNewNotifications = useSelector(selectNewNotifications);
+	const receivedEarlierNotifications = useSelector(
+		selectEarlierNotifications
+	);
 	const [unreadNotifications, setUnreadNotifications] = useState([]);
 	const [readedNotifications, setReadedNotifications] = useState([]);
 	const [showNotifications, setShowNotifications] = useState(false);
@@ -18,24 +26,34 @@ const HeaderNotifications = () => {
 		// N'oublie pas de mettre à jour ton state après
 	};
 
-	useEffect(() => {
-		if (receivedNotifications && receivedNotifications.length > 0) {
-			const unread = receivedNotifications.filter(
-				(notification) => notification.read === false
-			);
-			const readed = receivedNotifications.filter(
-				(notification) => notification.read === true
-			);
-			setUnreadNotifications(unread);
-			setReadedNotifications(readed);
-		}
-	}, [receivedNotifications]);
+	// useEffect(() => {
+	// 	if (receivedNotifications && receivedNotifications.length > 0) {
+	// 		const unread = receivedNotifications.filter(
+	// 			(notification) => notification.read === false
+	// 		);
+	// 		const readed = receivedNotifications.filter(
+	// 			(notification) => notification.read === true
+	// 		);
+	// 		setUnreadNotifications(unread);
+	// 		setReadedNotifications(readed);
+	// 	}
+	// }, [receivedNotifications]);
 
 	useEffect(() => {
-		if (unreadNotifications && unreadNotifications.length > 0) {
+		if (receivedNewNotifications && receivedNewNotifications.length > 0) {
 			setHasNewNotification(true);
+			setUnreadNotifications(receivedNewNotifications);
 		}
-	}, [unreadNotifications]);
+	}, [receivedNewNotifications]);
+
+	useEffect(() => {
+		if (
+			receivedEarlierNotifications &&
+			receivedEarlierNotifications.length > 0
+		) {
+			setReadedNotifications(receivedEarlierNotifications);
+		}
+	}, [receivedEarlierNotifications]);
 
 	return (
 		<div
@@ -49,10 +67,8 @@ const HeaderNotifications = () => {
 			)}
 			{showNotifications && (
 				<NotificationsMenu
-					notifications={[
-						...unreadNotifications,
-						...readedNotifications,
-					]}
+					unreadNotifications={unreadNotifications}
+					readedNotifications={readedNotifications}
 					onRead={markAsRead}
 				/>
 			)}
