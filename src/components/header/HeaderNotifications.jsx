@@ -18,12 +18,28 @@ const HeaderNotifications = () => {
 	const [readedNotifications, setReadedNotifications] = useState([]);
 	const [showNotifications, setShowNotifications] = useState(false);
 
-	const toggleNotifications = () => setShowNotifications(!showNotifications);
+	const markNotificationsAsViewed = async (notificationsIds) => {
+		console.log(`Notifications ${notificationsIds} marquées comme vues`);
+	};
 
 	const markAsRead = (notificationId) => {
 		// Tu dois implémenter la logique pour marquer une notification comme lue
 		console.log(`Notification ${notificationId} marquée comme lue`);
 		// N'oublie pas de mettre à jour ton state après
+	};
+
+	const handleNotificationsMenu = () => {
+		if (showNotifications) {
+			setShowNotifications(false);
+		} else if (!showNotifications) {
+			setShowNotifications(true);
+			const viewedNotificationsIds = unreadNotifications
+				.filter((notif) => !notif.viewedAt)
+				.map((notif) => notif._id);
+			if (viewedNotificationsIds.length > 0) {
+				markNotificationsAsViewed(viewedNotificationsIds);
+			}
+		}
 	};
 
 	// useEffect(() => {
@@ -41,7 +57,6 @@ const HeaderNotifications = () => {
 
 	useEffect(() => {
 		if (receivedNewNotifications && receivedNewNotifications.length > 0) {
-			console.log(receivedNewNotifications);
 			setHasNewNotification(true);
 			setUnreadNotifications(receivedNewNotifications);
 		}
@@ -59,7 +74,7 @@ const HeaderNotifications = () => {
 	return (
 		<div
 			className="cursor-pointer flex relative mr-4 h-8 sm:h-10 md:h-12 mt-2 md:mt-0 items-center justify-center"
-			onClick={toggleNotifications}>
+			onClick={handleNotificationsMenu}>
 			<span className="text-dark-blue text-xl sm:text-2xl md:text-3xl">
 				<i className="fa-regular fa-bell"></i>
 			</span>
