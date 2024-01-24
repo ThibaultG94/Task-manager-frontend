@@ -36,6 +36,23 @@ export const notificationsSlice = createSlice({
 			state.error = action.payload;
 			state.loading = false;
 		},
+		markNotificationsViewedAction: (state) => {
+			state.loading = true;
+		},
+		markNotificationsViewedSuccess: (state, action) => {
+			const viewedIds = action.payload;
+			state.newNotifications = state.newNotifications.map((notif) =>
+				viewedIds.includes(notif._id)
+					? { ...notif, viewedAt: new Date() }
+					: notif
+			);
+			state.loading = false;
+			state.error = null;
+		},
+		markNotificationsViewedFailure: (state, action) => {
+			state.error = action.payload;
+			state.loading = false;
+		},
 	},
 });
 
@@ -46,6 +63,9 @@ export const {
 	getNotificationsAction,
 	getNotificationsSuccess,
 	getNotificationsFailure,
+	markNotificationsViewedAction,
+	markNotificationsViewedSuccess,
+	markNotificationsViewedFailure,
 } = notificationsSlice.actions;
 
 export default notificationsSlice.reducer;

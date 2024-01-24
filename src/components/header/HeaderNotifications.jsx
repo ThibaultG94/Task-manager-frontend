@@ -6,8 +6,10 @@ import {
 	selectNotifications,
 } from '../../store/selectors/notificationSelectors';
 import NotificationsMenu from './NotificationsMenu';
+import { useMarkNotificationsAsViewed } from '../../api/notifications/markNotificationsAsViewed';
 
-const HeaderNotifications = () => {
+const HeaderNotifications = ({ userId }) => {
+	const markNotificationsAsViewed = useMarkNotificationsAsViewed();
 	const [hasNewNotification, setHasNewNotification] = useState(false);
 	const receivedNotifications = useSelector(selectNotifications);
 	const receivedNewNotifications = useSelector(selectNewNotifications);
@@ -18,8 +20,8 @@ const HeaderNotifications = () => {
 	const [readedNotifications, setReadedNotifications] = useState([]);
 	const [showNotifications, setShowNotifications] = useState(false);
 
-	const markNotificationsAsViewed = async (notificationsIds) => {
-		console.log(`Notifications ${notificationsIds} marquées comme vues`);
+	const markAsViewed = async (notificationsIds) => {
+		await markNotificationsAsViewed(userId, notificationsIds);
 	};
 
 	const markAsRead = (notificationId) => {
@@ -37,7 +39,7 @@ const HeaderNotifications = () => {
 				.filter((notif) => !notif.viewedAt)
 				.map((notif) => notif._id);
 			if (viewedNotificationsIds.length > 0) {
-				markNotificationsAsViewed(viewedNotificationsIds);
+				markAsViewed(viewedNotificationsIds);
 			}
 		}
 	};
