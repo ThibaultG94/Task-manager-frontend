@@ -10,7 +10,7 @@ import { useMarkNotificationsAsViewed } from '../../api/notifications/markNotifi
 
 const HeaderNotifications = ({ userId }) => {
 	const markNotificationsAsViewed = useMarkNotificationsAsViewed();
-	const [hasNewNotification, setHasNewNotification] = useState(false);
+	const [hasNewNotification, setHasNewNotification] = useState(0);
 	const receivedNotifications = useSelector(selectNotifications);
 	const receivedNewNotifications = useSelector(selectNewNotifications);
 	const receivedEarlierNotifications = useSelector(
@@ -33,14 +33,14 @@ const HeaderNotifications = ({ userId }) => {
 	const handleNotificationsMenu = () => {
 		if (showNotifications) {
 			setShowNotifications(false);
-		} else if (!showNotifications) {
-			setShowNotifications(true);
 			const viewedNotificationsIds = unreadNotifications
 				.filter((notif) => !notif.viewedAt)
 				.map((notif) => notif._id);
 			if (viewedNotificationsIds.length > 0) {
 				markAsViewed(viewedNotificationsIds);
 			}
+		} else if (!showNotifications) {
+			setShowNotifications(true);
 		}
 	};
 
@@ -59,7 +59,10 @@ const HeaderNotifications = ({ userId }) => {
 
 	useEffect(() => {
 		if (receivedNewNotifications && receivedNewNotifications.length > 0) {
-			setHasNewNotification(true);
+			const unviewedCount = receivedNewNotifications.filter(
+				(notif) => !notif.viewedAt
+			).length;
+			setHasNewNotification(unviewedCount);
 			setUnreadNotifications(receivedNewNotifications);
 		}
 	}, [receivedNewNotifications]);
@@ -75,14 +78,19 @@ const HeaderNotifications = ({ userId }) => {
 
 	return (
 		<div
-			className="cursor-pointer flex relative mr-4 h-8 sm:h-10 md:h-12 mt-2 md:mt-0 items-center justify-center"
+			className="cursor-pointer flex relative mr-2 sm:mr-4 h-8 sm:h-10 md:h-12 mt-2 md:mt-0 items-center justify-center"
 			onClick={handleNotificationsMenu}>
-			<span className="text-dark-blue text-xl sm:text-2xl md:text-3xl">
+			<span className="text-dark-blue text-2xl sm:text-3xl">
 				<i className="fa-regular fa-bell"></i>
 			</span>
-			{hasNewNotification && (
-				<span className="absolute top-2 sm:top-2.5 right-0 h-1.5 sm:h-2 md:h-2.5 w-1.5 sm:w-2 md:w-2.5 bg-red-500 rounded-full"></span>
+			{hasNewNotification > 0 && (
+				<span className="absolute top-0.5 sm:top-1 left-3 sm:left-4	h-3 sm:h-4 md:h-4 w-3 sm:w-4 md:w-4 bg-red-500 rounded-full flex items-center justify-center">
+					<span className="text-white text-[0.6rem] sm:text-xs font-semibold flex items-center justify-center">
+						{hasNewNotification}
+					</span>
+				</span>
 			)}
+
 			{showNotifications && (
 				<NotificationsMenu
 					unreadNotifications={unreadNotifications}
