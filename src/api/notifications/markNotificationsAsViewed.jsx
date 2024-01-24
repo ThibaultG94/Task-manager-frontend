@@ -26,7 +26,6 @@ export const useMarkNotificationsAsViewed = () => {
 				}
 			);
 			dispatch(markNotificationsViewedSuccess(notificationsIds));
-			console.log(res);
 			return res;
 		} catch (error) {
 			dispatch(markNotificationsViewedFailure(error));

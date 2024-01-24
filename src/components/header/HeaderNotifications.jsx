@@ -7,9 +7,11 @@ import {
 } from '../../store/selectors/notificationSelectors';
 import NotificationsMenu from './NotificationsMenu';
 import { useMarkNotificationsAsViewed } from '../../api/notifications/markNotificationsAsViewed';
+import { useMarkNotificationAsRead } from '../../api/notifications/markNotificationAsRead';
 
 const HeaderNotifications = ({ userId }) => {
 	const markNotificationsAsViewed = useMarkNotificationsAsViewed();
+	const markNotificationAsRead = useMarkNotificationAsRead();
 	const [hasNewNotification, setHasNewNotification] = useState(0);
 	const receivedNotifications = useSelector(selectNotifications);
 	const receivedNewNotifications = useSelector(selectNewNotifications);
@@ -24,10 +26,8 @@ const HeaderNotifications = ({ userId }) => {
 		await markNotificationsAsViewed(userId, notificationsIds);
 	};
 
-	const markAsRead = (notificationId) => {
-		// Tu dois implémenter la logique pour marquer une notification comme lue
-		console.log(`Notification ${notificationId} marquée comme lue`);
-		// N'oublie pas de mettre à jour ton state après
+	const markAsRead = async (notificationId) => {
+		await markNotificationAsRead(userId, notificationId);
 	};
 
 	const handleNotificationsMenu = () => {

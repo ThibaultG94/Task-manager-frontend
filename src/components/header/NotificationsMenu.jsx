@@ -31,7 +31,7 @@ const NotificationsMenu = ({
 											? 'bg-gray-100'
 											: ''
 									}`}
-									onClick={() => onRead(notification.id)}>
+									onClick={() => onRead(notification._id)}>
 									<div className="flex items-center">
 										<div className="bg-dark-blue cursor-auto flex h-10 items-center justify-center mx-auto overflow-hidden p-4 relative rounded-full w-10 mr-2">
 											<span id="avatarLetterNotif">
@@ -63,7 +63,7 @@ const NotificationsMenu = ({
 											key={index}
 											className="px-4 py-2 h-16 text-sm border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex"
 											onClick={() =>
-												onRead(notification.id)
+												onRead(notification._id)
 											}>
 											<div className="flex items-center">
 												<div className="bg-dark-blue cursor-auto flex h-10 items-center justify-center mx-auto overflow-hidden p-4 relative rounded-full w-10 mr-2">
