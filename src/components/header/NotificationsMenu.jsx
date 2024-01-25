@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import NotificationsModal from '../notifications/NotificationsModal';
 
 const NotificationsMenu = ({
 	unreadNotifications,
 	readedNotifications,
 	onRead,
 }) => {
+	const [openNotificationsModal, setOpenNotificationsModal] = useState(false);
+
 	return (
 		<div className="absolute top-full right-0 w-80 bg-white rounded-md shadow-lg border-gray-200 z-10 overflow-hidden pt-2">
 			<div className="overflow-y-auto max-h-96">
@@ -61,13 +64,21 @@ const NotificationsMenu = ({
 									(notification, index) => (
 										<li
 											key={index}
-											className="px-4 py-2 h-16 text-sm border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex"
+											className={`px-4 py-2 h-16 text-sm border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex ${
+												notification.read
+													? 'opacity-50'
+													: ''
+											} ${
+												!notification.viewedAt
+													? 'bg-gray-100'
+													: ''
+											}`}
 											onClick={() =>
 												onRead(notification)
 											}>
 											<div className="flex items-center">
 												<div className="bg-dark-blue cursor-auto flex h-10 items-center justify-center mx-auto overflow-hidden p-4 relative rounded-full w-10 mr-2">
-													<span className="text-white text-xl">
+													<span id="avatarLetterNotif">
 														{
 															notification
 																.creatorUsername[0]
@@ -75,9 +86,11 @@ const NotificationsMenu = ({
 													</span>
 												</div>
 											</div>
-											<span className="flex-grow multi-line-truncate">
-												{notification.message}
-											</span>
+											<div className="flex items-center">
+												<span className="flex-grow multi-line-truncate">
+													{notification.message}
+												</span>
+											</div>
 										</li>
 									)
 								)}
@@ -86,9 +99,13 @@ const NotificationsMenu = ({
 					</>
 				)}
 			</div>
-			<div className="px-4 py-2 text-sm text-blue-600 hover:text-blue-800 cursor-pointer">
+			<div
+				className="px-4 py-2 text-sm text-blue-600 hover:text-blue-800 cursor-pointer"
+				onClick={() => setOpenNotificationsModal(true)}>
 				Voir toutes les notifications
 			</div>
+
+			{openNotificationsModal && <NotificationsModal />}
 		</div>
 	);
 };
