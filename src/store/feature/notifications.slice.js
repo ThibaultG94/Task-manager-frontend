@@ -4,6 +4,8 @@ export const notificationsSlice = createSlice({
 	name: 'notifications',
 	initialState: {
 		notifications: [],
+		isNotificationsLoaded: false,
+		totalNotifications: 0,
 		newNotifications: [],
 		earlierNotifications: [],
 		loading: false,
@@ -19,6 +21,20 @@ export const notificationsSlice = createSlice({
 			state.error = null;
 		},
 		setNotificationsFailure: (state, action) => {
+			state.error = action.payload;
+			state.loading = false;
+		},
+		getAllNotificationsAction: (state) => {
+			state.loading = true;
+		},
+		getAllNotificationsSuccess: (state, action) => {
+			state.notifications = action.payload.notifications;
+			state.totalNotifications = action.payload.totalNotifications;
+			state.isNotificationsLoaded = true;
+			state.loading = false;
+			state.error = null;
+		},
+		getAllNotificationsFailure: (state, action) => {
 			state.error = action.payload;
 			state.loading = false;
 		},
@@ -81,6 +97,9 @@ export const {
 	setNotificationsAction,
 	setNotificationsSuccess,
 	setNotificationsFailure,
+	getAllNotificationsAction,
+	getAllNotificationsSuccess,
+	getAllNotificationsFailure,
 	getNotificationsAction,
 	getNotificationsSuccess,
 	getNotificationsFailure,

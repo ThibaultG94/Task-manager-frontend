@@ -8,8 +8,18 @@ const NotificationsMenu = ({
 }) => {
 	const [openNotificationsModal, setOpenNotificationsModal] = useState(false);
 
+	const handleNotificationsModal = () => {
+		if (openNotificationsModal) {
+			setOpenNotificationsModal(false);
+		} else {
+			setOpenNotificationsModal(true);
+		}
+	};
+
 	return (
-		<div className="absolute top-full right-0 w-80 bg-white rounded-md shadow-lg border-gray-200 z-10 overflow-hidden pt-2">
+		<div
+			className="absolute top-full right-0 w-80 bg-white rounded-md shadow-lg border-gray-200 z-10 overflow-hidden pt-2"
+			onClick={(e) => e.stopPropagation()}>
 			<div className="overflow-y-auto max-h-96">
 				{unreadNotifications.length === 0 &&
 				readedNotifications.length === 0 ? (
@@ -101,11 +111,15 @@ const NotificationsMenu = ({
 			</div>
 			<div
 				className="px-4 py-2 text-sm text-blue-600 hover:text-blue-800 cursor-pointer"
-				onClick={() => setOpenNotificationsModal(true)}>
+				onClick={handleNotificationsModal}>
 				Voir toutes les notifications
 			</div>
 
-			{openNotificationsModal && <NotificationsModal />}
+			{openNotificationsModal && (
+				<NotificationsModal
+					handleNotificationsModal={handleNotificationsModal}
+				/>
+			)}
 		</div>
 	);
 };

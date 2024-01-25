@@ -7,6 +7,16 @@ export const selectNotifications = createSelector(
 	(notifications) => notifications.notifications
 );
 
+export const selectTotalNotifications = createSelector(
+	[selectNotificationsState],
+	(notifications) => notifications.totalNotifications
+);
+
+export const selectIsNotificationsLoaded = createSelector(
+	[selectNotificationsState],
+	(notifications) => notifications.isNotificationsLoaded
+);
+
 export const selectNewNotifications = createSelector(
 	[selectNotificationsState],
 	(notifications) => notifications.newNotifications
