@@ -4,8 +4,8 @@ import ReceivedInvitesList from './ReceivedInvitesList';
 import Tabs from '../modal/Tabs';
 import SentOutInvitations from './SentOutInvitations';
 
-const InviteMemberModal = ({ userId, setIsInvitationModalOpen }) => {
-	const [activeTab, setActiveTab] = useState('tab1');
+const InviteMemberModal = ({ userId, setIsInvitationModalOpen, tab }) => {
+	const [activeTab, setActiveTab] = useState(tab);
 	const tabData = [
 		{
 			id: 'tab1',

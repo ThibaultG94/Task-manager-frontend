@@ -8,12 +8,13 @@ import {
 import NotificationsMenu from './NotificationsMenu';
 import { useMarkNotificationsAsViewed } from '../../api/notifications/markNotificationsAsViewed';
 import { useMarkNotificationAsRead } from '../../api/notifications/markNotificationAsRead';
+import InviteMemberModal from '../invitation/InviteMemberModal';
 
 const HeaderNotifications = ({ userId }) => {
 	const markNotificationsAsViewed = useMarkNotificationsAsViewed();
 	const markNotificationAsRead = useMarkNotificationAsRead();
 	const [hasNewNotification, setHasNewNotification] = useState(0);
-	const receivedNotifications = useSelector(selectNotifications);
+	// const receivedNotifications = useSelector(selectNotifications);
 	const receivedNewNotifications = useSelector(selectNewNotifications);
 	const receivedEarlierNotifications = useSelector(
 		selectEarlierNotifications
@@ -21,13 +22,15 @@ const HeaderNotifications = ({ userId }) => {
 	const [unreadNotifications, setUnreadNotifications] = useState([]);
 	const [readedNotifications, setReadedNotifications] = useState([]);
 	const [showNotifications, setShowNotifications] = useState(false);
+	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
 
 	const markAsViewed = async (notificationsIds) => {
 		await markNotificationsAsViewed(userId, notificationsIds);
 	};
 
-	const markAsRead = async (notificationId) => {
-		await markNotificationAsRead(userId, notificationId);
+	const markAsRead = async (notificationId, read) => {
+		if (!read) await markNotificationAsRead(userId, notificationId);
+		setIsInvitationModalOpen(true);
 	};
 
 	const handleNotificationsMenu = () => {
@@ -96,6 +99,14 @@ const HeaderNotifications = ({ userId }) => {
 					unreadNotifications={unreadNotifications}
 					readedNotifications={readedNotifications}
 					onRead={markAsRead}
+				/>
+			)}
+
+			{isInvitationModalOpen && (
+				<InviteMemberModal
+					userId={userId}
+					setIsInvitationModalOpen={setIsInvitationModalOpen}
+					tab={'tab3'}
 				/>
 			)}
 		</div>
