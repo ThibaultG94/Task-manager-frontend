@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useDeclineInvitation } from '../../api/invitations/declineInvitation';
 import { useAcceptInvitation } from '../../api/invitations/acceptInvitation';
 import { useGetContacts } from '../../api/users/getContacts';
+import { useSetInvitationNotification } from '../../api/notifications/setInvitationNotification';
 
 const ReceivedInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedInvitations);
@@ -13,6 +14,7 @@ const ReceivedInvitesList = ({ userId }) => {
 	const acceptInvitation = useAcceptInvitation();
 	const declineInvitation = useDeclineInvitation();
 	const getReceivedInvitations = useGetReceivedInvitations();
+	const setInvitationNotification = useSetInvitationNotification();
 	const [receivedInvitationsPending, setReceivedInvitationsPending] =
 		useState();
 	const [receivedInvitationsAccepted, setReceivedInvitationsAccepted] =
@@ -20,10 +22,14 @@ const ReceivedInvitesList = ({ userId }) => {
 
 	const handleAcceptInvitation = async (invitationId) => {
 		try {
-			await acceptInvitation(invitationId, userId);
-			await getReceivedInvitations(userId);
-			toast.success("L'invitation a été acceptée");
-			await getContacts(userId);
+			const res = await acceptInvitation(invitationId, userId);
+			console.log('res from handleAcceptInvitation', res);
+			if (res.status === 200) {
+				await getReceivedInvitations(userId);
+				toast.success("L'invitation a été acceptée");
+				await getContacts(userId);
+				await setInvitationNotification(res.data.invitation, userId);
+			}
 		} catch (error) {
 			toast.error("Échec de l'acceptation de l'invitation");
 			return;

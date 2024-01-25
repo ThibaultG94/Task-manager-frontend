@@ -9,10 +9,14 @@ import NotificationsMenu from './NotificationsMenu';
 import { useMarkNotificationsAsViewed } from '../../api/notifications/markNotificationsAsViewed';
 import { useMarkNotificationAsRead } from '../../api/notifications/markNotificationAsRead';
 import InviteMemberModal from '../invitation/InviteMemberModal';
+import { useGetSentOutInvitations } from '../../api/invitations/getSentOutInvitations';
+import { useGetReceivedInvitations } from '../../api/invitations/getReceivedInvitations';
 
 const HeaderNotifications = ({ userId }) => {
 	const markNotificationsAsViewed = useMarkNotificationsAsViewed();
 	const markNotificationAsRead = useMarkNotificationAsRead();
+	const getSentOutInvitations = useGetSentOutInvitations();
+	const getReceivedInvitations = useGetReceivedInvitations();
 	const [hasNewNotification, setHasNewNotification] = useState(0);
 	// const receivedNotifications = useSelector(selectNotifications);
 	const receivedNewNotifications = useSelector(selectNewNotifications);
@@ -23,14 +27,23 @@ const HeaderNotifications = ({ userId }) => {
 	const [readedNotifications, setReadedNotifications] = useState([]);
 	const [showNotifications, setShowNotifications] = useState(false);
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
+	const [tab, setTab] = useState('tab1');
 
 	const markAsViewed = async (notificationsIds) => {
 		await markNotificationsAsViewed(userId, notificationsIds);
 	};
 
-	const markAsRead = async (notificationId, read) => {
-		if (!read) await markNotificationAsRead(userId, notificationId);
+	const markAsRead = async (notification) => {
+		if (!notification.read)
+			await markNotificationAsRead(userId, notification._id);
 		setIsInvitationModalOpen(true);
+		if (notification.message.includes('envoyé')) {
+			setTab('tab3');
+		} else if (notification.message.includes('accepté')) {
+			setTab('tab2');
+		} else {
+			console.error("Can't find tab");
+		}
 	};
 
 	const handleNotificationsMenu = () => {
@@ -79,6 +92,13 @@ const HeaderNotifications = ({ userId }) => {
 		}
 	}, [receivedEarlierNotifications]);
 
+	useEffect(() => {
+		if (userId) {
+			getSentOutInvitations(userId);
+			getReceivedInvitations(userId);
+		}
+	}, [isInvitationModalOpen]);
+
 	return (
 		<div
 			className="cursor-pointer flex relative mr-2 sm:mr-4 h-8 sm:h-10 md:h-12 mt-2 md:mt-0 items-center justify-center"
@@ -106,7 +126,7 @@ const HeaderNotifications = ({ userId }) => {
 				<InviteMemberModal
 					userId={userId}
 					setIsInvitationModalOpen={setIsInvitationModalOpen}
-					tab={'tab3'}
+					tab={tab}
 				/>
 			)}
 		</div>

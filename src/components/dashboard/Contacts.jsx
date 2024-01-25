@@ -33,7 +33,7 @@ const Contacts = ({ userId }) => {
 							<li
 								className="flex items-center justify-start p-1 md:p-2 py-2.5 relative transition duration-100 ease-in-out"
 								key={contact.id}>
-								<div className="flex h-8 items-center">
+								<div className="flex h-8 items-center ellipsis">
 									<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">
 										<i className="fa-solid fa-user"></i>{' '}
 									</div>
@@ -44,7 +44,7 @@ const Contacts = ({ userId }) => {
 											</span>
 										</div>
 									</div>
-									<div className="text-sm md:text-base ml-2">
+									<div className="text-sm md:text-base ml-2 ellipsis">
 										<span className="mr-1">
 											{contact.username}
 										</span>
