@@ -13,6 +13,7 @@ import Pagination from '../tasks/Pagination';
 const NotificationsModal = ({
 	handleNotificationsModal,
 	openNotificationsModal,
+	onRead,
 }) => {
 	const getAllNotifications = useGetAllNotifications();
 	const currentNotifications = useSelector(selectCurrentNotificationsPage);
@@ -98,8 +99,7 @@ const NotificationsModal = ({
 												? 'bg-gray-100'
 												: ''
 										}`}
-										// onClick={() => onRead(notification)}
-									>
+										onClick={() => onRead(notification)}>
 										<div className="flex items-center">
 											<div className="bg-dark-blue cursor-auto flex h-10 items-center justify-center mx-auto overflow-hidden p-4 relative rounded-full w-10 mr-2">
 												<span id="avatarLetterNotif">
@@ -113,6 +113,11 @@ const NotificationsModal = ({
 										<div className="flex items-center">
 											<span className="flex-grow multi-line-truncate">
 												{notification.message}
+											</span>
+										</div>
+										<div className="flex items-center">
+											<span className="flex-grow multi-line-truncate">
+												{notification.createdAt}
 											</span>
 										</div>
 									</li>

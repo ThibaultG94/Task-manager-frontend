@@ -119,6 +119,7 @@ const NotificationsMenu = ({
 				<NotificationsModal
 					handleNotificationsModal={handleNotificationsModal}
 					openNotificationsModal={openNotificationsModal}
+					onRead={onRead}
 				/>
 			)}
 		</div>

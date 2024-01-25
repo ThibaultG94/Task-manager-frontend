@@ -88,7 +88,7 @@ const HeaderNotifications = ({ userId }) => {
 		<div
 			className="flex relative mr-2 sm:mr-4 h-8 sm:h-10 md:h-12 mt-2 md:mt-0 items-center justify-center"
 			onClick={handleNotificationsMenu}>
-			<span className="text-dark-blue text-2xl sm:text-3xl">
+			<span className="cursor-pointer text-dark-blue text-2xl sm:text-3xl">
 				<i className="fa-regular fa-bell"></i>
 			</span>
 			{hasNewNotification > 0 && (
