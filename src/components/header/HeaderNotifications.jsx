@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import {
 	selectEarlierNotifications,
 	selectNewNotifications,
-	selectNotifications,
 } from '../../store/selectors/notificationSelectors';
 import NotificationsMenu from './NotificationsMenu';
 import { useMarkNotificationsAsViewed } from '../../api/notifications/markNotificationsAsViewed';
@@ -18,7 +17,6 @@ const HeaderNotifications = ({ userId }) => {
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
 	const [hasNewNotification, setHasNewNotification] = useState(0);
-	// const receivedNotifications = useSelector(selectNotifications);
 	const receivedNewNotifications = useSelector(selectNewNotifications);
 	const receivedEarlierNotifications = useSelector(
 		selectEarlierNotifications
@@ -60,19 +58,6 @@ const HeaderNotifications = ({ userId }) => {
 		}
 	};
 
-	// useEffect(() => {
-	// 	if (receivedNotifications && receivedNotifications.length > 0) {
-	// 		const unread = receivedNotifications.filter(
-	// 			(notification) => notification.read === false
-	// 		);
-	// 		const readed = receivedNotifications.filter(
-	// 			(notification) => notification.read === true
-	// 		);
-	// 		setUnreadNotifications(unread);
-	// 		setReadedNotifications(readed);
-	// 	}
-	// }, [receivedNotifications]);
-
 	useEffect(() => {
 		if (receivedNewNotifications && receivedNewNotifications.length > 0) {
 			const unviewedCount = receivedNewNotifications.filter(
@@ -101,7 +86,7 @@ const HeaderNotifications = ({ userId }) => {
 
 	return (
 		<div
-			className="cursor-pointer flex relative mr-2 sm:mr-4 h-8 sm:h-10 md:h-12 mt-2 md:mt-0 items-center justify-center"
+			className="flex relative mr-2 sm:mr-4 h-8 sm:h-10 md:h-12 mt-2 md:mt-0 items-center justify-center"
 			onClick={handleNotificationsMenu}>
 			<span className="text-dark-blue text-2xl sm:text-3xl">
 				<i className="fa-regular fa-bell"></i>

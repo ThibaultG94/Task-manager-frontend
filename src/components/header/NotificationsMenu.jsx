@@ -118,6 +118,7 @@ const NotificationsMenu = ({
 			{openNotificationsModal && (
 				<NotificationsModal
 					handleNotificationsModal={handleNotificationsModal}
+					openNotificationsModal={openNotificationsModal}
 				/>
 			)}
 		</div>
