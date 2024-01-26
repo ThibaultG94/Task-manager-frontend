@@ -103,6 +103,7 @@ const HeaderNotifications = ({ userId }) => {
 				<NotificationsMenu
 					unreadNotifications={unreadNotifications}
 					readedNotifications={readedNotifications}
+					setShowNotifications={setShowNotifications}
 					onRead={markAsRead}
 				/>
 			)}

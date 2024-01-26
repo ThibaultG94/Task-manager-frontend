@@ -76,7 +76,7 @@ const Dashboard = () => {
 		<div className="bg-light-blue min-h-screen flex relative">
 			<ToastContainer autoClose={600} position="bottom-left" />
 			{!redirectAfterLogin ? <CheckAuthentication /> : null}
-			<section className="bg-dark-blue fixed text-center text-white z-10">
+			<section className="bg-dark-blue fixed text-center text-white z-20">
 				<SideBar userId={userId} />
 			</section>
 			<div className="flex flex-col xl:ml-24 mt-16 xl:mt-0 px-0 sm:px-1 md:px-2 lg:px-3 xl:px-4 w-full">
