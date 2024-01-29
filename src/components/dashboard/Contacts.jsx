@@ -48,7 +48,7 @@ const Contacts = ({ userId }) => {
 										<span className="mr-1">
 											{contact.username}
 										</span>
-										<span className="italic">
+										<span className="italic opacity-50">
 											({contact.email})
 										</span>
 									</div>

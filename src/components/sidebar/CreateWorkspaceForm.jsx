@@ -35,6 +35,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 					userId: member._id,
 					username: member.username,
 					email: member.email,
+					role: 'superadmin',
 				},
 			],
 			isDefault: false,
