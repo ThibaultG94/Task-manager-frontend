@@ -14,7 +14,7 @@ const WorkspaceSelect = ({
 				onChange={(e) => setSelectedWorkspace(e.target.value)}
 				required
 				value={selectedWorkspace}>
-				<option value="default" disabled selected>
+				<option value="default" disabled>
 					Sélectionnez un workspace
 				</option>
 				{userWorkspaces &&

@@ -4,9 +4,11 @@ import { toast } from 'react-toastify';
 import TitleInput from '../modal/TitleInput';
 import DescriptionTextarea from '../modal/DescriptionTextarea';
 import SubmitButton from '../modal/SubmitButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setWorkspacesHasBeenUpdated } from '../../store/feature/editState.slice';
 import { getAssignedUser } from '../../api/users/getAssignedUser';
+import ContactsSelect from '../modal/ContactsSelect';
+import { selectUserContacts } from '../../store/selectors/userSelectors';
 
 const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const dispatch = useDispatch();
@@ -14,6 +16,9 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const [workspaceTitle, setWorkspaceTitle] = useState('');
 	const [workspaceDescription, setWorkspaceDescription] = useState('');
 	const [member, setMember] = useState('');
+	const userContacts = useSelector(selectUserContacts);
+	const [contacts, setContacts] = useState([]);
+	const [selectedMembers, setSelectedMembers] = useState([]);
 
 	useEffect(() => {
 		const getUserInfos = async (userId) => {
@@ -22,6 +27,10 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 		};
 		getUserInfos(userId);
 	}, [userId]);
+
+	useEffect(() => {
+		if (userContacts) setContacts(userContacts);
+	}, [userContacts]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -68,6 +77,13 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 							label={'Nom du Workspace'}
 							length={30}
 						/>
+						{contacts && contacts.length > 0 && (
+							<ContactsSelect
+								contacts={contacts}
+								selectedMembers={selectedMembers}
+								setSelectedMembers={setSelectedMembers}
+							/>
+						)}
 					</div>
 					<DescriptionTextarea
 						description={workspaceDescription}
