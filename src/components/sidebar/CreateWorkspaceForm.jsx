@@ -35,18 +35,22 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		const membersArray = [
+			{
+				userId: member._id,
+				role: 'superadmin',
+			},
+			...selectedMembers.map((memberId) => ({
+				userId: memberId,
+				role: 'member',
+			})),
+		];
+
 		const workspace = {
 			title: workspaceTitle,
 			userId,
 			description: workspaceDescription,
-			members: [
-				{
-					userId: member._id,
-					username: member.username,
-					email: member.email,
-					role: 'superadmin',
-				},
-			],
+			members: membersArray,
 			isDefault: false,
 		};
 

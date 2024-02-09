@@ -89,18 +89,18 @@ const ListWorkspaces = () => {
 							</div>
 							{isTabletOrLaptop ? (
 								<div className="flex items-center">
-									<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8">
-										{workspace?.membersName.map(
-											(member, index) => (
+									{workspace?.membersName.map(
+										(member, index) => (
+											<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2">
 												<span
 													id="avatarLetterAssigned"
 													key={index}>
 													{member[0]}
 												</span>
-											)
-										)}
-									</div>
-									<div className="ml-4 mr-2">
+											</div>
+										)
+									)}
+									<div className="ml-2 mr-2">
 										<FaUser
 											title={`${workspace?.members.length} membre(s)`}
 										/>
@@ -124,18 +124,18 @@ const ListWorkspaces = () => {
 								</div>
 							) : (
 								<div className="flex items-center">
-									<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8">
-										{workspace?.membersName.map(
-											(member, index) => (
+									{workspace?.membersName.map(
+										(member, index) => (
+											<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2">
 												<span
 													id="avatarLetterAssigned"
 													key={index}>
-													{member[0]}
+													{member && member[0]}
 												</span>
-											)
-										)}
-									</div>
-									<div className="ml-4">
+											</div>
+										)
+									)}
+									<div className="ml-2">
 										<span className="bg-light-blue mr-2 px-2.5 py-1 rounded text-xs">
 											{workspace?.members.length}{' '}
 											{workspace?.members.length > 1
