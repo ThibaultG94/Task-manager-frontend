@@ -10,17 +10,17 @@ const ModalDisplayWorkspace = ({ selectedWorkspace }) => {
 			</div>
 
 			<div className="mb-4 text-base text-gray-700 px-2">
-				<div className="flex justify-between items-center py-1">
+				<div className="flex flex-wrap justify-end py-1">
 					<span className="text-sm font-bold self-end text-gray-500">
 						Membres
 					</span>
-					<div className="assigned-icon mt-2 ml-6 px-2 py-1 rounded-lg bg-light-blue-3">
-						{selectedWorkspace?.membersName.map((member, index) => (
+					{selectedWorkspace?.membersName.map((member, index) => (
+						<div className="assigned-icon mt-2 ml-4 px-2 py-1 rounded-lg bg-light-blue-3">
 							<span className="ml-2 text-sm" key={index}>
 								{member}
 							</span>
-						))}
-					</div>
+						</div>
+					))}
 				</div>
 			</div>
 

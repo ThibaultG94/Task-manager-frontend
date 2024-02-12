@@ -84,7 +84,7 @@ const Dashboard = () => {
 				<main className="dashboard-container mt-1">
 					<Calendar />
 					<UrgentTasks />
-					<ListWorkspaces />
+					<ListWorkspaces userId={userId} />
 					<Contacts userId={userId} />
 				</main>
 			</div>

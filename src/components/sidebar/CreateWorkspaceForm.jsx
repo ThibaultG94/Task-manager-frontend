@@ -20,6 +20,20 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const [contacts, setContacts] = useState([]);
 	const [selectedMembers, setSelectedMembers] = useState([]);
 
+	const selectedOptions = selectedMembers.map((member) => ({
+		value: member.userId,
+		label: member.username,
+	}));
+
+	const handleChange = (selectedOptions) => {
+		setSelectedMembers(
+			selectedOptions.map((option) => ({
+				id: option.value,
+				username: option.label,
+			}))
+		);
+	};
+
 	useEffect(() => {
 		const getUserInfos = async (userId) => {
 			const assignedUser = await getAssignedUser(userId);
@@ -40,8 +54,8 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 				userId: member._id,
 				role: 'superadmin',
 			},
-			...selectedMembers.map((memberId) => ({
-				userId: memberId,
+			...selectedMembers.map((member) => ({
+				userId: member.id,
 				role: 'member',
 			})),
 		];
@@ -84,8 +98,8 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 						{contacts && contacts.length > 0 && (
 							<ContactsSelect
 								contacts={contacts}
+								handleChange={handleChange}
 								selectedMembers={selectedMembers}
-								setSelectedMembers={setSelectedMembers}
 							/>
 						)}
 					</div>

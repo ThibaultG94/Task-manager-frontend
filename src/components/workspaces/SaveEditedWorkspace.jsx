@@ -7,22 +7,45 @@ import {
 } from '../../store/feature/editState.slice';
 import { toast } from 'react-toastify';
 import { useEditWorkspace } from '../../api/workspaces/editWorkspace';
+import { getAssignedUser } from '../../api/users/getAssignedUser';
 
 const SaveEditedWorkspace = ({
+	selectedMembers,
 	setIsEditingWorkspace,
 	setIsModalWorkspaceOpen,
+	userId,
 	workspaceData,
 }) => {
 	const dispatch = useDispatch();
 	const editWorkspace = useEditWorkspace();
 	const [editedWorkspace, setEditedWorkspace] = useState(null);
+	const [member, setMember] = useState('');
 
 	useEffect(() => {
+		const getUserInfos = async (userId) => {
+			const assignedUser = await getAssignedUser(userId);
+			setMember(assignedUser);
+		};
+		getUserInfos(userId);
+	}, [userId]);
+
+	useEffect(() => {
+		const membersArray = [
+			{
+				userId: userId,
+				role: 'superadmin',
+			},
+			...selectedMembers.map((member) => ({
+				userId: member.id,
+				role: member.role ? member.role : 'member',
+			})),
+		];
+
 		setEditedWorkspace({
 			_id: workspaceData._id,
 			title: workspaceData.title,
 			description: workspaceData.description,
-			members: workspaceData.members,
+			members: membersArray,
 		});
 	}, [workspaceData]);
 

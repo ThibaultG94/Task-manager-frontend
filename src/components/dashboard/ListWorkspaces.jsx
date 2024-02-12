@@ -9,7 +9,7 @@ import { TaskStatusIcon } from './TaskStatusIcon';
 import useCheckIfEditedWorkspace from './utils/checkIfEditedWorkspace';
 import HandleModalWorkspace from '../workspaces/HandleModalWorkspace';
 
-const ListWorkspaces = () => {
+const ListWorkspaces = ({ userId }) => {
 	const workspaces = useSelector(selectWorkspaces);
 	const [allWorkspaces, setAllWorkspaces] = useState([]);
 	const [displayWorkspaces, setDisplayWorkspaces] = useState([]);
@@ -95,7 +95,7 @@ const ListWorkspaces = () => {
 												<span
 													id="avatarLetterAssigned"
 													key={index}>
-													{member[0]}
+													{member && member[0]}
 												</span>
 											</div>
 										)
@@ -179,6 +179,7 @@ const ListWorkspaces = () => {
 					isEditingWorkspace={isEditingWorkspace}
 					setIsEditingWorkspace={setIsEditingWorkspace}
 					selectedWorkspace={selectedWorkspace}
+					userId={userId}
 				/>
 			)}
 		</div>

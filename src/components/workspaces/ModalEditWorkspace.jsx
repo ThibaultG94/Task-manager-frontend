@@ -1,8 +1,15 @@
 import React, { useEffect } from 'react';
 import { selectEditedWorkspace } from '../../store/selectors/workspaceSelectors';
 import { useSelector } from 'react-redux';
+import ContactsSelect from '../modal/ContactsSelect';
 
-const ModalEditWorkspace = ({ workspaceData, setWorkspaceData }) => {
+const ModalEditWorkspace = ({
+	contacts,
+	selectedMembers,
+	setSelectedMembers,
+	workspaceData,
+	setWorkspaceData,
+}) => {
 	const editedWorkspace = useSelector(selectEditedWorkspace);
 
 	useEffect(() => {
@@ -16,9 +23,25 @@ const ModalEditWorkspace = ({ workspaceData, setWorkspaceData }) => {
 		}
 	}, [editedWorkspace]);
 
+	const handleSelectedMembersChange = (newSelectedMembers) => {
+		setSelectedMembers(
+			newSelectedMembers.map((option) => ({
+				id: option.value,
+				username: option.label,
+			}))
+		);
+		setWorkspaceData((prevState) => ({
+			...prevState,
+			members: newSelectedMembers.map((memberId) => ({
+				userId: memberId,
+				role: 'member',
+			})),
+		}));
+	};
+
 	return (
 		<form
-			className="max-w-lg mx-auto pl-2 pr-0 md:pl-4 md:pr-2 rounded-lg"
+			className="w-5/6 mx-auto mb-9 flex flex-col"
 			onSubmit={(e) => e.stopPropagation()}>
 			<div className="text-center pt-4 px-2 md:px-4">
 				<h5 className="text-gray-900 text-base md:text-lg leading-tight font-medium mb-2">
@@ -37,9 +60,16 @@ const ModalEditWorkspace = ({ workspaceData, setWorkspaceData }) => {
 						value={workspaceData.title}
 					/>
 				</h5>
+				{contacts && (
+					<ContactsSelect
+						contacts={contacts}
+						handleChange={handleSelectedMembersChange}
+						selectedMembers={selectedMembers}
+					/>
+				)}
 			</div>
 
-			<div className="md:mt-4 px-2">
+			<div className="md:mt-4 px-2 mb-4">
 				<textarea
 					className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 flex-grow focus:outline-none focus:shadow-outline p-2 resize-none rounded shadow w-full"
 					cols="30"
