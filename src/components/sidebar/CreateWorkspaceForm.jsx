@@ -9,10 +9,12 @@ import { setWorkspacesHasBeenUpdated } from '../../store/feature/editState.slice
 import { getAssignedUser } from '../../api/users/getAssignedUser';
 import ContactsSelect from '../modal/ContactsSelect';
 import { selectUserContacts } from '../../store/selectors/userSelectors';
+import { useSendInvitationWorkspace } from '../../api/workspaceInvitations/sendInvitationWorkspace';
 
 const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const dispatch = useDispatch();
 	const createWorkspace = useCreateWorkspace();
+	const sendInvitationWorkspace = useSendInvitationWorkspace();
 	const [workspaceTitle, setWorkspaceTitle] = useState('');
 	const [workspaceDescription, setWorkspaceDescription] = useState('');
 	const [member, setMember] = useState('');
@@ -49,28 +51,31 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const membersArray = [
-			{
-				userId: member._id,
-				role: 'superadmin',
-			},
-			...selectedMembers.map((member) => ({
-				userId: member.id,
-				role: 'member',
-			})),
-		];
-
 		const workspace = {
 			title: workspaceTitle,
 			userId,
 			description: workspaceDescription,
-			members: membersArray,
+			members: {
+				userId: member._id,
+				role: 'superadmin',
+			},
 			isDefault: false,
 		};
 
 		try {
-			await createWorkspace(workspace);
+			const newWorkspace = await createWorkspace(workspace);
 			dispatch(setWorkspacesHasBeenUpdated(true));
+			const membersArray = [
+				...selectedMembers.map((member) => ({
+					userId,
+					contactId: member.id,
+					role: 'member',
+					workspaceId: newWorkspace._id,
+				})),
+			];
+			membersArray.forEach(async (member) => {
+				await sendInvitationWorkspace(member);
+			});
 			toast.success('Workspace créé !');
 			setIsModalOpen(false);
 		} catch (err) {
