@@ -42,7 +42,7 @@ const HandleModalTask = ({
 			className="bg-black bg-opacity-50 fixed h-full inset-0 w-full z-10"
 			onClick={closeModal}>
 			<div
-				className="flex flex-col bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-hidden transform -translate-x-1/2 top-10 rounded-lg shadow-md custom-xs:min-w-[400px] min-w-[300px] z-10"
+				className="flex flex-col bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-hidden transform -translate-x-1/2 top-20 rounded-lg shadow-md custom-xs:min-w-[400px] min-w-[300px] z-10"
 				ref={modalRef}
 				onClick={(e) => e.stopPropagation()}>
 				<div className="flex-grow overflow-y-auto">
