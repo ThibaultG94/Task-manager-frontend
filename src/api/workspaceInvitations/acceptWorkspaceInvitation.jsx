@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { useErrorApi } from '../../components/utils/ErrorApi';
+import axios from 'axios';
 import {
 	acceptWorkspaceInvitationAction,
 	acceptWorkspaceInvitationFailure,
 	acceptWorkspaceInvitationSuccess,
-} from '../../store/feature/workspaceInvitations.slice';
-import axios from 'axios';
+} from '../../store/feature/workspaceInvitation.slice';
 
 export const useAcceptWorkspaceInvitation = () => {
 	const dispatch = useDispatch();

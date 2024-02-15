@@ -36,7 +36,7 @@ export const workspaceInvitationsSlice = createSlice({
 		setReceivedWorkspaceInvitationsAction: (state) => {
 			state.loading = true;
 		},
-		setReceivedWorkpspaceInvitationsSuccess: (state, action) => {
+		setReceivedWorkspaceInvitationsSuccess: (state, action) => {
 			state.receivedWorkspaceInvitations = action.payload;
 			state.loading = false;
 			state.error = null;

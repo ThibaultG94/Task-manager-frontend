@@ -29,17 +29,19 @@ const Navigation = ({ userId }) => {
 	};
 
 	useEffect(() => {
-		if (userId) {
+		const getDatas = async () => {
 			getSentOutInvitations(userId);
 			getReceivedInvitations(userId);
-		}
+		};
+		if (userId) getDatas();
 	}, [isInvitationModalOpen]);
 
 	useEffect(() => {
-		if (userId) {
+		const getDatas = async () => {
 			getSendOutWorkspaceInvitations(userId);
-			// getReceivedWorkspaceInvitations(userId);
-		}
+			getReceivedWorkspaceInvitations(userId);
+		};
+		if (userId) getDatas();
 	}, [isWorkspaceModalOpen]);
 
 	return (

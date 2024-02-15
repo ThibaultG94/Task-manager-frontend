@@ -35,7 +35,7 @@ const SentOutWorkspaceInvitations = ({ userId }) => {
 			id="tab-content2"
 			className="p-4 md:p-6 bg-white shadow-lg rounded-lg">
 			<h2 className="text-dark-blue mb-6 text-xl sm:text-2xl text-center">
-				Invitations envoyées
+				Invitations Workspace envoyées
 			</h2>
 			<div className="flex flex-wrap md:flex-nowrap max-h-96 overflow-auto">
 				<div className="flex-1">
