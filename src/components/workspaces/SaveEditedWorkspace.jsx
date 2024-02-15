@@ -8,6 +8,7 @@ import {
 import { toast } from 'react-toastify';
 import { useEditWorkspace } from '../../api/workspaces/editWorkspace';
 import { getAssignedUser } from '../../api/users/getAssignedUser';
+import { useSendInvitationWorkspace } from '../../api/workspaceInvitations/sendInvitationWorkspace';
 
 const SaveEditedWorkspace = ({
 	selectedMembers,
@@ -18,6 +19,7 @@ const SaveEditedWorkspace = ({
 }) => {
 	const dispatch = useDispatch();
 	const editWorkspace = useEditWorkspace();
+	const sendInvitationWorkspace = useSendInvitationWorkspace();
 	const [editedWorkspace, setEditedWorkspace] = useState(null);
 	const [member, setMember] = useState('');
 
@@ -30,13 +32,11 @@ const SaveEditedWorkspace = ({
 	}, [userId]);
 
 	useEffect(() => {
+		console.log('workspaceData', workspaceData);
+
 		const membersArray = [
-			{
-				userId: userId,
-				role: 'superadmin',
-			},
-			...selectedMembers.map((member) => ({
-				userId: member.id,
+			...workspaceData.members.map((member) => ({
+				userId: member.userId,
 				role: member.role ? member.role : 'member',
 			})),
 		];
@@ -55,6 +55,17 @@ const SaveEditedWorkspace = ({
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			dispatch(setWorkspacesHasBeenUpdated(true));
+			const membersArray = [
+				...selectedMembers.map((member) => ({
+					userId,
+					contactId: member.id,
+					role: 'member',
+					workspaceId: editedWorkspace._id,
+				})),
+			];
+			membersArray.forEach(async (member) => {
+				await sendInvitationWorkspace(member);
+			});
 			toast.success('Le workspace a été mise à jour avec succès !');
 		} catch (error) {
 			toast.error('Échec de la mise à jour du workspace.');

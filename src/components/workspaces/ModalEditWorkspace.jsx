@@ -30,13 +30,6 @@ const ModalEditWorkspace = ({
 				username: option.label,
 			}))
 		);
-		setWorkspaceData((prevState) => ({
-			...prevState,
-			members: newSelectedMembers.map((memberId) => ({
-				userId: memberId,
-				role: 'member',
-			})),
-		}));
 	};
 
 	return (
