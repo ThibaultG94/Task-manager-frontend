@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { selectReceivedWorkspaceInvitations } from '../../store/selectors/workspaceInvitationsSelectors';
-import { useGetContacts } from '../../api/users/getContacts';
 import { useAcceptWorkspaceInvitation } from '../../api/workspaceInvitations/acceptWorkspaceInvitation';
 import { useDeclineWorkspaceInvitation } from '../../api/workspaceInvitations/declineWorkspaceInvitation';
 import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/getReceivedWorkspaceInvitations';
+import { useGetWorkspaces } from '../../api/workspaces/getWorkspaces';
 
 const ReceivedWorkspaceInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedWorkspaceInvitations);
-	const getContacts = useGetContacts();
+	const getWorkspaces = useGetWorkspaces();
 	const acceptWorkspaceInvitation = useAcceptWorkspaceInvitation();
 	const declineWorkspaceInvitation = useDeclineWorkspaceInvitation();
 	const getReceivedWorkspaceInvitations =
@@ -27,30 +27,30 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 	}, [invitations]);
 
 	const handleAcceptInvitation = async (invitationId) => {
-		// try {
-		// 	const res = await acceptInvitation(invitationId, userId);
-		// 	console.log('res from handleAcceptInvitation', res);
-		// 	if (res.status === 200) {
-		// 		await getReceivedInvitations(userId);
-		// 		toast.success("L'invitation a été acceptée");
-		// 		await getContacts(userId);
-		// 		await setInvitationNotification(res.data.invitation, userId);
-		// 	}
-		// } catch (error) {
-		// 	toast.error("Échec de l'acceptation de l'invitation");
-		// 	return;
-		// }
+		try {
+			const res = await acceptWorkspaceInvitation(invitationId, userId);
+			console.log('res from handleAcceptInvitation', res);
+			if (res.status === 200) {
+				await getReceivedWorkspaceInvitations(userId);
+				toast.success("L'invitation a été acceptée");
+				await getWorkspaces(userId);
+				// await setInvitationNotification(res.data.invitation, userId);
+			}
+		} catch (error) {
+			toast.error("Échec de l'acceptation de l'invitation");
+			return;
+		}
 	};
 
 	const handleDeclineInvitation = async (invitationId) => {
-		// try {
-		// 	await declineInvitation(invitationId, userId);
-		// 	await getReceivedInvitations(userId);
-		// 	toast.success("L'invitation a été déclinée");
-		// } catch (error) {
-		// 	toast.error("Échec du rejet de l'invitation");
-		// 	return;
-		// }
+		try {
+			await declineWorkspaceInvitation(invitationId, userId);
+			await getReceivedWorkspaceInvitations(userId);
+			toast.success("L'invitation a été déclinée");
+		} catch (error) {
+			toast.error("Échec du rejet de l'invitation");
+			return;
+		}
 	};
 
 	return (
