@@ -4,11 +4,13 @@ import { selectDispathedWorkspaceInvitations } from '../../store/selectors/works
 import { useGetSentOutWorkspaceInvitations } from '../../api/workspaceInvitations/getSentOutWorkspaceInvitations';
 import { useCancelWorkspaceInvitation } from '../../api/workspaceInvitations/cancelWorkspaceInvitation';
 import { toast } from 'react-toastify';
+import { useGetWorkspaces } from '../../api/workspaces/getWorkspaces';
 
 const SentOutWorkspaceInvitations = ({ userId }) => {
 	const invitations = useSelector(selectDispathedWorkspaceInvitations);
 	const cancelWorkspaceInvitation = useCancelWorkspaceInvitation();
 	const getSendOutWorkspaceInvitations = useGetSentOutWorkspaceInvitations();
+	const getWorkspaces = useGetWorkspaces();
 	const [invitationsPending, setInvitationsPending] = useState([]);
 	const [invitationsAccepted, setInvitationsAccepted] = useState([]);
 
@@ -16,6 +18,7 @@ const SentOutWorkspaceInvitations = ({ userId }) => {
 		try {
 			await cancelWorkspaceInvitation(invitationId);
 			await getSendOutWorkspaceInvitations(userId);
+			await getWorkspaces(userId);
 			toast.success("L'invitation a été annulée");
 		} catch (error) {
 			toast.error("Échec de l'annulation de l'invitation");
