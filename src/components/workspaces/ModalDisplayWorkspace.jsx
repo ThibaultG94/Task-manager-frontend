@@ -15,10 +15,10 @@ const ModalDisplayWorkspace = ({ selectedWorkspace }) => {
 						Membres
 					</span>
 					{selectedWorkspace?.membersName.map((member, index) => (
-						<div className="assigned-icon mt-2 ml-4 px-2 py-1 rounded-lg bg-light-blue-3">
-							<span className="ml-2 text-sm" key={index}>
-								{member}
-							</span>
+						<div
+							className="assigned-icon mt-2 ml-4 px-2 py-1 rounded-lg bg-light-blue-3"
+							key={index}>
+							<span className="ml-2 text-sm">{member}</span>
 						</div>
 					))}
 				</div>

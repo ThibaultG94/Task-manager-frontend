@@ -22,11 +22,6 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const [contacts, setContacts] = useState([]);
 	const [selectedMembers, setSelectedMembers] = useState([]);
 
-	const selectedOptions = selectedMembers.map((member) => ({
-		value: member.userId,
-		label: member.username,
-	}));
-
 	const handleChange = (selectedOptions) => {
 		setSelectedMembers(
 			selectedOptions.map((option) => ({
@@ -105,6 +100,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 								contacts={contacts}
 								handleChange={handleChange}
 								selectedMembers={selectedMembers}
+								workspace={false}
 							/>
 						)}
 					</div>

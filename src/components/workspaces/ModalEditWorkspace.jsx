@@ -19,6 +19,7 @@ const ModalEditWorkspace = ({
 				_id: editedWorkspace._id,
 				title: editedWorkspace.title,
 				description: editedWorkspace.description,
+				invitationStatus: editedWorkspace.invitationStatus,
 			}));
 		}
 	}, [editedWorkspace]);
@@ -58,6 +59,7 @@ const ModalEditWorkspace = ({
 						contacts={contacts}
 						handleChange={handleSelectedMembersChange}
 						selectedMembers={selectedMembers}
+						workspace={workspaceData}
 					/>
 				)}
 			</div>

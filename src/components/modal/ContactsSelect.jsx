@@ -1,16 +1,38 @@
 import React from 'react';
 import Select from 'react-select';
 
-const ContactsSelect = ({ contacts, handleChange, selectedMembers }) => {
-	const options = contacts.map((contact) => ({
-		value: contact.id,
-		label: contact.username,
-	}));
-
-	const selectedOptions = selectedMembers.map((member) => ({
-		value: member.userId,
-		label: member.username,
-	}));
+const ContactsSelect = ({
+	contacts,
+	handleChange,
+	selectedMembers,
+	workspace,
+}) => {
+	const getOptions = () => {
+		if (workspace && workspace.invitationStatus) {
+			return contacts
+				.filter(
+					(contact) =>
+						!workspace.invitationStatus.some(
+							(inv) =>
+								inv.userId === contact.id &&
+								(inv.status === 'pending' ||
+									inv.status === 'declined')
+						)
+				)
+				.map((contact) => {
+					return {
+						value: contact.id,
+						label: contact.username,
+					};
+				});
+		} else {
+			console.log(workspace);
+			return contacts.map((contact) => ({
+				value: contact._id,
+				label: contact.username,
+			}));
+		}
+	};
 
 	const getSelectedOptions = () => {
 		return selectedMembers.map((member) => {
@@ -26,7 +48,7 @@ const ContactsSelect = ({ contacts, handleChange, selectedMembers }) => {
 			<Select
 				isMulti
 				name="assignedTo"
-				options={options}
+				options={getOptions()}
 				className="basic-multi-select"
 				classNamePrefix="select"
 				onChange={handleChange}

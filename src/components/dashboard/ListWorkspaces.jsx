@@ -56,6 +56,9 @@ const ListWorkspaces = ({ userId }) => {
 						taskStatusCount: taskStatusCount,
 						workspaceId: allWorkspaces[i]._id,
 						description: allWorkspaces[i].description,
+						invitationStatus: allWorkspaces[i].invitationStatus
+							? allWorkspaces[i].invitationStatus
+							: null,
 					});
 				}
 			}
@@ -73,7 +76,7 @@ const ListWorkspaces = ({ userId }) => {
 					displayWorkspaces.map((workspace, index) => (
 						<div
 							className="workspace p-1 md:p-2"
-							key={index}
+							key={workspace._id || index}
 							onClick={(e) => {
 								openModalWorkspace(e);
 								setSelectedWorkspace(workspace);
@@ -126,7 +129,9 @@ const ListWorkspaces = ({ userId }) => {
 								<div className="flex items-center">
 									{workspace?.membersName.map(
 										(member, index) => (
-											<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2">
+											<div
+												className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2"
+												key={index}>
 												<span
 													id="avatarLetterAssigned"
 													key={index}>

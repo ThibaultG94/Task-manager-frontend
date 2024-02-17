@@ -45,6 +45,7 @@ const HandleModalWorkspace = ({
 			description: selectedWorkspace.description,
 			members: selectedWorkspace.members,
 			taskStatusCount: selectedWorkspace.taskStatusCount,
+			invitationStatus: selectedWorkspace.invitationStatus,
 		});
 		setSelectedMembers(
 			selectedWorkspace.members

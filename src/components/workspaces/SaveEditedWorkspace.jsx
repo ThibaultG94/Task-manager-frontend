@@ -32,8 +32,6 @@ const SaveEditedWorkspace = ({
 	}, [userId]);
 
 	useEffect(() => {
-		console.log('workspaceData', workspaceData);
-
 		const membersArray = [
 			...workspaceData.members.map((member) => ({
 				userId: member.userId,
@@ -46,6 +44,7 @@ const SaveEditedWorkspace = ({
 			title: workspaceData.title,
 			description: workspaceData.description,
 			members: membersArray,
+			invitationStatus: workspaceData.invitationStatus,
 		});
 	}, [workspaceData]);
 
