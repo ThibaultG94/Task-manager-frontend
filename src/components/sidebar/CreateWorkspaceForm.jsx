@@ -68,6 +68,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 					workspaceId: newWorkspace._id,
 				})),
 			];
+
 			membersArray.forEach(async (member) => {
 				await sendInvitationWorkspace(member);
 			});

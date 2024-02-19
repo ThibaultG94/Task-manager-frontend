@@ -26,9 +26,8 @@ const ContactsSelect = ({
 					};
 				});
 		} else {
-			console.log(workspace);
 			return contacts.map((contact) => ({
-				value: contact._id,
+				value: contact.id,
 				label: contact.username,
 			}));
 		}
