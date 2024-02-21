@@ -59,7 +59,6 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 
 		try {
 			const newWorkspace = await createWorkspace(workspace);
-			dispatch(setWorkspacesHasBeenUpdated(true));
 			const membersArray = [
 				...selectedMembers.map((member) => ({
 					userId,
@@ -69,11 +68,13 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 				})),
 			];
 
-			membersArray.forEach(async (member) => {
-				await sendInvitationWorkspace(member);
-			});
+			await Promise.all(
+				membersArray.map((member) => sendInvitationWorkspace(member))
+			);
+
 			toast.success('Workspace créé !');
 			setIsModalOpen(false);
+			dispatch(setWorkspacesHasBeenUpdated(true));
 		} catch (err) {
 			console.error('Error with CreateWorkspaceForm', err);
 			toast.error('Une erreur est survenue');
