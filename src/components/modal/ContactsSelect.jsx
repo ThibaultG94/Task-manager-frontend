@@ -16,8 +16,7 @@ const ContactsSelect = ({
 							(inv) =>
 								inv.userId === contact.id &&
 								(inv.status === 'pending' ||
-									inv.status === 'declined' ||
-									inv.status === 'cancelled')
+									inv.status === 'declined')
 						)
 				)
 				.map((contact) => {
