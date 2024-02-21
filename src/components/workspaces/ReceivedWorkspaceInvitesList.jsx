@@ -18,11 +18,14 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 		useState();
 	const [receivedInvitationsAccepted, setReceivedInvitationsAccepted] =
 		useState();
+	const [receivedInvitationsRejected, setReceivedInvitationsRejected] =
+		useState();
 
 	useEffect(() => {
 		if (invitations) {
 			setReceivedInvitationsPending(invitations.pending || []);
 			setReceivedInvitationsAccepted(invitations.accepted || []);
+			setReceivedInvitationsRejected(invitations.rejected || []);
 		}
 	}, [invitations]);
 
@@ -156,6 +159,31 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 						receivedInvitationsAccepted.length === 0 && (
 							<p className="text-gray-500 font-light text-center">
 								Vous n'avez aucune invitation acceptée
+							</p>
+						)}
+				</div>
+				<div className="flex-1 mt-6 md:mt-0 md:ml-8">
+					<h3 className="text-lg text-center mb-4">Refusées</h3>
+					{receivedInvitationsRejected &&
+						receivedInvitationsRejected.map((invitation) => (
+							<div
+								key={invitation.invitationId}
+								className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-yellow-primary transition duration-300 ease-in-out">
+								<p className="text-dark-blue font-medium">
+									{invitation.senderUsername}{' '}
+									<span className="text-gray-500">
+										({invitation.senderEmail})
+									</span>
+								</p>
+								<p className="text-gray-600 italic">
+									{invitation.message}
+								</p>
+							</div>
+						))}
+					{receivedInvitationsRejected &&
+						receivedInvitationsRejected.length === 0 && (
+							<p className="text-gray-500 font-light text-center">
+								Vous n'avez aucune invitation refusée
 							</p>
 						)}
 				</div>
