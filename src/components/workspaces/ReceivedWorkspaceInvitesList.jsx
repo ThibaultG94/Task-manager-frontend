@@ -168,16 +168,43 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 						receivedInvitationsRejected.map((invitation) => (
 							<div
 								key={invitation.invitationId}
-								className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-yellow-primary transition duration-300 ease-in-out">
-								<p className="text-dark-blue font-medium">
-									{invitation.senderUsername}{' '}
-									<span className="text-gray-500">
-										({invitation.senderEmail})
-									</span>
-								</p>
-								<p className="text-gray-600 italic">
-									{invitation.message}
-								</p>
+								className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out">
+								<div className="flex justify-between items-center">
+									<div>
+										<p className="text-dark-blue font-medium">
+											{invitation.senderUsername}{' '}
+											<span className="text-gray-500">
+												({invitation.senderEmail})
+											</span>
+										</p>
+										<p className="text-gray-600 italic">
+											{invitation.message}
+										</p>
+									</div>
+									<div className="flex flex-col gap-2 ml-2 invitation-list">
+										<button
+											className="accept-icon"
+											onClick={() =>
+												handleAcceptInvitation(
+													invitation.invitationId
+												)
+											}>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 24 24"
+												strokeWidth={1.5}
+												stroke="currentColor"
+												className="w-6 h-6">
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													d="M4.5 12.75l6 6 9-13.5"
+												/>
+											</svg>
+										</button>
+									</div>
+								</div>
 							</div>
 						))}
 					{receivedInvitationsRejected &&
