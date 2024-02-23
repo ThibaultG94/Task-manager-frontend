@@ -20,6 +20,7 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 		useState();
 	const [receivedInvitationsRejected, setReceivedInvitationsRejected] =
 		useState();
+	const [isRejectedOpen, setIsRejectedOpen] = useState(false);
 
 	useEffect(() => {
 		if (invitations) {
@@ -32,7 +33,6 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 	const handleAcceptInvitation = async (invitationId) => {
 		try {
 			const res = await acceptWorkspaceInvitation(invitationId, userId);
-			console.log('res from handleAcceptInvitation', res);
 			if (res.status === 200) {
 				await getReceivedWorkspaceInvitations(userId);
 				toast.success("L'invitation a été acceptée");
@@ -63,7 +63,7 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 			<h2 className="text-dark-blue mb-4 text-xl sm:text-2xl text-center">
 				Invitations Workspace reçues
 			</h2>
-			<div className="flex flex-wrap md:flex-nowrap max-h-96 overflow-auto">
+			<div className="md:flex md:flex-wrap md:justify-between max-h-96 overflow-auto">
 				<div className="flex-1">
 					<h3 className="text-lg text-center mb-4">En attente</h3>
 					{receivedInvitationsPending &&
@@ -162,57 +162,56 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 							</p>
 						)}
 				</div>
-				<div className="flex-1 mt-6 md:mt-0 md:ml-8">
+				<div className="mt-6 w-full">
 					<h3 className="text-lg text-center mb-4">Refusées</h3>
-					{receivedInvitationsRejected &&
-						receivedInvitationsRejected.map((invitation) => (
-							<div
-								key={invitation.invitationId}
-								className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out">
-								<div className="flex justify-between items-center">
-									<div>
-										<p className="text-dark-blue font-medium">
-											{invitation.senderUsername}{' '}
-											<span className="text-gray-500">
-												({invitation.senderEmail})
-											</span>
+					<div>
+						<button
+							className="accordion-button"
+							onClick={() => setIsRejectedOpen(!isRejectedOpen)}>
+							Voir les invitations refusées
+						</button>
+						{isRejectedOpen && (
+							<div className="accordion-content">
+								{receivedInvitationsRejected &&
+									receivedInvitationsRejected.map(
+										(invitation) => (
+											<div
+												key={invitation.invitationId}
+												className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out">
+												<div className="flex justify-between items-center">
+													<div>
+														<p className="text-dark-blue font-medium">
+															{
+																invitation.senderUsername
+															}{' '}
+															<span className="text-gray-500">
+																(
+																{
+																	invitation.senderEmail
+																}
+																)
+															</span>
+														</p>
+														<p className="text-gray-600 italic">
+															{invitation.message}
+														</p>
+													</div>
+													{/* Les boutons ou autres actions ici */}
+												</div>
+											</div>
+										)
+									)}
+								{receivedInvitationsRejected &&
+									receivedInvitationsRejected.length ===
+										0 && (
+										<p className="text-gray-500 font-light text-center">
+											Vous n'avez aucune invitation
+											refusée
 										</p>
-										<p className="text-gray-600 italic">
-											{invitation.message}
-										</p>
-									</div>
-									<div className="flex flex-col gap-2 ml-2 invitation-list">
-										<button
-											className="accept-icon"
-											onClick={() =>
-												handleAcceptInvitation(
-													invitation.invitationId
-												)
-											}>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												strokeWidth={1.5}
-												stroke="currentColor"
-												className="w-6 h-6">
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M4.5 12.75l6 6 9-13.5"
-												/>
-											</svg>
-										</button>
-									</div>
-								</div>
+									)}
 							</div>
-						))}
-					{receivedInvitationsRejected &&
-						receivedInvitationsRejected.length === 0 && (
-							<p className="text-gray-500 font-light text-center">
-								Vous n'avez aucune invitation refusée
-							</p>
 						)}
+					</div>
 				</div>
 			</div>
 		</div>
