@@ -162,55 +162,62 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 							</p>
 						)}
 				</div>
-				<div className="mt-6 w-full">
-					<h3 className="text-lg text-center mb-4">Refusées</h3>
-					<div>
-						<button
-							className="accordion-button"
-							onClick={() => setIsRejectedOpen(!isRejectedOpen)}>
-							Voir les invitations refusées
-						</button>
-						{isRejectedOpen && (
-							<div className="accordion-content">
-								{receivedInvitationsRejected &&
-									receivedInvitationsRejected.map(
-										(invitation) => (
-											<div
-												key={invitation.invitationId}
-												className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out">
-												<div className="flex justify-between items-center">
-													<div>
-														<p className="text-dark-blue font-medium">
-															{
-																invitation.senderUsername
-															}{' '}
-															<span className="text-gray-500">
-																(
+				<div className="mt-6 w-full flex justify-center">
+					<div className="max-w-24">
+						<h3 className="text-lg text-center mb-4">Refusées</h3>
+						<div>
+							<button
+								className="py-2 px-4 mb-2 bg-[#e2e8f0] text-[#1a202c] border-0 rounded-md cursor-pointer transition-colors duration-200 ease-in-out hover:bg-[#cbd5e0]"
+								onClick={() =>
+									setIsRejectedOpen(!isRejectedOpen)
+								}>
+								Voir les invitations refusées
+							</button>
+							{isRejectedOpen && (
+								<div className="accordion-content">
+									{receivedInvitationsRejected &&
+										receivedInvitationsRejected.map(
+											(invitation) => (
+												<div
+													key={
+														invitation.invitationId
+													}
+													className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out">
+													<div className="flex justify-between items-center">
+														<div>
+															<p className="text-dark-blue font-medium">
 																{
-																	invitation.senderEmail
+																	invitation.senderUsername
 																}
-																)
-															</span>
-														</p>
-														<p className="text-gray-600 italic">
-															{invitation.message}
-														</p>
+																<span className="text-gray-500">
+																	(
+																	{
+																		invitation.senderEmail
+																	}
+																	)
+																</span>
+															</p>
+															<p className="text-gray-600 italic">
+																{
+																	invitation.message
+																}
+															</p>
+														</div>
 													</div>
-													{/* Les boutons ou autres actions ici */}
 												</div>
-											</div>
-										)
-									)}
-								{receivedInvitationsRejected &&
-									receivedInvitationsRejected.length ===
-										0 && (
-										<p className="text-gray-500 font-light text-center">
-											Vous n'avez aucune invitation
-											refusée
-										</p>
-									)}
-							</div>
-						)}
+											)
+										)}
+									{receivedInvitationsRejected &&
+										receivedInvitationsRejected.length ===
+											0 && (
+											<p className="text-gray-500 font-light text-center">
+												Vous n'avez aucune invitation
+												refusée
+											</p>
+										)}
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>
