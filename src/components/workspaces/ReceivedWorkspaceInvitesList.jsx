@@ -79,9 +79,6 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 												({invitation.senderEmail})
 											</span>
 										</p>
-										<p className="text-gray-600 italic">
-											{invitation.message}
-										</p>
 									</div>
 									<div className="flex flex-col gap-2 ml-2 invitation-list">
 										<button
@@ -150,9 +147,6 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 										({invitation.senderEmail})
 									</span>
 								</p>
-								<p className="text-gray-600 italic">
-									{invitation.message}
-								</p>
 							</div>
 						))}
 					{receivedInvitationsAccepted &&
@@ -163,16 +157,19 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 						)}
 				</div>
 				<div className="mt-6 w-full flex justify-center">
-					<div className="max-w-24">
+					<div className="w-96">
 						<h3 className="text-lg text-center mb-4">Refusées</h3>
 						<div>
 							<button
-								className="py-2 px-4 mb-2 bg-[#e2e8f0] text-[#1a202c] border-0 rounded-md cursor-pointer transition-colors duration-200 ease-in-out hover:bg-[#cbd5e0]"
+								className="mb-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:underline"
 								onClick={() =>
 									setIsRejectedOpen(!isRejectedOpen)
 								}>
-								Voir les invitations refusées
+								{isRejectedOpen
+									? 'Cacher les invitations refusées'
+									: 'Voir les invitations refusées'}
 							</button>
+
 							{isRejectedOpen && (
 								<div className="accordion-content">
 									{receivedInvitationsRejected &&
@@ -188,7 +185,7 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 															<p className="text-dark-blue font-medium">
 																{
 																	invitation.senderUsername
-																}
+																}{' '}
 																<span className="text-gray-500">
 																	(
 																	{
@@ -197,11 +194,31 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 																	)
 																</span>
 															</p>
-															<p className="text-gray-600 italic">
-																{
-																	invitation.message
-																}
-															</p>
+														</div>
+														<div className="flex flex-col gap-2 ml-2 invitation-list">
+															<button
+																className="accept-icon"
+																onClick={() =>
+																	handleAcceptInvitation(
+																		invitation.invitationId
+																	)
+																}>
+																<svg
+																	xmlns="http://www.w3.org/2000/svg"
+																	fill="none"
+																	viewBox="0 0 24 24"
+																	strokeWidth={
+																		1.5
+																	}
+																	stroke="currentColor"
+																	className="w-6 h-6">
+																	<path
+																		strokeLinecap="round"
+																		strokeLinejoin="round"
+																		d="M4.5 12.75l6 6 9-13.5"
+																	/>
+																</svg>
+															</button>
 														</div>
 													</div>
 												</div>
