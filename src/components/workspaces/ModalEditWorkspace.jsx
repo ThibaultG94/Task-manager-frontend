@@ -1,29 +1,13 @@
-import React, { useEffect } from 'react';
-import { selectEditedWorkspace } from '../../store/selectors/workspaceSelectors';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import ContactsSelect from '../modal/ContactsSelect';
 
 const ModalEditWorkspace = ({
 	contacts,
 	selectedMembers,
 	setSelectedMembers,
-	workspaceData,
-	setWorkspaceData,
+	workspaceDataChange,
+	setWorkspaceDataChange,
 }) => {
-	const editedWorkspace = useSelector(selectEditedWorkspace);
-
-	useEffect(() => {
-		if (editedWorkspace) {
-			setWorkspaceData((prevState) => ({
-				...prevState,
-				_id: editedWorkspace._id,
-				title: editedWorkspace.title,
-				description: editedWorkspace.description,
-				invitationStatus: editedWorkspace.invitationStatus,
-			}));
-		}
-	}, [editedWorkspace]);
-
 	const handleSelectedMembersChange = (newSelectedMembers) => {
 		setSelectedMembers(
 			newSelectedMembers.map((option) => ({
@@ -44,22 +28,22 @@ const ModalEditWorkspace = ({
 						maxLength={30}
 						name="title"
 						onChange={(e) =>
-							setWorkspaceData((prev) => ({
+							setWorkspaceDataChange((prev) => ({
 								...prev,
 								title: e.target.value,
 							}))
 						}
 						required
 						type="text"
-						value={workspaceData.title}
+						value={workspaceDataChange.title}
 					/>
 				</h5>
-				{contacts && (
+				{workspaceDataChange.isDefault === 'false' && contacts && (
 					<ContactsSelect
 						contacts={contacts}
 						handleChange={handleSelectedMembersChange}
 						selectedMembers={selectedMembers}
-						workspace={workspaceData}
+						workspace={workspaceDataChange}
 					/>
 				)}
 			</div>
@@ -71,13 +55,13 @@ const ModalEditWorkspace = ({
 					name="description"
 					placeholder="Description (optionnel)"
 					onChange={(e) =>
-						setWorkspaceData((prev) => ({
+						setWorkspaceDataChange((prev) => ({
 							...prev,
 							description: e.target.value,
 						}))
 					}
 					rows="5"
-					value={workspaceData.description}
+					value={workspaceDataChange.description}
 				/>
 			</div>
 		</form>

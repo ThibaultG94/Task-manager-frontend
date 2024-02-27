@@ -59,6 +59,7 @@ const ListWorkspaces = ({ userId }) => {
 						invitationStatus: allWorkspaces[i].invitationStatus
 							? allWorkspaces[i].invitationStatus
 							: null,
+						isDefault: allWorkspaces[i].isDefault,
 					});
 				}
 			}

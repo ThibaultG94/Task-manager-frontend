@@ -21,13 +21,14 @@ const HandleModalWorkspace = ({
 	const [contacts, setContacts] = useState([]);
 	const [selectedMembers, setSelectedMembers] = useState([]);
 	const modalWorkspaceRef = useRef(null);
-	const [workspaceData, setWorkspaceData] = useState({
+	const [workspaceDataChange, setWorkspaceDataChange] = useState({
 		_id: '',
 		title: '',
 		description: '',
 		members: [],
 		membersName: [],
 		taskStatusCount: [],
+		isDefault: false,
 	});
 
 	const handleEditWorkspace = () => {
@@ -39,13 +40,28 @@ const HandleModalWorkspace = ({
 	};
 
 	useEffect(() => {
-		setWorkspaceData({
+		if (!isEditingWorkspace) {
+			setWorkspaceDataChange({
+				_id: '',
+				title: '',
+				description: '',
+				members: [],
+				membersName: [],
+				taskStatusCount: [],
+				isDefault: false,
+			});
+		}
+	}, [isEditingWorkspace]);
+
+	useEffect(() => {
+		setWorkspaceDataChange({
 			_id: selectedWorkspace.workspaceId,
 			title: selectedWorkspace.title,
 			description: selectedWorkspace.description,
 			members: selectedWorkspace.members,
 			taskStatusCount: selectedWorkspace.taskStatusCount,
 			invitationStatus: selectedWorkspace.invitationStatus,
+			isDefault: selectedWorkspace.isDefault,
 		});
 		setSelectedMembers(
 			selectedWorkspace.members
@@ -87,8 +103,8 @@ const HandleModalWorkspace = ({
 								contacts={contacts}
 								selectedMembers={selectedMembers}
 								setSelectedMembers={setSelectedMembers}
-								workspaceData={workspaceData}
-								setWorkspaceData={setWorkspaceData}
+								workspaceDataChange={workspaceDataChange}
+								setWorkspaceDataChange={setWorkspaceDataChange}
 							/>
 						</>
 					)}
@@ -102,11 +118,15 @@ const HandleModalWorkspace = ({
 									setIsModalWorkspaceOpen={
 										setIsModalWorkspaceOpen
 									}
-									workspaceData={workspaceData}
+									workspaceDataChange={workspaceDataChange}
 								/>
-								<EditWorkspace
-									handleEditWorkspace={handleEditWorkspace}
-								/>
+								{selectedWorkspace.isDefault === 'false' && (
+									<EditWorkspace
+										handleEditWorkspace={
+											handleEditWorkspace
+										}
+									/>
+								)}
 							</div>
 						</div>
 					) : (
@@ -123,7 +143,7 @@ const HandleModalWorkspace = ({
 									setIsModalWorkspaceOpen
 								}
 								userId={userId}
-								workspaceData={workspaceData}
+								workspaceDataChange={workspaceDataChange}
 							/>
 						</div>
 					)}

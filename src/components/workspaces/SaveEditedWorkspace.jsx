@@ -15,7 +15,7 @@ const SaveEditedWorkspace = ({
 	setIsEditingWorkspace,
 	setIsModalWorkspaceOpen,
 	userId,
-	workspaceData,
+	workspaceDataChange,
 }) => {
 	const dispatch = useDispatch();
 	const editWorkspace = useEditWorkspace();
@@ -33,20 +33,21 @@ const SaveEditedWorkspace = ({
 
 	useEffect(() => {
 		const membersArray = [
-			...workspaceData.members.map((member) => ({
+			...workspaceDataChange.members.map((member) => ({
 				userId: member.userId,
 				role: member.role ? member.role : 'member',
 			})),
 		];
 
 		setEditedWorkspace({
-			_id: workspaceData._id,
-			title: workspaceData.title,
-			description: workspaceData.description,
+			_id: workspaceDataChange._id,
+			title: workspaceDataChange.title,
+			description: workspaceDataChange.description,
 			members: membersArray,
-			invitationStatus: workspaceData.invitationStatus,
+			invitationStatus: workspaceDataChange.invitationStatus,
+			isDefault: workspaceDataChange.isDefault,
 		});
-	}, [workspaceData]);
+	}, [workspaceDataChange]);
 
 	const updateWorkspace = async () => {
 		try {
