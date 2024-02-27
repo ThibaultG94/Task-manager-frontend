@@ -79,6 +79,9 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 												({invitation.senderEmail})
 											</span>
 										</p>
+										<p className="text-gray-600 font-bold">
+											{invitation.workspace.title}
+										</p>
 									</div>
 									<div className="flex flex-col gap-2 ml-2 invitation-list">
 										<button
@@ -147,6 +150,9 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 										({invitation.senderEmail})
 									</span>
 								</p>
+								<p className="text-gray-600 font-bold">
+									{invitation.workspace.title}
+								</p>
 							</div>
 						))}
 					{receivedInvitationsAccepted &&
@@ -158,7 +164,7 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 				</div>
 				<div className="mt-6 w-full flex justify-center">
 					<div className="w-96">
-						<h3 className="text-lg text-center mb-4">Refusées</h3>
+						<h3 className="text-lg text-center mb-1">Refusées</h3>
 						<div>
 							<button
 								className="mb-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:underline"
@@ -166,8 +172,13 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 									setIsRejectedOpen(!isRejectedOpen)
 								}>
 								{isRejectedOpen
-									? 'Cacher les invitations refusées'
-									: 'Voir les invitations refusées'}
+									? 'Cacher les invitations refusées '
+									: 'Voir les invitations refusées '}
+								{isRejectedOpen ? (
+									<i className="fa-solid fa-arrow-up"></i>
+								) : (
+									<i className="fa-solid fa-arrow-down"></i>
+								)}
 							</button>
 
 							{isRejectedOpen && (
@@ -193,6 +204,13 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 																	}
 																	)
 																</span>
+															</p>
+															<p className="text-gray-600 font-bold">
+																{
+																	invitation
+																		.workspace
+																		.title
+																}
 															</p>
 														</div>
 														<div className="flex flex-col gap-2 ml-2 invitation-list">

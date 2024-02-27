@@ -56,8 +56,8 @@ const SentOutWorkspaceInvitations = ({ userId }) => {
 												({invitation.guestEmail})
 											</span>
 										</p>
-										<p className="text-gray-600 italic">
-											{invitation.message}
+										<p className="text-gray-600 font-bold">
+											{invitation.workspace.title}
 										</p>
 									</div>
 									<div className="flex flex-col gap-2 ml-2 invitation-list">
@@ -106,8 +106,8 @@ const SentOutWorkspaceInvitations = ({ userId }) => {
 										({invitation.guestEmail})
 									</span>
 								</p>
-								<p className="text-gray-600 italic">
-									{invitation.message}
+								<p className="text-gray-600 font-bold">
+									{invitation.workspace.title}
 								</p>
 							</div>
 						))}
