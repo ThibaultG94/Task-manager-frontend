@@ -1,6 +1,10 @@
 import React from 'react';
 
-const UsernameSignup = ({ errors, formData, handleChange }) => {
+const UsernameSignup = ({
+	inputsFormErrors,
+	inputsFormValues,
+	handleInputChange,
+}) => {
 	return (
 		<div className="flex flex-col w-full">
 			<label
@@ -11,20 +15,20 @@ const UsernameSignup = ({ errors, formData, handleChange }) => {
 			<input
 				autoComplete="off"
 				className={`appearance-none border focus:border-blue-300 h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors w-full ${
-					errors.username &&
+					inputsFormErrors.username &&
 					'border-red-500 text-red-600 focus:border-red-500'
 				}`}
-				id="username"
+				id="signupUsername"
 				maxLength="30"
 				minLength="3"
 				name="username"
-				onChange={(e) => handleChange(e)}
+				onChange={(e) => handleInputChange(e)}
 				required
 				type="text"
-				value={formData.username}
+				value={inputsFormValues.username}
 			/>
 			<span className="h-6 my-1 text-red-400 text-xs md:text-sm">
-				{errors.username}
+				{inputsFormErrors.username}
 			</span>
 		</div>
 	);

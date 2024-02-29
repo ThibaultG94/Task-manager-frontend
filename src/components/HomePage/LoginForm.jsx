@@ -13,7 +13,7 @@ const LoginForm = ({ setShowLoginForm }) => {
 	const [error, setError] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	const [formData, setFormData] = useState({
+	const [inputsFormValues, setInputsFormValues] = useState({
 		email: '',
 		password: '',
 	});
@@ -23,9 +23,9 @@ const LoginForm = ({ setShowLoginForm }) => {
 	});
 
 	const forgotPassword = useForgotPassword();
-	const handleChange = useHandleChange({ setFormData });
+	const handleChange = useHandleChange({ setInputsFormValues });
 	const handleSubmit = useHandleSubmit({
-		formData,
+		inputsFormValues,
 		setDisplayErrors,
 		setError,
 		setErrorCode,
@@ -51,13 +51,13 @@ const LoginForm = ({ setShowLoginForm }) => {
 					onSubmit={handleSubmit}>
 					<EmailLogin
 						errors={errors}
-						formData={formData}
+						inputsFormValues={inputsFormValues}
 						handleChange={handleChange}
 					/>
 
 					<PasswordLogin
 						errors={errors}
-						formData={formData}
+						inputsFormValues={inputsFormValues}
 						handleChange={handleChange}
 						handleOpenModal={handleOpenModal}
 					/>

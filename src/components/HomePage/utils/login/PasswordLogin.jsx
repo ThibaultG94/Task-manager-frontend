@@ -1,6 +1,11 @@
 import React from 'react';
 
-const PasswordLogin = ({ errors, formData, handleChange, handleOpenModal }) => {
+const PasswordLogin = ({
+	errors,
+	inputsFormValues,
+	handleChange,
+	handleOpenModal,
+}) => {
 	return (
 		<div className="flex flex-col w-full">
 			<div className="flex justify-between">
@@ -27,7 +32,7 @@ const PasswordLogin = ({ errors, formData, handleChange, handleOpenModal }) => {
 				onChange={(e) => handleChange(e)}
 				required
 				type="password"
-				value={formData.password}
+				value={inputsFormValues.password}
 			/>
 			<span className="h-6 my-1 text-red-400 text-sm max-w-full">
 				{errors.password}

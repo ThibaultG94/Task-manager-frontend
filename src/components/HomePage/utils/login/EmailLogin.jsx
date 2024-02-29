@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EmailLogin = ({ errors, formData, handleChange }) => {
+const EmailLogin = ({ errors, inputsFormValues, handleChange }) => {
 	return (
 		<div className="flex flex-col w-full">
 			<label className="block text-sm md:text-base" htmlFor="email">
@@ -18,7 +18,7 @@ const EmailLogin = ({ errors, formData, handleChange }) => {
 				onChange={(e) => handleChange(e)}
 				required
 				type="email"
-				value={formData.email}
+				value={inputsFormValues.email}
 			/>
 			<span className="h-6 my-1 text-red-400 text-xs md:text-sm">
 				{errors.email}

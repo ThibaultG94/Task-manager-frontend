@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-const PasswordSignup = ({ errors, formData, handleChange, progressBar }) => {
+const PasswordSignup = ({
+	inputsFormErrors,
+	inputsFormValues,
+	handleInputChange,
+	progressBar,
+}) => {
 	const [passwordStrength, setPasswordStrength] = useState(0);
 
 	const evaluatePasswordStrength = (password) => {
@@ -20,16 +25,18 @@ const PasswordSignup = ({ errors, formData, handleChange, progressBar }) => {
 		return Math.max(Math.min(strength, 100), 0);
 	};
 
-	useEffect(() => {
-		setPasswordStrength(evaluatePasswordStrength(formData.password));
-	}, [formData.password]);
-
 	const progressBarColor = (strength) => {
 		if (strength < 50) return 'bg-red-500';
 		if (strength < 75) return 'bg-yellow-500';
 		if (strength < 100) return 'bg-blue-500';
 		return 'bg-green-500';
 	};
+
+	useEffect(() => {
+		setPasswordStrength(
+			evaluatePasswordStrength(inputsFormValues.password)
+		);
+	}, [inputsFormValues.password]);
 
 	return (
 		<div className="flex flex-col w-full">
@@ -42,17 +49,17 @@ const PasswordSignup = ({ errors, formData, handleChange, progressBar }) => {
 			<input
 				autoComplete="off"
 				className={`appearance-none border focus:border-blue-300 w-full h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors ${
-					errors.password &&
+					inputsFormErrors.password &&
 					'border-red-500 text-red-600 focus:border-red-500'
 				}`}
-				id="password"
+				id="signupPassword"
 				maxLength="128"
 				minLength="8"
 				name="password"
-				onChange={(e) => handleChange(e)}
+				onChange={(e) => handleInputChange(e)}
 				required
 				type="password"
-				value={formData.password}
+				value={inputsFormValues.password}
 			/>
 			<span className={progressBar}></span>
 
@@ -66,7 +73,7 @@ const PasswordSignup = ({ errors, formData, handleChange, progressBar }) => {
 			</div>
 
 			<span className="h-9 my-1 text-red-400 text-sm max-w-full">
-				{errors.password}
+				{inputsFormErrors.password}
 			</span>
 		</div>
 	);

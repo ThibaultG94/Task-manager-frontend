@@ -1,10 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import getUserId from '../api/users/getUserId';
+import { useErrorApi } from './useErrorApi';
 
 export const useCheckAuthentication = () => {
 	const API_URL = process.env.REACT_APP_API_URL;
 	const navigate = useNavigate();
 	const location = useLocation();
+	const errorApi = useErrorApi();
 
 	const checkAuthentication = async () => {
 		try {
@@ -19,24 +21,7 @@ export const useCheckAuthentication = () => {
 
 			sessionStorage.setItem('redirectAfterLogin', currentPath);
 		} catch (error) {
-			if (error.response) {
-				switch (error.response.status) {
-					case 401:
-						navigate('/home');
-						break;
-					case 500:
-						navigate('/pages/error-500');
-						break;
-					case 404:
-						navigate('/pages/error-404');
-						break;
-					default:
-						navigate('/pages/error');
-						break;
-				}
-			} else {
-				navigate('/pages/error');
-			}
+			errorApi(error);
 		}
 	};
 

@@ -63,19 +63,19 @@ export const validateFormDataOnTyping = (
 				setErrors,
 				setProgressBar
 			),
-			passwordConfirm: confirmChecker(
-				formData.passwordConfirm,
+			confirmPassword: confirmChecker(
+				formData.confirmPassword,
 				formData.password
 			),
 		});
 	}, 300);
 };
 
-export const validatePasswordConfirmOnTyping = (formData, setErrors) => {
+export const validateConfirmPasswordOnTyping = (formData, setErrors) => {
 	setErrors((prevErrors) => ({
 		...prevErrors,
-		passwordConfirm: confirmChecker(
-			formData.passwordConfirm,
+		confirmPassword: confirmChecker(
+			formData.confirmPassword,
 			formData.password
 		),
 	}));

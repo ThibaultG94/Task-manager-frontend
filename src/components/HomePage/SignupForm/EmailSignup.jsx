@@ -1,6 +1,10 @@
 import React from 'react';
 
-const EmailSignup = ({ errors, formData, handleChange }) => {
+const EmailSignup = ({
+	inputsFormErrors,
+	inputsFormValues,
+	handleInputChange,
+}) => {
 	return (
 		<div className="flex flex-col w-full">
 			<label
@@ -11,20 +15,20 @@ const EmailSignup = ({ errors, formData, handleChange }) => {
 			<input
 				autoComplete="off"
 				className={`appearance-none border focus:border-blue-300 h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors w-full ${
-					errors.email &&
+					inputsFormErrors.email &&
 					'border-red-500 text-red-600 focus:border-red-500'
 				}`}
-				id="email"
+				id="signupEmail"
 				maxLength="254"
 				minLength="6"
 				name="email"
-				onChange={(e) => handleChange(e)}
+				onChange={(e) => handleInputChange(e)}
 				required
 				type="email"
-				value={formData.email}
+				value={inputsFormValues.email}
 			/>
 			<span className="h-6 my-1 text-red-400 text-xs md:text-sm">
-				{errors.email}
+				{inputsFormErrors.email}
 			</span>
 		</div>
 	);

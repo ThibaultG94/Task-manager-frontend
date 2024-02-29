@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../../../../api/users/loginUser';
 
 const useHandleSubmit = ({
-	formData,
+	inputsFormValues,
 	setDisplayErrors,
 	setError,
 	setErrorCode,
@@ -14,11 +14,11 @@ const useHandleSubmit = ({
 		e.preventDefault();
 
 		try {
-			if (formData.email && formData.password) {
+			if (inputsFormValues.email && inputsFormValues.password) {
 				const res = await login(
 					API_URL,
-					formData.email,
-					formData.password
+					inputsFormValues.email,
+					inputsFormValues.password
 				);
 				if (res.status === 200) {
 					const userId = await res.data.user.id;

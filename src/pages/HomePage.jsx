@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import SignupForm from '../components/home/SignupForm';
-import LoginForm from '../components/home/LoginForm';
+import SignupForm from '../components/HomePage/SignupForm';
+import LoginForm from '../components/HomePage/LoginForm';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 import { ToastContainer } from 'react-toastify';
 

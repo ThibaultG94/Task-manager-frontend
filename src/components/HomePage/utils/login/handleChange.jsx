@@ -1,8 +1,8 @@
-const useHandleChange = ({ setFormData }) => {
+const useHandleChange = ({ setInputsFormValues }) => {
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 
-		setFormData((prevFormData) => ({
+		setInputsFormValues((prevFormData) => ({
 			...prevFormData,
 			[name]: value,
 		}));
