@@ -5,7 +5,6 @@ import Calendar from '../components/dashboard/Calendar';
 import UrgentTasks from '../components/dashboard/UrgentTasks';
 import ListWorkspaces from '../components/dashboard/ListWorkspaces';
 import Contacts from '../components/dashboard/Contacts';
-import CheckAuthentication from '../components/utils/CheckAuthentication';
 import getUserId from '../api/users/getUserId';
 import { useGetUser } from '../api/users/getUser';
 import { useGetUrgentTasks } from '../api/tasks/getUrgentTasks';
@@ -23,8 +22,9 @@ import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
 import { ToastContainer } from 'react-toastify';
 import { useGetContacts } from '../api/users/getContacts';
 import { useGetNotifications } from '../api/notifications/getNotifications';
+import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 
-const Dashboard = () => {
+const DashboardPage = () => {
 	const dispatch = useDispatch();
 	const hasBeenUpdated = useSelector(selectHasBeenUpdated);
 	const workspacesHasBeenUpdated = useSelector(
@@ -33,6 +33,7 @@ const Dashboard = () => {
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
 	useUpdateTasksInStore();
+	const checkAuthentication = useCheckAuthentication();
 
 	const getId = async () => {
 		const id = await getUserId();
@@ -48,6 +49,7 @@ const Dashboard = () => {
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
 		getId();
+		checkAuthentication();
 	}, [redirectAfterLogin]);
 
 	useEffect(() => {
@@ -75,7 +77,6 @@ const Dashboard = () => {
 	return (
 		<div className="bg-light-blue min-h-screen flex relative">
 			<ToastContainer autoClose={600} position="bottom-left" />
-			{!redirectAfterLogin ? <CheckAuthentication /> : null}
 			<section className="bg-dark-blue fixed text-center text-white z-20">
 				<SideBar userId={userId} />
 			</section>
@@ -92,4 +93,4 @@ const Dashboard = () => {
 	);
 };
 
-export default Dashboard;
+export default DashboardPage;

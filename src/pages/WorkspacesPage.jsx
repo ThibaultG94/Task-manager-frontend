@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import SideBar from '../components/sidebar/SideBar';
 import Header from '../components/header/Header';
-import CheckAuthentication from '../components/utils/CheckAuthentication';
 import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
 import getUserId from '../api/users/getUserId';
+import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 
-const Workspaces = () => {
+const WorkspacesPage = () => {
+	const checkAuthentication = useCheckAuthentication();
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
 	useUpdateTasksInStore();
@@ -18,11 +19,11 @@ const Workspaces = () => {
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
 		getId();
+		checkAuthentication();
 	}, [redirectAfterLogin]);
 
 	return (
 		<div className="bg-light-blue flex relative">
-			{!redirectAfterLogin ? <CheckAuthentication /> : null}
 			<section className="bg-dark-blue fixed text-center text-white z-10">
 				<SideBar />
 			</section>
@@ -34,4 +35,4 @@ const Workspaces = () => {
 	);
 };
 
-export default Workspaces;
+export default WorkspacesPage;

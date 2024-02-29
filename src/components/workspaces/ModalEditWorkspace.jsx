@@ -16,6 +16,34 @@ const ModalEditWorkspace = ({
 			}))
 		);
 	};
+	// const handleChange = (optionSelected, { action, removedValue }) => {
+	// 	switch (action) {
+	// 		case 'remove-value':
+	// 			// Traitement pour la suppression d'un membre
+	// 			const newSelectedMembers = selectedMembers.filter(
+	// 				(member) => member.id !== removedValue.value
+	// 			);
+	// 			setSelectedMembers(newSelectedMembers);
+	// 			break;
+	// 		case 'select-option':
+	// 			// Traitement pour l'ajout d'un nouveau membre
+	// 			const newMember = {
+	// 				id: optionSelected[optionSelected.length - 1].value,
+	// 				username: optionSelected[optionSelected.length - 1].label,
+	// 			};
+	// 			setSelectedMembers([...selectedMembers, newMember]);
+	// 			break;
+	// 		// autres cas si nécessaire...
+	// 		default:
+	// 			break;
+	// 	}
+	// };
+
+	const handleRemoveMember = (memberId) => {
+		setSelectedMembers(
+			selectedMembers.filter((member) => member.id !== memberId)
+		);
+	};
 
 	return (
 		<form
@@ -42,6 +70,7 @@ const ModalEditWorkspace = ({
 					<ContactsSelect
 						contacts={contacts}
 						handleChange={handleSelectedMembersChange}
+						handleRemoveMember={handleRemoveMember}
 						selectedMembers={selectedMembers}
 						workspace={workspaceDataChange}
 					/>

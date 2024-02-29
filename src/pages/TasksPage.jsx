@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import SideBar from '../components/sidebar/SideBar';
 import Header from '../components/header/Header';
 import DisplayTasks from '../components/tasks/DisplayTasks';
-import CheckAuthentication from '../components/utils/CheckAuthentication';
 import { useSelector } from 'react-redux';
 import getUserId from '../api/users/getUserId';
 import { useGetUser } from '../api/users/getUser';
@@ -38,8 +37,9 @@ import TaskPageTip from '../components/tasks/TaskPageTip';
 import { useGetTips } from '../api/tips/getTips';
 import { selectCurrentUser } from '../store/selectors/userSelectors';
 import { useGetNotifications } from '../api/notifications/getNotifications';
+import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 
-const Tasks = () => {
+const TasksPage = () => {
 	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);
 	const isTodayTasksLoaded = useSelector(selectIsTodayTasksLoaded);
 	const isTomorrowTasksLoaded = useSelector(selectIsTomorrowTasksLoaded);
@@ -57,6 +57,8 @@ const Tasks = () => {
 	const isBecomingTasksLoaded = useSelector(selectIsBecomingTasksLoaded);
 
 	const currentUser = useSelector(selectCurrentUser);
+
+	const checkAuthentication = useCheckAuthentication();
 
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
@@ -87,6 +89,7 @@ const Tasks = () => {
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
 		getId();
+		checkAuthentication();
 	}, [redirectAfterLogin]);
 
 	useEffect(() => {
@@ -129,7 +132,6 @@ const Tasks = () => {
 	return (
 		<div className="bg-light-blue flex relative">
 			<ToastContainer autoClose={600} position="bottom-right" />
-			{!redirectAfterLogin ? <CheckAuthentication /> : null}
 			<section className="bg-dark-blue fixed text-center text-white z-20">
 				<SideBar userId={userId} />
 			</section>
@@ -144,4 +146,4 @@ const Tasks = () => {
 	);
 };
 
-export default Tasks;
+export default TasksPage;

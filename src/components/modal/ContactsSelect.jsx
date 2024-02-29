@@ -4,6 +4,7 @@ import Select from 'react-select';
 const ContactsSelect = ({
 	contacts,
 	handleChange,
+	handleRemoveMember,
 	selectedMembers,
 	workspace,
 }) => {
