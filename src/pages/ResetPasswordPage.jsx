@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useResetPassword } from '../api/users/resetPassword';
+import { useResetPassword } from '../api/users/useResetPassword';
 import { toast } from 'react-toastify';
 
 const ResetPasswordPage = () => {
-	const [password, setPassword] = useState('');
-	const [passwordConfirm, setPasswordConfirm] = useState('');
-	const navigate = useNavigate();
 	const { token } = useParams();
+	const navigate = useNavigate();
 	const resetPassword = useResetPassword();
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 
 	const [errors, setErrors] = useState({
 		password: null,
-		passwordConfirm: null,
+		confirmPassword: null,
 	});
 
 	const validatePasswords = () => {
 		let tempErrors = { ...errors };
 		let isValid = true;
 
-		if (password !== passwordConfirm) {
-			tempErrors.passwordConfirm =
+		if (password !== confirmPassword) {
+			tempErrors.confirmPassword =
 				'Les mots de passe ne correspondent pas';
 			isValid = false;
 		}
@@ -44,7 +44,6 @@ const ResetPasswordPage = () => {
 				navigate('/home');
 				toast.success('Votre mot de passe a bien été réinitialisé');
 			} catch (error) {
-				console.error('Password reset error', error);
 				toast.error(
 					'Une erreur est sur	venue lors de la réinitialisation du mot de passe'
 				);
@@ -83,22 +82,22 @@ const ResetPasswordPage = () => {
 					<div>
 						<label
 							className="block text-md text-gray-800"
-							htmlFor="passwordConfirm">
+							htmlFor="confirmPassword">
 							Confirmer le mot de passe
 						</label>
 						<input
 							autoComplete="off"
 							className="appearance-none border focus:border-blue-300 h-9 mt-2 px-2 rounded-lg shadow text-base transition-colors w-full"
-							id="passwordConfirm"
+							id="confirmPassword"
 							minLength="6"
 							maxLength="254"
-							onChange={(e) => setPasswordConfirm(e.target.value)}
+							onChange={(e) => setConfirmPassword(e.target.value)}
 							required
 							type="password"
-							value={passwordConfirm}
+							value={confirmPassword}
 						/>
 						<span className="h-9 my-1 text-red-400 text-sm max-w-[350px]">
-							{errors.passwordConfirm}
+							{errors.confirmPassword}
 						</span>
 					</div>
 					<div className="flex justify-end">

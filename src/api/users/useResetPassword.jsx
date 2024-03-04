@@ -1,7 +1,9 @@
 import axios from 'axios';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useResetPassword = () => {
 	const API_URL = process.env.REACT_APP_API_URL;
+	const errorApi = useErrorApi();
 
 	const resetPassword = async (token, password) => {
 		try {
@@ -12,8 +14,7 @@ export const useResetPassword = () => {
 
 			return response;
 		} catch (error) {
-			console.error('Password reset error', error);
-			throw error;
+			errorApi(error);
 		}
 	};
 
