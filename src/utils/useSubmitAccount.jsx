@@ -1,7 +1,9 @@
 import { toast } from 'react-toastify';
 import { useRegisterUser } from '../api/users/useRegisterUser';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../api/users/loginUser';
 
-const useSubmitForSignupAccount = ({
+export const useSubmitForSignupAccount = ({
 	inputsFormErrors,
 	inputsFormValues,
 	setInputsFormValues,
@@ -44,4 +46,32 @@ const useSubmitForSignupAccount = ({
 	return submitForSignupAccount;
 };
 
-export default useSubmitForSignupAccount;
+export const useSubmitForLoginAccount = ({ inputsFormValues, setError }) => {
+	const API_URL = process.env.REACT_APP_API_URL;
+	const navigate = useNavigate();
+
+	const submitForLoginAccount = async (e) => {
+		e.preventDefault();
+
+		try {
+			if (inputsFormValues.email && inputsFormValues.password) {
+				const res = await login(
+					API_URL,
+					inputsFormValues.email,
+					inputsFormValues.password
+				);
+				if (res.status === 200) {
+					const userId = await res.data.user.id;
+					sessionStorage.setItem('userId', userId);
+					navigate('/pages/dashboard');
+				} else {
+					setError(res);
+				}
+			}
+		} catch (error) {
+			setError(error);
+		}
+	};
+
+	return submitForLoginAccount;
+};

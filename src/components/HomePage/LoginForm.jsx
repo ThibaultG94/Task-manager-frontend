@@ -1,43 +1,46 @@
-import React, { useState } from 'react';
-import useHandleChange from './utils/login/handleChange';
-import useHandleSubmit from './utils/login/handleSubmit';
-import ErrorLogin from './utils/login/ErrorLogin';
-import EmailLogin from './utils/login/EmailLogin';
-import PasswordLogin from './utils/login/PasswordLogin';
+import React, { useEffect, useState } from 'react';
+import EmailLogin from './LoginForm/EmailLogin';
+import PasswordLogin from './LoginForm/PasswordLogin';
+import { useHandleLoginInputChange } from '../../utils/useHandleInputChange';
+import { useSubmitForLoginAccount } from '../../utils/useSubmitAccount';
+import useErrorLogin from '../../utils/useErrorLogin';
 import PasswordResetModal from './PasswordResetModal';
-import { useForgotPassword } from '../../api/users/forgotPassword';
+import { useForgotPassword } from '../../api/users/useForgotPassword';
 
 const LoginForm = ({ setShowLoginForm }) => {
-	const [errorCode, setErrorCode] = useState(null);
-	const [displayErrors, setDisplayErrors] = useState(false);
-	const [error, setError] = useState(null);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-
+	const [errorWithLogin, setErrorWithLogin] = useState(null);
+	const [isModalResetPasswordOpen, setIsModalResetPasswordOpen] =
+		useState(false);
 	const [inputsFormValues, setInputsFormValues] = useState({
 		email: '',
 		password: '',
 	});
-	const [errors, setErrors] = useState({
+	const [inputsFormErrors, setInputsFormErrors] = useState({
 		email: null,
 		password: null,
 	});
 
-	const forgotPassword = useForgotPassword();
-	const handleChange = useHandleChange({ setInputsFormValues });
-	const handleSubmit = useHandleSubmit({
-		inputsFormValues,
-		setDisplayErrors,
-		setError,
-		setErrorCode,
+	const errorLogin = useErrorLogin({ setInputsFormErrors });
+	const handleLoginInputChange = useHandleLoginInputChange({
+		setInputsFormValues,
 	});
+	const submitForLoginAccount = useSubmitForLoginAccount({
+		inputsFormValues,
+		setErrorWithLogin,
+	});
+	const forgotPassword = useForgotPassword();
 
-	const handleOpenModal = () => setIsModalOpen(true);
-	const handleCloseModal = () => setIsModalOpen(false);
+	const openModalResetPassword = () => setIsModalResetPasswordOpen(true);
+	const closeModalResetPassword = () => setIsModalResetPasswordOpen(false);
 
-	const handleResetPassword = async (email) => {
+	const resetPassword = async (email) => {
 		await forgotPassword(email);
-		handleCloseModal();
+		closeModalResetPassword();
 	};
+
+	useEffect(() => {
+		if (errorWithLogin) errorLogin(errorWithLogin);
+	}, [errorWithLogin]);
 
 	return (
 		<section className="bg-dark-blue flex h-screen justify-center py-4 sm:py-6 md:py-8 text-light-blue">
@@ -48,27 +51,19 @@ const LoginForm = ({ setShowLoginForm }) => {
 
 				<form
 					className="flex flex-col items-start"
-					onSubmit={handleSubmit}>
+					onSubmit={submitForLoginAccount}>
 					<EmailLogin
-						errors={errors}
+						inputsFormErrors={inputsFormErrors}
 						inputsFormValues={inputsFormValues}
-						handleChange={handleChange}
+						handleLoginInputChange={handleLoginInputChange}
 					/>
 
 					<PasswordLogin
-						errors={errors}
+						inputsFormErrors={inputsFormErrors}
 						inputsFormValues={inputsFormValues}
-						handleChange={handleChange}
-						handleOpenModal={handleOpenModal}
+						handleLoginInputChange={handleLoginInputChange}
+						openModalResetPassword={openModalResetPassword}
 					/>
-
-					{displayErrors && (
-						<ErrorLogin
-							error={error}
-							setErrors={setErrors}
-							errorCode={errorCode}
-						/>
-					)}
 
 					<div className="w-full flex justify-between md:justify-end">
 						<button
@@ -86,9 +81,9 @@ const LoginForm = ({ setShowLoginForm }) => {
 			</div>
 
 			<PasswordResetModal
-				isOpen={isModalOpen}
-				onClose={handleCloseModal}
-				onReset={handleResetPassword}
+				isOpen={isModalResetPasswordOpen}
+				onClose={closeModalResetPassword}
+				onReset={resetPassword}
 			/>
 		</section>
 	);

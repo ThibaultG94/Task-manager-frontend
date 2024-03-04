@@ -3,12 +3,12 @@ import UsernameSignup from './SignupForm/UsernameSignup';
 import EmailSignup from './SignupForm/EmailSignup';
 import PasswordSignup from './SignupForm/PasswordSignup';
 import ConfirmPasswordSignup from './SignupForm/ConfirmPasswordSignup';
-import useHandleInputChange from '../../utils/useHandleInputChange';
+import { useHandleSignupInputChange } from '../../utils/useHandleInputChange';
 import {
 	validateFormDataOnTyping,
 	validateConfirmPasswordOnTyping,
 } from '../../utils/signupFormValidation';
-import useSubmitForSignupAccount from '../../utils/useSubmitForSignupAccount';
+import { useSubmitForSignupAccount } from '../../utils/useSubmitAccount';
 
 const SignupForm = ({ setShowLoginForm }) => {
 	const [inputsFormErrors, setInputsFormErrors] = useState({
@@ -30,7 +30,7 @@ const SignupForm = ({ setShowLoginForm }) => {
 	const [progressBar, setProgressBar] = useState('');
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
-	const handleSignupInputChange = useHandleInputChange({
+	const handleSignupInputChange = useHandleSignupInputChange({
 		inputsFormValues,
 		setInputsFormErrors,
 		setInputsFormValues,

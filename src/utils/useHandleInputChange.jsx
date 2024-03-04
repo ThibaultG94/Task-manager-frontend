@@ -1,7 +1,7 @@
 import { confirmChecker, passwordChecker } from './signupFormValidation';
 import { useDebounce } from './useDebounce';
 
-const useHandleInputChange = ({
+export const useHandleSignupInputChange = ({
 	inputsFormValues,
 	setInputsFormErrors,
 	setInputsFormValues,
@@ -48,4 +48,15 @@ const useHandleInputChange = ({
 	return handleSignupInputChange;
 };
 
-export default useHandleInputChange;
+export const useHandleLoginInputChange = ({ setInputsFormValues }) => {
+	const handleLoginInputChange = (e) => {
+		const { name, value } = e.target;
+
+		setInputsFormValues((prevFormData) => ({
+			...prevFormData,
+			[name]: value,
+		}));
+	};
+
+	return handleLoginInputChange;
+};

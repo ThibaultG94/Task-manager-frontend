@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ErrorLogin = ({ error, setErrors, errorCode }) => {
+const useErrorLogin = ({ setErrors }) => {
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		if (errorCode) {
+	const errorLogin = (error) => {
+		const errorCode = error.response ? error.response.status : 500;
+		if (errorCode !== 500) {
 			switch (errorCode) {
 				case 404:
 					if (error.response.data.message === 'User not found') {
@@ -30,9 +30,9 @@ const ErrorLogin = ({ error, setErrors, errorCode }) => {
 		} else {
 			navigate('/pages/error-500');
 		}
-	}, [error]);
+	};
 
-	return null;
+	return errorLogin;
 };
 
-export default ErrorLogin;
+export default useErrorLogin;
