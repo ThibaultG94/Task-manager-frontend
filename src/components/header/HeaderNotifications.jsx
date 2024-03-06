@@ -8,8 +8,8 @@ import NotificationsMenu from './NotificationsMenu';
 import { useMarkNotificationsAsViewed } from '../../api/notifications/markNotificationsAsViewed';
 import { useMarkNotificationAsRead } from '../../api/notifications/markNotificationAsRead';
 import InviteMemberModal from '../invitation/InviteMemberModal';
-import { useGetSentOutInvitations } from '../../api/invitations/getSentOutInvitations';
-import { useGetReceivedInvitations } from '../../api/invitations/getReceivedInvitations';
+import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
+import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
 
 const HeaderNotifications = ({ userId }) => {
 	const markNotificationsAsViewed = useMarkNotificationsAsViewed();

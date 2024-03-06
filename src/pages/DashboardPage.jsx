@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SideBar from '../components/sidebar/SideBar';
+import SideBar from '../components/SideBar/SideBar';
 import Header from '../components/header/Header';
 import Calendar from '../components/dashboard/Calendar';
 import UrgentTasks from '../components/dashboard/UrgentTasks';

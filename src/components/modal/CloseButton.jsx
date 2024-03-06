@@ -3,7 +3,7 @@ const CloseButton = ({ onClose, modalTabs }) => {
 		<span
 			aria-label="Close"
 			className={
-				`cursor-pointer duration-300 hover:rotate-180 transition-transform` +
+				`cursor-pointer duration-300 hover:scale-110 transition-transform` +
 				(modalTabs ? ` mr-2` : ` absolute top-2 right-3`)
 			}
 			onClick={onClose}>

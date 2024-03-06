@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUserContacts } from '../../store/selectors/userSelectors';
-import { useGetSentOutInvitations } from '../../api/invitations/getSentOutInvitations';
-import { useGetReceivedInvitations } from '../../api/invitations/getReceivedInvitations';
+import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
+import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
 import InviteMemberModal from '../invitation/InviteMemberModal';
 
 const Contacts = ({ userId }) => {

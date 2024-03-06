@@ -10,7 +10,7 @@ import {
 	sendInvitationFailure,
 	sendInvitationSuccess,
 } from '../../store/feature/invitations.slice';
-import { useGetSentOutInvitations } from '../../api/invitations/getSentOutInvitations';
+import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useSetInvitationNotification } from '../../api/notifications/setInvitationNotification';
 
 const SendInviteForm = ({ userId }) => {

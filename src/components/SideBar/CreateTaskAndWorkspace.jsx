@@ -3,7 +3,10 @@ import Tabs from '../modal/Tabs';
 import CreateTaskForm from './CreateTaskForm';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
 
-const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
+const CreateTaskAndWorkspace = ({
+	userId,
+	setIsCreateTaskOrWorkspaceModalOpen,
+}) => {
 	const [activeTab, setActiveTab] = useState('tab1');
 	const tabData = [
 		{
@@ -12,7 +15,7 @@ const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
 			component: (
 				<CreateTaskForm
 					userId={userId}
-					setIsModalOpen={setIsModalOpen}
+					setIsModalOpen={setIsCreateTaskOrWorkspaceModalOpen}
 				/>
 			),
 		},
@@ -22,14 +25,16 @@ const CreateTaskAndWorkspace = ({ userId, setIsModalOpen }) => {
 			component: (
 				<CreateWorkspaceForm
 					userId={userId}
-					setIsModalOpen={setIsModalOpen}
+					setIsCreateTaskOrWorkspaceModalOpen={
+						setIsCreateTaskOrWorkspaceModalOpen
+					}
 				/>
 			),
 		},
 	];
 
 	const closeModal = () => {
-		setIsModalOpen(false);
+		setIsCreateTaskOrWorkspaceModalOpen(false);
 	};
 
 	return (

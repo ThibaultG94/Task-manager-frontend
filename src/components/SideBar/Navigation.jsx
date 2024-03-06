@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import CreateTaskAndWorkspace from './CreateTaskAndWorkspace';
 import { Tooltip } from 'react-tooltip';
+import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
+import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
+import { useGetSentOutWorkspaceInvitations } from '../../api/workspaceInvitations/useGetSentOutWorkspaceInvitations';
+import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
+
+import CreateTaskAndWorkspace from './CreateTaskAndWorkspace';
 import InviteMemberModal from '../invitation/InviteMemberModal';
-import { useGetSentOutInvitations } from '../../api/invitations/getSentOutInvitations';
-import { useGetReceivedInvitations } from '../../api/invitations/getReceivedInvitations';
 import WorkspaceManageModal from '../workspaces/WorkspaceManageModal';
-import { useGetSentOutWorkspaceInvitations } from '../../api/workspaceInvitations/getSentOutWorkspaceInvitations';
-import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/getReceivedWorkspaceInvitations';
 
 const Navigation = ({ userId }) => {
+	const location = useLocation();
+
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
 	const getSendOutWorkspaceInvitations = useGetSentOutWorkspaceInvitations();
 	const getReceivedWorkspaceInvitations =
 		useGetReceivedWorkspaceInvitations();
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [
+		isCreateTaskOrWorkspaceModalOpen,
+		setIsCreateTaskOrWorkspaceModalOpen,
+	] = useState(false);
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
 	const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState(false);
-	const location = useLocation();
 	const classIcone = 'cursor-pointer text-xl xl:mb-6 mr-6 xl:mr-0';
 	const classIconeActive =
 		'cursor-pointer text-xl xl:mb-6 mr-6 xl:mr-0 font-bold text-orange-primary';
@@ -55,7 +60,7 @@ const Navigation = ({ userId }) => {
 						'/pages/tasks',
 						'/pages/workspaces',
 					]) &&
-					!isModalOpen &&
+					!isCreateTaskOrWorkspaceModalOpen &&
 					!isInvitationModalOpen
 						? classIconeActive
 						: classIcone
@@ -95,12 +100,16 @@ const Navigation = ({ userId }) => {
 			</NavLink>
 
 			<li
-				className={isModalOpen ? classIconeActive : classIcone}
+				className={
+					isCreateTaskOrWorkspaceModalOpen
+						? classIconeActive
+						: classIcone
+				}
 				data-tooltip-content="Créer une tâche ou un workspace"
 				data-tooltip-id="icon-create"
 				data-tooltip-variant="info"
 				id="addWorkspaceOrTaskButton"
-				onClick={() => setIsModalOpen(true)}>
+				onClick={() => setIsCreateTaskOrWorkspaceModalOpen(true)}>
 				<i className="fas fa-plus-square mr-1"></i>
 			</li>
 
@@ -127,10 +136,12 @@ const Navigation = ({ userId }) => {
 				<i className="fa-solid fa-briefcase mr-1"></i>
 			</li>
 
-			{isModalOpen && (
+			{isCreateTaskOrWorkspaceModalOpen && (
 				<CreateTaskAndWorkspace
 					userId={userId}
-					setIsModalOpen={setIsModalOpen}
+					setIsCreateTaskOrWorkspaceModalOpen={
+						setIsCreateTaskOrWorkspaceModalOpen
+					}
 				/>
 			)}
 

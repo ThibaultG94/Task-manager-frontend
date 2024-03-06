@@ -1,12 +1,8 @@
 import React from 'react';
-import { useLogoutUser } from '../../api/users/logoutUser';
+import { useLogoutUser } from '../../api/users/useLogoutUser';
 
 const Footer = () => {
 	const logoutUser = useLogoutUser();
-
-	const handleLogout = async () => {
-		await logoutUser();
-	};
 
 	return (
 		<ul className="flex flex-row xl:flex-col justify-between self-center xl:self-end xl:w-full">
@@ -20,7 +16,7 @@ const Footer = () => {
 			<li
 				className="cursor-pointer text-xl"
 				id="logoutLink"
-				onClick={handleLogout}>
+				onClick={logoutUser}>
 				<i className="fas fa-sign-out-alt mr-1"></i>
 			</li>
 		</ul>

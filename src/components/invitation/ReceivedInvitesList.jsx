@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectReceivedInvitations } from '../../store/selectors/invitationsSelectors';
-import { useGetReceivedInvitations } from '../../api/invitations/getReceivedInvitations';
+import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
 import { toast } from 'react-toastify';
 import { useDeclineInvitation } from '../../api/invitations/declineInvitation';
 import { useAcceptInvitation } from '../../api/invitations/acceptInvitation';

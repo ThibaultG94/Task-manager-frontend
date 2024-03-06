@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { selectReceivedWorkspaceInvitations } from '../../store/selectors/workspaceInvitationsSelectors';
 import { useAcceptWorkspaceInvitation } from '../../api/workspaceInvitations/acceptWorkspaceInvitation';
 import { useDeclineWorkspaceInvitation } from '../../api/workspaceInvitations/declineWorkspaceInvitation';
-import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/getReceivedWorkspaceInvitations';
+import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
 import { useGetWorkspaces } from '../../api/workspaces/getWorkspaces';
 
 const ReceivedWorkspaceInvitesList = ({ userId }) => {
