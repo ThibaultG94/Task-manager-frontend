@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useCreateTask } from '../../api/tasks/useCreateTask';
 
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { useCreateTask } from '../../api/tasks/createTask';
 import { useTasksHasBeenUpdated } from '../tasks/TasksHasBeenUpdated';
 import TitleInput from '../modal/TitleInput';
 import StatusSelect from '../modal/StatusSelect';
