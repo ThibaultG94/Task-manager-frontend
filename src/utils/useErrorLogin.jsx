@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-const useErrorLogin = ({ setErrors }) => {
+const useErrorLogin = ({ setInputsFormErrors  }) => {
 	const navigate = useNavigate();
 
 	const errorLogin = (error) => {
@@ -9,7 +9,7 @@ const useErrorLogin = ({ setErrors }) => {
 			switch (errorCode) {
 				case 404:
 					if (error.response.data.message === 'User not found') {
-						setErrors(() => ({
+						setInputsFormErrors(() => ({
 							email: "L'email n'est pas enregistré.",
 							password: null,
 						}));
@@ -17,7 +17,7 @@ const useErrorLogin = ({ setErrors }) => {
 					break;
 				case 401:
 					if (error.response.data.message === 'Invalid password') {
-						setErrors(() => ({
+						setInputsFormErrors(() => ({
 							email: null,
 							password: 'Le mot de passe est incorrect.',
 						}));

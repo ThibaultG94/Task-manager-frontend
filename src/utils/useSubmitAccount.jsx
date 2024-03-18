@@ -46,7 +46,7 @@ export const useSubmitForSignupAccount = ({
 	return submitForSignupAccount;
 };
 
-export const useSubmitForLoginAccount = ({ inputsFormValues, setError }) => {
+export const useSubmitForLoginAccount = ({ inputsFormValues, setErrorWithLogin }) => {
 	const API_URL = process.env.REACT_APP_API_URL;
 	const navigate = useNavigate();
 
@@ -65,11 +65,11 @@ export const useSubmitForLoginAccount = ({ inputsFormValues, setError }) => {
 					sessionStorage.setItem('userId', userId);
 					navigate('/pages/dashboard');
 				} else {
-					setError(res);
+					setErrorWithLogin(res);
 				}
 			}
 		} catch (error) {
-			setError(error);
+			setErrorWithLogin(error);
 		}
 	};
 
