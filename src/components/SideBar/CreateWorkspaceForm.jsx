@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useCreateWorkspace } from '../../api/workspaces/createWorkspace';
 import { toast } from 'react-toastify';
-import TitleInput from '../modal/TitleInput';
+import TitleInput from '../ModalForm/TitleInput';
 import DescriptionTextarea from '../modal/DescriptionTextarea';
 import SubmitButton from '../modal/SubmitButton';
 import { useDispatch, useSelector } from 'react-redux';
