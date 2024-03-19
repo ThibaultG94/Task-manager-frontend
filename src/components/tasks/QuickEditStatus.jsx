@@ -9,7 +9,7 @@ import {
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { setEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/tasks/editTask';
-import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ArrowDown from '../modal/ArrowDown';
 import TaskStatusDisplay from './utils/TaskStatusDisplay';

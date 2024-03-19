@@ -7,7 +7,7 @@ import QuickEditWorkspace from './QuickEditWorkspace';
 import ButtonToEditTaskInModal from './ButtonToEditTaskInModal';
 import ButtonToGrab from './ButtonToGrab';
 import { useEditTask } from '../../api/tasks/editTask';
-import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {

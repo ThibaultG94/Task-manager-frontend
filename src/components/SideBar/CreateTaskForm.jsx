@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useCreateTask } from '../../api/tasks/useCreateTask';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { useTasksHasBeenUpdated } from '../tasks/TasksHasBeenUpdated';
 import TitleInput from '../modal/TitleInput';
 import StatusSelect from '../modal/StatusSelect';
 import PrioritySelect from '../modal/PrioritySelect';
@@ -17,6 +17,7 @@ import { toast } from 'react-toastify';
 const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const createTask = useCreateTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const [taskTitle, setTaskTitle] = useState('');
 	const [taskStatus, setTaskStatus] = useState('Pending');

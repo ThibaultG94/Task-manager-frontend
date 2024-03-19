@@ -6,7 +6,7 @@ import {
 	resetEditState,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
-import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 
 const DeleteTask = ({ setIsModalOpen }) => {

@@ -14,9 +14,9 @@ import {
 	setThisYearTasksHasBeenUpdated,
 	setTodayTasksHasBeenUpdated,
 	setTomorrowTasksHasBeenUpdated,
-} from '../../store/feature/editState.slice';
-import { formatDateForDisplay } from '../utils/formatDateForDisplay';
-import { getCategoryDay } from '../utils/getCategoryDay';
+} from '../store/feature/editState.slice';
+import { formatDateForDisplay } from '../components/utils/formatDateForDisplay';
+import { getCategoryDay } from '../components/utils/getCategoryDay';
 
 export const useTasksHasBeenUpdated = () => {
 	const dispatch = useDispatch();

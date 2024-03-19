@@ -9,7 +9,7 @@ import HandleModalTask from '../tasks/HandleModalTask';
 import useCheckIfEdited from './utils/checkIfEdited';
 import { useEditTask } from '../../api/tasks/editTask';
 import { toast } from 'react-toastify';
-import { useTasksHasBeenUpdated } from '../tasks/TasksHasBeenUpdated';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 
 const UrgentTasks = () => {

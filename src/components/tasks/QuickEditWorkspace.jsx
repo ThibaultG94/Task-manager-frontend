@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEditTask } from '../../api/tasks/editTask';
-import { useTasksHasBeenUpdated } from './TasksHasBeenUpdated';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { setEditedTask } from '../../store/feature/tasks.slice';
