@@ -21,7 +21,7 @@ const MemberSelect = ({
 				onChange={(e) => setSelectedMember(e.target.value)}
 				value={selectedMember}>
 				<option value="default" disabled>
-					Sélectionnez l'utilisateur en charge de la tâche
+					Sélectionnez un membre
 				</option>
 				{workspaceMembers &&
 					workspaceMembers.map((member) => (
