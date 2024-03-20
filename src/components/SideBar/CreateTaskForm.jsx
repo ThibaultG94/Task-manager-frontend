@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import TitleInput from '../ModalForm/TitleInput';
+import ArrowDown from '../modal/ArrowDown';
 import { useCreateTask } from '../../api/tasks/useCreateTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 
-import StatusSelect from '../modal/StatusSelect';
-import PrioritySelect from '../modal/PrioritySelect';
 import DeadlineInput from '../modal/DeadlineInput';
 import DescriptionTextarea from '../modal/DescriptionTextarea';
 import WorkspaceSelect from '../modal/WorkspaceSelect';
@@ -88,14 +87,38 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 							length={60}
 						/>
 						<div className="flex flex-col sm:flex-row mb-2 sm:mb-4 md:mb-5">
-							<StatusSelect
-								taskStatus={taskStatus}
-								setTaskStatus={setTaskStatus}
-							/>
-							<PrioritySelect
-								taskPriority={taskPriority}
-								setTaskPriority={setTaskPriority}
-							/>
+							<div className="mb-2 sm:mb-0 relative w-full sm:w-1/2">
+								<select
+									className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
+									name="status"
+									onChange={(e) => setTaskStatus(e.target.value)}
+									value={taskStatus}>
+									<option value="default" disabled>
+										Status
+									</option>
+									<option value="Pending">À faire</option>
+									<option value="In Progress">En cours</option>
+									<option value="Completed">Terminé</option>
+									<option value="Archived">Archivé</option>
+								</select>
+								<ArrowDown />
+							</div>
+							<div className="relative sm:ml-2 w-full sm:w-1/2">
+								<select
+									className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
+									name="priority"
+									onChange={(e) => setTaskPriority(e.target.value)}
+									value={taskPriority}>
+									<option value="default" disabled>
+										Priorité
+									</option>
+									<option value="Low">Faible</option>
+									<option value="Medium">Moyenne</option>
+									<option value="High">Haute</option>
+									<option value="Urgent">Urgent</option>
+								</select>
+								<ArrowDown />
+							</div>
 						</div>
 						<DeadlineInput setTaskDeadline={setTaskDeadline} />
 					</div>
