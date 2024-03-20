@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import DeadlineInput from '../modal/DeadlineInput';
-import WorkspaceSelect from '../modal/WorkspaceSelect';
-import MemberSelect from '../modal/MemberSelect';
+import DeadlineInput from '../ModalForm/DeadlineInput';
+import WorkspaceSelect from '../ModalForm/WorkspaceSelect';
+import MemberSelect from '../ModalForm/MemberSelect';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
-import ArrowDown from '../modal/ArrowDown';
+import ArrowDown from '../ModalForm/ArrowDown';
 
 const ModalEditTask = ({ taskData, setTaskData }) => {
 	const userWorkspaces = useSelector(selectWorkspaces);

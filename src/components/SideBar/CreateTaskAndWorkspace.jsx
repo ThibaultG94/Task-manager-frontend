@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Tabs from '../modal/Tabs';
+import Tabs from '../ModalForm/Tabs';
 import CreateTaskForm from './CreateTaskForm';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
 

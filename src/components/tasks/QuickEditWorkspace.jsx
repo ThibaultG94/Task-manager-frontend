@@ -12,7 +12,7 @@ import {
 } from '../../store/feature/editState.slice';
 import { toast } from 'react-toastify';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import ArrowDown from '../modal/ArrowDown';
+import ArrowDown from '../ModalForm/ArrowDown';
 import { useWindowWidth } from './utils/useWindowWidth';
 import { getInitials } from './utils/getInitials';
 import CloseWorkspace from './utils/CloseWorkspace';

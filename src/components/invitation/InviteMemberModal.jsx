@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SendInviteForm from './SendInviteForm';
 import ReceivedInvitesList from './ReceivedInvitesList';
-import Tabs from '../modal/Tabs';
+import Tabs from '../ModalForm/Tabs';
 import SentOutInvitations from './SentOutInvitations';
 
 const InviteMemberModal = ({ userId, setIsInvitationModalOpen, tab }) => {

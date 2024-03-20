@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import EmailInput from './EmailInput';
 import MessageTextarea from './MessageTextarea';
 import { useSendInvitation } from '../../api/invitations/sendInvitation';
-import SubmitButton from '../modal/SubmitButton';
+import SubmitButton from '../ModalForm/SubmitButton';
 import { toast } from 'react-toastify';
 import ErrorInvitation from './ErrorInvitation';
 import {

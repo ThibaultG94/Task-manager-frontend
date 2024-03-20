@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import CloseButton from '../modal/CloseButton';
+import CloseButton from '../ModalForm/CloseButton';
 import ModalDisplayWorkspace from './ModalDisplayWorkspace';
 import DeleteWorkspace from './DeleteWorkspace';
 import EditWorkspace from './EditWorkspace';

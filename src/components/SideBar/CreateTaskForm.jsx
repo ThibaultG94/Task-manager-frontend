@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import TitleInput from '../ModalForm/TitleInput';
-import ArrowDown from '../modal/ArrowDown';
+import DeadlineInput from '../ModalForm/DeadlineInput';
+import DescriptionTextarea from '../ModalForm/DescriptionTextarea';
+import WorkspaceSelect from '../ModalForm/WorkspaceSelect';
+import MemberSelect from '../ModalForm/MemberSelect';
+import SubmitButton from '../ModalForm/SubmitButton';
+import ArrowDown from '../ModalForm/ArrowDown';
 import { useCreateTask } from '../../api/tasks/useCreateTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
-
-import DeadlineInput from '../modal/DeadlineInput';
-import DescriptionTextarea from '../modal/DescriptionTextarea';
-import WorkspaceSelect from '../modal/WorkspaceSelect';
-import MemberSelect from '../modal/MemberSelect';
-import SubmitButton from '../modal/SubmitButton';
 import { toast } from 'react-toastify';
+
 
 const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const createTask = useCreateTask();
