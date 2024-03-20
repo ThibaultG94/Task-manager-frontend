@@ -72,7 +72,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<div id="tab-content1">
-			<h2 className="font-light mb-2 sm:mb-4 md:mb-6 text-lg sm:text-xl md:text-2xl text-center">
+			<h2 className="font-light mb-2 sm:mb-4 md:mb-6 sm:mt-2 md:mt-4 xl:mt-6 text-lg sm:text-xl md:text-2xl text-center">
 				Nouvelle Tâche
 			</h2>
 			<form
