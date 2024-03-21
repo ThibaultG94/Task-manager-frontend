@@ -1,5 +1,5 @@
 import React from 'react';
-import ContactsSelect from '../modal/ContactsSelect';
+import ContactsSelect from '../ModalForm/ContactsSelect';
 
 const ModalEditWorkspace = ({
 	contacts,

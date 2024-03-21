@@ -1,26 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { useCreateWorkspace } from '../../api/workspaces/createWorkspace';
-import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserContacts } from '../../store/selectors/userSelectors';
 import TitleInput from '../ModalForm/TitleInput';
+import ContactsSelect from '../ModalForm/ContactsSelect';
 import DescriptionTextarea from '../ModalForm/DescriptionTextarea';
 import SubmitButton from '../ModalForm/SubmitButton';
-import { useDispatch, useSelector } from 'react-redux';
+import { useCreateWorkspace } from '../../api/workspaces/useCreateWorkspace';
+import { useSendInvitationWorkspace } from '../../api/workspaceInvitations/useSendInvitationWorkspace';
+import { toast } from 'react-toastify';
 import { setWorkspacesHasBeenUpdated } from '../../store/feature/editState.slice';
+
 import { getAssignedUser } from '../../api/users/getAssignedUser';
-import ContactsSelect from '../modal/ContactsSelect';
-import { selectUserContacts } from '../../store/selectors/userSelectors';
-import { useSendInvitationWorkspace } from '../../api/workspaceInvitations/sendInvitationWorkspace';
 
 const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const dispatch = useDispatch();
 	const createWorkspace = useCreateWorkspace();
 	const sendInvitationWorkspace = useSendInvitationWorkspace();
+	const userContacts = useSelector(selectUserContacts);
 	const [workspaceTitle, setWorkspaceTitle] = useState('');
 	const [workspaceDescription, setWorkspaceDescription] = useState('');
-	const [member, setMember] = useState('');
-	const userContacts = useSelector(selectUserContacts);
 	const [contacts, setContacts] = useState([]);
+
+	const [member, setMember] = useState('');
 	const [selectedMembers, setSelectedMembers] = useState([]);
+	
+	useEffect(() => {
+		if (userContacts) setContacts(userContacts);
+	}, [userContacts]);
+	
+	useEffect(() => {
+		const getUserInfos = async (userId) => {
+			const assignedUser = await getAssignedUser(userId);
+				setMember(assignedUser);
+		};
+		getUserInfos(userId);
+	}, [userId]);
 
 	const handleChange = (selectedOptions) => {
 		setSelectedMembers(
@@ -30,18 +44,6 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 			}))
 		);
 	};
-
-	useEffect(() => {
-		const getUserInfos = async (userId) => {
-			const assignedUser = await getAssignedUser(userId);
-			setMember(assignedUser);
-		};
-		getUserInfos(userId);
-	}, [userId]);
-
-	useEffect(() => {
-		if (userContacts) setContacts(userContacts);
-	}, [userContacts]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

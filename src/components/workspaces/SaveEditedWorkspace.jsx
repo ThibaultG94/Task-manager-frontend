@@ -8,7 +8,7 @@ import {
 import { toast } from 'react-toastify';
 import { useEditWorkspace } from '../../api/workspaces/editWorkspace';
 import { getAssignedUser } from '../../api/users/getAssignedUser';
-import { useSendInvitationWorkspace } from '../../api/workspaceInvitations/sendInvitationWorkspace';
+import { useSendInvitationWorkspace } from '../../api/workspaceInvitations/useSendInvitationWorkspace';
 
 const SaveEditedWorkspace = ({
 	selectedMembers,
