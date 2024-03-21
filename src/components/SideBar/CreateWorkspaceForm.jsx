@@ -18,7 +18,6 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const [workspaceTitle, setWorkspaceTitle] = useState('');
 	const [workspaceDescription, setWorkspaceDescription] = useState('');
 	const [contacts, setContacts] = useState([]);
-
 	const [selectedMembers, setSelectedMembers] = useState([]);
 	
 	useEffect(() => {
@@ -74,7 +73,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<div id="tab-content2">
-			<h2 className="font-light mb-2 sm:mb-4 md:mb-6 mt-2 sm:mt-1 md:mt-0 text-lg sm:text-xl md:text-2xl text-center">
+			<h2 className="font-light mb-2 sm:mb-4 md:mb-6 mt-1 sm:mt-2 md:mt-4 xl:mt-6 sm:mt-1 md:mt-0 text-lg sm:text-xl md:text-2xl text-center">
 				Nouveau Workspace
 			</h2>
 			<form

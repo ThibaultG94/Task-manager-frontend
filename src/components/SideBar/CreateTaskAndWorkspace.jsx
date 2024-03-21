@@ -25,7 +25,7 @@ const CreateTaskAndWorkspace = ({
 			component: (
 				<CreateWorkspaceForm
 					userId={userId}
-					setIsCreateTaskOrWorkspaceModalOpen={
+					setIsModalOpen={
 						setIsCreateTaskOrWorkspaceModalOpen
 					}
 				/>
