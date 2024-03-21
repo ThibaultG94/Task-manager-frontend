@@ -10,8 +10,6 @@ import { useSendInvitationWorkspace } from '../../api/workspaceInvitations/useSe
 import { toast } from 'react-toastify';
 import { setWorkspacesHasBeenUpdated } from '../../store/feature/editState.slice';
 
-import { getAssignedUser } from '../../api/users/getAssignedUser';
-
 const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const dispatch = useDispatch();
 	const createWorkspace = useCreateWorkspace();
@@ -21,20 +19,11 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const [workspaceDescription, setWorkspaceDescription] = useState('');
 	const [contacts, setContacts] = useState([]);
 
-	const [member, setMember] = useState('');
 	const [selectedMembers, setSelectedMembers] = useState([]);
 	
 	useEffect(() => {
 		if (userContacts) setContacts(userContacts);
 	}, [userContacts]);
-	
-	useEffect(() => {
-		const getUserInfos = async (userId) => {
-			const assignedUser = await getAssignedUser(userId);
-				setMember(assignedUser);
-		};
-		getUserInfos(userId);
-	}, [userId]);
 
 	const handleChange = (selectedOptions) => {
 		setSelectedMembers(
@@ -53,7 +42,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 			userId,
 			description: workspaceDescription,
 			members: {
-				userId: member._id,
+				userId: userId,
 				role: 'superadmin',
 			},
 			isDefault: false,
