@@ -5,7 +5,7 @@ import DisplayTasks from '../components/tasks/DisplayTasks';
 import { useSelector } from 'react-redux';
 import getUserId from '../api/users/getUserId';
 import { useGetUser } from '../api/users/getUser';
-import { useGetWorkspaces } from '../api/workspaces/getWorkspaces';
+import { useGetWorkspaces } from '../api/workspaces/useGetWorkspaces';
 import { useGetOverdueTasks } from '../api/tasks/getOverdueTasks';
 import { useGetTodayTasks } from '../api/tasks/getTodayTasks';
 import { useGetTomorrowTasks } from '../api/tasks/getTomorrowTasks';

@@ -8,7 +8,7 @@ import Contacts from '../components/dashboard/Contacts';
 import getUserId from '../api/users/getUserId';
 import { useGetUser } from '../api/users/getUser';
 import { useGetUrgentTasks } from '../api/tasks/getUrgentTasks';
-import { useGetWorkspaces } from '../api/workspaces/getWorkspaces';
+import { useGetWorkspaces } from '../api/workspaces/useGetWorkspaces';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectHasBeenUpdated,
