@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { selectReceivedWorkspaceInvitations } from '../../../store/selectors/workspaceInvitationsSelectors';
+import { useGetWorkspaces } from '../../../api/workspaces/useGetWorkspaces';
+import { useAcceptWorkspaceInvitation } from '../../../api/workspaceInvitations/useAcceptWorkspaceInvitation';
+import { useDeclineWorkspaceInvitation } from '../../../api/workspaceInvitations/useDeclineWorkspaceInvitation';
+import { useGetReceivedWorkspaceInvitations } from '../../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
 import { toast } from 'react-toastify';
-import { selectReceivedWorkspaceInvitations } from '../../store/selectors/workspaceInvitationsSelectors';
-import { useAcceptWorkspaceInvitation } from '../../api/workspaceInvitations/acceptWorkspaceInvitation';
-import { useDeclineWorkspaceInvitation } from '../../api/workspaceInvitations/declineWorkspaceInvitation';
-import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
-import { useGetWorkspaces } from '../../api/workspaces/getWorkspaces';
 
 const ReceivedWorkspaceInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedWorkspaceInvitations);
@@ -14,6 +14,7 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 	const declineWorkspaceInvitation = useDeclineWorkspaceInvitation();
 	const getReceivedWorkspaceInvitations =
 		useGetReceivedWorkspaceInvitations();
+	
 	const [receivedInvitationsPending, setReceivedInvitationsPending] =
 		useState();
 	const [receivedInvitationsAccepted, setReceivedInvitationsAccepted] =

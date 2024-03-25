@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectDispathedWorkspaceInvitations } from '../../store/selectors/workspaceInvitationsSelectors';
-import { useGetSentOutWorkspaceInvitations } from '../../api/workspaceInvitations/useGetSentOutWorkspaceInvitations';
-import { useCancelWorkspaceInvitation } from '../../api/workspaceInvitations/cancelWorkspaceInvitation';
+import { selectDispathedWorkspaceInvitations } from '../../../store/selectors/workspaceInvitationsSelectors';
+import { useGetSentOutWorkspaceInvitations } from '../../../api/workspaceInvitations/useGetSentOutWorkspaceInvitations';
+import { useCancelWorkspaceInvitation } from '../../../api/workspaceInvitations/useCancelWorkspaceInvitation';
+import { useGetWorkspaces } from '../../../api/workspaces/useGetWorkspaces';
 import { toast } from 'react-toastify';
-import { useGetWorkspaces } from '../../api/workspaces/getWorkspaces';
 
 const SentOutWorkspaceInvitations = ({ userId }) => {
 	const invitations = useSelector(selectDispathedWorkspaceInvitations);

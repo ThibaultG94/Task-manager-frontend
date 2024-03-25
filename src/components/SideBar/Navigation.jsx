@@ -8,7 +8,7 @@ import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitatio
 import CreateTaskAndWorkspace from './ModalTaskAndWorkspace/CreateTaskAndWorkspace';
 import InviteMemberModal from './InvitationModal/InviteMemberModal';
 
-import WorkspaceManageModal from '../workspaces/WorkspaceManageModal';
+import WorkspaceManageModal from './ModalWorkspace/WorkspaceManageModal';
 
 const Navigation = ({ userId }) => {
 	const location = useLocation();

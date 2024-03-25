@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Tabs from '../ModalForm/Tabs';
-import ListWorkspaces from '../dashboard/ListWorkspaces';
+import Tabs from '../../ModalForm/Tabs';
+import ListWorkspaces from '../../dashboard/ListWorkspaces';
 import SentOutWorkspaceInvitations from './SentOutWorkspaceInvitations';
 import ReceivedWorkspaceInvitesList from './ReceivedWorkspaceInvitesList';
 
