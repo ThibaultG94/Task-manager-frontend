@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Tabs from '../../ModalForm/Tabs';
 import SendInviteForm from './SendInviteForm';
-import SentOutInvitations from '../../invitation/SentOutInvitations';
-import ReceivedInvitesList from '../../invitation/ReceivedInvitesList';
+import SentOutInvitations from './SentOutInvitations';
+import ReceivedInvitesList from './ReceivedInvitesList';
 
 const InviteMemberModal = ({ userId, setIsInvitationModalOpen, tab }) => {
 	const [activeTab, setActiveTab] = useState(tab);

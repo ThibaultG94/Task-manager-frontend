@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectReceivedInvitations } from '../../store/selectors/invitationsSelectors';
-import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
+import { selectReceivedInvitations } from '../../../store/selectors/invitationsSelectors';
+import { useGetReceivedInvitations } from '../../../api/invitations/useGetReceivedInvitations';
+import { useDeclineInvitation } from '../../../api/invitations/declineInvitation';
+import { useAcceptInvitation } from '../../../api/invitations/acceptInvitation';
+import { useGetContacts } from '../../../api/users/getContacts';
+import { useSetInvitationNotification } from '../../../api/notifications/useSetInvitationNotification';
 import { toast } from 'react-toastify';
-import { useDeclineInvitation } from '../../api/invitations/declineInvitation';
-import { useAcceptInvitation } from '../../api/invitations/acceptInvitation';
-import { useGetContacts } from '../../api/users/getContacts';
-import { useSetInvitationNotification } from '../../api/notifications/useSetInvitationNotification';
 
 const ReceivedInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedInvitations);
