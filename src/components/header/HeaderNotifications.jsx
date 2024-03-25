@@ -7,7 +7,7 @@ import {
 import NotificationsMenu from './NotificationsMenu';
 import { useMarkNotificationsAsViewed } from '../../api/notifications/markNotificationsAsViewed';
 import { useMarkNotificationAsRead } from '../../api/notifications/markNotificationAsRead';
-import InviteMemberModal from '../invitation/InviteMemberModal';
+import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
 import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
 

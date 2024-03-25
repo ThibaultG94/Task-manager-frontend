@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import EmailInput from './EmailInput';
-import MessageTextarea from './MessageTextarea';
-import { useSendInvitation } from '../../api/invitations/sendInvitation';
-import SubmitButton from '../ModalForm/SubmitButton';
+
+import EmailInput from '../../invitation/EmailInput';
+import MessageTextarea from '../../invitation/MessageTextarea';
+import { useSendInvitation } from '../../../api/invitations/sendInvitation';
+import SubmitButton from '../../ModalForm/SubmitButton';
 import { toast } from 'react-toastify';
-import ErrorInvitation from './ErrorInvitation';
+import ErrorInvitation from '../../invitation/ErrorInvitation';
 import {
 	sendInvitationFailure,
 	sendInvitationSuccess,
-} from '../../store/feature/invitations.slice';
-import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
-import { useSetInvitationNotification } from '../../api/notifications/setInvitationNotification';
+} from '../../../store/feature/invitations.slice';
+import { useGetSentOutInvitations } from '../../../api/invitations/useGetSentOutInvitations';
+import { useSetInvitationNotification } from '../../../api/notifications/setInvitationNotification';
 
 const SendInviteForm = ({ userId }) => {
 	const dispatch = useDispatch();
+
 	const sendInvitation = useSendInvitation();
 	const setInvitationNotification = useSetInvitationNotification();
 	const getSendOutInvitations = useGetSentOutInvitations();

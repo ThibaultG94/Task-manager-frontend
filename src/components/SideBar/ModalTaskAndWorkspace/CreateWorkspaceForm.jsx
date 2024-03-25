@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserContacts } from '../../store/selectors/userSelectors';
-import TitleInput from '../ModalForm/TitleInput';
-import ContactsSelect from '../ModalForm/ContactsSelect';
-import DescriptionTextarea from '../ModalForm/DescriptionTextarea';
-import SubmitButton from '../ModalForm/SubmitButton';
-import { useCreateWorkspace } from '../../api/workspaces/useCreateWorkspace';
-import { useSendInvitationWorkspace } from '../../api/workspaceInvitations/useSendInvitationWorkspace';
+import { selectUserContacts } from '../../../store/selectors/userSelectors';
+import TitleInput from '../../ModalForm/TitleInput';
+import ContactsSelect from '../../ModalForm/ContactsSelect';
+import DescriptionTextarea from '../../ModalForm/DescriptionTextarea';
+import SubmitButton from '../../ModalForm/SubmitButton';
+import { useCreateWorkspace } from '../../../api/workspaces/useCreateWorkspace';
+import { useSendInvitationWorkspace } from '../../../api/workspaceInvitations/useSendInvitationWorkspace';
 import { toast } from 'react-toastify';
-import { setWorkspacesHasBeenUpdated } from '../../store/feature/editState.slice';
+import { setWorkspacesHasBeenUpdated } from '../../../store/feature/editState.slice';
 
 const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const dispatch = useDispatch();
