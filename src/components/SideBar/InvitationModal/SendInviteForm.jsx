@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import EmailInput from '../../invitation/EmailInput';
-import MessageTextarea from '../../invitation/MessageTextarea';
-import { useSendInvitation } from '../../../api/invitations/sendInvitation';
 import SubmitButton from '../../ModalForm/SubmitButton';
-import { toast } from 'react-toastify';
-import ErrorInvitation from '../../invitation/ErrorInvitation';
+import { useDispatch } from 'react-redux';
+import { useSendInvitation } from '../../../api/invitations/useSendInvitation';
+import { useGetSentOutInvitations } from '../../../api/invitations/useGetSentOutInvitations';
+import { useSetInvitationNotification } from '../../../api/notifications/useSetInvitationNotification';
 import {
 	sendInvitationFailure,
 	sendInvitationSuccess,
 } from '../../../store/feature/invitations.slice';
-import { useGetSentOutInvitations } from '../../../api/invitations/useGetSentOutInvitations';
-import { useSetInvitationNotification } from '../../../api/notifications/setInvitationNotification';
+import ErrorInvitation from './ErrorInvitation';
+import { toast } from 'react-toastify';
 
 const SendInviteForm = ({ userId }) => {
 	const dispatch = useDispatch();
-
 	const sendInvitation = useSendInvitation();
-	const setInvitationNotification = useSetInvitationNotification();
 	const getSendOutInvitations = useGetSentOutInvitations();
+	const setInvitationNotification = useSetInvitationNotification();
 
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
@@ -76,16 +72,32 @@ const SendInviteForm = ({ userId }) => {
 				onSubmit={handleSubmit}>
 				<div className="flex flex-col md:flex-row mb-2 sm:mb-4 md:mb-5">
 					<div className="flex flex-col md:w-1/2 sm:pr-1 md:pr-2">
-						<EmailInput
-							email={email}
-							setEmail={setEmail}
-							errors={errors}
-						/>
+						<div className="mb-2 sm:mb-4 md:mb-5">
+							<input
+								className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 focus:outline-none focus:shadow-outline leading-tight p-2 rounded shadow w-full"
+								maxLength="50"
+								name="email"
+								onChange={(e) => setEmail(e.target.value)}
+								placeholder="Saisissez l'addresse email du contact"
+								required
+								type="email"
+								value={email}
+							/>
+							<span className="h-6 my-2 text-red-400 text-xs md:text-sm">
+								{errors.email}
+							</span>
+						</div>
 					</div>
-					<MessageTextarea
-						message={message}
-						setMessage={setMessage}
-					/>
+					<div className="flex flex-col flex-grow justify-between w-full md:w-1/2 pl-0 md:pl-2">
+						<textarea
+							className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 flex-grow focus:outline-none focus:shadow-outline leading-tight p-2 resize-none rounded shadow w-full"
+							cols="30"
+							name="message"
+							onChange={(e) => setMessage(e.target.value)}
+							placeholder="Ecrivez votre message ici (optionnel)"
+							rows="5"
+							value={message}></textarea>
+					</div>
 				</div>
 				<SubmitButton label={"Envoyer l'invitation"} />
 

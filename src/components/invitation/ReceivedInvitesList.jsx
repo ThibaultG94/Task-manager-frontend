@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useDeclineInvitation } from '../../api/invitations/declineInvitation';
 import { useAcceptInvitation } from '../../api/invitations/acceptInvitation';
 import { useGetContacts } from '../../api/users/getContacts';
-import { useSetInvitationNotification } from '../../api/notifications/setInvitationNotification';
+import { useSetInvitationNotification } from '../../api/notifications/useSetInvitationNotification';
 
 const ReceivedInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedInvitations);
