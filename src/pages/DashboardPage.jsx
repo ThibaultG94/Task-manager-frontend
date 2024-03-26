@@ -18,8 +18,8 @@ import { useGetContacts } from '../api/users/useGetContacts';
 import { useGetNotifications } from '../api/notifications/useGetNotifications';
 import { ToastContainer } from 'react-toastify';
 import SideBar from '../components/SideBar/SideBar';
+import Header from '../components/Header/Header';
 
-import Header from '../components/header/Header';
 import Calendar from '../components/dashboard/Calendar';
 import UrgentTasks from '../components/dashboard/UrgentTasks';
 import ListWorkspaces from '../components/dashboard/ListWorkspaces';

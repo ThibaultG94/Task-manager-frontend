@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SideBar from '../components/SideBar/SideBar';
-import Header from '../components/header/Header';
+import Header from '../components/Header/Header';
 import DisplayTasks from '../components/tasks/DisplayTasks';
 import { useSelector } from 'react-redux';
 import getUserId from '../api/users/getUserId';
