@@ -5,7 +5,7 @@ import {
 	selectIsEditingField,
 } from '../../store/selectors/editStateSelectors';
 import { resetEditState } from '../../store/feature/editState.slice';
-import { formatTaskForEditing } from '../utils/formatTaskForEditing';
+import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import DisplayArchivedTasks from './DisplayArchivedTasks';
 import DisplayOverdueTasks from './DisplayOverdueTasks';
@@ -34,7 +34,7 @@ import {
 	selectTodayTasks,
 	selectTomorrowTasks,
 } from '../../store/selectors/taskSelectors';
-import HandleModalTask from './HandleModalTask';
+import HandleModalTask from '../ModalTask/HandleModalTask';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();

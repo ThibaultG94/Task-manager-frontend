@@ -6,7 +6,7 @@ import QuickEditPriority from './QuickEditPriority';
 import QuickEditWorkspace from './QuickEditWorkspace';
 import ButtonToEditTaskInModal from './ButtonToEditTaskInModal';
 import ButtonToGrab from './ButtonToGrab';
-import { useEditTask } from '../../api/tasks/editTask';
+import { useEditTask } from '../../api/tasks/useEditTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 

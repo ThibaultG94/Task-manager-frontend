@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { resetEditState } from '../../../store/feature/editState.slice';
 import {
 	selectHasEdited,
 	selectIsEditingField,
-} from '../../../store/selectors/editStateSelectors';
+} from '../store/selectors/editStateSelectors';
+import { resetEditState } from '../store/feature/editState.slice';
 
 const useCheckIfEdited = ({
 	setIsModalOpen,

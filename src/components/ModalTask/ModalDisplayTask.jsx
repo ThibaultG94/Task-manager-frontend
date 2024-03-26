@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
-import TaskDisplayComments from './TaskDisplayComments';
-import { convertStatus } from '../utils/convertStatus';
-import { convertPriority } from '../utils/convertPriority';
-import { frenchFormattedDate } from '../utils/frenchFormattedDate';
-import { useGetWorkspace } from '../../api/workspaces/getWorkspace';
+import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
+import { convertStatus } from '../../utils/convertStatus';
+import { convertPriority } from '../../utils/convertPriority';
+import { frenchFormattedDate } from '../../utils/frenchFormattedDate';
 
 const ModalDisplayTask = () => {
 	const editedTask = useSelector(selectEditedTask);
+	
 	const [convertedStatus, setConvertedStatus] = useState('');
 	const [convertedPriority, setConvertedPriority] = useState('');
 	const [convertedDeadline, setConvertedDeadline] = useState('');
@@ -130,7 +130,14 @@ const ModalDisplayTask = () => {
 					</div>
 				</div>
 			) : null}
-			{/* <TaskDisplayComments /> */}
+		
+			{editedTask?.comments ? (
+				<div className="flex flex-wrap mb-2">
+				<div className="comments-icon mt-2 ml-6 px-2 py-1 rounded-lg">
+					<span className="ml-2 text-lg">{editedTask?.comments}</span>
+				</div>
+			</div>
+			) : null}
 		</div>
 	);
 };

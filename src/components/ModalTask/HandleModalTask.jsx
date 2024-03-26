@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
-import SaveEditedTask from './SaveEditedTask';
-import DeleteTask from './DeleteTask';
 import CloseButton from '../ModalForm/CloseButton';
 import ModalDisplayTask from './ModalDisplayTask';
-import ModalEditTask from './ModalEditTask';
-import CancelEditTask from './CancelEditTask';
-import EditTask from './EditTask';
+
+import SaveEditedTask from '../tasks/SaveEditedTask';
+import DeleteTask from '../tasks/DeleteTask';
+import ModalEditTask from '../tasks/ModalEditTask';
+import CancelEditTask from '../tasks/CancelEditTask';
+import EditTask from '../tasks/EditTask';
 
 const HandleModalTask = ({
 	closeModal,
@@ -14,6 +15,7 @@ const HandleModalTask = ({
 	setIsEditing,
 }) => {
 	const modalRef = useRef(null);
+	
 	const [taskData, setTaskData] = useState({
 		_id: '',
 		title: '',

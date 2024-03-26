@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
-import { formatDateForDisplay } from '../utils/formatDateForDisplay';
-import { setInitialEditedTask } from '../../store/feature/tasks.slice';
-import { formatTaskForEditing } from '../utils/formatTaskForEditing';
-import { getCategoryDay } from '../utils/getCategoryDay';
-import HandleModalTask from '../tasks/HandleModalTask';
-import useCheckIfEdited from './utils/checkIfEdited';
-import { useEditTask } from '../../api/tasks/editTask';
-import { toast } from 'react-toastify';
-import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
+import { setInitialEditedTask } from '../../store/feature/tasks.slice';
+import { useEditTask } from '../../api/tasks/useEditTask';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
+import useCheckIfEdited from '../../utils/useCheckIfEdited';
+import { formatDateForDisplay } from '../../utils/formatDateForDisplay';
+import { getCategoryDay } from '../../utils/getCategoryDay';
+import { toast } from 'react-toastify';
+import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
+import HandleModalTask from '../ModalTask/HandleModalTask';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();
-	const editTask = useEditTask();
 	const workspaces = useSelector(selectWorkspaces);
 	const urgentTasks = useSelector(selectUrgentTasks);
+	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
