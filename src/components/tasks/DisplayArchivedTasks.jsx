@@ -11,7 +11,7 @@ import getUserId from '../../api/users/getUserId';
 import { updateDisplayTasks } from '../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import HeaderBlock from './HeaderBlock';
-import Pagination from './Pagination';
+import Pagination from '../../utils/Pagination';
 import { selectCurrentArchivedPage } from '../../store/selectors/pagesSelectors';
 
 const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {

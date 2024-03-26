@@ -4,23 +4,23 @@ import {
 	selectEarlierNotifications,
 	selectNewNotifications,
 } from '../../store/selectors/notificationSelectors';
-import NotificationsMenu from './NotificationsMenu';
-import { useMarkNotificationsAsViewed } from '../../api/notifications/markNotificationsAsViewed';
-import { useMarkNotificationAsRead } from '../../api/notifications/markNotificationAsRead';
-import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
+import { useMarkNotificationsAsViewed } from '../../api/notifications/useMarkNotificationsAsViewed';
+import { useMarkNotificationAsRead } from '../../api/notifications/useMarkNotificationAsRead';
 import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
+import NotificationsMenu from './NotificationsMenu';
+import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
 
 const HeaderNotifications = ({ userId }) => {
+	const receivedNewNotifications = useSelector(selectNewNotifications);
+	const receivedEarlierNotifications = useSelector(
+		selectEarlierNotifications
+	);
 	const markNotificationsAsViewed = useMarkNotificationsAsViewed();
 	const markNotificationAsRead = useMarkNotificationAsRead();
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
 	const [hasNewNotification, setHasNewNotification] = useState(0);
-	const receivedNewNotifications = useSelector(selectNewNotifications);
-	const receivedEarlierNotifications = useSelector(
-		selectEarlierNotifications
-	);
 	const [unreadNotifications, setUnreadNotifications] = useState([]);
 	const [readedNotifications, setReadedNotifications] = useState([]);
 	const [showNotifications, setShowNotifications] = useState(false);

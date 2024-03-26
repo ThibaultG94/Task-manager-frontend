@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../store/selectors/userSelectors';
 import HeaderWelcome from './HeaderWelcome';
 import HeaderNav from './HeaderNav';
 import HeaderSearch from './HeaderSearch';
-import HeaderAvatar from './HeaderAvatar';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../store/selectors/userSelectors';
 import HeaderNotifications from './HeaderNotifications';
+import HeaderAvatar from './HeaderAvatar';
 
 const Header = () => {
 	const currentUser = useSelector(selectCurrentUser);

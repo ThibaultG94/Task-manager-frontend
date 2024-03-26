@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useGetAllNotifications } from '../../api/notifications/getAllNotifications';
 import { useSelector } from 'react-redux';
+import { selectCurrentNotificationsPage } from '../../store/selectors/pagesSelectors';
 import {
 	selectIsNotificationsLoaded,
 	selectNotifications,
 	selectTotalNotifications,
 } from '../../store/selectors/notificationSelectors';
-import { selectCurrentNotificationsPage } from '../../store/selectors/pagesSelectors';
+import { useGetAllNotifications } from '../../api/notifications/useGetAllNotifications';
 import getUserId from '../../api/users/getUserId';
-import Pagination from '../tasks/Pagination';
+import Pagination from '../../utils/Pagination';
 
 const NotificationsModal = ({
 	formatDateToNow,
@@ -16,11 +16,12 @@ const NotificationsModal = ({
 	openNotificationsModal,
 	onRead,
 }) => {
-	const getAllNotifications = useGetAllNotifications();
 	const currentNotifications = useSelector(selectCurrentNotificationsPage);
+	const isNotificationsLoaded = useSelector(selectIsNotificationsLoaded);
 	const userNotifications = useSelector(selectNotifications);
 	const totalNotifications = useSelector(selectTotalNotifications);
-	const isNotificationsLoaded = useSelector(selectIsNotificationsLoaded);
+	const getAllNotifications = useGetAllNotifications();
+	
 	const [userId, setUserId] = useState(null);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);

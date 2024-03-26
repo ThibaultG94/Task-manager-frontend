@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import NotificationsModal from '../notifications/NotificationsModal';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import NotificationsModal from './NotificationsModal';
 
 const NotificationsMenu = ({
 	unreadNotifications,
