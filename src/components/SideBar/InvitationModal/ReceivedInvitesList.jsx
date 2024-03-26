@@ -4,7 +4,7 @@ import { selectReceivedInvitations } from '../../../store/selectors/invitationsS
 import { useGetReceivedInvitations } from '../../../api/invitations/useGetReceivedInvitations';
 import { useDeclineInvitation } from '../../../api/invitations/useDeclineInvitation';
 import { useAcceptInvitation } from '../../../api/invitations/useAcceptInvitation';
-import { useGetContacts } from '../../../api/users/getContacts';
+import { useGetContacts } from '../../../api/users/useGetContacts';
 import { useSetInvitationNotification } from '../../../api/notifications/useSetInvitationNotification';
 import { toast } from 'react-toastify';
 

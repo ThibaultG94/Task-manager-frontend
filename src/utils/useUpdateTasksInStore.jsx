@@ -13,20 +13,20 @@ import {
 	selectThisYearTasksHasBeenUpdated,
 	selectTodayTasksHasBeenUpdated,
 	selectTomorrowTasksHasBeenUpdated,
-} from '../../store/selectors/editStateSelectors';
-import { useGetOverdueTasks } from '../../api/tasks/getOverdueTasks';
-import { useGetTodayTasks } from '../../api/tasks/getTodayTasks';
-import { useGetTomorrowTasks } from '../../api/tasks/getTomorrowTasks';
-import { useGetThisWeekTasks } from '../../api/tasks/getThisWeekTasks';
-import { useGetThisWeekendTasks } from '../../api/tasks/getThisWeekendTasks';
-import { useGetNextWeekTasks } from '../../api/tasks/getNextWeekTasks';
-import { useGetNextWeekendTasks } from '../../api/tasks/getNextWeekendTasks';
-import { useGetThisMonthTasks } from '../../api/tasks/getThisMonthTasks';
-import { useGetNextMonthTasks } from '../../api/tasks/getNextMonthTasks';
-import { useGetThisYearTasks } from '../../api/tasks/getThisYearTasks';
-import { useGetNextYearTasks } from '../../api/tasks/getNextYearTasks';
-import { useGetBecomingTasks } from '../../api/tasks/getBecomingTasks';
-import { useGetArchivedTasks } from '../../api/tasks/getArchivedTasks';
+} from '../store/selectors/editStateSelectors';
+import { useGetOverdueTasks } from '../api/tasks/getOverdueTasks';
+import { useGetTodayTasks } from '../api/tasks/getTodayTasks';
+import { useGetTomorrowTasks } from '../api/tasks/getTomorrowTasks';
+import { useGetThisWeekTasks } from '../api/tasks/getThisWeekTasks';
+import { useGetThisWeekendTasks } from '../api/tasks/getThisWeekendTasks';
+import { useGetNextWeekTasks } from '../api/tasks/getNextWeekTasks';
+import { useGetNextWeekendTasks } from '../api/tasks/getNextWeekendTasks';
+import { useGetThisMonthTasks } from '../api/tasks/getThisMonthTasks';
+import { useGetNextMonthTasks } from '../api/tasks/getNextMonthTasks';
+import { useGetThisYearTasks } from '../api/tasks/getThisYearTasks';
+import { useGetNextYearTasks } from '../api/tasks/getNextYearTasks';
+import { useGetBecomingTasks } from '../api/tasks/getBecomingTasks';
+import { useGetArchivedTasks } from '../api/tasks/getArchivedTasks';
 import { useEffect, useState } from 'react';
 import {
 	setArchivedTasksHasBeenUpdated,
@@ -42,9 +42,9 @@ import {
 	setThisYearTasksHasBeenUpdated,
 	setTodayTasksHasBeenUpdated,
 	setTomorrowTasksHasBeenUpdated,
-} from '../../store/feature/editState.slice';
-import getUserId from '../../api/users/getUserId';
-import { selectCurrentArchivedPage } from '../../store/selectors/pagesSelectors';
+} from '../store/feature/editState.slice';
+import getUserId from '../api/users/getUserId';
+import { selectCurrentArchivedPage } from '../store/selectors/pagesSelectors';
 
 export const useUpdateTasksInStore = () => {
 	const dispatch = useDispatch();

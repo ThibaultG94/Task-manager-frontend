@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SideBar from '../components/SideBar/SideBar';
 import Header from '../components/header/Header';
-import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
+import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
 import getUserId from '../api/users/getUserId';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 

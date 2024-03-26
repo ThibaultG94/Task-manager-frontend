@@ -4,7 +4,7 @@ import Header from '../components/header/Header';
 import DisplayTasks from '../components/tasks/DisplayTasks';
 import { useSelector } from 'react-redux';
 import getUserId from '../api/users/getUserId';
-import { useGetUser } from '../api/users/getUser';
+import { useGetUser } from '../api/users/useGetUser';
 import { useGetWorkspaces } from '../api/workspaces/useGetWorkspaces';
 import { useGetOverdueTasks } from '../api/tasks/getOverdueTasks';
 import { useGetTodayTasks } from '../api/tasks/getTodayTasks';
@@ -31,12 +31,12 @@ import {
 	selectIsTodayTasksLoaded,
 	selectIsTomorrowTasksLoaded,
 } from '../store/selectors/taskSelectors';
-import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
+import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
 import { ToastContainer } from 'react-toastify';
 import TaskPageTip from '../components/tasks/TaskPageTip';
 import { useGetTips } from '../api/tips/getTips';
 import { selectCurrentUser } from '../store/selectors/userSelectors';
-import { useGetNotifications } from '../api/notifications/getNotifications';
+import { useGetNotifications } from '../api/notifications/useGetNotifications';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 
 const TasksPage = () => {

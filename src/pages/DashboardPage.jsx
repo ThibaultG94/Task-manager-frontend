@@ -1,14 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import SideBar from '../components/SideBar/SideBar';
-import Header from '../components/header/Header';
-import Calendar from '../components/dashboard/Calendar';
-import UrgentTasks from '../components/dashboard/UrgentTasks';
-import ListWorkspaces from '../components/dashboard/ListWorkspaces';
-import Contacts from '../components/dashboard/Contacts';
-import getUserId from '../api/users/getUserId';
-import { useGetUser } from '../api/users/getUser';
-import { useGetUrgentTasks } from '../api/tasks/getUrgentTasks';
-import { useGetWorkspaces } from '../api/workspaces/useGetWorkspaces';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectHasBeenUpdated,
@@ -18,11 +8,22 @@ import {
 	setHasBeenUpdated,
 	setWorkspacesHasBeenUpdated,
 } from '../store/feature/editState.slice';
-import { useUpdateTasksInStore } from '../components/utils/UpdateTasksInStore';
-import { ToastContainer } from 'react-toastify';
-import { useGetContacts } from '../api/users/getContacts';
-import { useGetNotifications } from '../api/notifications/getNotifications';
+import getUserId from '../api/users/getUserId';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
+import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
+import { useGetUser } from '../api/users/useGetUser';
+import { useGetUrgentTasks } from '../api/tasks/useGetUrgentTasks';
+import { useGetWorkspaces } from '../api/workspaces/useGetWorkspaces';
+import { useGetContacts } from '../api/users/useGetContacts';
+import { useGetNotifications } from '../api/notifications/useGetNotifications';
+import { ToastContainer } from 'react-toastify';
+import SideBar from '../components/SideBar/SideBar';
+
+import Header from '../components/header/Header';
+import Calendar from '../components/dashboard/Calendar';
+import UrgentTasks from '../components/dashboard/UrgentTasks';
+import ListWorkspaces from '../components/dashboard/ListWorkspaces';
+import Contacts from '../components/dashboard/Contacts';
 
 const DashboardPage = () => {
 	const dispatch = useDispatch();
@@ -30,22 +31,23 @@ const DashboardPage = () => {
 	const workspacesHasBeenUpdated = useSelector(
 		selectWorkspacesHasBeenUpdated
 	);
+
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
+	
 	useUpdateTasksInStore();
 	const checkAuthentication = useCheckAuthentication();
-
-	const getId = async () => {
-		const id = await getUserId();
-		setUserId(id);
-	};
-
 	const getUser = useGetUser();
 	const getUrgentTasks = useGetUrgentTasks();
 	const getWorkspaces = useGetWorkspaces();
 	const getContacts = useGetContacts();
 	const getNotifications = useGetNotifications();
 
+	const getId = async () => {
+		const id = await getUserId();
+		setUserId(id);
+	};
+	
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
 		getId();
