@@ -1,19 +1,20 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useDeleteTask } from '../../api/tasks/deleteTask';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import {
 	resetEditState,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { useDeleteTask } from '../../api/tasks/useDeleteTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 
 const DeleteTask = ({ setIsModalOpen }) => {
 	const dispatch = useDispatch();
+	const editedTask = useSelector(selectEditedTask);
+
 	const deleteTask = useDeleteTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
-	const editedTask = useSelector(selectEditedTask);
 
 	const removeTask = async () => {
 		try {

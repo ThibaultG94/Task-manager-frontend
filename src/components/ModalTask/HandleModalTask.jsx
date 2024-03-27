@@ -1,12 +1,9 @@
 import React, { useRef, useState } from 'react';
 import CloseButton from '../ModalForm/CloseButton';
 import ModalDisplayTask from './ModalDisplayTask';
-
-import SaveEditedTask from '../tasks/SaveEditedTask';
-import DeleteTask from '../tasks/DeleteTask';
-import ModalEditTask from '../tasks/ModalEditTask';
-import CancelEditTask from '../tasks/CancelEditTask';
-import EditTask from '../tasks/EditTask';
+import ModalEditTask from './ModalEditTask';
+import DeleteTask from './DeleteTask';
+import SaveEditedTask from './SaveEditedTask';
 
 const HandleModalTask = ({
 	closeModal,
@@ -71,14 +68,21 @@ const HandleModalTask = ({
 						<div className="flex justify-end">
 							<div className="flex justify-between">
 								<DeleteTask setIsModalOpen={setIsModalOpen} />
-								<EditTask handleEditTask={handleEditTask} />
+								<button
+									className="button bg-light-blue-2 hover:bg-dark-blue mb-3 mr-8"
+									onClick={handleEditTask}>
+									<i className="fas fa-pencil-alt mr-2"></i> Editer
+								</button>
 							</div>
 						</div>
 					) : (
 						<div className="flex justify-between px-2 mb-2 mt-0.5">
-							<CancelEditTask
-								handleCancelEdit={handleCancelEdit}
-							/>
+							<button
+								onClick={() => handleCancelEdit()}
+								className="button bg-red-error hover:bg-red-error-2 mt-2 px-3">
+								<i className="fas fa-times mr-2"></i>
+								Annuler
+							</button>
 							<SaveEditedTask
 								setIsEditing={setIsEditing}
 								setIsModalOpen={setIsModalOpen}

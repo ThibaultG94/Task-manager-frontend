@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useEditTask } from '../../api/tasks/useEditTask';
 import { useDispatch } from 'react-redux';
 import {
 	resetEditState,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { useEditTask } from '../../api/tasks/useEditTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 
 const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 	const dispatch = useDispatch();
+
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	
 	const [editedTask, setEditedTask] = useState(null);
 
 	useEffect(() => {
