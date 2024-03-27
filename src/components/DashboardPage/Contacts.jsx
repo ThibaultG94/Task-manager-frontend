@@ -6,9 +6,11 @@ import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedI
 import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
 
 const Contacts = ({ userId }) => {
+	const contacts = useSelector(selectUserContacts);
+
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
-	const contacts = useSelector(selectUserContacts);
+
 	const [userContacts, setUserContacts] = useState();
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
 

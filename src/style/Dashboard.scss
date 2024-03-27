@@ -20,6 +20,15 @@ body {
 	justify-content: center;
 	margin-top: 10px;
 
+	@media screen and (min-height: 800px) {
+		grid-template-areas:
+			'task task'
+			'cal cow'
+			'work work';
+		grid-template-columns: 300px 1fr;
+		grid-template-rows: 285px 255px 240px;
+	}
+
 	@media (max-width: 1300px) {
 		grid-template-areas:
 			'cal task task'
@@ -184,6 +193,7 @@ body {
 			background-color: #f0fff4;
 			border-color: #10b981;
 			color: #4ade80;
+
 			svg {
 				stroke: #10b981;
 			}
@@ -408,6 +418,7 @@ body {
 		&:hover,
 		&:focus {
 			background-color: #f0fff4;
+
 			svg {
 				stroke: currentColor;
 			}

@@ -7,7 +7,6 @@ import useCheckIfEditedWorkspace from '../../utils/useCheckIfEditedWorkspace';
 import { TaskStatusCount } from '../ModalTask/TaskStatusCount';
 import { TaskStatusIcon } from '../ModalTask/TaskStatusIcon';
 import { FaUser } from 'react-icons/fa';
-
 import HandleModalWorkspace from '../ModalWorkspace/HandleModalWorkspace';
 
 const ListWorkspaces = ({ userId }) => {
