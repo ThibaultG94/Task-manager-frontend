@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import CloseButton from '../ModalForm/CloseButton';
-import ModalDisplayWorkspace from './ModalDisplayWorkspace';
-import DeleteWorkspace from './DeleteWorkspace';
-import EditWorkspace from './EditWorkspace';
-import ModalEditWorkspace from './ModalEditWorkspace';
-import CancelEditWorkspace from './CancelEditWorkspace';
-import SaveEditedWorkspace from './SaveEditedWorkspace';
 import { useSelector } from 'react-redux';
 import { selectUserContacts } from '../../store/selectors/userSelectors';
+import CloseButton from '../ModalForm/CloseButton';
+import ModalDisplayWorkspace from './ModalDisplayWorkspace';
+import ModalEditWorkspace from './ModalEditWorkspace';
+import DeleteWorkspace from './DeleteWorkspace';
+import SaveEditedWorkspace from './SaveEditedWorkspace';
 
 const HandleModalWorkspace = ({
 	closeModalWorkspace,
@@ -17,10 +15,11 @@ const HandleModalWorkspace = ({
 	selectedWorkspace,
 	userId,
 }) => {
+	const modalWorkspaceRef = useRef(null);
 	const userContacts = useSelector(selectUserContacts);
+	
 	const [contacts, setContacts] = useState([]);
 	const [selectedMembers, setSelectedMembers] = useState([]);
-	const modalWorkspaceRef = useRef(null);
 	const [workspaceDataChange, setWorkspaceDataChange] = useState({
 		_id: '',
 		title: '',
@@ -121,21 +120,22 @@ const HandleModalWorkspace = ({
 									workspaceDataChange={workspaceDataChange}
 								/>
 								{selectedWorkspace.isDefault === 'false' && (
-									<EditWorkspace
-										handleEditWorkspace={
-											handleEditWorkspace
-										}
-									/>
+									<button
+										className="button bg-light-blue-2 hover:bg-dark-blue mb-3 mr-8"
+										onClick={handleEditWorkspace}>
+										<i className="fas fa-pencil-alt mr-2"></i> Editer
+									</button>
 								)}
 							</div>
 						</div>
 					) : (
 						<div className="flex justify-between px-2 mb-2 mt-0.5">
-							<CancelEditWorkspace
-								handleCancelEditWorkspace={
-									handleCancelEditWorkspace
-								}
-							/>
+							<button
+								onClick={() => handleCancelEditWorkspace()}
+								className="button bg-red-error hover:bg-red-error-2 mt-2 px-3">
+								<i className="fas fa-times mr-2"></i>
+								Annuler
+							</button>
 							<SaveEditedWorkspace
 								selectedMembers={selectedMembers}
 								setIsEditingWorkspace={setIsEditingWorkspace}

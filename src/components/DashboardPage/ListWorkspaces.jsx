@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { useGetWorkspaceTaskStatusCount } from '../../api/tasks/getWorkspaceTaskStatusCount';
-import { TaskStatusCount } from './TaskStatusCount';
-import { useMediaQuery } from 'react-responsive';
+import { useGetWorkspaceTaskStatusCount } from '../../api/tasks/useGetWorkspaceTaskStatusCount';
+import useCheckIfEditedWorkspace from '../../utils/useCheckIfEditedWorkspace';
+import { TaskStatusCount } from '../ModalTask/TaskStatusCount';
+import { TaskStatusIcon } from '../ModalTask/TaskStatusIcon';
 import { FaUser } from 'react-icons/fa';
-import { TaskStatusIcon } from './TaskStatusIcon';
-import useCheckIfEditedWorkspace from './utils/checkIfEditedWorkspace';
-import HandleModalWorkspace from '../workspaces/HandleModalWorkspace';
+
+import HandleModalWorkspace from '../ModalWorkspace/HandleModalWorkspace';
 
 const ListWorkspaces = ({ userId }) => {
+	const isTabletOrLaptop = useMediaQuery({ maxWidth: 1024 });
 	const workspaces = useSelector(selectWorkspaces);
+
+	const getWorkspaceTaskStatusCount = useGetWorkspaceTaskStatusCount();
+
 	const [allWorkspaces, setAllWorkspaces] = useState([]);
 	const [displayWorkspaces, setDisplayWorkspaces] = useState([]);
-	const getWorkspaceTaskStatusCount = useGetWorkspaceTaskStatusCount();
-	const isTabletOrLaptop = useMediaQuery({ maxWidth: 1024 });
 	const [selectedWorkspace, setSelectedWorkspace] = useState(null);
 	const [isModalWorkspaceOpen, setIsModalWorkspaceOpen] = useState(false);
 	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);

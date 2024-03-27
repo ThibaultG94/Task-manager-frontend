@@ -5,16 +5,17 @@ import {
 	setHasEdited,
 	setWorkspacesHasBeenUpdated,
 } from '../../store/feature/editState.slice';
-import { toast } from 'react-toastify';
-import { useDeleteWorkspace } from '../../api/workspaces/deleteWorkspace';
 import {
 	deleteWorkspaceAction,
 	deleteWorkspaceSuccess,
 } from '../../store/feature/workspaces.slice';
 import { deleteTaskFailed } from '../../store/feature/tasks.slice';
+import { useDeleteWorkspace } from '../../api/workspaces/useDeleteWorkspace';
+import { toast } from 'react-toastify';
 
 const DeleteWorkspace = ({ setIsModalWorkspaceOpen, workspaceData }) => {
 	const dispatch = useDispatch();
+	
 	const deleteWorkspace = useDeleteWorkspace();
 
 	const removeTask = async () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaClipboardList, FaSpinner, FaCheck, FaArchive } from 'react-icons/fa';
-import { convertStatusCount } from './utils/convertStatusCount';
+import { convertStatusCount } from '../../utils/convertStatusCount';
 
 const statusToIcon = {
 	Pending: FaClipboardList,

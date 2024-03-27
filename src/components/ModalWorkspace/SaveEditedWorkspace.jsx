@@ -5,10 +5,10 @@ import {
 	setHasEdited,
 	setWorkspacesHasBeenUpdated,
 } from '../../store/feature/editState.slice';
-import { toast } from 'react-toastify';
-import { useEditWorkspace } from '../../api/workspaces/editWorkspace';
-import { getAssignedUser } from '../../api/users/getAssignedUser';
+import { useEditWorkspace } from '../../api/workspaces/useEditWorkspace';
 import { useSendInvitationWorkspace } from '../../api/workspaceInvitations/useSendInvitationWorkspace';
+import { getAssignedUser } from '../../api/users/getAssignedUser';
+import { toast } from 'react-toastify';
 
 const SaveEditedWorkspace = ({
 	selectedMembers,
@@ -18,8 +18,10 @@ const SaveEditedWorkspace = ({
 	workspaceDataChange,
 }) => {
 	const dispatch = useDispatch();
+	
 	const editWorkspace = useEditWorkspace();
 	const sendInvitationWorkspace = useSendInvitationWorkspace();
+
 	const [editedWorkspace, setEditedWorkspace] = useState(null);
 	const [member, setMember] = useState('');
 
