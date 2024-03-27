@@ -20,9 +20,9 @@ import { ToastContainer } from 'react-toastify';
 import SideBar from '../components/SideBar/SideBar';
 import Header from '../components/Header/Header';
 import Calendar from '../components/DashboardPage/Calendar';
+import UrgentTasks from '../components/DashboardPage/UrgentTasks';
 
-import UrgentTasks from '../components/dashboard/UrgentTasks';
-import ListWorkspaces from '../components/dashboard/ListWorkspaces';
+import ListWorkspaces from '../components/DashboardPage/ListWorkspaces';
 import Contacts from '../components/dashboard/Contacts';
 
 const DashboardPage = () => {
