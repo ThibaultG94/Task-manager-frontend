@@ -14,18 +14,18 @@ import {
 	selectTodayTasksHasBeenUpdated,
 	selectTomorrowTasksHasBeenUpdated,
 } from '../store/selectors/editStateSelectors';
-import { useGetOverdueTasks } from '../api/tasks/getOverdueTasks';
-import { useGetTodayTasks } from '../api/tasks/getTodayTasks';
-import { useGetTomorrowTasks } from '../api/tasks/getTomorrowTasks';
-import { useGetThisWeekTasks } from '../api/tasks/getThisWeekTasks';
-import { useGetThisWeekendTasks } from '../api/tasks/getThisWeekendTasks';
-import { useGetNextWeekTasks } from '../api/tasks/getNextWeekTasks';
-import { useGetNextWeekendTasks } from '../api/tasks/getNextWeekendTasks';
-import { useGetThisMonthTasks } from '../api/tasks/getThisMonthTasks';
-import { useGetNextMonthTasks } from '../api/tasks/getNextMonthTasks';
-import { useGetThisYearTasks } from '../api/tasks/getThisYearTasks';
-import { useGetNextYearTasks } from '../api/tasks/getNextYearTasks';
-import { useGetBecomingTasks } from '../api/tasks/getBecomingTasks';
+import { useGetOverdueTasks } from '../api/tasks/useGetOverdueTasks';
+import { useGetTodayTasks } from '../api/tasks/useGetTodayTasks';
+import { useGetTomorrowTasks } from '../api/tasks/useGetTomorrowTasks';
+import { useGetThisWeekTasks } from '../api/tasks/useGetThisWeekTasks';
+import { useGetThisWeekendTasks } from '../api/tasks/useGetThisWeekendTasks';
+import { useGetNextWeekTasks } from '../api/tasks/useGetNextWeekTasks';
+import { useGetNextWeekendTasks } from '../api/tasks/useGetNextWeekendTasks';
+import { useGetThisMonthTasks } from '../api/tasks/useGetThisMonthTasks';
+import { useGetNextMonthTasks } from '../api/tasks/useGetNextMonthTasks';
+import { useGetThisYearTasks } from '../api/tasks/useGetThisYearTasks';
+import { useGetNextYearTasks } from '../api/tasks/useGetNextYearTasks';
+import { useGetBecomingTasks } from '../api/tasks/useGetBecomingTasks';
 import { useGetArchivedTasks } from '../api/tasks/getArchivedTasks';
 import { useEffect, useState } from 'react';
 import {

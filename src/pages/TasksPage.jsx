@@ -1,23 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SideBar from '../components/SideBar/SideBar';
-import Header from '../components/Header/Header';
-import DisplayTasks from '../components/tasks/DisplayTasks';
 import { useSelector } from 'react-redux';
-import getUserId from '../api/users/getUserId';
-import { useGetUser } from '../api/users/useGetUser';
-import { useGetWorkspaces } from '../api/workspaces/useGetWorkspaces';
-import { useGetOverdueTasks } from '../api/tasks/getOverdueTasks';
-import { useGetTodayTasks } from '../api/tasks/getTodayTasks';
-import { useGetTomorrowTasks } from '../api/tasks/getTomorrowTasks';
-import { useGetThisWeekTasks } from '../api/tasks/getThisWeekTasks';
-import { useGetThisWeekendTasks } from '../api/tasks/getThisWeekendTasks';
-import { useGetNextWeekendTasks } from '../api/tasks/getNextWeekendTasks';
-import { useGetNextWeekTasks } from '../api/tasks/getNextWeekTasks';
-import { useGetThisMonthTasks } from '../api/tasks/getThisMonthTasks';
-import { useGetThisYearTasks } from '../api/tasks/getThisYearTasks';
-import { useGetNextYearTasks } from '../api/tasks/getNextYearTasks';
-import { useGetBecomingTasks } from '../api/tasks/getBecomingTasks';
-import { useGetNextMonthTasks } from '../api/tasks/getNextMonthTasks';
 import {
 	selectIsBecomingTasksLoaded,
 	selectIsNextMonthTasksLoaded,
@@ -31,13 +13,32 @@ import {
 	selectIsTodayTasksLoaded,
 	selectIsTomorrowTasksLoaded,
 } from '../store/selectors/taskSelectors';
-import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
-import { ToastContainer } from 'react-toastify';
-import TaskPageTip from '../components/tasks/TaskPageTip';
-import { useGetTips } from '../api/tips/getTips';
 import { selectCurrentUser } from '../store/selectors/userSelectors';
-import { useGetNotifications } from '../api/notifications/useGetNotifications';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
+import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
+import getUserId from '../api/users/getUserId';
+import { useGetUser } from '../api/users/useGetUser';
+import { useGetWorkspaces } from '../api/workspaces/useGetWorkspaces';
+import { useGetOverdueTasks } from '../api/tasks/useGetOverdueTasks';
+import { useGetTodayTasks } from '../api/tasks/useGetTodayTasks';
+import { useGetTomorrowTasks } from '../api/tasks/useGetTomorrowTasks';
+import { useGetThisWeekTasks } from '../api/tasks/useGetThisWeekTasks';
+import { useGetThisWeekendTasks } from '../api/tasks/useGetThisWeekendTasks';
+import { useGetNextWeekTasks } from '../api/tasks/useGetNextWeekTasks';
+import { useGetNextWeekendTasks } from '../api/tasks/useGetNextWeekendTasks';
+import { useGetThisMonthTasks } from '../api/tasks/useGetThisMonthTasks';
+import { useGetNextMonthTasks } from '../api/tasks/useGetNextMonthTasks';
+import { useGetThisYearTasks } from '../api/tasks/useGetThisYearTasks';
+import { useGetNextYearTasks } from '../api/tasks/useGetNextYearTasks';
+import { useGetBecomingTasks } from '../api/tasks/useGetBecomingTasks';
+import { useGetNotifications } from '../api/notifications/useGetNotifications';
+import { useGetTips } from '../api/tips/useGetTips';
+import { ToastContainer } from 'react-toastify';
+import SideBar from '../components/SideBar/SideBar';
+import Header from '../components/Header/Header';
+
+import DisplayTasks from '../components/tasks/DisplayTasks';
+import TaskPageTip from '../components/tasks/TaskPageTip';
 
 const TasksPage = () => {
 	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);
@@ -47,7 +48,6 @@ const TasksPage = () => {
 	const isThisWeekendTasksLoaded = useSelector(
 		selectIsThisWeekendTasksLoaded
 	);
-
 	const isNextWeekTasksLoaded = useSelector(selectIsNextWeekTasksLoaded);
 	const isNextWeekendTasksLoaded = useSelector(selectIsNextWeekTasksLoaded);
 	const isThisMonthTasksLoaded = useSelector(selectIsThisMonthTasksLoaded);
@@ -60,9 +60,10 @@ const TasksPage = () => {
 
 	const checkAuthentication = useCheckAuthentication();
 
+	useUpdateTasksInStore();
+
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
-	useUpdateTasksInStore();
 
 	const getId = async () => {
 		const id = await getUserId();
@@ -83,8 +84,8 @@ const TasksPage = () => {
 	const getThisYearTasks = useGetThisYearTasks();
 	const getNextYearTasks = useGetNextYearTasks();
 	const getBecomingTasks = useGetBecomingTasks();
-	const getTips = useGetTips();
 	const getNotifications = useGetNotifications();
+	const getTips = useGetTips();
 
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
