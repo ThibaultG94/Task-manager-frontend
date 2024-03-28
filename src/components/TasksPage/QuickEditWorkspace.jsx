@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEditTask } from '../../api/tasks/useEditTask';
-import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { setEditedTask } from '../../store/feature/tasks.slice';
@@ -10,22 +9,26 @@ import {
 	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { useEditTask } from '../../api/tasks/useEditTask';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
+import { useWindowWidth } from '../tasks/utils/useWindowWidth';
 import { toast } from 'react-toastify';
-import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { getInitials } from '../../utils/getInitials';
 import ArrowDown from '../Buttons/ArrowDown';
-import { useWindowWidth } from './utils/useWindowWidth';
-import { getInitials } from './utils/getInitials';
-import CloseWorkspace from './utils/CloseWorkspace';
+import CloseWorkspace from '../Buttons/CloseWorkspace';
 
 const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
-	const editTask = useEditTask();
-	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
+
+	const editTask = useEditTask();
+	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+
 	const inputWorkspaceRef = useRef(null);
 	const screenWidth = useWindowWidth();
+
 	const [workspaces, setWorkspaces] = useState([]);
 	const classDiv =
 		'cursor-auto flex h-10 items-center m-auto relative rounded-lg self-enter text-xs lg:text-sm xl:text-base';

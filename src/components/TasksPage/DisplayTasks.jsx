@@ -21,9 +21,9 @@ import {
 import { resetEditState } from '../../store/feature/editState.slice';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
+import DisplayOverdueTasks from './DisplayOverdueTasks';
 
 import DisplayArchivedTasks from '../tasks/DisplayArchivedTasks';
-import DisplayOverdueTasks from '../tasks/DisplayOverdueTasks';
 import DisplayTodayTasks from '../tasks/DisplayTodayTasks';
 import DisplayTomorrowTasks from '../tasks/DisplayTomorrowTasks';
 import DisplayThisWeekTasks from '../tasks/DisplayThisWeekTasks';

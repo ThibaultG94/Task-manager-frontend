@@ -3,13 +3,12 @@ import { useEditTask } from '../../api/tasks/useEditTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ButtonToGrab from '../Buttons/ButtonToGrab';
-import QuickEditTitle from '../TasksPage/QuickEditTitle';
-import QuickEditDeadline from '../TasksPage/QuickEditDeadline';
-
+import QuickEditTitle from './QuickEditTitle';
+import QuickEditDeadline from './QuickEditDeadline';
 import QuickEditStatus from './QuickEditStatus';
 import QuickEditPriority from './QuickEditPriority';
 import QuickEditWorkspace from './QuickEditWorkspace';
-import ButtonToEditTaskInModal from './ButtonToEditTaskInModal';
+import ButtonToEditTaskInModal from '../Buttons/ButtonToEditTaskInModal';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const editTask = useEditTask();
@@ -32,10 +31,10 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			<ButtonToGrab />
 			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} />
-
 			<QuickEditStatus task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditWorkspace task={task} setSelectedTask={setSelectedTask} />
+
 			<div className="hidden sm:flex items-center">
 				<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full w-8">
 					<span id="avatarLetterAssigned">
@@ -43,11 +42,13 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 					</span>
 				</div>
 			</div>
+
 			<ButtonToEditTaskInModal
 				openModal={openModal}
 				setSelectedTask={setSelectedTask}
 				task={task}
 			/>
+			
 			<div
 				className="archive-icon"
 				onClick={(e) => validateTask(e, task)}>

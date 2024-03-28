@@ -1,27 +1,35 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import {
 	resetEditState,
 	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
-import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { setEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ArrowDown from '../Buttons/ArrowDown';
-import TaskStatusDisplay from './utils/TaskStatusDisplay';
-import CloseField from './utils/CloseField';
+import CloseField from '../Buttons/CloseField';
 
 const QuickEditStatus = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
-	const editTask = useEditTask();
-	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
+
+	const editTask = useEditTask();
+	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+
 	const inputStatusRef = useRef(null);
+
+	const statusIcon = {
+		Archived: 'fa-archive',
+		Completed: 'fa-check',
+		'In Progress': 'fa-spinner',
+		Pending: 'fa-list',
+	};
 
 	const handleSubmitStatus = async (status) => {
 		const newStatus = status;
@@ -53,10 +61,10 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 				task.convertedStatus
 			}>
 			{!isEditingField.status && (
-				<TaskStatusDisplay
-					status={task.status}
-					convertedStatus={task.convertedStatus}
-				/>
+				<span>
+					<i className={`fas ${statusIcon[task.status]} block md:hidden`}></i>
+					<span className="hidden md:inline">{task.convertedStatus}</span>
+				</span>
 			)}
 
 			{isEditingField.status && editedTask?._id === task.taskId ? (
@@ -77,18 +85,17 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 						<ArrowDown />
 						<CloseField selectedField="status" />
 					</form>
-					<TaskStatusDisplay
-						className="block md:hidden"
-						convertedStatus={task.convertedStatus}
-						status={task.status}
-					/>
+					<span className="block md:hidden">
+						<i className={`fas ${statusIcon[task.status]} block md:hidden`}></i>
+						<span className="hidden md:inline">{task.convertedStatus}</span>
+					</span>
 				</>
 			) : (
 				isEditingField.status && (
-					<TaskStatusDisplay
-						status={task.status}
-						convertedStatus={task.convertedStatus}
-					/>
+					<span>
+						<i className={`fas ${statusIcon[task.status]} block md:hidden`}></i>
+						<span className="hidden md:inline">{task.convertedStatus}</span>
+					</span>
 				)
 			)}
 		</div>

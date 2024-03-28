@@ -6,7 +6,7 @@ import {
 	selectIsArchivedTasksLoaded,
 	selectTotalArchivedTasks,
 } from '../../store/selectors/taskSelectors';
-import TaskItem from './TaskItem';
+import TaskItem from '../TasksPage/TaskItem';
 import getUserId from '../../api/users/getUserId';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setEditingField } from '../../../store/feature/editState.slice';
+import { setEditingField } from '../../store/feature/editState.slice';
 
-const CloseWorkspace = () => {
+const CloseField = ({ selectedField }) => {
 	const dispatch = useDispatch();
 
 	return (
@@ -10,14 +10,14 @@ const CloseWorkspace = () => {
 			onClick={() => {
 				dispatch(
 					setEditingField({
-						field: 'workspace',
+						field: selectedField,
 						value: false,
 					})
 				);
 			}}
-			className="absolute top-9 lg:left-2 ml-2 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none">
+			className="absolute bottom-2 left-24 lg:left-[110px] ml-1 lg:ml-0 bg-black text-white p-1 rounded-full hover:bg-gray-800 focus:outline-none">
 			<svg
-				className="w-4 h-4"
+				className="w-3 lg:w-4 h-3 lg:h-4"
 				fill="none"
 				strokeLinecap="round"
 				strokeLinejoin="round"
@@ -30,4 +30,4 @@ const CloseWorkspace = () => {
 	);
 };
 
-export default CloseWorkspace;
+export default CloseField;

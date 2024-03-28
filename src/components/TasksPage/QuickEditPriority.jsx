@@ -1,7 +1,5 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEditTask } from '../../api/tasks/useEditTask';
-import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { setEditedTask } from '../../store/feature/tasks.slice';
@@ -10,18 +8,28 @@ import {
 	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { useEditTask } from '../../api/tasks/useEditTask';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ArrowDown from '../Buttons/ArrowDown';
-import TaskPriorityDisplay from './utils/TaskPriorityDisplay';
-import CloseField from './utils/CloseField';
+import CloseField from '../Buttons/CloseField';
 
 const QuickEditPriority = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
-	const editTask = useEditTask();
-	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
+
+	const editTask = useEditTask();
+	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+
 	const inputPriorityRef = useRef(null);
+
+	const priorityIcon = {
+		Urgent: 'fa-exclamation-triangle',
+		Haute: 'fa-arrow-up',
+		Moyenne: 'fa-equals',
+		Faible: 'fa-arrow-down',
+	};
 
 	const handleSubmitPriority = async (priority) => {
 		const newPriority = priority;
@@ -54,10 +62,12 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 				task.convertedPriority
 			}>
 			{!isEditingField.priority && (
-				<TaskPriorityDisplay
-					priority={task.priority}
-					convertedPriority={task.convertedPriority}
-				/>
+				<span>
+					<i className={`fas ${priorityIcon[task.convertedPriority]} block lg:hidden`}></i>
+					<span className="ellipsis hidden lg:inline">
+						{task.convertedPriority}
+					</span>
+				</span>
 			)}
 			{isEditingField.priority && editedTask?._id === task.taskId ? (
 				<>
@@ -80,17 +90,22 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 							selectedField="priority"
 						/>
 					</form>
-					<TaskPriorityDisplay
-						className="block lg:hidden"
-						convertedPriority={task.convertedPriority}
-					/>
+					<span className="block lg:hidden">
+						<i
+							className={`fas ${priorityIcon[task.convertedPriority]} block lg:hidden`}></i>
+						<span className="ellipsis hidden lg:inline">
+							{task.convertedPriority}
+						</span>
+					</span>
 				</>
 			) : (
 				isEditingField.priority && (
-					<TaskPriorityDisplay
-						priority={task.priority}
-						convertedPriority={task.convertedPriority}
-					/>
+					<span>
+						<i className={`fas ${priorityIcon[task.convertedPriority]} block lg:hidden`}></i>
+						<span className="ellipsis hidden lg:inline">
+							{task.convertedPriority}
+						</span>
+					</span>
 				)
 			)}
 		</div>
