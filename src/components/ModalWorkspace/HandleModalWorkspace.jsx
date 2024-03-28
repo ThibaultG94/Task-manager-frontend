@@ -117,7 +117,7 @@ const HandleModalWorkspace = ({
 									setIsModalWorkspaceOpen={
 										setIsModalWorkspaceOpen
 									}
-									workspaceDataChange={workspaceDataChange}
+									workspaceData={workspaceDataChange}
 								/>
 								{selectedWorkspace.isDefault === 'false' && (
 									<button
