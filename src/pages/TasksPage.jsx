@@ -37,7 +37,7 @@ import { ToastContainer } from 'react-toastify';
 import SideBar from '../components/SideBar/SideBar';
 import Header from '../components/Header/Header';
 
-import DisplayTasks from '../components/tasks/DisplayTasks';
+import DisplayTasks from '../components/TasksPage/DisplayTasks';
 import TaskPageTip from '../components/tasks/TaskPageTip';
 
 const TasksPage = () => {

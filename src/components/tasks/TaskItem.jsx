@@ -1,14 +1,15 @@
 import React from 'react';
-import QuickEditTitle from './QuickEditTitle';
+import { useEditTask } from '../../api/tasks/useEditTask';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
+import { toast } from 'react-toastify';
+import ButtonToGrab from '../Buttons/ButtonToGrab';
+import QuickEditTitle from '../TasksPage/QuickEditTitle';
+
 import QuickEditDeadline from './QuickEditDeadline';
 import QuickEditStatus from './QuickEditStatus';
 import QuickEditPriority from './QuickEditPriority';
 import QuickEditWorkspace from './QuickEditWorkspace';
 import ButtonToEditTaskInModal from './ButtonToEditTaskInModal';
-import ButtonToGrab from './ButtonToGrab';
-import { useEditTask } from '../../api/tasks/useEditTask';
-import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
-import { toast } from 'react-toastify';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const editTask = useEditTask();
@@ -29,6 +30,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	return (
 		<div className="task-item relative py-6 px-2 sm:px-3 md:px-4 mx-auto">
 			<ButtonToGrab />
+
 			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditStatus task={task} setSelectedTask={setSelectedTask} />

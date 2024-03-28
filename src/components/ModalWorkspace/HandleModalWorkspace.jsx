@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUserContacts } from '../../store/selectors/userSelectors';
-import CloseButton from '../ModalForm/CloseButton';
+import CloseButton from '../Buttons/CloseButton';
 import ModalDisplayWorkspace from './ModalDisplayWorkspace';
 import ModalEditWorkspace from './ModalEditWorkspace';
 import DeleteWorkspace from './DeleteWorkspace';

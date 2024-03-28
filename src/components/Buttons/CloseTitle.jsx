@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setEditingField } from '../../../store/feature/editState.slice';
+import { setEditingField } from '../../store/feature/editState.slice';
 
 const CloseTitle = () => {
 	const dispatch = useDispatch();

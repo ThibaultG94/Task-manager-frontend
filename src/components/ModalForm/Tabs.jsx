@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseButton from './CloseButton';
+import CloseButton from '../Buttons/CloseButton';
 
 const Tabs = ({ tabs, activeTab, setActiveTab, closeModal }) => {
 	const tabClass = (tabId, index) => {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import TaskItem from './TaskItem';
-import { updateDisplayTasks } from '../utils/updateDisplayTasks';
+import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import HeaderBlock from './HeaderBlock';
+import HeaderBlock from '../TasksPage/HeaderBlock';
 
 const DisplayBecomingTasks = ({
 	setSelectedTask,

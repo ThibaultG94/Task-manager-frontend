@@ -4,22 +4,6 @@ import {
 	selectHasEdited,
 	selectIsEditingField,
 } from '../../store/selectors/editStateSelectors';
-import { resetEditState } from '../../store/feature/editState.slice';
-import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
-import { setInitialEditedTask } from '../../store/feature/tasks.slice';
-import DisplayArchivedTasks from './DisplayArchivedTasks';
-import DisplayOverdueTasks from './DisplayOverdueTasks';
-import DisplayTodayTasks from './DisplayTodayTasks';
-import DisplayTomorrowTasks from './DisplayTomorrowTasks';
-import DisplayThisWeekTasks from './DisplayThisWeekTasks';
-import DisplayThisWeekendTasks from './DisplayThisWeekendTasks';
-import DisplayNextWeekTasks from './DisplayNextWeekTasks';
-import DisplayNextWeekendTasks from './DisplayNextWeekendTasks';
-import DisplayThisMonthTasks from './DisplayThisMonthTasks';
-import DisplayNextMonthTasks from './DisplayNextMonthTasks';
-import DisplayThisYearTasks from './DisplayThisYearTasks';
-import DisplayNextYearTasks from './DisplayNextYearTasks';
-import DisplayBecomingTasks from './DisplayBecomingTasks';
 import {
 	selectBecomingTasks,
 	selectNextMonthTasks,
@@ -34,12 +18,30 @@ import {
 	selectTodayTasks,
 	selectTomorrowTasks,
 } from '../../store/selectors/taskSelectors';
+import { resetEditState } from '../../store/feature/editState.slice';
+import { setInitialEditedTask } from '../../store/feature/tasks.slice';
+import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
+
+import DisplayArchivedTasks from '../tasks/DisplayArchivedTasks';
+import DisplayOverdueTasks from '../tasks/DisplayOverdueTasks';
+import DisplayTodayTasks from '../tasks/DisplayTodayTasks';
+import DisplayTomorrowTasks from '../tasks/DisplayTomorrowTasks';
+import DisplayThisWeekTasks from '../tasks/DisplayThisWeekTasks';
+import DisplayThisWeekendTasks from '../tasks/DisplayThisWeekendTasks';
+import DisplayNextWeekTasks from '../tasks/DisplayNextWeekTasks';
+import DisplayNextWeekendTasks from '../tasks/DisplayNextWeekendTasks';
+import DisplayThisMonthTasks from '../tasks/DisplayThisMonthTasks';
+import DisplayNextMonthTasks from '../tasks/DisplayNextMonthTasks';
+import DisplayThisYearTasks from '../tasks/DisplayThisYearTasks';
+import DisplayNextYearTasks from '../tasks/DisplayNextYearTasks';
+import DisplayBecomingTasks from '../tasks/DisplayBecomingTasks';
 import HandleModalTask from '../ModalTask/HandleModalTask';
 
 const DisplayTasks = () => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const hasEdited = useSelector(selectHasEdited);
+
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);

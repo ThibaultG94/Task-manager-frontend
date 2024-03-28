@@ -5,7 +5,7 @@ import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import MemberSelect from '../ModalForm/MemberSelect';
 import DeadlineInput from '../ModalForm/DeadlineInput';
 import WorkspaceSelect from '../ModalForm/WorkspaceSelect';
-import ArrowDown from '../ModalForm/ArrowDown';
+import ArrowDown from '../Buttons/ArrowDown';
 
 const ModalEditTask = ({ taskData, setTaskData }) => {
 	const userWorkspaces = useSelector(selectWorkspaces);

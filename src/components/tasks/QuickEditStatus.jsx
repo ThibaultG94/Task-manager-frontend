@@ -11,7 +11,7 @@ import { setEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
-import ArrowDown from '../ModalForm/ArrowDown';
+import ArrowDown from '../Buttons/ArrowDown';
 import TaskStatusDisplay from './utils/TaskStatusDisplay';
 import CloseField from './utils/CloseField';
 

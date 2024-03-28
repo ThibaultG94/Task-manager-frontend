@@ -8,9 +8,9 @@ import {
 } from '../../store/selectors/taskSelectors';
 import TaskItem from './TaskItem';
 import getUserId from '../../api/users/getUserId';
-import { updateDisplayTasks } from '../utils/updateDisplayTasks';
+import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import HeaderBlock from './HeaderBlock';
+import HeaderBlock from '../TasksPage/HeaderBlock';
 import Pagination from '../../utils/Pagination';
 import { selectCurrentArchivedPage } from '../../store/selectors/pagesSelectors';
 

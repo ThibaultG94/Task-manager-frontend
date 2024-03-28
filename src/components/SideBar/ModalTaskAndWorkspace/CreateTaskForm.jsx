@@ -7,7 +7,7 @@ import DescriptionTextarea from '../../ModalForm/DescriptionTextarea';
 import WorkspaceSelect from '../../ModalForm/WorkspaceSelect';
 import MemberSelect from '../../ModalForm/MemberSelect';
 import SubmitButton from '../../ModalForm/SubmitButton';
-import ArrowDown from '../../ModalForm/ArrowDown';
+import ArrowDown from '../../Buttons/ArrowDown';
 import { useCreateTask } from '../../../api/tasks/useCreateTask';
 import { useTasksHasBeenUpdated } from '../../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';

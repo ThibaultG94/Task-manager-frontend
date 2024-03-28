@@ -1,7 +1,7 @@
-import { convertPriority } from "../../utils/convertPriority";
-import { convertStatus } from "../../utils/convertStatus";
-import { formatDateForDisplay } from "../../utils/formatDateForDisplay";
-import { getCategoryDay } from "../../utils/getCategoryDay";
+import { convertPriority } from "./convertPriority";
+import { convertStatus } from "./convertStatus";
+import { formatDateForDisplay } from "./formatDateForDisplay";
+import { getCategoryDay } from "./getCategoryDay";
 
 export const updateDisplayTasks = async (
   userTasks,

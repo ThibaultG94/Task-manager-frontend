@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import CloseButton from '../ModalForm/CloseButton';
+import CloseButton from '../Buttons/CloseButton';
 import ModalDisplayTask from './ModalDisplayTask';
 import ModalEditTask from './ModalEditTask';
 import DeleteTask from './DeleteTask';

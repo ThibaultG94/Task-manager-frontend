@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import {
 	resetEditState,
 	setEditingField,
@@ -12,14 +12,16 @@ import { setEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
-import CloseTitle from './utils/CloseTitle';
+import CloseTitle from '../Buttons/CloseTitle';
 
 const QuickEditTitle = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
-	const editTask = useEditTask();
-	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
+
+	const editTask = useEditTask();
+	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+
 	const inputTitleRef = useRef(null);
 
 	useEffect(() => {

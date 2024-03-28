@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import TaskItem from './TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { updateDisplayTasks } from '../utils/updateDisplayTasks';
-import HeaderBlock from './HeaderBlock';
+import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
+import HeaderBlock from '../TasksPage/HeaderBlock';
+
+import TaskItem from './TaskItem';
 
 const DisplayOverdueTasks = ({
 	setSelectedTask,
@@ -12,8 +13,9 @@ const DisplayOverdueTasks = ({
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
-	const [displayOverdueTasks, setDisplayOverdueTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
+
+	const [displayOverdueTasks, setDisplayOverdueTasks] = useState([]);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({

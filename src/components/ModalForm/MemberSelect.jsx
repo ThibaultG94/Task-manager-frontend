@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ArrowDown from './ArrowDown';
+import ArrowDown from '../Buttons/ArrowDown';
 
 const MemberSelect = ({
 	selectedMember,
