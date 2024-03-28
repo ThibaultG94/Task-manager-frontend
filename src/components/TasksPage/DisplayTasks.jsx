@@ -118,7 +118,7 @@ const DisplayTasks = () => {
 	}, [selectedTask]);
 
 	return (
-		<section>
+		<section className='max-w-screen-xl mx-auto container'>
 			<DisplayOverdueTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}

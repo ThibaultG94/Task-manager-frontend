@@ -20,13 +20,13 @@ body {
 	justify-content: center;
 	margin-top: 10px;
 
-	@media screen and (min-height: 918px) {
+	@media screen and (min-height: 925px) {
 		grid-template-areas:
 			'task task'
 			'cal cow'
 			'work work';
 		grid-template-columns: 300px 1fr;
-		grid-template-rows: 285px 255px 244px;
+		grid-template-rows: 285px 260px 244px;
 	}
 
 	@media (max-width: 1300px) {
