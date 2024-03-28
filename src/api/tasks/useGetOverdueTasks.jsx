@@ -1,11 +1,11 @@
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { useErrorApi } from '../../components/utils/ErrorApi';
 import {
 	setOverdueTasksAction,
 	setOverdueTasksFailed,
 	setOverdueTasksSuccess,
 } from '../../store/feature/tasks.slice';
-import axios from 'axios';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetOverdueTasks = () => {
 	const dispatch = useDispatch();

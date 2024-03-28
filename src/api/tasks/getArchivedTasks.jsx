@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import {
 	setArchivedTasksAction,
@@ -5,8 +6,7 @@ import {
 	setArchivedTasksSuccess,
 	setTotalArchivedTasks,
 } from '../../store/feature/tasks.slice';
-import axios from 'axios';
-import { useErrorApi } from '../../components/utils/ErrorApi';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetArchivedTasks = () => {
 	const dispatch = useDispatch();

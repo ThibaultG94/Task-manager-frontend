@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { useErrorApi } from '../../components/utils/ErrorApi';
 import { useNavigate } from 'react-router-dom';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useLogoutUser = () => {
 	const navigate = useNavigate();

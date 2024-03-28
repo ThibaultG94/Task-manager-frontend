@@ -1,11 +1,11 @@
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { useErrorApi } from '../../components/utils/ErrorApi';
 import {
 	setWorkspaceTaskStatusCountAction,
 	setWorkspaceTaskStatusCountFailed,
 	setWorkspaceTaskStatusCountSuccess,
 } from '../../store/feature/tasks.slice';
-import axios from 'axios';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetWorkspaceTaskStatusCount = () => {
 	const dispatch = useDispatch();

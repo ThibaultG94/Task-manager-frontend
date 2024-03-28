@@ -1,11 +1,11 @@
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { useErrorApi } from '../../components/utils/ErrorApi';
+import { useDispatch } from 'react-redux';
 import {
 	deleteWorkspaceAction,
 	deleteWorkspaceFailed,
 	deleteWorkspaceSuccess,
 } from '../../store/feature/workspaces.slice';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useDeleteWorkspace = () => {
 	const dispatch = useDispatch();

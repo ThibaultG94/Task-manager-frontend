@@ -1,11 +1,11 @@
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { useErrorApi } from '../../components/utils/ErrorApi';
 import {
 	getNotificationsAction,
 	getNotificationsFailure,
 	getNotificationsSuccess,
 } from '../../store/feature/notifications.slice';
-import axios from 'axios';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetNotifications = () => {
 	const dispatch = useDispatch();

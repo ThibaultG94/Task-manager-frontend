@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useErrorApi } from '../../components/utils/ErrorApi';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useSetInvitationNotification = () => {
 	const errorApi = useErrorApi();

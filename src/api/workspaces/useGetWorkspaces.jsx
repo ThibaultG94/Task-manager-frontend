@@ -1,11 +1,11 @@
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import {
 	setWorkspaces,
 	setWorkspacesFailed,
 	setWorkspacesSuccess,
 } from '../../store/feature/workspaces.slice';
-import axios from 'axios';
-import { useErrorApi } from '../../components/utils/ErrorApi';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetWorkspaces = () => {
 	const dispatch = useDispatch();

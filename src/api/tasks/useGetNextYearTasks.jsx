@@ -1,11 +1,11 @@
-import { useDispatch } from 'react-redux';
-import { useErrorApi } from '../../components/utils/ErrorApi';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import {
 	setNextYearTasksAction,
 	setNextYearTasksFailed,
 	setNextYearTasksSuccess,
 } from '../../store/feature/tasks.slice';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetNextYearTasks = () => {
 	const dispatch = useDispatch();

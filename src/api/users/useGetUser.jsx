@@ -5,7 +5,7 @@ import {
 	setUserDataFailed,
 	setUserDataSuccess,
 } from '../../store/feature/users.slice';
-import { useErrorApi } from '../../components/utils/ErrorApi';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetUser = () => {
 	const dispatch = useDispatch();

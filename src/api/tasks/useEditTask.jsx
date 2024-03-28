@@ -1,11 +1,11 @@
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import {
 	editTaskAction,
 	editTaskFailed,
 	editTaskSuccess,
 } from '../../store/feature/tasks.slice';
-import axios from 'axios';
-import { useErrorApi } from '../../components/utils/ErrorApi';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useEditTask = () => {
 	const dispatch = useDispatch();

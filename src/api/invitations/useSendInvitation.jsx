@@ -1,6 +1,6 @@
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { sendInvitationAction } from '../../store/feature/invitations.slice';
-import axios from 'axios';
 
 export const useSendInvitation = () => {
 	const dispatch = useDispatch();

@@ -36,9 +36,8 @@ import { useGetTips } from '../api/tips/useGetTips';
 import { ToastContainer } from 'react-toastify';
 import SideBar from '../components/SideBar/SideBar';
 import Header from '../components/Header/Header';
-
 import DisplayTasks from '../components/TasksPage/DisplayTasks';
-import TaskPageTip from '../components/tasks/TaskPageTip';
+import TaskPageTip from '../components/TasksPage/TaskPageTip';
 
 const TasksPage = () => {
 	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);

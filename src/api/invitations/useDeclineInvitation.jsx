@@ -1,11 +1,11 @@
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { useErrorApi } from '../../components/utils/ErrorApi';
 import {
 	declineInvitationAction,
 	declineInvitationFailure,
 	declineInvitationSuccess,
 } from '../../store/feature/invitations.slice';
-import axios from 'axios';
+import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useDeclineInvitation = () => {
 	const dispatch = useDispatch();
