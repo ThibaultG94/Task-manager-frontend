@@ -1,5 +1,4 @@
-import { convertPriority } from "./convertPriority";
-import { convertStatus } from "./convertStatus";
+import { convertStatus, convertPriority } from "./convertTools";
 import { formatDateForDisplay } from "./formatDateForDisplay";
 import { getCategoryDay } from "./getCategoryDay";
 

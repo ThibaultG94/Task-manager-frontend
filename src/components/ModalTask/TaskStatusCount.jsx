@@ -1,4 +1,4 @@
-import { convertStatusCount } from '../../utils/convertStatusCount';
+import { convertStatusCount } from '../../utils/convertTools';
 
 export const TaskStatusCount = ({ status, count }) => {
 	const translatedStatus = convertStatusCount(status, count);

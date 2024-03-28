@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
-import { convertStatus } from '../../utils/convertStatus';
-import { convertPriority } from '../../utils/convertPriority';
-import { frenchFormattedDate } from '../../utils/frenchFormattedDate';
+import { convertStatus, convertPriority } from '../../utils/convertTools';
+import { frenchFormattedDate } from '../../utils/dateFormatTools';
 
 const ModalDisplayTask = () => {
 	const editedTask = useSelector(selectEditedTask);

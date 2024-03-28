@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { inverseDateFormat } from '../utils/inverseDateFormat';
+import Flatpickr from 'react-flatpickr';
+import { French } from 'flatpickr/dist/l10n/fr';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEditTask } from '../../api/tasks/useEditTask';
-import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { setEditedTask } from '../../store/feature/tasks.slice';
@@ -11,24 +10,26 @@ import {
 	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { useEditTask } from '../../api/tasks/useEditTask';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
+import useWindowSize from '../../utils/useWindowSize';
+import { inverseDateFormat, formatDateForResponsive, formatDateArchived } from '../../utils/dateFormatTools';
 import { toast } from 'react-toastify';
-import Flatpickr from 'react-flatpickr';
-import { French } from 'flatpickr/dist/l10n/fr';
-import { formatDate } from './utils/formatDateForResponsive';
-import useWindowSize from '../utils/useWindowSize';
-import CloseDeadline from './utils/CloseDeadline';
-import { formatDateArchived } from './utils/formatDateArchived';
+import CloseDeadline from '../Buttons/CloseDeadline';
 
 const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
-	const editTask = useEditTask();
-	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
-	const [convertedDeadline, setConvertedDeadline] = useState('');
+	
+	const editTask = useEditTask();
+	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	
 	const [width] = useWindowSize();
 	const isLargeScreen = width > 1023;
 
+	const [convertedDeadline, setConvertedDeadline] = useState('');
+	
 	const dayWeek = [
 		'Lundi',
 		'Mardi',
@@ -116,7 +117,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 			{!isEditingField.deadline && (
 				<>
 					<span className="block lg:hidden">
-						{formatDate(task.deadline)}{' '}
+						{formatDateForResponsive(task.deadline)}{' '}
 					</span>
 					<span className="hidden lg:block">
 						{task.status === 'Archived'
@@ -147,7 +148,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 						</div>
 					) : (
 						<span className="ellipsis">
-							{formatDate(task.deadline)}
+							{formatDateForResponsive(task.deadline)}
 						</span>
 					)}
 				</>
@@ -155,7 +156,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 				isEditingField.deadline && (
 					<>
 						<span className="block lg:hidden">
-							{formatDate(task.deadline)}{' '}
+							{formatDateForResponsive(task.deadline)}{' '}
 						</span>
 						<span className="hidden lg:block">
 							{task.status === 'Archived'
