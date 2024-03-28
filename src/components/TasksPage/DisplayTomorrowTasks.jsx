@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import TaskItem from '../TasksPage/TaskItem';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
-import HeaderBlock from '../TasksPage/HeaderBlock';
+import HeaderBlock from './HeaderBlock';
+import TaskItem from './TaskItem';
 
-const DisplayTodayTasks = ({
+const DisplayTomorrowTasks = ({
 	setSelectedTask,
 	openModal,
 	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
-	const [displayTodayTasks, setDisplayTodayTasks] = useState([]);
+	const [displayTomorrowTasks, setDisplayTomorrowTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
 	const toggleBlock = (blockId) => {
@@ -23,42 +23,43 @@ const DisplayTodayTasks = ({
 	};
 
 	useEffect(() => {
-		const updateDisplayTodayTasks = async () => {
+		const updateDisplayTomorrowTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				allTasks.userTodayTasks,
+				allTasks.userTomorrowTasks,
 				workspaces,
 				updatedTasks
 			);
-			setDisplayTodayTasks(updatedTasks);
+			setDisplayTomorrowTasks(updatedTasks);
 		};
 
-		updateDisplayTodayTasks();
-	}, [allTasks.userTodayTasks]);
+		updateDisplayTomorrowTasks();
+	}, [allTasks.userTomorrowTasks]);
 
 	return (
 		<>
-			{allTasks.userTodayTasks.length > 0 && (
+			{allTasks.userTomorrowTasks.length > 0 && (
 				<div
-					id="today-tasks"
+					id="tomorrow-tasks"
 					className={`mb-4 rounded-md bg-white ${
-						expandedBlocks['today-tasks'] ? 'expanded' : ''
+						expandedBlocks['tomorrow-tasks'] ? 'expanded' : ''
 					}`}
-					onClick={() => toggleBlock('today-tasks')}>
+					onClick={() => toggleBlock('tomorrow-tasks')}>
 					<HeaderBlock
-						label={"Aujourd'hui"}
-						type={'today-tasks'}
+						label={'Demain'}
+						type={'tomorrow-tasks'}
 						toggleBlock={toggleBlock}
 					/>
 
 					<div
 						className="task-list"
 						onClick={(e) => e.stopPropagation()}>
-						{displayTodayTasks && displayTodayTasks?.length > 0
-							? displayTodayTasks
+						{displayTomorrowTasks &&
+						displayTomorrowTasks?.length > 0
+							? displayTomorrowTasks
 									.filter(
 										(task) =>
-											task.category === 'today-tasks'
+											task.category === 'tomorrow-tasks'
 									)
 									.map((task, index) => (
 										<TaskItem
@@ -76,4 +77,4 @@ const DisplayTodayTasks = ({
 	);
 };
 
-export default DisplayTodayTasks;
+export default DisplayTomorrowTasks;

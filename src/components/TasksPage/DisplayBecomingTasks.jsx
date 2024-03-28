@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import TaskItem from '../TasksPage/TaskItem';
-import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
-import HeaderBlock from '../TasksPage/HeaderBlock';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import HeaderBlock from './HeaderBlock';
+import TaskItem from './TaskItem';
 
-const DisplayNextWeekTasks = ({
+const DisplayBecomingTasks = ({
 	setSelectedTask,
 	openModal,
 	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
-	const [displayNextWeekTasks, setDisplayNextWeekTasks] = useState([]);
+	const [displayBecomingTasks, setDisplayBecomingTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
 	const updateExpandedBlocks = () => {
@@ -21,16 +21,22 @@ const DisplayNextWeekTasks = ({
 			allTasks.userTodayTasks.length === 0 &&
 			allTasks.userTomorrowTasks.length === 0 &&
 			allTasks.userThisWeekTasks.length === 0 &&
-			allTasks.userThisWeekendTasks.length === 0
+			allTasks.userThisWeekendTasks.length === 0 &&
+			allTasks.userNextWeekTasks.length === 0 &&
+			allTasks.userNextWeekendTasks.length === 0 &&
+			allTasks.userThisMonthTasks.length === 0 &&
+			allTasks.userNextMonthTasks.length === 0 &&
+			allTasks.userThisYearTasks.length === 0 &&
+			allTasks.userNextYearTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
-				'next-week-tasks': true,
+				'becoming-tasks': true,
 			}));
 		} else {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
-				'next-week-tasks': false,
+				'becoming-tasks': false,
 			}));
 		}
 	};
@@ -43,6 +49,12 @@ const DisplayNextWeekTasks = ({
 		allTasks.userTomorrowTasks,
 		allTasks.userThisWeekTasks,
 		allTasks.userThisWeekendTasks,
+		allTasks.userNextWeekTasks,
+		allTasks.userNextWeekendTasks,
+		allTasks.userThisMonthTasks,
+		allTasks.userNextMonthTasks,
+		allTasks.userThisYearTasks,
+		allTasks.userNextYearTasks,
 	]);
 
 	const toggleBlock = (blockId) => {
@@ -53,43 +65,43 @@ const DisplayNextWeekTasks = ({
 	};
 
 	useEffect(() => {
-		const updateDisplayNextWeekTasks = async () => {
+		const updateDisplayBecomingTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				allTasks.userNextWeekTasks,
+				allTasks.userBecomingTasks,
 				workspaces,
 				updatedTasks
 			);
-			setDisplayNextWeekTasks(updatedTasks);
+			setDisplayBecomingTasks(updatedTasks);
 		};
 
-		updateDisplayNextWeekTasks();
-	}, [allTasks.userNextWeekTasks]);
+		updateDisplayBecomingTasks();
+	}, [allTasks.userBecomingTasks]);
 
 	return (
 		<>
-			{allTasks.userNextWeekTasks.length > 0 && (
+			{allTasks.userBecomingTasks.length > 0 && (
 				<div
-					id="next-week-tasks"
+					id="becoming-tasks"
 					className={`mb-4 rounded-md bg-white ${
-						expandedBlocks['next-week-tasks'] ? 'expanded' : ''
+						expandedBlocks['becoming-tasks'] ? 'expanded' : ''
 					}`}
-					onClick={() => toggleBlock('next-week-tasks')}>
+					onClick={() => toggleBlock('becoming-tasks')}>
 					<HeaderBlock
-						label="Semaine prochaine"
-						type={'next-week-tasks'}
+						label={'Prochaines années'}
+						type={'becoming-tasks'}
 						toggleBlock={toggleBlock}
 					/>
 
 					<div
 						className="task-list"
 						onClick={(e) => e.stopPropagation()}>
-						{displayNextWeekTasks &&
-						displayNextWeekTasks?.length > 0
-							? displayNextWeekTasks
+						{displayBecomingTasks &&
+						displayBecomingTasks?.length > 0
+							? displayBecomingTasks
 									.filter(
 										(task) =>
-											task.category === 'next-week-tasks'
+											task.category === 'becoming-tasks'
 									)
 									.map((task, index) => (
 										<TaskItem
@@ -107,4 +119,4 @@ const DisplayNextWeekTasks = ({
 	);
 };
 
-export default DisplayNextWeekTasks;
+export default DisplayBecomingTasks;

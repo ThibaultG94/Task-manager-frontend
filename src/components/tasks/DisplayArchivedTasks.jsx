@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useGetArchivedTasks } from '../../api/tasks/getArchivedTasks';
 import { useSelector } from 'react-redux';
+
+import { useGetArchivedTasks } from '../../api/tasks/getArchivedTasks';
 import {
 	selectArchivedTasks,
 	selectIsArchivedTasksLoaded,
@@ -15,6 +16,7 @@ import Pagination from '../../utils/Pagination';
 import { selectCurrentArchivedPage } from '../../store/selectors/pagesSelectors';
 
 const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
+
 	const currentArchivedTasks = useSelector(selectCurrentArchivedPage);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);

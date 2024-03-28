@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import TaskItem from '../TasksPage/TaskItem';
-import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import HeaderBlock from '../TasksPage/HeaderBlock';
+import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
+import HeaderBlock from './HeaderBlock';
+import TaskItem from './TaskItem';
 
-const DisplayThisYearTasks = ({
+const DisplayNextWeekendTasks = ({
 	setSelectedTask,
 	openModal,
 	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
-	const [displayThisYearTasks, setDisplayThisYearTasks] = useState([]);
+	const [displayNextWeekendTasks, setDisplayNextWeekendTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
 	const updateExpandedBlocks = () => {
@@ -22,19 +22,16 @@ const DisplayThisYearTasks = ({
 			allTasks.userTomorrowTasks.length === 0 &&
 			allTasks.userThisWeekTasks.length === 0 &&
 			allTasks.userThisWeekendTasks.length === 0 &&
-			allTasks.userNextWeekTasks.length === 0 &&
-			allTasks.userNextWeekendTasks.length === 0 &&
-			allTasks.userThisMonthTasks.length === 0 &&
-			allTasks.userNextMonthTasks.length === 0
+			allTasks.userNextWeekTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
-				'this-year-tasks': true,
+				'next-weekend-tasks': true,
 			}));
 		} else {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
-				'this-year-tasks': false,
+				'next-weekend-tasks': false,
 			}));
 		}
 	};
@@ -48,9 +45,6 @@ const DisplayThisYearTasks = ({
 		allTasks.userThisWeekTasks,
 		allTasks.userThisWeekendTasks,
 		allTasks.userNextWeekTasks,
-		allTasks.userNextWeekendTasks,
-		allTasks.userThisMonthTasks,
-		allTasks.userNextMonthTasks,
 	]);
 
 	const toggleBlock = (blockId) => {
@@ -61,43 +55,44 @@ const DisplayThisYearTasks = ({
 	};
 
 	useEffect(() => {
-		const updateDisplayThisYearTasks = async () => {
+		const updateDisplayNextWeekendTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				allTasks.userThisYearTasks,
+				allTasks.userNextWeekendTasks,
 				workspaces,
 				updatedTasks
 			);
-			setDisplayThisYearTasks(updatedTasks);
+			setDisplayNextWeekendTasks(updatedTasks);
 		};
 
-		updateDisplayThisYearTasks();
-	}, [allTasks.userThisYearTasks]);
+		updateDisplayNextWeekendTasks();
+	}, [allTasks.userNextWeekendTasks]);
 
 	return (
 		<>
-			{allTasks.userThisYearTasks.length > 0 && (
+			{allTasks.userNextWeekendTasks.length > 0 && (
 				<div
-					id="this-year-tasks"
+					id="next-weekend-tasks"
 					className={`mb-4 rounded-md bg-white ${
-						expandedBlocks['this-year-tasks'] ? 'expanded' : ''
+						expandedBlocks['next-weekend-tasks'] ? 'expanded' : ''
 					}`}
-					onClick={() => toggleBlock('this-year-tasks')}>
+					onClick={() => toggleBlock('next-weekend-tasks')}>
 					<HeaderBlock
-						label={'Cette année'}
-						type={'this-year-tasks'}
+						label="Weekend prochain"
+						type={'next-weekend-tasks'}
 						toggleBlock={toggleBlock}
 					/>
 
 					<div
 						className="task-list"
 						onClick={(e) => e.stopPropagation()}>
-						{displayThisYearTasks &&
-						displayThisYearTasks?.length > 0
-							? displayThisYearTasks
+						{displayNextWeekendTasks &&
+						displayNextWeekendTasks?.length > 0
+							? displayNextWeekendTasks
 									.filter(
 										(task) =>
-											task.category === 'this-year-tasks'
+											task.category ===
+											'next-weekend-tasks'
 									)
 									.map((task, index) => (
 										<TaskItem
@@ -115,4 +110,4 @@ const DisplayThisYearTasks = ({
 	);
 };
 
-export default DisplayThisYearTasks;
+export default DisplayNextWeekendTasks;

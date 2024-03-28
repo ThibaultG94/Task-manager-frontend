@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import TaskItem from '../TasksPage/TaskItem';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import HeaderBlock from '../TasksPage/HeaderBlock';
+import HeaderBlock from './HeaderBlock';
+import TaskItem from './TaskItem';
 
-const DisplayBecomingTasks = ({
+const DisplayThisMonthTasks = ({
 	setSelectedTask,
 	openModal,
 	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
-	const [displayBecomingTasks, setDisplayBecomingTasks] = useState([]);
+	const [displayThisMonthTasks, setDisplayThisMonthTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
 	const updateExpandedBlocks = () => {
@@ -23,20 +23,16 @@ const DisplayBecomingTasks = ({
 			allTasks.userThisWeekTasks.length === 0 &&
 			allTasks.userThisWeekendTasks.length === 0 &&
 			allTasks.userNextWeekTasks.length === 0 &&
-			allTasks.userNextWeekendTasks.length === 0 &&
-			allTasks.userThisMonthTasks.length === 0 &&
-			allTasks.userNextMonthTasks.length === 0 &&
-			allTasks.userThisYearTasks.length === 0 &&
-			allTasks.userNextYearTasks.length === 0
+			allTasks.userNextWeekendTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
-				'becoming-tasks': true,
+				'this-month-tasks': true,
 			}));
 		} else {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
-				'becoming-tasks': false,
+				'this-month-tasks': false,
 			}));
 		}
 	};
@@ -51,10 +47,6 @@ const DisplayBecomingTasks = ({
 		allTasks.userThisWeekendTasks,
 		allTasks.userNextWeekTasks,
 		allTasks.userNextWeekendTasks,
-		allTasks.userThisMonthTasks,
-		allTasks.userNextMonthTasks,
-		allTasks.userThisYearTasks,
-		allTasks.userNextYearTasks,
 	]);
 
 	const toggleBlock = (blockId) => {
@@ -65,43 +57,43 @@ const DisplayBecomingTasks = ({
 	};
 
 	useEffect(() => {
-		const updateDisplayBecomingTasks = async () => {
+		const updateDisplayThisMonthTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				allTasks.userBecomingTasks,
+				allTasks.userThisMonthTasks,
 				workspaces,
 				updatedTasks
 			);
-			setDisplayBecomingTasks(updatedTasks);
+			setDisplayThisMonthTasks(updatedTasks);
 		};
 
-		updateDisplayBecomingTasks();
-	}, [allTasks.userBecomingTasks]);
+		updateDisplayThisMonthTasks();
+	}, [allTasks.userThisMonthTasks]);
 
 	return (
 		<>
-			{allTasks.userBecomingTasks.length > 0 && (
+			{allTasks.userThisMonthTasks.length > 0 && (
 				<div
-					id="becoming-tasks"
+					id="this-month-tasks"
 					className={`mb-4 rounded-md bg-white ${
-						expandedBlocks['becoming-tasks'] ? 'expanded' : ''
+						expandedBlocks['this-month-tasks'] ? 'expanded' : ''
 					}`}
-					onClick={() => toggleBlock('becoming-tasks')}>
+					onClick={() => toggleBlock('this-month-tasks')}>
 					<HeaderBlock
-						label={'Prochaines années'}
-						type={'becoming-tasks'}
+						label={'Ce mois-ci'}
+						type={'this-month-tasks'}
 						toggleBlock={toggleBlock}
 					/>
 
 					<div
 						className="task-list"
 						onClick={(e) => e.stopPropagation()}>
-						{displayBecomingTasks &&
-						displayBecomingTasks?.length > 0
-							? displayBecomingTasks
+						{displayThisMonthTasks &&
+						displayThisMonthTasks?.length > 0
+							? displayThisMonthTasks
 									.filter(
 										(task) =>
-											task.category === 'becoming-tasks'
+											task.category === 'this-month-tasks'
 									)
 									.map((task, index) => (
 										<TaskItem
@@ -119,4 +111,4 @@ const DisplayBecomingTasks = ({
 	);
 };
 
-export default DisplayBecomingTasks;
+export default DisplayThisMonthTasks;

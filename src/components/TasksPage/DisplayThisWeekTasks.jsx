@@ -1,38 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import TaskItem from '../TasksPage/TaskItem';
-import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import HeaderBlock from '../TasksPage/HeaderBlock';
+import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
+import HeaderBlock from './HeaderBlock';
+import TaskItem from './TaskItem';
 
-const DisplayThisMonthTasks = ({
+const DisplayThisWeekTasks = ({
 	setSelectedTask,
 	openModal,
 	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
-	const [displayThisMonthTasks, setDisplayThisMonthTasks] = useState([]);
+	const [displayThisWeekTasks, setDisplayThisWeekTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
 	const updateExpandedBlocks = () => {
 		if (
 			allTasks.userOverdueTasks.length === 0 &&
 			allTasks.userTodayTasks.length === 0 &&
-			allTasks.userTomorrowTasks.length === 0 &&
-			allTasks.userThisWeekTasks.length === 0 &&
-			allTasks.userThisWeekendTasks.length === 0 &&
-			allTasks.userNextWeekTasks.length === 0 &&
-			allTasks.userNextWeekendTasks.length === 0
+			allTasks.userTomorrowTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
-				'this-month-tasks': true,
+				'this-week-tasks': true,
 			}));
 		} else {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
-				'this-month-tasks': false,
+				'this-week-tasks': false,
 			}));
 		}
 	};
@@ -43,10 +39,6 @@ const DisplayThisMonthTasks = ({
 		allTasks.userOverdueTasks,
 		allTasks.userTodayTasks,
 		allTasks.userTomorrowTasks,
-		allTasks.userThisWeekTasks,
-		allTasks.userThisWeekendTasks,
-		allTasks.userNextWeekTasks,
-		allTasks.userNextWeekendTasks,
 	]);
 
 	const toggleBlock = (blockId) => {
@@ -57,43 +49,43 @@ const DisplayThisMonthTasks = ({
 	};
 
 	useEffect(() => {
-		const updateDisplayThisMonthTasks = async () => {
+		const updateDisplayThisWeekTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				allTasks.userThisMonthTasks,
+				allTasks.userThisWeekTasks,
 				workspaces,
 				updatedTasks
 			);
-			setDisplayThisMonthTasks(updatedTasks);
+			setDisplayThisWeekTasks(updatedTasks);
 		};
 
-		updateDisplayThisMonthTasks();
-	}, [allTasks.userThisMonthTasks]);
+		updateDisplayThisWeekTasks();
+	}, [allTasks.userThisWeekTasks]);
 
 	return (
 		<>
-			{allTasks.userThisMonthTasks.length > 0 && (
+			{allTasks.userThisWeekTasks.length > 0 && (
 				<div
-					id="this-month-tasks"
+					id="this-week-tasks"
 					className={`mb-4 rounded-md bg-white ${
-						expandedBlocks['this-month-tasks'] ? 'expanded' : ''
+						expandedBlocks['this-week-tasks'] ? 'expanded' : ''
 					}`}
-					onClick={() => toggleBlock('this-month-tasks')}>
+					onClick={() => toggleBlock('this-week-tasks')}>
 					<HeaderBlock
-						label={'Ce mois-ci'}
-						type={'this-month-tasks'}
+						label={'Cette semaine'}
+						type={'this-week-tasks'}
 						toggleBlock={toggleBlock}
 					/>
 
 					<div
 						className="task-list"
 						onClick={(e) => e.stopPropagation()}>
-						{displayThisMonthTasks &&
-						displayThisMonthTasks?.length > 0
-							? displayThisMonthTasks
+						{displayThisWeekTasks &&
+						displayThisWeekTasks?.length > 0
+							? displayThisWeekTasks
 									.filter(
 										(task) =>
-											task.category === 'this-month-tasks'
+											task.category === 'this-week-tasks'
 									)
 									.map((task, index) => (
 										<TaskItem
@@ -111,4 +103,4 @@ const DisplayThisMonthTasks = ({
 	);
 };
 
-export default DisplayThisMonthTasks;
+export default DisplayThisWeekTasks;

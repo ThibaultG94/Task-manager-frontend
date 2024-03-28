@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import TaskItem from '../TasksPage/TaskItem';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import HeaderBlock from '../TasksPage/HeaderBlock';
+import HeaderBlock from './HeaderBlock';
+import TaskItem from './TaskItem';
 
-const DisplayNextYearTasks = ({
+const DisplayThisYearTasks = ({
 	setSelectedTask,
 	openModal,
 	allTasks,
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
-	const [displayNextYearTasks, setDisplayNextYearTasks] = useState([]);
+	const [displayThisYearTasks, setDisplayThisYearTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
 	const updateExpandedBlocks = () => {
@@ -25,17 +25,16 @@ const DisplayNextYearTasks = ({
 			allTasks.userNextWeekTasks.length === 0 &&
 			allTasks.userNextWeekendTasks.length === 0 &&
 			allTasks.userThisMonthTasks.length === 0 &&
-			allTasks.userNextMonthTasks.length === 0 &&
-			allTasks.userThisYearTasks.length === 0
+			allTasks.userNextMonthTasks.length === 0
 		) {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
-				'next-year-tasks': true,
+				'this-year-tasks': true,
 			}));
 		} else {
 			setExpandedBlocks((prevState) => ({
 				...prevState,
-				'next-year-tasks': false,
+				'this-year-tasks': false,
 			}));
 		}
 	};
@@ -52,7 +51,6 @@ const DisplayNextYearTasks = ({
 		allTasks.userNextWeekendTasks,
 		allTasks.userThisMonthTasks,
 		allTasks.userNextMonthTasks,
-		allTasks.userThisYearTasks,
 	]);
 
 	const toggleBlock = (blockId) => {
@@ -63,43 +61,43 @@ const DisplayNextYearTasks = ({
 	};
 
 	useEffect(() => {
-		const updateDisplayNextYearTasks = async () => {
+		const updateDisplayThisYearTasks = async () => {
 			const updatedTasks = [];
 			await updateDisplayTasks(
-				allTasks.userNextYearTasks,
+				allTasks.userThisYearTasks,
 				workspaces,
 				updatedTasks
 			);
-			setDisplayNextYearTasks(updatedTasks);
+			setDisplayThisYearTasks(updatedTasks);
 		};
 
-		updateDisplayNextYearTasks();
-	}, [allTasks.userNextYearTasks]);
+		updateDisplayThisYearTasks();
+	}, [allTasks.userThisYearTasks]);
 
 	return (
 		<>
-			{allTasks.userNextYearTasks.length > 0 && (
+			{allTasks.userThisYearTasks.length > 0 && (
 				<div
-					id="next-year-tasks"
+					id="this-year-tasks"
 					className={`mb-4 rounded-md bg-white ${
-						expandedBlocks['next-year-tasks'] ? 'expanded' : ''
+						expandedBlocks['this-year-tasks'] ? 'expanded' : ''
 					}`}
-					onClick={() => toggleBlock('next-year-tasks')}>
+					onClick={() => toggleBlock('this-year-tasks')}>
 					<HeaderBlock
-						label="Année prochaine"
-						type={'next-year-tasks'}
+						label={'Cette année'}
+						type={'this-year-tasks'}
 						toggleBlock={toggleBlock}
 					/>
 
 					<div
 						className="task-list"
 						onClick={(e) => e.stopPropagation()}>
-						{displayNextYearTasks &&
-						displayNextYearTasks?.length > 0
-							? displayNextYearTasks
+						{displayThisYearTasks &&
+						displayThisYearTasks?.length > 0
+							? displayThisYearTasks
 									.filter(
 										(task) =>
-											task.category === 'next-year-tasks'
+											task.category === 'this-year-tasks'
 									)
 									.map((task, index) => (
 										<TaskItem
@@ -117,4 +115,4 @@ const DisplayNextYearTasks = ({
 	);
 };
 
-export default DisplayNextYearTasks;
+export default DisplayThisYearTasks;
