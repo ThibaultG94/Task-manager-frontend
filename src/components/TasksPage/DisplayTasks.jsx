@@ -33,8 +33,7 @@ import DisplayNextMonthTasks from './DisplayNextMonthTasks';
 import DisplayThisYearTasks from './DisplayThisYearTasks';
 import DisplayNextYearTasks from './DisplayNextYearTasks';
 import DisplayBecomingTasks from './DisplayBecomingTasks';
-
-import DisplayArchivedTasks from '../tasks/DisplayArchivedTasks';
+import DisplayArchivedTasks from './DisplayArchivedTasks';
 import HandleModalTask from '../ModalTask/HandleModalTask';
 
 const DisplayTasks = () => {

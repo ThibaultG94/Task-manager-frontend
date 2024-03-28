@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-
-import { useGetArchivedTasks } from '../../api/tasks/getArchivedTasks';
+import { selectCurrentArchivedPage } from '../../store/selectors/pagesSelectors';
 import {
 	selectArchivedTasks,
 	selectIsArchivedTasksLoaded,
 	selectTotalArchivedTasks,
 } from '../../store/selectors/taskSelectors';
-import TaskItem from '../TasksPage/TaskItem';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { useGetArchivedTasks } from '../../api/tasks/getArchivedTasks';
 import getUserId from '../../api/users/getUserId';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
-import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import HeaderBlock from '../TasksPage/HeaderBlock';
+import HeaderBlock from './HeaderBlock';
+import TaskItem from './TaskItem';
 import Pagination from '../../utils/Pagination';
-import { selectCurrentArchivedPage } from '../../store/selectors/pagesSelectors';
 
 const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
-
 	const currentArchivedTasks = useSelector(selectCurrentArchivedPage);
+	const userArchivedTasks = useSelector(selectArchivedTasks);
+	const totalArchivedTasks = useSelector(selectTotalArchivedTasks);
+	const workspaces = useSelector(selectWorkspaces);
+	const isArchivedTasksLoaded = useSelector(selectIsArchivedTasksLoaded);
+
+	const getArchivedTasks = useGetArchivedTasks();
+
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);
 	const [userId, setUserId] = useState(null);
-	const getArchivedTasks = useGetArchivedTasks();
+	
 	const [isArchivedTasksHasBeenCalled, setIsArchivedTasksHasBeenCalled] =
 		useState(false);
-	const userArchivedTasks = useSelector(selectArchivedTasks);
-	const totalArchivedTasks = useSelector(selectTotalArchivedTasks);
 	const [displayArchivedTasks, setDisplayArchivedTasks] = useState([]);
-	const workspaces = useSelector(selectWorkspaces);
-	const isArchivedTasksLoaded = useSelector(selectIsArchivedTasksLoaded);
 
 	const getId = async () => {
 		const id = await getUserId();
