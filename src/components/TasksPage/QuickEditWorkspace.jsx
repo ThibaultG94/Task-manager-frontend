@@ -11,7 +11,7 @@ import {
 } from '../../store/feature/editState.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
-import { useWindowWidth } from '../tasks/utils/useWindowWidth';
+import { useWindowWidth } from '../../utils/useWindowWidth';
 import { toast } from 'react-toastify';
 import { getInitials } from '../../utils/getInitials';
 import ArrowDown from '../Buttons/ArrowDown';
