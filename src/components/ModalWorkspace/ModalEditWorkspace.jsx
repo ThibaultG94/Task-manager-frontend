@@ -9,7 +9,6 @@ const ModalEditWorkspace = ({
 	setWorkspaceDataChange,
 }) => {
 	const handleSelectedMembersChange = (newSelectedMembers) => {
-		console.log(newSelectedMembers);
 		setSelectedMembers(
 			newSelectedMembers.map((option) => ({
 				id: option.value,
@@ -26,7 +25,6 @@ const ModalEditWorkspace = ({
 	};
 	
 	const handleRemoveMember = (memberId) => {
-		console.log(memberId);
 		setSelectedMembers(
 			selectedMembers.filter((member) => member.id !== memberId)
 		);
