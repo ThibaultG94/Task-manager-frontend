@@ -52,6 +52,7 @@ const ContactsSelect = ({
 				className="basic-multi-select"
 				classNamePrefix="select"
 				onChange={handleChange}
+				onRemove={handleRemoveMember}
 				value={getSelectedOptions()}
 				placeholder="Ajouter des membres..."
 			/>

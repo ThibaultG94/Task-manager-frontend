@@ -33,7 +33,7 @@ const WorkspaceManageModal = ({ userId, setIsWorkspaceModalOpen, tab }) => {
 			className="bg-modal-bg duration-300 ease-in-out fixed h-full text-black left-0 top-0 transition-all w-full z-10"
 			onClick={closeWorkspaceModal}>
 			<div
-				className="bg-white border border-gray-400 flex flex-col mx-auto my-modal-margin rounded-lg shadow-md min-w-72 sm:min-w-96 max-w-max"
+				className="bg-white border border-gray-400 flex flex-col mx-auto my-modal-margin rounded-lg shadow-md min-w-72 sm:min-w-96 max-w-screen-md"
 				onClick={(e) => e.stopPropagation()}>
 				<Tabs
 					tabs={tabData}

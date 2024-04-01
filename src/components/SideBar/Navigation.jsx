@@ -7,7 +7,6 @@ import { useGetSentOutWorkspaceInvitations } from '../../api/workspaceInvitation
 import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
 import CreateTaskAndWorkspace from './ModalTaskAndWorkspace/CreateTaskAndWorkspace';
 import InviteMemberModal from './InvitationModal/InviteMemberModal';
-
 import WorkspaceManageModal from './ModalWorkspace/WorkspaceManageModal';
 
 const Navigation = ({ userId }) => {

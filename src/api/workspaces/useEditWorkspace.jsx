@@ -28,6 +28,7 @@ export const useEditWorkspace = () => {
 		} catch (error) {
 			dispatch(editWorkspaceFailed(error));
 			errorApi(error);
+			console.error(error);
 			throw new Error('Échec de la mise à jour de la tâche');
 		}
 	};

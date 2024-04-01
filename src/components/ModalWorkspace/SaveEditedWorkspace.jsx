@@ -6,7 +6,6 @@ import {
 	setWorkspacesHasBeenUpdated,
 } from '../../store/feature/editState.slice';
 import { useEditWorkspace } from '../../api/workspaces/useEditWorkspace';
-import { useSendInvitationWorkspace } from '../../api/workspaceInvitations/useSendInvitationWorkspace';
 import { getAssignedUser } from '../../api/users/getAssignedUser';
 import { toast } from 'react-toastify';
 
@@ -20,7 +19,6 @@ const SaveEditedWorkspace = ({
 	const dispatch = useDispatch();
 	
 	const editWorkspace = useEditWorkspace();
-	const sendInvitationWorkspace = useSendInvitationWorkspace();
 
 	const [editedWorkspace, setEditedWorkspace] = useState(null);
 	const [member, setMember] = useState('');
@@ -34,12 +32,46 @@ const SaveEditedWorkspace = ({
 	}, [userId]);
 
 	useEffect(() => {
+		
+		// Create function to compare workspaceDataChange.members and selectedMembers
+		// to remove the members that are not in selectedMembers
+		// const removeMembersNotSelected = () => {
+		// 	const selectedMemberIds = selectedMembers.map((member) => member.userId);
+		// 	const filteredMembers = workspaceDataChange.members.filter((member) =>
+		// 	selectedMemberIds.includes(member.userId)
+		// 	);
+		// 	const newMembersArray = [
+		// 		...selectedMembers.map((member) => ({
+		// 			userId,
+		// 			contactId: member.id,
+		// 			role: 'member',
+		// 			workspaceId: editedWorkspace._id,
+		// 		})),
+		// 	];
+		// 	const membersArray = [
+		// 		{userId: userId, role: 'superadmin'},
+		// 		...newMembersArray,
+		// 	];
+		// 	setEditedWorkspace(() => ({
+		// 		_id: workspaceDataChange._id,
+		// 		title: workspaceDataChange.title,
+		// 		description: workspaceDataChange.description,
+		// 		members: membersArray,
+		// 		invitationStatus: workspaceDataChange.invitationStatus,
+		// 		isDefault: workspaceDataChange.isDefault,
+		// 	}));
+		// };
+		// removeMembersNotSelected();
+
 		const membersArray = [
-			...workspaceDataChange.members.map((member) => ({
-				userId: member.userId,
-				role: member.role ? member.role : 'member',
+			{userId: userId, role: 'superadmin'},
+			...selectedMembers.map((member) => ({
+				userId: member.id,
+				role: 'member',
 			})),
-		];
+		]
+
+		console.log(membersArray);	
 
 		setEditedWorkspace({
 			_id: workspaceDataChange._id,
@@ -53,21 +85,22 @@ const SaveEditedWorkspace = ({
 
 	const updateWorkspace = async () => {
 		try {
+			console.log(editedWorkspace);
 			await editWorkspace(editedWorkspace);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			dispatch(setWorkspacesHasBeenUpdated(true));
-			const membersArray = [
-				...selectedMembers.map((member) => ({
-					userId,
-					contactId: member.id,
-					role: 'member',
-					workspaceId: editedWorkspace._id,
-				})),
-			];
-			membersArray.forEach(async (member) => {
-				await sendInvitationWorkspace(member);
-			});
+			// const membersArray = [
+			// 	...selectedMembers.map((member) => ({
+			// 		userId,
+			// 		contactId: member.id,
+			// 		role: 'member',
+			// 		workspaceId: editedWorkspace._id,
+			// 	})),
+			// ];
+			// membersArray.forEach(async (member) => {
+			// 	await sendInvitationWorkspace(member);
+			// });
 			toast.success('Le workspace a été mise à jour avec succès !');
 		} catch (error) {
 			toast.error('Échec de la mise à jour du workspace.');
