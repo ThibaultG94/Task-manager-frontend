@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ContactsSelect from '../ModalForm/ContactsSelect';
 
 const ModalEditWorkspace = ({
@@ -26,10 +26,28 @@ const ModalEditWorkspace = ({
 	};
 	
 	const handleRemoveMember = (memberId) => {
+		console.log(memberId);
 		setSelectedMembers(
 			selectedMembers.filter((member) => member.id !== memberId)
 		);
+		setWorkspaceDataChange((prev) => ({
+			...prev,
+			members: selectedMembers.map((option) => ({
+				userId: option.value,
+				role: 'member',
+			})),
+		}));
 	};
+
+	useEffect(() => {
+		setWorkspaceDataChange((prev) => ({
+			...prev,
+			members: selectedMembers.map((option) => ({
+				userId: option.id,
+				role: 'member',
+			})),
+		}));
+	}, [selectedMembers]);
 
 	return (
 		<form
