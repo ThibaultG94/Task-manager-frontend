@@ -188,6 +188,7 @@ const ListWorkspaces = ({ userId }) => {
 					setIsEditingWorkspace={setIsEditingWorkspace}
 					selectedWorkspace={selectedWorkspace}
 					userId={userId}
+					isModalWorkspaceOpen={isModalWorkspaceOpen}
 				/>
 			)}
 		</div>

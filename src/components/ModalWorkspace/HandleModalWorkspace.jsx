@@ -14,6 +14,7 @@ const HandleModalWorkspace = ({
 	setIsEditingWorkspace,
 	selectedWorkspace,
 	userId,
+	isModalWorkspaceOpen,
 }) => {
 	const modalWorkspaceRef = useRef(null);
 	const userContacts = useSelector(selectUserContacts);
@@ -34,12 +35,21 @@ const HandleModalWorkspace = ({
 		setIsEditingWorkspace(true);
 	};
 
-	const handleCancelEditWorkspace = () => {
+	const handleCancelEditWorkspace = async () => {
 		setIsEditingWorkspace(false);
+		setWorkspaceDataChange({
+			_id: selectedWorkspace.workspaceId,
+			title: selectedWorkspace.title,
+			description: selectedWorkspace.description,
+			members: selectedWorkspace.members,
+			taskStatusCount: selectedWorkspace.taskStatusCount,
+			invitationStatus: selectedWorkspace.invitationStatus,
+			isDefault: selectedWorkspace.isDefault,
+		});
 	};
 
 	useEffect(() => {
-		if (!isEditingWorkspace) {
+		if (!isModalWorkspaceOpen) {
 			setWorkspaceDataChange({
 				_id: '',
 				title: '',
@@ -50,7 +60,7 @@ const HandleModalWorkspace = ({
 				isDefault: false,
 			});
 		}
-	}, [isEditingWorkspace]);
+	}, [isModalWorkspaceOpen]);
 
 	useEffect(() => {
 		setWorkspaceDataChange({
