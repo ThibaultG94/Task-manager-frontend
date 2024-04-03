@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectEarlierNotifications,
 	selectNewNotifications,
 } from '../../store/selectors/notificationSelectors';
+import { setEditedTask, setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { useMarkNotificationsAsViewed } from '../../api/notifications/useMarkNotificationsAsViewed';
 import { useMarkNotificationAsRead } from '../../api/notifications/useMarkNotificationAsRead';
 import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
+import { useGetTask } from '../../api/tasks/useGetTask';
 import NotificationsMenu from './NotificationsMenu';
 import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
+import HandleModalTask from '../ModalTask/HandleModalTask';
+import useCheckIfEdited from '../../utils/useCheckIfEdited';
+import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
 
 const HeaderNotifications = ({ userId }) => {
+	const dispatch = useDispatch();
 	const receivedNewNotifications = useSelector(selectNewNotifications);
 	const receivedEarlierNotifications = useSelector(
 		selectEarlierNotifications
@@ -20,27 +26,66 @@ const HeaderNotifications = ({ userId }) => {
 	const markNotificationAsRead = useMarkNotificationAsRead();
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
+	const getTask = useGetTask();
 	const [hasNewNotification, setHasNewNotification] = useState(0);
 	const [unreadNotifications, setUnreadNotifications] = useState([]);
 	const [readedNotifications, setReadedNotifications] = useState([]);
 	const [showNotifications, setShowNotifications] = useState(false);
+	const [selectedTask, setSelectedTask] = useState(null);
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
+	const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+	const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
 	const [tab, setTab] = useState('tab1');
+
+	const checkIfEdited = useCheckIfEdited({
+		setIsModalOpen,
+		setIsEditing,
+		selectedTask,
+		formatTaskForEditing,
+		setInitialEditedTask,
+	});
 
 	const markAsViewed = async (notificationsIds) => {
 		await markNotificationsAsViewed(userId, notificationsIds);
 	};
 
+	const getTaskDetails = async (taskId) => {
+		const task = await getTask(taskId);
+		setSelectedTask(task);
+		dispatch(setEditedTask(task));
+		setIsTaskModalOpen(true);
+	};
+
 	const markAsRead = async (notification) => {
-		if (!notification.read)
+		if (!notification.read) {
 			await markNotificationAsRead(userId, notification._id);
-		setIsInvitationModalOpen(true);
-		if (notification.message.includes('envoyé')) {
-			setTab('tab3');
-		} else if (notification.message.includes('accepté')) {
-			setTab('tab2');
-		} else {
-			console.error("Can't find tab");
+		}
+		switch (notification.type) {
+			case 'invitationUpdate':
+				setIsInvitationModalOpen(true);
+				break;
+			case 'taskUpdate':
+				getTaskDetails(notification.taskId);
+				break;
+			case 'taskCreation':
+				getTaskDetails(notification.taskId);
+				break;
+			case 'workspaceUpdate':
+				setIsWorkspaceModalOpen(true);
+				break;
+			default:
+				console.error('Notification type not found');
+		}
+		if (notification.type === 'invitationUpdate') {
+			if (notification.message.includes('envoyé')) {
+				setTab('tab3');
+			} else if (notification.message.includes('accepté')) {
+				setTab('tab2');
+			} else {
+				console.error("Can't find tab");
+			}
 		}
 	};
 
@@ -56,6 +101,10 @@ const HeaderNotifications = ({ userId }) => {
 		} else if (!showNotifications) {
 			setShowNotifications(true);
 		}
+	};
+
+	const closeModal = async () => {
+		await checkIfEdited();
 	};
 
 	useEffect(() => {
@@ -83,6 +132,17 @@ const HeaderNotifications = ({ userId }) => {
 			getReceivedInvitations(userId);
 		}
 	}, [isInvitationModalOpen]);
+
+	useEffect(() => {
+		const resetEditedTask = async () => {
+			const formattedTask = await formatTaskForEditing(selectedTask);
+			if (formattedTask) {
+				dispatch(setInitialEditedTask(formattedTask));
+				console.log('resetEditedTask', formattedTask);
+			}
+		};
+		resetEditedTask();
+	}, [selectedTask]);
 
 	return (
 		<div
@@ -113,6 +173,15 @@ const HeaderNotifications = ({ userId }) => {
 					userId={userId}
 					setIsInvitationModalOpen={setIsInvitationModalOpen}
 					tab={tab}
+				/>
+			)}
+
+			{isTaskModalOpen && (
+				<HandleModalTask
+					closeModal={closeModal}
+					setIsModalOpen={setIsTaskModalOpen}
+					isEditing={isEditing}
+					setIsEditing={setIsEditing}
 				/>
 			)}
 		</div>

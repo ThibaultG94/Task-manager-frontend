@@ -1,193 +1,198 @@
-import { createSelector } from '@reduxjs/toolkit';
+import { createSelector } from "@reduxjs/toolkit";
 
 const selectTasksState = (state) => state.tasks;
 
+export const selectTask = createSelector(
+  [selectTasksState],
+  (tasks) => tasks.task
+);
+
 export const selectTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.tasks
+  [selectTasksState],
+  (tasks) => tasks.singleTasks
 );
 
 export const selectIsTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isTasksLoaded
 );
 
 export const selectUrgentTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.urgentTasks
+  [selectTasksState],
+  (tasks) => tasks.urgentTasks
 );
 
 export const selectIsUrgentTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isUrgentTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isUrgentTasksLoaded
 );
 
 export const selectWorkspaceTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.workspaceTasks
+  [selectTasksState],
+  (tasks) => tasks.workspaceTasks
 );
 
 export const selectIsWorkspaceTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isWorkspaceTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isWorkspaceTasksLoaded
 );
 
 export const selectWorkspaceTaskStatusCount = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.workspaceTaskStatusCount
+  [selectTasksState],
+  (tasks) => tasks.workspaceTaskStatusCount
 );
 
 export const selectWorkspaceTaskStatusCountLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.workspaceTaskStatusCountLoaded
+  [selectTasksState],
+  (tasks) => tasks.workspaceTaskStatusCountLoaded
 );
 
 export const selectOverdueTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.overdueTasks
+  [selectTasksState],
+  (tasks) => tasks.overdueTasks
 );
 
 export const selectIsOverdueTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isOverdueTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isOverdueTasksLoaded
 );
 
 export const selectTodayTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.todayTasks
+  [selectTasksState],
+  (tasks) => tasks.todayTasks
 );
 
 export const selectIsTodayTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isTodayTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isTodayTasksLoaded
 );
 
 export const selectTomorrowTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.tomorrowTasks
+  [selectTasksState],
+  (tasks) => tasks.tomorrowTasks
 );
 
 export const selectIsTomorrowTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isTomorrowTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isTomorrowTasksLoaded
 );
 
 export const selectThisWeekTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.thisWeekTasks
+  [selectTasksState],
+  (tasks) => tasks.thisWeekTasks
 );
 
 export const selectIsThisWeekTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isThisWeekTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isThisWeekTasksLoaded
 );
 
 export const selectThisWeekendTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.thisWeekendTasks
+  [selectTasksState],
+  (tasks) => tasks.thisWeekendTasks
 );
 
 export const selectIsThisWeekendTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isThisWeekendTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isThisWeekendTasksLoaded
 );
 
 export const selectNextWeekTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.nextWeekTasks
+  [selectTasksState],
+  (tasks) => tasks.nextWeekTasks
 );
 
 export const selectIsNextWeekTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isNextWeekTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isNextWeekTasksLoaded
 );
 
 export const selectNextWeekendTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.nextWeekendTasks
+  [selectTasksState],
+  (tasks) => tasks.nextWeekendTasks
 );
 
 export const selectIsNextWeekendTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isNextWeekendTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isNextWeekendTasksLoaded
 );
 
 export const selectThisMonthTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.thisMonthTasks
+  [selectTasksState],
+  (tasks) => tasks.thisMonthTasks
 );
 
 export const selectIsThisMonthTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isThisMonthTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isThisMonthTasksLoaded
 );
 
 export const selectNextMonthTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.nextMonthTasks
+  [selectTasksState],
+  (tasks) => tasks.nextMonthTasks
 );
 
 export const selectIsNextMonthTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isNextMonthTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isNextMonthTasksLoaded
 );
 
 export const selectThisYearTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.thisYearTasks
+  [selectTasksState],
+  (tasks) => tasks.thisYearTasks
 );
 
 export const selectIsThisYearTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isThisYearTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isThisYearTasksLoaded
 );
 
 export const selectNextYearTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.nextYearTasks
+  [selectTasksState],
+  (tasks) => tasks.nextYearTasks
 );
 
 export const selectIsNextYearTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isNextYearTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isNextYearTasksLoaded
 );
 
 export const selectBecomingTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.becomingTasks
+  [selectTasksState],
+  (tasks) => tasks.becomingTasks
 );
 
 export const selectIsBecomingTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isBecomingTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isBecomingTasksLoaded
 );
 
 export const selectArchivedTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.archivedTasks
+  [selectTasksState],
+  (tasks) => tasks.archivedTasks
 );
 
 export const selectIsArchivedTasksLoaded = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.isArchivedTasksLoaded
+  [selectTasksState],
+  (tasks) => tasks.isArchivedTasksLoaded
 );
 
 export const selectTotalArchivedTasks = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.totalArchivedTasks
+  [selectTasksState],
+  (tasks) => tasks.totalArchivedTasks
 );
 
 export const selectTasksLoading = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.loading
+  [selectTasksState],
+  (tasks) => tasks.loading
 );
 
 export const selectTasksError = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.error
+  [selectTasksState],
+  (tasks) => tasks.error
 );
 
 export const selectEditedTask = createSelector(
-	[selectTasksState],
-	(tasks) => tasks.editedTask
+  [selectTasksState],
+  (tasks) => tasks.editedTask
 );
