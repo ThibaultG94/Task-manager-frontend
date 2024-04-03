@@ -12,7 +12,6 @@ import { useCreateTask } from '../../../api/tasks/useCreateTask';
 import { useTasksHasBeenUpdated } from '../../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 
-
 const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const createTask = useCreateTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();

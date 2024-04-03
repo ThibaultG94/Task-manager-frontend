@@ -7,12 +7,14 @@ import {
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
+import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
 
 const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 	const dispatch = useDispatch();
 
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	const setTaskNotification = useSetTaskNotification();
 	
 	const [editedTask, setEditedTask] = useState(null);
 
@@ -36,6 +38,7 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
+			await setTaskNotification(editedTask, editedTask.assignedTo);
 			toast.success('La tâche a été mise à jour avec succès !');
 		} catch (error) {
 			toast.error('Échec de la mise à jour de la tâche.');
