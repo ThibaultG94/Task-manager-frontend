@@ -10,8 +10,6 @@ const MemberSelect = ({
 		if (workspaceMembers && workspaceMembers.length === 1) {
 			setSelectedMember(workspaceMembers[0].userId);
 		}
-		console.log('workspaceMembers', workspaceMembers);
-		console.log(selectedMember);
 	}, [workspaceMembers, setSelectedMember]);
 
 	return (
