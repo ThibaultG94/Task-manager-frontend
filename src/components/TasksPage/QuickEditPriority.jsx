@@ -9,6 +9,8 @@ import {
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
+import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
+import getUserId from '../../api/users/getUserId';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ArrowDown from '../Buttons/ArrowDown';
@@ -21,6 +23,7 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	const setTaskNotification = useSetTaskNotification();
 
 	const inputPriorityRef = useRef(null);
 
@@ -35,12 +38,15 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 		const newPriority = priority;
 		dispatch(setEditedTask({ priority: newPriority }));
 		try {
+			const userId = await getUserId();
+
 			await editTask({ ...editedTask, priority: newPriority });
 
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
+			await setTaskNotification(editedTask, userId);
 
 			toast.success(
 				'La priorité de la tâche a été mise à jour avec succès !'

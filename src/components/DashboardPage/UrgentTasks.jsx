@@ -4,6 +4,8 @@ import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
+import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
+import getUserId from '../../api/users/getUserId';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import useCheckIfEdited from '../../utils/useCheckIfEdited';
 import { formatDateForDisplay } from '../../utils/formatDateForDisplay';
@@ -18,6 +20,7 @@ const UrgentTasks = () => {
 	const urgentTasks = useSelector(selectUrgentTasks);
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	const setTaskNotification = useSetTaskNotification();
 	
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
@@ -46,8 +49,15 @@ const UrgentTasks = () => {
 		const newStatus = 'Archived';
 
 		try {
+			const userId = await getUserId();
+			const editedTask = {
+				status: newStatus,
+				_id: task.taskId,
+			}
 			await editTask({ status: newStatus, _id: task.taskId });
 			await tasksHasBeenUpdated(task, task.category);
+			await setTaskNotification(editedTask, userId);
+
 			toast.success('La tâche a été archivée avec succès !');
 		} catch (error) {
 			toast.error("Échec de l'archivage de la tâche.");

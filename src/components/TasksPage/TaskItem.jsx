@@ -1,5 +1,7 @@
 import React from 'react';
 import { useEditTask } from '../../api/tasks/useEditTask';
+import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
+import getUserId from '../../api/users/getUserId';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ButtonToGrab from '../Buttons/ButtonToGrab';
@@ -13,14 +15,21 @@ import ButtonToEditTaskInModal from '../Buttons/ButtonToEditTaskInModal';
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	const setTaskNotification = useSetTaskNotification();
 
 	const validateTask = async (e, task) => {
 		e.stopPropagation();
 		const newStatus = 'Archived';
 
 		try {
+			const userId = await getUserId();
+			const editedTask = {
+				status: newStatus,
+				_id: task.taskId,
+			}
 			await editTask({ status: newStatus, _id: task.taskId });
 			await tasksHasBeenUpdated(task, task.category);
+			await setTaskNotification(editedTask, userId);
 			toast.success('La tâche a été archivée avec succès !');
 		} catch (error) {
 			toast.error("Échec de l'archivage de la tâche.");

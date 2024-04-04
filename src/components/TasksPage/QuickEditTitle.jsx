@@ -10,6 +10,8 @@ import {
 } from '../../store/feature/editState.slice';
 import { setEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
+import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
+import getUserId from '../../api/users/getUserId';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import CloseTitle from '../Buttons/CloseTitle';
@@ -21,6 +23,7 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	const setTaskNotification = useSetTaskNotification();
 
 	const inputTitleRef = useRef(null);
 
@@ -44,10 +47,12 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 		}
 		dispatch(setEditedTask({ title: newTitle }));
 		try {
+			const userId = await getUserId();
 			await editTask({ ...editedTask, title: newTitle });
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
+			await setTaskNotification(editedTask, userId);
 			toast.success(
 				'Le titre de la tâche a été mise à jour avec succès !'
 			);

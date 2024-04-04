@@ -10,6 +10,8 @@ import {
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
+import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
+import getUserId from '../../api/users/getUserId';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { useWindowWidth } from '../../utils/useWindowWidth';
 import { toast } from 'react-toastify';
@@ -25,6 +27,7 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	const setTaskNotification = useSetTaskNotification();
 
 	const inputWorkspaceRef = useRef(null);
 	const screenWidth = useWindowWidth();
@@ -41,10 +44,13 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 		const newWorkspace = workspaceId;
 		dispatch(setEditedTask({ workspace: newWorkspace }));
 		try {
+			const userId = await getUserId();
+
 			await editTask({ ...editedTask, workspaceId: newWorkspace });
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
+			await setTaskNotification(editedTask, userId);
 			toast.success(
 				'Le workspace de la tâche a été mise à jour avec succès !'
 			);

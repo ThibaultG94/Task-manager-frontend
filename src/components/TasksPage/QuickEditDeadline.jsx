@@ -11,6 +11,8 @@ import {
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
+import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
+import getUserId from '../../api/users/getUserId';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import useWindowSize from '../../utils/useWindowSize';
 import { inverseDateFormat, formatDateForResponsive, formatDateArchived } from '../../utils/dateFormatTools';
@@ -24,6 +26,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
+	const setTaskNotification = useSetTaskNotification();
 	
 	const [width] = useWindowSize();
 	const isLargeScreen = width > 1023;
@@ -57,6 +60,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 	const handleSubmitDeadline = async (newDeadline) => {
 		dispatch(setEditedTask({ deadline: newDeadline }));
 		try {
+			const userId = await getUserId();
 			await editTask({ ...editedTask, deadline: newDeadline });
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
@@ -64,6 +68,7 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 				{ ...editedTask, deadline: newDeadline },
 				editedTask.category
 			);
+			await setTaskNotification(editedTask, userId);
 			toast.success(
 				'La deadline de la tâche a été mise à jour avec succès !'
 			);
