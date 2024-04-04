@@ -8,6 +8,7 @@ import { useEditTask } from '../../api/tasks/useEditTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
+import getUserId from '../../api/users/getUserId';
 
 const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 	const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
-	
+
 	const [editedTask, setEditedTask] = useState(null);
 
 	useEffect(() => {
@@ -34,11 +35,12 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 
 	const updateTask = async () => {
 		try {
+			const userId = await getUserId();
 			await editTask(editedTask);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
-			await setTaskNotification(editedTask, editedTask.assignedTo);
+			await setTaskNotification(editedTask, userId);
 			toast.success('La tâche a été mise à jour avec succès !');
 		} catch (error) {
 			toast.error('Échec de la mise à jour de la tâche.');
