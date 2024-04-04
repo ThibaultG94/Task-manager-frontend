@@ -41,6 +41,10 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 		}));
 	}, [editedTask]);
 
+	useEffect(() => {
+		setSelectedMember(taskData.selectedMember.userId);
+	}, [taskData]);
+
 	return (
 		<form
 			className="max-w-lg mx-auto pl-2 pr-0 md:pl-4 md:pr-2 rounded-lg"
