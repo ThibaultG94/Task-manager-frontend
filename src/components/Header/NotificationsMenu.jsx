@@ -8,9 +8,9 @@ const NotificationsMenu = ({
 	readedNotifications,
 	setShowNotifications,
 	onRead,
+	openNotificationsModal,
+	setOpenNotificationsModal,
 }) => {
-	const [openNotificationsModal, setOpenNotificationsModal] = useState(false);
-
 	const handleNotificationsModal = () => {
 		if (openNotificationsModal) {
 			setOpenNotificationsModal(false);

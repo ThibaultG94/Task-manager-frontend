@@ -38,6 +38,7 @@ const HeaderNotifications = ({ userId }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [tab, setTab] = useState('tab1');
+	const [openNotificationsModal, setOpenNotificationsModal] = useState(false);
 
 	const checkIfEdited = useCheckIfEdited({
 		setIsModalOpen,
@@ -71,6 +72,10 @@ const HeaderNotifications = ({ userId }) => {
 				break;
 			case 'taskCreation':
 				getTaskDetails(notification.taskId);
+				break;
+			case 'taskDelation':
+				setOpenNotificationsModal(true);
+				console.log('Task deleted');
 				break;
 			case 'workspaceUpdate':
 				setIsWorkspaceModalOpen(true);
@@ -165,6 +170,8 @@ const HeaderNotifications = ({ userId }) => {
 					readedNotifications={readedNotifications}
 					setShowNotifications={setShowNotifications}
 					onRead={markAsRead}
+					openNotificationsModal={openNotificationsModal}
+					setOpenNotificationsModal={setOpenNotificationsModal}
 				/>
 			)}
 
