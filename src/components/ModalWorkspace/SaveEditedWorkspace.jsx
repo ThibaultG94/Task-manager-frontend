@@ -6,6 +6,7 @@ import {
 	setWorkspacesHasBeenUpdated,
 } from '../../store/feature/editState.slice';
 import { useEditWorkspace } from '../../api/workspaces/useEditWorkspace';
+import { useSetWorkspaceNotification } from '../../api/notifications/useSetWorkspaceNotification';
 import { toast } from 'react-toastify';
 
 const SaveEditedWorkspace = ({
@@ -18,6 +19,7 @@ const SaveEditedWorkspace = ({
 	const dispatch = useDispatch();
 	
 	const editWorkspace = useEditWorkspace();
+	const setWorkspaceNotification = useSetWorkspaceNotification();
 
 	const [editedWorkspace, setEditedWorkspace] = useState(null);
 
@@ -46,6 +48,8 @@ const SaveEditedWorkspace = ({
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			dispatch(setWorkspacesHasBeenUpdated(true));
+			await setWorkspaceNotification(editedWorkspace, userId);
+
 			toast.success('Le workspace a été mise à jour avec succès !');
 		} catch (error) {
 			toast.error('Échec de la mise à jour du workspace.');
