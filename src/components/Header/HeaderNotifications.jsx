@@ -33,9 +33,8 @@ const HeaderNotifications = ({ userId }) => {
 	const [showNotifications, setShowNotifications] = useState(false);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
-	const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
-	const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [tab, setTab] = useState('tab1');
 	const [openNotificationsModal, setOpenNotificationsModal] = useState(false);
@@ -56,7 +55,7 @@ const HeaderNotifications = ({ userId }) => {
 		const task = await getTask(taskId);
 		setSelectedTask(task);
 		dispatch(setEditedTask(task));
-		setIsTaskModalOpen(true);
+		setIsModalOpen(true);
 	};
 
 	const markAsRead = async (notification) => {
@@ -183,10 +182,10 @@ const HeaderNotifications = ({ userId }) => {
 				/>
 			)}
 
-			{isTaskModalOpen && (
+			{isModalOpen && (
 				<HandleModalTask
 					closeModal={closeModal}
-					setIsModalOpen={setIsTaskModalOpen}
+					setIsModalOpen={setIsModalOpen}
 					isEditing={isEditing}
 					setIsEditing={setIsEditing}
 				/>
