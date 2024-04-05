@@ -19,7 +19,7 @@ export const useEditTask = () => {
 			const res = await axios.put(`${API_URL}/tasks/${task._id}`, task, {
 				withCredentials: true,
 			});
-			dispatch(editTaskSuccess(res.data.task));
+			// dispatch(editTaskSuccess(res.data.task));
 			return res.data.task;
 		} catch (error) {
 			dispatch(editTaskFailed(error));

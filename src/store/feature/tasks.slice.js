@@ -324,7 +324,7 @@ export const tasksSlice = createSlice({
     },
     deleteTaskSuccess: (state, action) => {
       state.loading = false;
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+      state.tasks = state.tasks.filter((task) => task._id !== action.payload);
       state.error = null;
     },
     deleteTaskFailed: (state, action) => {

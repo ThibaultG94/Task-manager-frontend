@@ -19,7 +19,6 @@ export const useDeleteTask = () => {
 			const res = await axios.delete(`${API_URL}/tasks/${taskId}`, {
 				withCredentials: true,
 			});
-			dispatch(deleteTaskSuccess(res.data));
 			return res.data;
 		} catch (error) {
 			dispatch(deleteTaskFailed(error));
