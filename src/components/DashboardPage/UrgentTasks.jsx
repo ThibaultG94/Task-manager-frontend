@@ -13,6 +13,7 @@ import { getCategoryDay } from '../../utils/getCategoryDay';
 import { toast } from 'react-toastify';
 import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
 import HandleModalTask from '../ModalTask/HandleModalTask';
+import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const UrgentTasks = () => {
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
+	const getWorkspace = useGetWorkspace();
 	
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
@@ -44,9 +46,31 @@ const UrgentTasks = () => {
 		await checkIfEdited();
 	};
 
+	const checkIfTheUserCanArchiveTask = async (task) => {
+		const userId = await getUserId();
+		const workspace = await getWorkspace(task.workspace);
+		const isSuperAdmin = workspace.members.some(
+			(member) =>
+				member.userId === userId &&
+				member.role === 'superadmin'
+		);
+		const isAdmin = workspace.members.some(
+			(member) =>
+				member.userId === userId &&
+				member.role === 'admin'
+		);
+		const isTaskOwner = task.userId === userId;
+
+		if (isSuperAdmin || isAdmin || isTaskOwner) return true;
+
+		return false;
+	};
+
 	const validateTask = async (e, task) => {
 		e.stopPropagation();
-		const newStatus = 'Archived';
+		let newStatus = "Completed";
+		const canArchiveTask = await checkIfTheUserCanArchiveTask(task);
+		if (canArchiveTask) newStatus = 'Archived';
 
 		try {
 			const userId = await getUserId();
@@ -58,7 +82,8 @@ const UrgentTasks = () => {
 			await tasksHasBeenUpdated(task, task.category);
 			await setTaskNotification(editedTask, userId);
 
-			toast.success('La tâche a été archivée avec succès !');
+			if (canArchiveTask) toast.success('La tâche a été archivée avec succès !');
+			if (!canArchiveTask) toast.success('La tâche a été marquée comme complétée avec succès !');
 		} catch (error) {
 			toast.error("Échec de l'archivage de la tâche.");
 		}
