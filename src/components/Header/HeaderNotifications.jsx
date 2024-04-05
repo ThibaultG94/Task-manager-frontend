@@ -21,6 +21,7 @@ import HandleModalWorkspace from '../ModalWorkspace/HandleModalWorkspace';
 import useCheckIfEditedWorkspace from '../../utils/useCheckIfEditedWorkspace';
 import WorkspaceManageModal from '../SideBar/ModalWorkspace/WorkspaceManageModal';
 import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
+import { useGetSentOutWorkspaceInvitations } from '../../api/workspaceInvitations/useGetSentOutWorkspaceInvitations';
 
 const HeaderNotifications = ({ userId }) => {
 	const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const HeaderNotifications = ({ userId }) => {
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
 	const getReceivedWorkspaceInvitations = useGetReceivedWorkspaceInvitations();
+	const getSentOutWorkspaceInvitations = useGetSentOutWorkspaceInvitations();
 	const getTask = useGetTask();
 	const getWorkspace = useGetWorkspace();
 
@@ -97,13 +99,13 @@ const HeaderNotifications = ({ userId }) => {
 		if (!notification.read) {
 			await markNotificationAsRead(userId, notification._id);
 		}
-		console.log('notification', notification);
 		switch (notification.type) {
 			case 'invitationUpdate':
 				setIsInvitationModalOpen(true);
 				break;
 			case 'workspaceInvitation':
 				getReceivedWorkspaceInvitations(userId);
+				getSentOutWorkspaceInvitations(userId);
 				setIsWorkspaceInvitationModalOpen(true);
 				break;
 			case 'taskUpdate':
@@ -135,7 +137,7 @@ const HeaderNotifications = ({ userId }) => {
 		} else if (notification.type === 'workspaceInvitation') {
 			if (notification.message.includes('envoyé')) {
 				setTab('tab3');
-			} else if (notification.message.includes('accepté')) {
+			} else if (notification.message.includes('rejoint')) {
 				setTab('tab2');
 			} else {
 				console.error("Can't find tab");
