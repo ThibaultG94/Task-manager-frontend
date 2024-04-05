@@ -28,7 +28,7 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 			deadline: taskData.deadline,
 			description: taskData.description,
 			workspaceId: taskData.selectedWorkspace,
-			assignedTo: taskData.selectedMember,
+			assignedTo: [taskData.selectedMember],
 			category: taskData.category,
 		});
 	}, [taskData]);
