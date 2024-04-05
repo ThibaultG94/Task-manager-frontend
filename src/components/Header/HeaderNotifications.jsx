@@ -10,11 +10,15 @@ import { useMarkNotificationAsRead } from '../../api/notifications/useMarkNotifi
 import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
 import { useGetTask } from '../../api/tasks/useGetTask';
+import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import NotificationsMenu from './NotificationsMenu';
 import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
 import HandleModalTask from '../ModalTask/HandleModalTask';
 import useCheckIfEdited from '../../utils/useCheckIfEdited';
 import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
+import { setInitialEditedWorkspace } from '../../store/feature/workspaces.slice';
+import HandleModalWorkspace from '../ModalWorkspace/HandleModalWorkspace';
+import useCheckIfEditedWorkspace from '../../utils/useCheckIfEditedWorkspace';
 
 const HeaderNotifications = ({ userId }) => {
 	const dispatch = useDispatch();
@@ -27,15 +31,19 @@ const HeaderNotifications = ({ userId }) => {
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
 	const getTask = useGetTask();
+	const getWorkspace = useGetWorkspace();
+
 	const [hasNewNotification, setHasNewNotification] = useState(0);
 	const [unreadNotifications, setUnreadNotifications] = useState([]);
 	const [readedNotifications, setReadedNotifications] = useState([]);
 	const [showNotifications, setShowNotifications] = useState(false);
 	const [selectedTask, setSelectedTask] = useState(null);
+	const [selectedWorkspace, setSelectedWorkspace] = useState(null);
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState(false);
+	const [isModalWorkspaceOpen, setIsModalWorkspaceOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
+	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
 	const [tab, setTab] = useState('tab1');
 	const [openNotificationsModal, setOpenNotificationsModal] = useState(false);
 
@@ -47,6 +55,12 @@ const HeaderNotifications = ({ userId }) => {
 		setInitialEditedTask,
 	});
 
+	const checkIfEditedWorkspace = useCheckIfEditedWorkspace({
+		setIsModalWorkspaceOpen,
+		setIsEditingWorkspace,
+		selectedWorkspace,
+	});
+
 	const markAsViewed = async (notificationsIds) => {
 		await markNotificationsAsViewed(userId, notificationsIds);
 	};
@@ -56,6 +70,23 @@ const HeaderNotifications = ({ userId }) => {
 		setSelectedTask(task);
 		dispatch(setEditedTask(task));
 		setIsModalOpen(true);
+	};
+
+	const getWorkspaceDetails = async (workspaceId) => {
+		const workspace = await getWorkspace(workspaceId);
+		const formattedWorkspace = {
+			_id: workspace._id,
+			title: workspace.title,
+			description: workspace.description,
+			members: workspace.members,
+			membersName: workspace.members.map((member) => member?.username),
+			creator: workspace.creator,
+			createdAt: workspace.createdAt,
+			updatedAt: workspace.updatedAt,
+		};
+		setSelectedWorkspace(formattedWorkspace);
+		dispatch(setInitialEditedWorkspace(formattedWorkspace));
+		setIsModalWorkspaceOpen(true);
 	};
 
 	const markAsRead = async (notification) => {
@@ -74,10 +105,9 @@ const HeaderNotifications = ({ userId }) => {
 				break;
 			case 'taskDelation':
 				setOpenNotificationsModal(true);
-				console.log('Task deleted');
 				break;
 			case 'workspaceUpdate':
-				setIsWorkspaceModalOpen(true);
+				getWorkspaceDetails(notification.workspaceId);
 				break;
 			default:
 				console.error('Notification type not found');
@@ -111,6 +141,10 @@ const HeaderNotifications = ({ userId }) => {
 		await checkIfEdited();
 	};
 
+	const closeModalWorkspace = async () => {
+		await checkIfEditedWorkspace();
+	};
+
 	useEffect(() => {
 		if (receivedNewNotifications && receivedNewNotifications.length > 0) {
 			const unviewedCount = receivedNewNotifications.filter(
@@ -142,7 +176,6 @@ const HeaderNotifications = ({ userId }) => {
 			const formattedTask = await formatTaskForEditing(selectedTask);
 			if (formattedTask) {
 				dispatch(setInitialEditedTask(formattedTask));
-				console.log('resetEditedTask', formattedTask);
 			}
 		};
 		resetEditedTask();
@@ -188,6 +221,18 @@ const HeaderNotifications = ({ userId }) => {
 					setIsModalOpen={setIsModalOpen}
 					isEditing={isEditing}
 					setIsEditing={setIsEditing}
+				/>
+			)}
+
+			{isModalWorkspaceOpen && (
+				<HandleModalWorkspace
+					closeModalWorkspace={closeModalWorkspace}
+					setIsModalWorkspaceOpen={setIsModalWorkspaceOpen}
+					isEditingWorkspace={isEditingWorkspace}
+					setIsEditingWorkspace={setIsEditingWorkspace}
+					selectedWorkspace={selectedWorkspace}
+					userId={userId}
+					isModalWorkspaceOpen={isModalWorkspaceOpen}
 				/>
 			)}
 		</div>
