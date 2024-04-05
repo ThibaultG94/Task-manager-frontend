@@ -13,6 +13,7 @@ export const useSetTaskNotification = () => {
 					creatorId: userId,
 					taskId: task._id,
 					type: 'taskUpdate',
+					workspaceId: task.workspaceId,
 				},
 				{
 					withCredentials: true,

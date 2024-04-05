@@ -19,6 +19,8 @@ import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
 import { setInitialEditedWorkspace } from '../../store/feature/workspaces.slice';
 import HandleModalWorkspace from '../ModalWorkspace/HandleModalWorkspace';
 import useCheckIfEditedWorkspace from '../../utils/useCheckIfEditedWorkspace';
+import WorkspaceManageModal from '../SideBar/ModalWorkspace/WorkspaceManageModal';
+import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
 
 const HeaderNotifications = ({ userId }) => {
 	const dispatch = useDispatch();
@@ -30,6 +32,7 @@ const HeaderNotifications = ({ userId }) => {
 	const markNotificationAsRead = useMarkNotificationAsRead();
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
+	const getReceivedWorkspaceInvitations = useGetReceivedWorkspaceInvitations();
 	const getTask = useGetTask();
 	const getWorkspace = useGetWorkspace();
 
@@ -40,6 +43,7 @@ const HeaderNotifications = ({ userId }) => {
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [selectedWorkspace, setSelectedWorkspace] = useState(null);
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
+	const [isWorkspaceInvitationModalOpen, setIsWorkspaceInvitationModalOpen] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isModalWorkspaceOpen, setIsModalWorkspaceOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
@@ -93,9 +97,14 @@ const HeaderNotifications = ({ userId }) => {
 		if (!notification.read) {
 			await markNotificationAsRead(userId, notification._id);
 		}
+		console.log('notification', notification);
 		switch (notification.type) {
 			case 'invitationUpdate':
 				setIsInvitationModalOpen(true);
+				break;
+			case 'workspaceInvitation':
+				getReceivedWorkspaceInvitations(userId);
+				setIsWorkspaceInvitationModalOpen(true);
 				break;
 			case 'taskUpdate':
 				getTaskDetails(notification.taskId);
@@ -109,10 +118,21 @@ const HeaderNotifications = ({ userId }) => {
 			case 'workspaceUpdate':
 				getWorkspaceDetails(notification.workspaceId);
 				break;
+			case 'workspaceDelation':
+				setOpenNotificationsModal(true);
+				break;
 			default:
 				console.error('Notification type not found');
 		}
 		if (notification.type === 'invitationUpdate') {
+			if (notification.message.includes('envoyé')) {
+				setTab('tab3');
+			} else if (notification.message.includes('accepté')) {
+				setTab('tab2');
+			} else {
+				console.error("Can't find tab");
+			}
+		} else if (notification.type === 'workspaceInvitation') {
 			if (notification.message.includes('envoyé')) {
 				setTab('tab3');
 			} else if (notification.message.includes('accepté')) {
@@ -213,6 +233,14 @@ const HeaderNotifications = ({ userId }) => {
 					setIsInvitationModalOpen={setIsInvitationModalOpen}
 					tab={tab}
 				/>
+			)}
+
+			{isWorkspaceInvitationModalOpen && (
+				<WorkspaceManageModal
+					userId={userId}
+					setIsWorkspaceModalOpen={setIsWorkspaceInvitationModalOpen}
+					tab={tab}
+			/>
 			)}
 
 			{isModalOpen && (
