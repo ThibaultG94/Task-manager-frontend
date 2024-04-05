@@ -15,38 +15,6 @@ const DisplayNextWeekendTasks = ({
 	const [displayNextWeekendTasks, setDisplayNextWeekendTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
 
-	const updateExpandedBlocks = () => {
-		if (
-			allTasks.userOverdueTasks.length === 0 &&
-			allTasks.userTodayTasks.length === 0 &&
-			allTasks.userTomorrowTasks.length === 0 &&
-			allTasks.userThisWeekTasks.length === 0 &&
-			allTasks.userThisWeekendTasks.length === 0 &&
-			allTasks.userNextWeekTasks.length === 0
-		) {
-			setExpandedBlocks((prevState) => ({
-				...prevState,
-				'next-weekend-tasks': true,
-			}));
-		} else {
-			setExpandedBlocks((prevState) => ({
-				...prevState,
-				'next-weekend-tasks': false,
-			}));
-		}
-	};
-
-	useEffect(() => {
-		updateExpandedBlocks();
-	}, [
-		allTasks.userOverdueTasks,
-		allTasks.userTodayTasks,
-		allTasks.userTomorrowTasks,
-		allTasks.userThisWeekTasks,
-		allTasks.userThisWeekendTasks,
-		allTasks.userNextWeekTasks,
-	]);
-
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({
 			...expandedBlocks,
