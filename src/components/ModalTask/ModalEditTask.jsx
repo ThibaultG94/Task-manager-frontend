@@ -8,6 +8,7 @@ import WorkspaceSelect from '../ModalForm/WorkspaceSelect';
 import ArrowDown from '../Buttons/ArrowDown';
 import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import getUserId from '../../api/users/getUserId';
+import { frenchFormattedDate } from '../../utils/dateFormatTools';
 
 const ModalEditTask = ({ taskData, setTaskData }) => {
 	const userWorkspaces = useSelector(selectWorkspaces);
@@ -23,6 +24,16 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 	const [isTaskOwner, setIsTaskOwner] = useState(false);
 
 	const [isEditTitle, setIsEditTitle] = useState(false);
+	const [isEditStatus, setIsEditStatus] = useState(false);
+	const [isEditAssignedTo, setIsEditAssignedTo] = useState(false);
+	const [isEditDeadline, setIsEditDeadline] = useState(false);
+	const [isEditPriority, setIsEditPriority] = useState(false);
+	const [isEditWorkspace, setIsEditWorkspace] = useState(false);
+	const [isEditDescription, setIsEditDescription] = useState(false);
+
+	const [convertedMember, setConvertedMember] = useState('');
+	const [convertedDeadline, setConvertedDeadline] = useState('');
+	const [convertedWorkspace, setConvertedWorkspace] = useState('');
 
 	useEffect(() => {
 		if (taskData.selectedWorkspace && userWorkspaces) {
@@ -74,13 +85,36 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 			  setIsTaskOwner(isTaskOwner);
 		  }
 		};
+
+		const fetchConvertedMember = async () => {
+			setConvertedMember(taskData?.assignedTo[0]?.username);
+		};
+
+		const fetchConvertedDeadline = async () => {
+			const deadline = await frenchFormattedDate(taskData?.deadline);
+			setConvertedDeadline(deadline);
+		};
+
+		const fetchConvertedWorkspace = async () => {
+			const workspace = await getWorkspace(editedTask?.workspaceId);
+			setConvertedWorkspace(workspace?.title);
+		};
 	  
 		checkUserPrivileges();
+		fetchConvertedMember();
+		fetchConvertedDeadline();
+		if (taskData && taskData.selectedWorkspace) fetchConvertedWorkspace();
 	  }, [taskData]);
 
 	  useEffect(() => {
 		if (isSuperAdmin || isAdmin || isTaskOwner) {
 		  setIsEditTitle(true);
+		  setIsEditStatus(true);
+		  setIsEditAssignedTo(true);
+		  setIsEditDeadline(true);
+		  setIsEditPriority(true);
+		  setIsEditWorkspace(true);
+		  setIsEditDescription(true);
 		}
 	  }, [isSuperAdmin, isAdmin, isTaskOwner]);
 	  
@@ -118,7 +152,8 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 						Status
 					</span>
 					<div className="mb-1 md:mr-2 md:mb-0 relative w-full md:w-1/2">
-						<select
+						{isEditStatus ? (
+							<select
 							className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
 							name="status"
 							onChange={(e) =>
@@ -128,14 +163,33 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 								}))
 							}
 							value={taskData.status}>
-							<option value="default" disabled>
-								Status
-							</option>
-							<option value="Pending">À faire</option>
-							<option value="In Progress">En cours</option>
-							<option value="Completed">Terminé</option>
-							<option value="Archived">Archivé</option>
+								<option value="default" disabled>
+									Status
+								</option>
+								<option value="Pending">À faire</option>
+								<option value="In Progress">En cours</option>
+								<option value="Completed">Terminé</option>
+								<option value="Archived">Archivé</option>
 						</select>
+							) : (
+								<select
+								className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
+								name="status"
+								onChange={(e) =>
+									setTaskData((prev) => ({
+										...prev,
+										status: e.target.value,
+									}))
+								}
+								value={taskData.status}>
+									<option value="default" disabled>
+										Status
+									</option>
+									<option value="Pending">À faire</option>
+									<option value="In Progress">En cours</option>
+									<option value="Completed">Terminé</option>
+							</select>
+						)}
 						<ArrowDown />
 					</div>
 				</div>
@@ -144,19 +198,26 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Assigné à
 					</span>
-					<MemberSelect
+					{isEditAssignedTo ? (
+						<MemberSelect
 						selectedMember={selectedMember}
 						setSelectedMember={setSelectedMember}
 						workspaceMembers={workspaceMembers}
-					/>
+						/>
+					) : (
+						<div className="assigned-icon px-2 py-1 mr-2 rounded-lg bg-light-blue-3">
+							<span className="ml-2 text-sm">{convertedMember} </span>
+						</div>
+					)}
 				</div>
 
 				<div className="flex justify-between items-center pt-1 md:py-1 w-full">
 					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Deadline
 					</span>
-					<div className="md:mr-2 w-full md:w-1/2">
-						<DeadlineInput
+					{isEditDeadline ? (
+						<div className="md:mr-2 w-full md:w-1/2">
+							<DeadlineInput
 							taskDeadline={taskData.deadline}
 							setTaskDeadline={(value) =>
 								setTaskData((prev) => ({
@@ -164,70 +225,102 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 									deadline: value,
 								}))
 							}
-						/>
-					</div>
+							/>
+						</div>
+					) : (
+						<div className={'deadline-icon ml-2 px-2 py-1 rounded-lg ' + taskData?.category}>
+							<span className="ml-2 text-sm">
+								{convertedDeadline}
+							</span>
+						</div>
+					)}
 				</div>
 
 				<div className="flex justify-between items-center pt-0 pb-1 md:py-1">
 					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Priorité
 					</span>
-					<div className="md:mr-2 relative w-full md:w-1/2">
-						<select
-							className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
-							name="priority"
-							onChange={(e) =>
-								setTaskData((prev) => ({
-									...prev,
-									priority: e.target.value,
-								}))
-							}
-							value={taskData.priority}>
-							<option value="default" disabled>
-								Priorité
-							</option>
-							<option value="Low">Faible</option>
-							<option value="Medium">Moyenne</option>
-							<option value="High">Haute</option>
-							<option value="Urgent">Urgent</option>
-						</select>
-						<ArrowDown />
-					</div>
+					{isEditPriority ? (
+						<div className="md:mr-2 relative w-full md:w-1/2">
+							<select
+								className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
+								name="priority"
+								onChange={(e) =>
+									setTaskData((prev) => ({
+										...prev,
+										priority: e.target.value,
+									}))
+								}
+								value={taskData.priority}>
+								<option value="default" disabled>
+									Priorité
+								</option>
+								<option value="Low">Faible</option>
+								<option value="Medium">Moyenne</option>
+								<option value="High">Haute</option>
+								<option value="Urgent">Urgent</option>
+							</select>
+							<ArrowDown />
+						</div>
+					) : (
+						<div className={'priority-icon ml-2 px-2 py-1 rounded-lg ' + taskData.priority}>
+							<span className="ml-2 text-sm">
+								{taskData.priority}
+							</span>
+						</div>
+					)}
 				</div>
 
 				<div className="flex justify-between items-center py-1">
 					<span className="hidden md:block text-sm font-bold text-gray-500">
 						Workspace
 					</span>
-					<WorkspaceSelect
-						selectedWorkspace={taskData.selectedWorkspace}
-						setSelectedWorkspace={(value) =>
-							setTaskData((prev) => ({
-								...prev,
-								selectedWorkspace: value,
-							}))
-						}
-						userWorkspaces={userWorkspaces}
-					/>
+					{isEditWorkspace ? (
+						<WorkspaceSelect
+							selectedWorkspace={taskData.selectedWorkspace}
+							setSelectedWorkspace={(value) =>
+								setTaskData((prev) => ({
+									...prev,
+									selectedWorkspace: value,
+								}))
+							}
+							userWorkspaces={userWorkspaces}
+						/>
+					 ) : (
+						<div className="workspace-icon mt-2 px-2 py-1 rounded-lg bg-light-blue">
+							<span className="ml-2 text-sm">
+								{convertedWorkspace}{' '}
+							</span>
+						</div>)}
 				</div>
 			</div>
 
-			<div className="md:mt-4 px-2">
-				<textarea
-					className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 flex-grow focus:outline-none focus:shadow-outline p-2 resize-none rounded shadow w-full"
-					cols="30"
-					name="description"
-					placeholder="Description (optionnel)"
-					onChange={(e) =>
-						setTaskData((prev) => ({
-							...prev,
-							description: e.target.value,
-						}))
-					}
-					rows="5"
-					value={taskData.description}
-				/>
-			</div>
+			{isEditDescription ? (
+				<div className="md:mt-4 px-2">
+					<textarea
+						className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 flex-grow focus:outline-none focus:shadow-outline p-2 resize-none rounded shadow w-full"
+						cols="30"
+						name="description"
+						placeholder="Description (optionnel)"
+						onChange={(e) =>
+							setTaskData((prev) => ({
+								...prev,
+								description: e.target.value,
+							}))
+						}
+						rows="5"
+						value={taskData.description}
+						/>
+				</div>
+			) : (
+				<div className="mt-4 px-2">
+					<div className="bg-gray-100 description-icon p-3 rounded-lg">
+						<span className="ml-2 text-gray-600 whitespace-pre-line">
+							{editedTask?.description}
+						</span>
+					</div>
+				</div>
+			)}
 		</form>
 	);
 };
