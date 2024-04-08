@@ -22,7 +22,6 @@ export const useGetWorkspace = () => {
 				}
 			);
 			dispatch(setSingleWorkspaceSuccess(res.data));
-			console.log(res.data);
 			return res.data;
 		} catch (error) {
 			dispatch(setSingleWorkspaceFailed(error));

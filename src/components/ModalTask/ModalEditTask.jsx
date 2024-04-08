@@ -6,13 +6,23 @@ import MemberSelect from '../ModalForm/MemberSelect';
 import DeadlineInput from '../ModalForm/DeadlineInput';
 import WorkspaceSelect from '../ModalForm/WorkspaceSelect';
 import ArrowDown from '../Buttons/ArrowDown';
+import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
+import getUserId from '../../api/users/getUserId';
 
 const ModalEditTask = ({ taskData, setTaskData }) => {
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const editedTask = useSelector(selectEditedTask);
 
+	const getWorkspace = useGetWorkspace();
+
 	const [workspaceMembers, setWorkspaceMembers] = useState('');
 	const [selectedMember, setSelectedMember] = useState('default');
+
+	const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
+	const [isTaskOwner, setIsTaskOwner] = useState(false);
+
+	const [isEditTitle, setIsEditTitle] = useState(false);
 
 	useEffect(() => {
 		if (taskData.selectedWorkspace && userWorkspaces) {
@@ -45,12 +55,43 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 		setSelectedMember(taskData.selectedMember.userId);
 	}, [taskData]);
 
+	useEffect(() => {
+		const checkUserPrivileges = async () => {
+		  if (taskData && taskData.selectedWorkspace && taskData.selectedWorkspace !== 'default') {
+			  const workspace = await getWorkspace(taskData.selectedWorkspace);
+			  const userId = await getUserId();
+	  
+			  const isSuperAdminVerification = workspace.members.some(
+				(member) => member.userId === userId && member.role === 'superadmin'
+			  );
+			  const isAdminVerification = workspace.members.some(
+				(member) => member.userId === userId && member.role === 'admin'
+			  );
+			  const isTaskOwner = taskData.userId === userId;
+	  
+			  setIsSuperAdmin(isSuperAdminVerification);
+			  setIsAdmin(isAdminVerification);
+			  setIsTaskOwner(isTaskOwner);
+		  }
+		};
+	  
+		checkUserPrivileges();
+	  }, [taskData]);
+
+	  useEffect(() => {
+		if (isSuperAdmin || isAdmin || isTaskOwner) {
+		  setIsEditTitle(true);
+		}
+	  }, [isSuperAdmin, isAdmin, isTaskOwner]);
+	  
+
 	return (
 		<form
 			className="max-w-lg mx-auto pl-2 pr-0 md:pl-4 md:pr-2 rounded-lg"
 			onSubmit={(e) => e.stopPropagation()}>
 			<div className="text-center pt-4 px-2 md:px-4">
 				<h5 className="text-gray-900 text-base md:text-lg leading-tight font-medium mb-2">
+					{isEditTitle ? (
 					<input
 						className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 focus:outline-none focus:shadow-outline leading-tight p-2 rounded shadow w-full"
 						maxLength={60}
@@ -65,6 +106,9 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 						type="text"
 						value={taskData.title}
 					/>
+					) : (
+					taskData.title
+					)}
 				</h5>
 			</div>
 
