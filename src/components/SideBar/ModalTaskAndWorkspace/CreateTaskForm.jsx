@@ -16,6 +16,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const createTask = useCreateTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const userWorkspaces = useSelector(selectWorkspaces);
+	const [filteredWorkspaces, setFilteredWorkspaces] = useState([]);
 	const [taskTitle, setTaskTitle] = useState('');
 	const [taskStatus, setTaskStatus] = useState('Pending');
 	const [taskPriority, setTaskPriority] = useState('Medium');
@@ -35,6 +36,16 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 			}
 		}
 	}, [selectedWorkspace]);
+
+	useEffect(() => {
+		if (userWorkspaces) {
+			const filter = userWorkspaces.filter((ws) =>
+				ws.members.some((member) => member.userId === userId && (member.role === 'admin' || member.role === 'superadmin'))
+			);
+			setFilteredWorkspaces(filter);
+			console.log(filter);
+		}
+	}, [userWorkspaces]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -131,7 +142,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 					<WorkspaceSelect
 						selectedWorkspace={selectedWorkspace}
 						setSelectedWorkspace={setSelectedWorkspace}
-						userWorkspaces={userWorkspaces}
+						userWorkspaces={filteredWorkspaces}
 					/>
 					<MemberSelect
 						selectedMember={selectedMember}
