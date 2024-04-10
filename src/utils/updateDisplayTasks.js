@@ -23,6 +23,7 @@ export const updateDisplayTasks = async (
       );
       updatedTasks.push({
         title: userTasks[i].title,
+        userId: userTasks[i].userId,
         date: formattedDate,
         status: userTasks[i].status,
         convertedStatus: convertedStatus,

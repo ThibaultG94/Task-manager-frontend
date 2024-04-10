@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	resetEditState,
 	setHasEdited,
@@ -9,9 +9,12 @@ import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
 import getUserId from '../../api/users/getUserId';
+import { selectUserContacts } from '../../store/selectors/userSelectors';
 
 const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 	const dispatch = useDispatch();
+
+	const contacts = useSelector(selectUserContacts);
 
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
@@ -20,6 +23,11 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 	const [editedTask, setEditedTask] = useState(null);
 
 	useEffect(() => {
+		let assigned = [];
+		taskData.assignedTo.forEach((member) => {
+			const contact = contacts.find((contact) => contact.userId === member);
+			assigned.push(contact);
+		});
 		setEditedTask({
 			_id: taskData._id,
 			title: taskData.title,
@@ -28,10 +36,14 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 			deadline: taskData.deadline,
 			description: taskData.description,
 			workspaceId: taskData.selectedWorkspace,
-			assignedTo: [taskData.selectedMember],
+			assignedTo: [...taskData.assignedTo],
 			category: taskData.category,
 		});
 	}, [taskData]);
+
+	useEffect(() => {
+		console.log(editedTask);
+	}, [editedTask]);
 
 	const updateTask = async () => {
 		try {

@@ -50,6 +50,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 		setTaskData((prevState) => ({
 			...prevState,
 			_id: editedTask?._id,
+			userId: editedTask?.userId,
 			title: editedTask?.title,
 			status: editedTask?.status,
 			priority: editedTask?.priority,
@@ -63,10 +64,6 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 	}, [editedTask]);
 
 	useEffect(() => {
-		setSelectedMember(taskData.selectedMember.userId);
-	}, [taskData]);
-
-	useEffect(() => {
 		const checkUserPrivileges = async () => {
 		  if (taskData && taskData.selectedWorkspace && taskData.selectedWorkspace !== 'default') {
 			  const workspace = await getWorkspace(taskData.selectedWorkspace);
@@ -78,7 +75,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 			  const isAdminVerification = workspace.members.some(
 				(member) => member.userId === userId && member.role === 'admin'
 			  );
-			  const isTaskOwner = taskData.userId === userId;
+			  const isTaskOwner = editedTask.userId == userId;
 	  
 			  setIsSuperAdmin(isSuperAdminVerification);
 			  setIsAdmin(isAdminVerification);
@@ -104,6 +101,7 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 		fetchConvertedMember();
 		fetchConvertedDeadline();
 		if (taskData && taskData.selectedWorkspace) fetchConvertedWorkspace();
+		setSelectedMember(taskData?.assignedTo[0]?.userId);
 	  }, [taskData]);
 
 	  useEffect(() => {
@@ -117,8 +115,15 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 		  setIsEditDescription(true);
 		}
 	  }, [isSuperAdmin, isAdmin, isTaskOwner]);
-	  
 
+	//   useEffect(() => {
+	// 	console.log('selectedMember', selectedMember);
+	// 		setTaskData((prev) => ({
+	// 			...prev,
+	// 			assignedTo: [{ userId: selectedMember }],
+	// 		}));
+	//   }, [selectedMember]);
+	  
 	return (
 		<form
 			className="max-w-lg mx-auto pl-2 pr-0 md:pl-4 md:pr-2 rounded-lg"

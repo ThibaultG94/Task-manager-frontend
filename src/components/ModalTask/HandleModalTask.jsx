@@ -15,6 +15,7 @@ const HandleModalTask = ({
 	
 	const [taskData, setTaskData] = useState({
 		_id: '',
+		userId: '',
 		title: '',
 		status: 'Pending',
 		priority: 'Medium',

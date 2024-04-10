@@ -10,7 +10,7 @@ const MemberSelect = ({
 		if (workspaceMembers && workspaceMembers.length === 1) {
 			setSelectedMember(workspaceMembers[0].userId);
 		}
-	}, [workspaceMembers, setSelectedMember]);
+	}, [workspaceMembers]);
 
 	return (
 		<div className="md:mr-2 relative w-full md:w-1/2">

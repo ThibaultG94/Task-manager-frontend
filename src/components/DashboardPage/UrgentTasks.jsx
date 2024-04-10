@@ -114,6 +114,7 @@ const UrgentTasks = () => {
 
 					updatedTasks.push({
 						title: urgentTasks[i].title,
+						userId: urgentTasks[i].userId,
 						date: formattedDate,
 						status: urgentTasks[i].status,
 						priority: urgentTasks[i].priority,
