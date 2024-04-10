@@ -1,9 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import CloseButton from '../Buttons/CloseButton';
 import ModalDisplayTask from './ModalDisplayTask';
 import ModalEditTask from './ModalEditTask';
 import DeleteTask from './DeleteTask';
 import SaveEditedTask from './SaveEditedTask';
+import getUserId from '../../api/users/getUserId';
 
 const HandleModalTask = ({
 	closeModal,
@@ -11,7 +14,13 @@ const HandleModalTask = ({
 	isEditing,
 	setIsEditing,
 }) => {
+	const userWorkspaces = useSelector(selectWorkspaces);
+
 	const modalRef = useRef(null);
+
+	const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
+	const [isTaskOwner, setIsTaskOwner] = useState(false);
 	
 	const [taskData, setTaskData] = useState({
 		_id: '',
@@ -36,6 +45,31 @@ const HandleModalTask = ({
 	const handleCancelEdit = () => {
 		setIsEditing(false);
 	};
+
+	useEffect(() => {
+		const checkUserPrivileges = async () => {
+			if (taskData && taskData.selectedWorkspace && taskData.selectedWorkspace !== 'default') {
+				const workspace = userWorkspaces.find(
+					(ws) => ws._id === taskData.selectedWorkspace
+					);
+				const userId = await getUserId();
+		
+				const isSuperAdminVerification = workspace.members.some(
+				  (member) => member.userId === userId && member.role === 'superadmin'
+				);
+				const isAdminVerification = workspace.members.some(
+				  (member) => member.userId === userId && member.role === 'admin'
+				);
+				const isTaskOwner = taskData.userId == userId;
+		
+				setIsSuperAdmin(isSuperAdminVerification);
+				setIsAdmin(isAdminVerification);
+				setIsTaskOwner(isTaskOwner);
+			}
+		  };
+
+		checkUserPrivileges();
+	}, [taskData]);
 
 	return (
 		<section
@@ -68,7 +102,11 @@ const HandleModalTask = ({
 					{!isEditing ? (
 						<div className="flex justify-end">
 							<div className="flex justify-between">
-								<DeleteTask setIsModalOpen={setIsModalOpen} />
+								{isSuperAdmin || isAdmin || isTaskOwner ? (
+									<DeleteTask setIsModalOpen={setIsModalOpen} />
+								) : (
+									''
+								)}
 								<button
 									className="button bg-light-blue-2 hover:bg-dark-blue mb-3 mr-8"
 									onClick={handleEditTask}>
