@@ -79,6 +79,7 @@ const Contacts = ({ userId }) => {
 				<InviteMemberModal
 					userId={userId}
 					setIsInvitationModalOpen={setIsInvitationModalOpen}
+					tab={'tab1'}
 				/>
 			)}
 		</div>
