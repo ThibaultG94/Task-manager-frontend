@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import ArrowDown from '../Buttons/ArrowDown';
 import CloseField from '../Buttons/CloseField';
 
-const QuickEditPriority = ({ task, setSelectedTask }) => {
+const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
@@ -56,13 +56,15 @@ const QuickEditPriority = ({ task, setSelectedTask }) => {
 		}
 	};
 
+	const editPriority = (task) => {
+		setSelectedTask(task);
+		if (isPriorityCanBeEdited) dispatch(setExclusiveEditingField('priority'));
+	};
+
 	return (
 		<div
 			onClick={(e) => e.stopPropagation()}
-			onDoubleClick={() => {
-				setSelectedTask(task);
-				dispatch(setExclusiveEditingField('priority'));
-			}}
+			onDoubleClick={() => editPriority(task)}
 			className={
 				`cursor-auto flex h-10 items-center m-auto p-1.5 px-2 sm:px-3 md:px-4 relative rounded-lg text-base md:text-sm lg:text-base ` +
 				task.convertedPriority

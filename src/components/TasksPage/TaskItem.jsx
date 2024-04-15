@@ -26,7 +26,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const [isTitleCanBeEdited, setIsTitleCanBeEdited] = useState(false);
 	const [isStatusCanBeEdited, setIsStatusCanBeEdited] = useState(false);
 	const [isDeadlineCanBeEdited, setIsDeadlineCanBeEdited] = useState(false);
-	const [isEditPriority, setIsEditPriority] = useState(false);
+	const [isPriorityCanBeEdited, setIsPriorityCanBeEdited] = useState(false);
 	const [isEditWorkspace, setIsEditWorkspace] = useState(false);
 	const [isEditDescription, setIsEditDescription] = useState(false);
 
@@ -58,7 +58,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 		  setIsTitleCanBeEdited(true);
 		  setIsStatusCanBeEdited(true);
 		  setIsDeadlineCanBeEdited(true);
-		  setIsEditPriority(true);
+		  setIsPriorityCanBeEdited(true);
 		  setIsEditWorkspace(true);
 		  setIsEditDescription(true);
 		}
@@ -88,7 +88,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} isTitleCanBeEdited={isTitleCanBeEdited} />
 			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} isDeadlineCanBeEdited={isDeadlineCanBeEdited} />
 			<QuickEditStatus task={task} setSelectedTask={setSelectedTask} isStatusCanBeEdited={isStatusCanBeEdited} />
-			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} />
+			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} isPriorityCanBeEdited={isPriorityCanBeEdited} />
 			<QuickEditWorkspace task={task} setSelectedTask={setSelectedTask} />
 
 			<div className="hidden sm:flex items-center">
