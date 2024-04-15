@@ -19,7 +19,7 @@ import { inverseDateFormat, formatDateForResponsive, formatDateArchived } from '
 import { toast } from 'react-toastify';
 import CloseDeadline from '../Buttons/CloseDeadline';
 
-const QuickEditDeadline = ({ task, setSelectedTask }) => {
+const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
@@ -108,13 +108,15 @@ const QuickEditDeadline = ({ task, setSelectedTask }) => {
 		handleSubmitDeadline(formattedDBDay);
 	};
 
+	const editDeadline = (task) => {
+		setSelectedTask(task);
+		if (isDeadlineCanBeEdited) dispatch(setExclusiveEditingField('deadline'));
+	};
+
 	return (
 		<div
 			onClick={(e) => e.stopPropagation()}
-			onDoubleClick={() => {
-				setSelectedTask(task);
-				dispatch(setExclusiveEditingField('deadline'));
-			}}
+			onDoubleClick={() => editDeadline(task)}
 			className={
 				`cursor-auto flex items-center mx-auto p-0.5 md:p-1 lg:p-1.5 md:p px-1 sm:px-1.5 md:px-2 lg:px-2.5 rounded-lg select-none text-xs md:text-sm relative lg:text-base ` +
 				classInFunctionOfDayorCategory

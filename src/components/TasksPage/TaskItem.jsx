@@ -25,8 +25,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 
 	const [isTitleCanBeEdited, setIsTitleCanBeEdited] = useState(false);
 	const [isStatusCanBeEdited, setIsStatusCanBeEdited] = useState(false);
-	const [isEditAssignedTo, setIsEditAssignedTo] = useState(false);
-	const [isEditDeadline, setIsEditDeadline] = useState(false);
+	const [isDeadlineCanBeEdited, setIsDeadlineCanBeEdited] = useState(false);
 	const [isEditPriority, setIsEditPriority] = useState(false);
 	const [isEditWorkspace, setIsEditWorkspace] = useState(false);
 	const [isEditDescription, setIsEditDescription] = useState(false);
@@ -58,8 +57,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 		if (isSuperAdmin || isAdmin || isTaskOwner) {
 		  setIsTitleCanBeEdited(true);
 		  setIsStatusCanBeEdited(true);
-		  setIsEditAssignedTo(true);
-		  setIsEditDeadline(true);
+		  setIsDeadlineCanBeEdited(true);
 		  setIsEditPriority(true);
 		  setIsEditWorkspace(true);
 		  setIsEditDescription(true);
@@ -88,7 +86,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 		<div className="task-item relative py-6 px-2 sm:px-3 md:px-4 mx-auto">
 			<ButtonToGrab />
 			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} isTitleCanBeEdited={isTitleCanBeEdited} />
-			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} />
+			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} isDeadlineCanBeEdited={isDeadlineCanBeEdited} />
 			<QuickEditStatus task={task} setSelectedTask={setSelectedTask} isStatusCanBeEdited={isStatusCanBeEdited} />
 			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditWorkspace task={task} setSelectedTask={setSelectedTask} />
