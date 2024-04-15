@@ -136,12 +136,13 @@ const HandleModalWorkspace = ({
 					{!isEditingWorkspace ? (
 						<div className="flex justify-end">
 							<div className="flex justify-between">
-								<DeleteWorkspace
-									setIsModalWorkspaceOpen={
-										setIsModalWorkspaceOpen
-									}
-									workspaceData={workspaceDataChange}
-								/>
+								{selectedWorkspace.isDefault === 'false' && isSuperAdmin && (
+									<DeleteWorkspace
+										setIsModalWorkspaceOpen={
+											setIsModalWorkspaceOpen
+										}
+										workspaceData={workspaceDataChange}
+								/>)}
 								{selectedWorkspace.isDefault === 'false' && isSuperAdmin && (
 									<button
 										className="button bg-light-blue-2 hover:bg-dark-blue mb-3 mr-8"
