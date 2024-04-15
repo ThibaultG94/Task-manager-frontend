@@ -4,7 +4,6 @@ import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import {
 	resetEditState,
-	setEditingField,
 	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
@@ -16,7 +15,7 @@ import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import CloseTitle from '../Buttons/CloseTitle';
 
-const QuickEditTitle = ({ task, setSelectedTask }) => {
+const QuickEditTitle = ({ task, setSelectedTask, isTitleCanBeEdited }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
@@ -26,6 +25,11 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 	const setTaskNotification = useSetTaskNotification();
 
 	const inputTitleRef = useRef(null);
+
+	const editTitle = (task) => {
+		setSelectedTask(task);
+		if (isTitleCanBeEdited) dispatch(setExclusiveEditingField('title'));
+	};
 
 	useEffect(() => {
 		if (isEditingField.title && inputTitleRef.current) {
@@ -63,10 +67,7 @@ const QuickEditTitle = ({ task, setSelectedTask }) => {
 
 	return (
 		<div
-			onDoubleClick={() => {
-				setSelectedTask(task);
-				dispatch(setExclusiveEditingField('title'));
-			}}
+			onDoubleClick={() => editTitle(task)}
 			className="cursor-auto flex justify-start overflow-hidden relative rounded-md self-center text-xs sm:text-sm md:text-base">
 			{!isEditingField.title && (
 				<span className="ellipsis">{task?.title}</span>

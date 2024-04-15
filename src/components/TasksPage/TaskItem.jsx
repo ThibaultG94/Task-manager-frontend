@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
 import getUserId from '../../api/users/getUserId';
@@ -11,11 +11,60 @@ import QuickEditStatus from './QuickEditStatus';
 import QuickEditPriority from './QuickEditPriority';
 import QuickEditWorkspace from './QuickEditWorkspace';
 import ButtonToEditTaskInModal from '../Buttons/ButtonToEditTaskInModal';
+import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
+	const getWorkspace = useGetWorkspace();
+
+	const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
+	const [isTaskOwner, setIsTaskOwner] = useState(false);
+
+	const [isTitleCanBeEdited, setIsTitleCanBeEdited] = useState(false);
+	const [isEditStatus, setIsEditStatus] = useState(false);
+	const [isEditAssignedTo, setIsEditAssignedTo] = useState(false);
+	const [isEditDeadline, setIsEditDeadline] = useState(false);
+	const [isEditPriority, setIsEditPriority] = useState(false);
+	const [isEditWorkspace, setIsEditWorkspace] = useState(false);
+	const [isEditDescription, setIsEditDescription] = useState(false);
+
+	useEffect(() => {
+		const checkUserPrivileges = async () => {
+			if (task && task.workspace) {
+				const workspace = await getWorkspace(task.workspace);
+				const userId = await getUserId();
+		
+				const isSuperAdminVerification = workspace.members.some(
+				  (member) => member.userId == userId && member.role === 'superadmin'
+				);
+				const isAdminVerification = workspace.members.some(
+				  (member) => member.userId == userId && member.role === 'admin'
+				);
+				const isTaskOwner = task.userId == userId;
+		
+				setIsSuperAdmin(isSuperAdminVerification);
+				setIsAdmin(isAdminVerification);
+				setIsTaskOwner(isTaskOwner);
+			}
+		};
+
+		checkUserPrivileges();
+	}, [task]);
+
+	useEffect(() => {
+		if (isSuperAdmin || isAdmin || isTaskOwner) {
+		  setIsTitleCanBeEdited(true);
+		  setIsEditStatus(true);
+		  setIsEditAssignedTo(true);
+		  setIsEditDeadline(true);
+		  setIsEditPriority(true);
+		  setIsEditWorkspace(true);
+		  setIsEditDescription(true);
+		}
+	  }, [isSuperAdmin, isAdmin, isTaskOwner]);
 
 	const validateTask = async (e, task) => {
 		e.stopPropagation();
@@ -38,7 +87,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	return (
 		<div className="task-item relative py-6 px-2 sm:px-3 md:px-4 mx-auto">
 			<ButtonToGrab />
-			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} />
+			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} isTitleCanBeEdited={isTitleCanBeEdited} />
 			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditStatus task={task} setSelectedTask={setSelectedTask} />
 			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} />

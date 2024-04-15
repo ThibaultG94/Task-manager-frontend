@@ -62,10 +62,6 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 	return (
 		<div
 			onClick={(e) => e.stopPropagation()}
-			// onDoubleClick={() => {
-			// 	setSelectedTask(task);
-			// 	dispatch(setExclusiveEditingField('workspace'));
-			// }}
 			className={
 				isEditingField.workspace
 					? `${classDiv} z-10`
