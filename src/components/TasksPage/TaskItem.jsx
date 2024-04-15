@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
+import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import getUserId from '../../api/users/getUserId';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
@@ -11,7 +12,6 @@ import QuickEditStatus from './QuickEditStatus';
 import QuickEditPriority from './QuickEditPriority';
 import QuickEditWorkspace from './QuickEditWorkspace';
 import ButtonToEditTaskInModal from '../Buttons/ButtonToEditTaskInModal';
-import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const editTask = useEditTask();

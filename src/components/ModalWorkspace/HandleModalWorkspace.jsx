@@ -21,6 +21,7 @@ const HandleModalWorkspace = ({
 	
 	const [contacts, setContacts] = useState([]);
 	const [selectedMembers, setSelectedMembers] = useState([]);
+	const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 	const [workspaceDataChange, setWorkspaceDataChange] = useState({
 		_id: '',
 		title: '',
@@ -81,6 +82,18 @@ const HandleModalWorkspace = ({
 					role: member.role,
 				}))
 		);
+
+		const checkUserPrivileges = async () => {
+			if (selectedWorkspace) {
+				const isSuperAdminVerification = selectedWorkspace.members.some(
+				  (member) => member.userId === userId && member.role === 'superadmin'
+				);
+		
+				setIsSuperAdmin(isSuperAdminVerification);
+			}
+		  };
+
+		checkUserPrivileges();
 	}, [selectedWorkspace]);
 
 	useEffect(() => {
@@ -129,7 +142,7 @@ const HandleModalWorkspace = ({
 									}
 									workspaceData={workspaceDataChange}
 								/>
-								{selectedWorkspace.isDefault === 'false' && (
+								{selectedWorkspace.isDefault === 'false' && isSuperAdmin && (
 									<button
 										className="button bg-light-blue-2 hover:bg-dark-blue mb-3 mr-8"
 										onClick={handleEditWorkspace}>
