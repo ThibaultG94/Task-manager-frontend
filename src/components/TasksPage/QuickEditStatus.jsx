@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import ArrowDown from '../Buttons/ArrowDown';
 import CloseField from '../Buttons/CloseField';
 
-const QuickEditStatus = ({ task, setSelectedTask }) => {
+const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
@@ -85,7 +85,7 @@ const QuickEditStatus = ({ task, setSelectedTask }) => {
 							<option value="Pending">À faire</option>
 							<option value="In Progress">En cours</option>
 							<option value="Completed">Terminé</option>
-							<option value="Archived">Archivé</option>
+							{isStatusCanBeEdited && <option value="Archived">Archivé</option>}
 						</select>
 						<ArrowDown />
 						<CloseField selectedField="status" />
