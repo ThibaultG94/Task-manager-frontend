@@ -27,8 +27,6 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const [isStatusCanBeEdited, setIsStatusCanBeEdited] = useState(false);
 	const [isDeadlineCanBeEdited, setIsDeadlineCanBeEdited] = useState(false);
 	const [isPriorityCanBeEdited, setIsPriorityCanBeEdited] = useState(false);
-	const [isEditWorkspace, setIsEditWorkspace] = useState(false);
-	const [isEditDescription, setIsEditDescription] = useState(false);
 
 	useEffect(() => {
 		const checkUserPrivileges = async () => {
@@ -59,8 +57,6 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 		  setIsStatusCanBeEdited(true);
 		  setIsDeadlineCanBeEdited(true);
 		  setIsPriorityCanBeEdited(true);
-		  setIsEditWorkspace(true);
-		  setIsEditDescription(true);
 		}
 	  }, [isSuperAdmin, isAdmin, isTaskOwner]);
 
