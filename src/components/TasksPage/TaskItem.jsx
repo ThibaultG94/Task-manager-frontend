@@ -62,7 +62,13 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 
 	const validateTask = async (e, task) => {
 		e.stopPropagation();
-		const newStatus = 'Archived';
+		let newStatus;
+
+		if (isStatusCanBeEdited) {
+			newStatus = 'Archived';
+		 } else {
+			newStatus = 'Completed';
+		} 
 
 		try {
 			const userId = await getUserId();
@@ -78,6 +84,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			toast.error("Échec de l'archivage de la tâche.");
 		}
 	};
+
 	return (
 		<div className="task-item relative py-6 px-2 sm:px-3 md:px-4 mx-auto">
 			<ButtonToGrab />
