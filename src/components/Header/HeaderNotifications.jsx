@@ -135,7 +135,7 @@ const HeaderNotifications = ({ userId }) => {
 				console.error("Can't find tab");
 			}
 		} else if (notification.type === 'workspaceInvitation') {
-			if (notification.message.includes('envoyé')) {
+			if (notification.message.includes('invité')) {
 				setTab('tab3');
 			} else if (notification.message.includes('rejoint')) {
 				setTab('tab2');
