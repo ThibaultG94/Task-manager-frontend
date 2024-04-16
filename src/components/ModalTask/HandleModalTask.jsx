@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import CloseButton from '../Buttons/CloseButton';
 import ModalDisplayTask from './ModalDisplayTask';
 import ModalEditTask from './ModalEditTask';
@@ -15,6 +16,7 @@ const HandleModalTask = ({
 	setIsEditing,
 }) => {
 	const userWorkspaces = useSelector(selectWorkspaces);
+	const editedTask = useSelector(selectEditedTask);
 
 	const modalRef = useRef(null);
 
@@ -48,9 +50,9 @@ const HandleModalTask = ({
 
 	useEffect(() => {
 		const checkUserPrivileges = async () => {
-			if (taskData && taskData.selectedWorkspace && taskData.selectedWorkspace !== 'default') {
+			if (editedTask && editedTask.workspaceId) {
 				const workspace = userWorkspaces.find(
-					(ws) => ws._id === taskData.selectedWorkspace
+					(ws) => ws._id === editedTask.workspaceId
 					);
 				const userId = await getUserId();
 		
@@ -60,7 +62,7 @@ const HandleModalTask = ({
 				const isAdminVerification = workspace.members.some(
 				  (member) => member.userId === userId && member.role === 'admin'
 				);
-				const isTaskOwner = taskData.userId == userId;
+				const isTaskOwner = editedTask.userId == userId;
 		
 				setIsSuperAdmin(isSuperAdminVerification);
 				setIsAdmin(isAdminVerification);
@@ -69,7 +71,11 @@ const HandleModalTask = ({
 		  };
 
 		checkUserPrivileges();
-	}, [taskData]);
+	}, [taskData, editedTask]);
+
+	useEffect(() => {
+		console.log('editedTask', editedTask);
+	}, [isAdmin, isSuperAdmin, isTaskOwner]);
 
 	return (
 		<section
