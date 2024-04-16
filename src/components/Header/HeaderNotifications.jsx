@@ -114,13 +114,13 @@ const HeaderNotifications = ({ userId }) => {
 			case 'taskCreation':
 				getTaskDetails(notification.taskId);
 				break;
-			case 'taskDelation':
+			case 'taskDeletion':
 				setOpenNotificationsModal(true);
 				break;
 			case 'workspaceUpdate':
 				getWorkspaceDetails(notification.workspaceId);
 				break;
-			case 'workspaceDelation':
+			case 'workspaceDeletion':
 				setOpenNotificationsModal(true);
 				break;
 			default:
