@@ -73,10 +73,6 @@ const HandleModalTask = ({
 		checkUserPrivileges();
 	}, [taskData, editedTask]);
 
-	useEffect(() => {
-		console.log('editedTask', editedTask);
-	}, [isAdmin, isSuperAdmin, isTaskOwner]);
-
 	return (
 		<section
 			className="bg-black bg-opacity-50 fixed h-full inset-0 w-full z-10"
