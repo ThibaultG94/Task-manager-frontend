@@ -67,7 +67,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 			priority: taskPriority,
 			workspaceId: selectedWorkspace,
 			deadline: taskDeadline,
-			assignedTo: assignedUser,
+			assignedTo: [selectedMember],
 		};
 
 		try {
