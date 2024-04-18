@@ -40,7 +40,24 @@ const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => 
 		try {
 			const userId = await getUserId();
 
-			await editTask({ ...editedTask, priority: newPriority });
+			let assigned = [];
+			for (const member of editedTask.assignedTo) {
+				assigned.push(member.userId);
+			}
+
+			const task = {
+				_id: editedTask._id,
+				title: editedTask.title,
+				status: editedTask.status,
+				priority: newPriority,
+				deadline: editedTask.deadline,
+				description: editedTask.description,
+				workspaceId: editedTask.workspaceId,
+				assignedTo: assigned,
+				category: editedTask.category,
+			};
+
+			await editTask(task);
 
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));

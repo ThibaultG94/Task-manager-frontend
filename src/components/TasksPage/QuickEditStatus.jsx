@@ -40,7 +40,24 @@ const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 		if (newStatus !== task.status) {
 			try {
 				const userId = await getUserId();
-				await editTask({ ...editedTask, status: newStatus });
+				let assigned = [];
+				for (const member of editedTask.assignedTo) {
+					assigned.push(member.userId);
+				}
+
+				const task = {
+					_id: editedTask._id,
+					title: editedTask.title,
+					status: newStatus,
+					priority: editedTask.priority,
+					deadline: editedTask.deadline,
+					description: editedTask.description,
+					workspaceId: editedTask.workspaceId,
+					assignedTo: assigned,
+					category: editedTask.category,
+				};
+
+				await editTask(task);
 				dispatch(resetEditState());
 				dispatch(setHasEdited(false));
 				await tasksHasBeenUpdated(editedTask, editedTask.category);

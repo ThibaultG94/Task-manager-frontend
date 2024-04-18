@@ -61,7 +61,24 @@ const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => 
 		dispatch(setEditedTask({ deadline: newDeadline }));
 		try {
 			const userId = await getUserId();
-			await editTask({ ...editedTask, deadline: newDeadline });
+			let assigned = [];
+			for (const member of editedTask.assignedTo) {
+				assigned.push(member.userId);
+			}
+
+			const task = {
+				_id: editedTask._id,
+				title: editedTask.title,
+				status: editedTask.status,
+				priority: editedTask.priority,
+				deadline: newDeadline,
+				description: editedTask.description,
+				workspaceId: editedTask.workspaceId,
+				assignedTo: assigned,
+				category: editedTask.category,
+			};
+
+			await editTask(task);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(
