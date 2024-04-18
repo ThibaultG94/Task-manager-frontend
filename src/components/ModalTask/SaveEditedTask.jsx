@@ -48,11 +48,16 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 	const updateTask = async () => {
 		try {
 			const userId = await getUserId();
+
 			let assigned = [];
-			editedTask.assignedTo.forEach((member) => {
-				const contact = contacts.find((contact) => contact.userId === member);
-				assigned.push(contact.userId);
-			});
+			for (const member of editedTask.assignedTo) {
+				const contact = contacts.find(contact => contact.id === member.userId);
+				if (!contact) {
+					throw new Error(`Contact not found for member: ${member.username}`);
+				}
+				assigned.push(contact.id);
+			}
+
 			const task = {
 				_id: editedTask._id,
 				title: editedTask.title,
@@ -64,6 +69,7 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 				assignedTo: assigned,
 				category: editedTask.category,
 			};
+
 			await editTask(task);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
