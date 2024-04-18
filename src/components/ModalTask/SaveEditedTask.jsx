@@ -48,7 +48,23 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 	const updateTask = async () => {
 		try {
 			const userId = await getUserId();
-			await editTask(editedTask);
+			let assigned = [];
+			editedTask.assignedTo.forEach((member) => {
+				const contact = contacts.find((contact) => contact.userId === member);
+				assigned.push(contact.userId);
+			});
+			const task = {
+				_id: editedTask._id,
+				title: editedTask.title,
+				status: editedTask.status,
+				priority: editedTask.priority,
+				deadline: editedTask.deadline,
+				description: editedTask.description,
+				workspaceId: editedTask.workspaceId,
+				assignedTo: assigned,
+				category: editedTask.category,
+			};
+			await editTask(task);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(editedTask, editedTask.category);

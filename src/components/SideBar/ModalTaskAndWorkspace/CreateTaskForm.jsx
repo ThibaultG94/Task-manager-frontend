@@ -55,10 +55,6 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 			return;
 		}
 
-		const assignedUser = workspaceMembers.find(
-			(member) => member.userId === selectedMember
-		);
-
 		const task = {
 			title: taskTitle,
 			userId,
