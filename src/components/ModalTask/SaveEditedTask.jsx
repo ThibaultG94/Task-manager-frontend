@@ -41,10 +41,6 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 		});
 	}, [taskData]);
 
-	useEffect(() => {
-		console.log(editedTask);
-	}, [editedTask]);
-
 	const updateTask = async () => {
 		try {
 			const userId = await getUserId();

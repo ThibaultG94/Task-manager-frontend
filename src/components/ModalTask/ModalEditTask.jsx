@@ -47,6 +47,18 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 	}, [taskData.selectedWorkspace]);
 
 	useEffect(() => {
+		if (selectedMember !== 'default' && workspaceMembers.length > 0) {
+			let memberAssigned = "";
+			const member = workspaceMembers?.filter((member) => member.userId === selectedMember);
+			memberAssigned = member;
+			setTaskData((prevState) => ({
+				...prevState,
+				assignedTo: memberAssigned,
+			}));
+		}
+	}, [selectedMember]);
+
+	useEffect(() => {
 		setTaskData((prevState) => ({
 			...prevState,
 			_id: editedTask?._id,
@@ -116,14 +128,6 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 		}
 	  }, [isSuperAdmin, isAdmin, isTaskOwner]);
 
-	//   useEffect(() => {
-	// 	console.log('selectedMember', selectedMember);
-	// 		setTaskData((prev) => ({
-	// 			...prev,
-	// 			assignedTo: [{ userId: selectedMember }],
-	// 		}));
-	//   }, [selectedMember]);
-	  
 	return (
 		<form
 			className="max-w-lg mx-auto pl-2 pr-0 md:pl-4 md:pr-2 rounded-lg"
