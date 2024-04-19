@@ -6,6 +6,7 @@ import ModalDisplayWorkspace from './ModalDisplayWorkspace';
 import ModalEditWorkspace from './ModalEditWorkspace';
 import DeleteWorkspace from './DeleteWorkspace';
 import SaveEditedWorkspace from './SaveEditedWorkspace';
+import ExitWorkspace from './ExitWorkspace';
 
 const HandleModalWorkspace = ({
 	closeModalWorkspace,
@@ -142,6 +143,9 @@ const HandleModalWorkspace = ({
 											setIsModalWorkspaceOpen
 										}
 										workspaceData={workspaceDataChange}
+								/>)}
+								{selectedWorkspace.isDefault === 'false' && !isSuperAdmin && (
+									<ExitWorkspace setIsModalWorkspaceOpen={setIsModalWorkspaceOpen} workspaceId={workspaceDataChange._id}
 								/>)}
 								{selectedWorkspace.isDefault === 'false' && isSuperAdmin && (
 									<button

@@ -13,14 +13,12 @@ import { deleteTaskFailed } from '../../store/feature/tasks.slice';
 import { useDeleteWorkspace } from '../../api/workspaces/useDeleteWorkspace';
 import { toast } from 'react-toastify';
 
-// HandleModalWorkspace import
-
 const DeleteWorkspace = ({ setIsModalWorkspaceOpen, workspaceData }) => {
 	const dispatch = useDispatch();
 	
 	const deleteWorkspace = useDeleteWorkspace();
 
-	const removeTask = async () => {
+	const removeWorkspace = async () => {
 		dispatch(deleteWorkspaceAction());
 		try {
 			await deleteWorkspace(workspaceData._id);
@@ -42,7 +40,7 @@ const DeleteWorkspace = ({ setIsModalWorkspaceOpen, workspaceData }) => {
 		);
 
 		if (confirmation) {
-			await removeTask();
+			await removeWorkspace();
 			setIsModalWorkspaceOpen(false);
 		}
 	};

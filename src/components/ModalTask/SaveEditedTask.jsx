@@ -11,7 +11,7 @@ import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotifi
 import getUserId from '../../api/users/getUserId';
 import { selectUserContacts } from '../../store/selectors/userSelectors';
 
-const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
+const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData, workspaceTask }) => {
 	const dispatch = useDispatch();
 
 	const contacts = useSelector(selectUserContacts);
@@ -46,12 +46,12 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 			const userId = await getUserId();
 
 			let assigned = [];
-			for (const member of editedTask.assignedTo) {
-				const contact = contacts.find(contact => contact.id === member.userId);
-				if (!contact) {
-					throw new Error(`Contact not found for member: ${member.username}`);
+			for (const user of editedTask.assignedTo) {
+				const member = workspaceTask.members.find(member => member.userId === user.userId);
+				if (!member) {
+					throw new Error(`Member not found for member: ${user.username}`);
 				}
-				assigned.push(contact.id);
+				assigned.push(member.userId);
 			}
 
 			const task = {
@@ -73,6 +73,7 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData }) => {
 			await setTaskNotification(editedTask, userId);
 			toast.success('La tâche a été mise à jour avec succès !');
 		} catch (error) {
+			console.error(error);
 			toast.error('Échec de la mise à jour de la tâche.');
 			return;
 		}

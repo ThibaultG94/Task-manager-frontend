@@ -23,6 +23,7 @@ const HandleModalTask = ({
 	const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [isTaskOwner, setIsTaskOwner] = useState(false);
+	const [workspaceTask, setWorkspaceTask] = useState([]);
 	
 	const [taskData, setTaskData] = useState({
 		_id: '',
@@ -54,6 +55,7 @@ const HandleModalTask = ({
 				const workspace = userWorkspaces.find(
 					(ws) => ws._id === editedTask.workspaceId
 					);
+				setWorkspaceTask(workspace);
 				const userId = await getUserId();
 		
 				const isSuperAdminVerification = workspace.members.some(
@@ -128,6 +130,7 @@ const HandleModalTask = ({
 								setIsEditing={setIsEditing}
 								setIsModalOpen={setIsModalOpen}
 								taskData={taskData}
+								workspaceTask={workspaceTask}
 							/>
 						</div>
 					)}
