@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 import { resetEditState, setHasEdited, setWorkspacesHasBeenUpdated } from '../../store/feature/editState.slice';
 import { useExitWorkspace } from '../../api/workspaces/useExitWorkspace';
 import { toast } from 'react-toastify';
+import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 
 const ExitWorkspace = ({ setIsModalWorkspaceOpen, workspaceId }) => {
     const dispatch = useDispatch();
 
     const exitWorkspace = useExitWorkspace();
+	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 
     const removeWorkspace = async () => {
 		try {
@@ -15,7 +17,8 @@ const ExitWorkspace = ({ setIsModalWorkspaceOpen, workspaceId }) => {
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			dispatch(setWorkspacesHasBeenUpdated(true));
-			toast.success('La tâche a été supprimée avec succès !');
+			// await tasksHasBeenUpdated();
+			toast.success('Vous avez quitté le workspace avec succès !');
 		} catch (error) {
 			toast.error('Échec de la modification du workspace.');
 			return;

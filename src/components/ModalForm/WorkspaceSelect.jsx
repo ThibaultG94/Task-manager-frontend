@@ -22,7 +22,8 @@ const WorkspaceSelect = ({
 						<option key={workspace._id} value={workspace._id}>
 							{workspace.title}
 						</option>
-					))}
+					))
+				}
 			</select>
 			<ArrowDown />
 		</div>

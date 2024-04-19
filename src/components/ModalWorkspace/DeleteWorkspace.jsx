@@ -26,7 +26,7 @@ const DeleteWorkspace = ({ setIsModalWorkspaceOpen, workspaceData }) => {
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
 			dispatch(setWorkspacesHasBeenUpdated(true));
-			toast.success('La tâche a été supprimée avec succès !');
+			toast.success('Le workspace a été supprimée avec succès !');
 		} catch (error) {
 			dispatch(deleteTaskFailed(error));
 			toast.error('Échec de la suppression de la tâche.');

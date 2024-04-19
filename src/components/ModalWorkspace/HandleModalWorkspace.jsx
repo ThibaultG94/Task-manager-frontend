@@ -7,6 +7,7 @@ import ModalEditWorkspace from './ModalEditWorkspace';
 import DeleteWorkspace from './DeleteWorkspace';
 import SaveEditedWorkspace from './SaveEditedWorkspace';
 import ExitWorkspace from './ExitWorkspace';
+import RebootWorkspaceDefault from './RebootWorkspaceDefault';
 
 const HandleModalWorkspace = ({
 	closeModalWorkspace,
@@ -137,23 +138,21 @@ const HandleModalWorkspace = ({
 					{!isEditingWorkspace ? (
 						<div className="flex justify-end">
 							<div className="flex justify-between">
-								{selectedWorkspace.isDefault === 'false' && isSuperAdmin && (
+								{isSuperAdmin && (
 									<DeleteWorkspace
 										setIsModalWorkspaceOpen={
 											setIsModalWorkspaceOpen
 										}
 										workspaceData={workspaceDataChange}
-								/>)}
-								{selectedWorkspace.isDefault === 'false' && !isSuperAdmin && (
+								/>)}	
+								{!isSuperAdmin && (
 									<ExitWorkspace setIsModalWorkspaceOpen={setIsModalWorkspaceOpen} workspaceId={workspaceDataChange._id}
 								/>)}
-								{selectedWorkspace.isDefault === 'false' && isSuperAdmin && (
 									<button
-										className="button bg-light-blue-2 hover:bg-dark-blue mb-3 mr-8"
+										className="button bg-light-blue-2 hover:bg-dark-blue mt-2 mb-3 mr-6"
 										onClick={handleEditWorkspace}>
 										<i className="fas fa-pencil-alt mr-2"></i> Editer
 									</button>
-								)}
 							</div>
 						</div>
 					) : (
