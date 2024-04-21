@@ -17,9 +17,12 @@ import {
 } from '../store/feature/editState.slice';
 import { formatDateForDisplay } from './formatDateForDisplay';
 import { getCategoryDay } from './getCategoryDay';
+import { useGetNotifications } from '../api/notifications/useGetNotifications';
 
 export const useTasksHasBeenUpdated = () => {
 	const dispatch = useDispatch();
+
+	const getNotifications = useGetNotifications();
 
 	const updateCategory = (category) => {
 		switch (category) {
@@ -70,6 +73,7 @@ export const useTasksHasBeenUpdated = () => {
 	const tasksHasBeenUpdated = async (task, oldCategory) => {
 		const day = await formatDateForDisplay(task.deadline);
 		const category = await getCategoryDay(day, task.status, task.deadline);
+		await getNotifications();
 
 		if (oldCategory !== category) {
 			updateCategory(oldCategory);

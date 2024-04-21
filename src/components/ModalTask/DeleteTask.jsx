@@ -18,7 +18,6 @@ const DeleteTask = ({ setIsModalOpen }) => {
 
 	const removeTask = async () => {
 		try {
-			console.log(editedTask);
 			await deleteTask(editedTask._id);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
