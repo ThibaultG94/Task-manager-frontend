@@ -7,7 +7,6 @@ import ModalEditWorkspace from './ModalEditWorkspace';
 import DeleteWorkspace from './DeleteWorkspace';
 import SaveEditedWorkspace from './SaveEditedWorkspace';
 import ExitWorkspace from './ExitWorkspace';
-import RebootWorkspaceDefault from './RebootWorkspaceDefault';
 
 const HandleModalWorkspace = ({
 	closeModalWorkspace,
