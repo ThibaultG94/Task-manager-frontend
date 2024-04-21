@@ -71,6 +71,7 @@ const DashboardPage = () => {
 		}
 		if (workspacesHasBeenUpdated) {
 			userId !== null && getWorkspaces(userId);
+			userId !== null && getUrgentTasks(userId);
 			dispatch(setWorkspacesHasBeenUpdated(false));
 		}
 	}, [hasBeenUpdated, workspacesHasBeenUpdated]);

@@ -4,6 +4,7 @@ import {
 	deleteWorkspaceAction,
 	deleteWorkspaceFailed,
 	deleteWorkspaceSuccess,
+	setWorkspacesSuccess,
 } from '../../store/feature/workspaces.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
@@ -22,7 +23,7 @@ export const useDeleteWorkspace = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(deleteWorkspaceSuccess(res.data));
+			dispatch(setWorkspacesSuccess(res.data.workspaces));
 			return res.data;
 		} catch (error) {
 			dispatch(deleteWorkspaceFailed(error));
