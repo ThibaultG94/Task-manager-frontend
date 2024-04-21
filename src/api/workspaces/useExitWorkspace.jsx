@@ -4,6 +4,7 @@ import {
 	editWorkspaceAction,
 	editWorkspaceFailed,
 	editWorkspaceSuccess,
+	setWorkspacesSuccess,
 } from '../../store/feature/workspaces.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
@@ -23,7 +24,7 @@ export const useExitWorkspace = () => {
 					withCredentials: true,
 				}
 			);
-            console.log(res);
+			dispatch(setWorkspacesSuccess(res.data.workspaces));
 			return res;
 		} catch (error) {
             dispatch(editWorkspaceFailed(error));
