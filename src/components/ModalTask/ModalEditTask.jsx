@@ -6,15 +6,12 @@ import MemberSelect from '../ModalForm/MemberSelect';
 import DeadlineInput from '../ModalForm/DeadlineInput';
 import WorkspaceSelect from '../ModalForm/WorkspaceSelect';
 import ArrowDown from '../Buttons/ArrowDown';
-import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import getUserId from '../../api/users/getUserId';
 import { frenchFormattedDate } from '../../utils/dateFormatTools';
 
 const ModalEditTask = ({ taskData, setTaskData }) => {
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const editedTask = useSelector(selectEditedTask);
-
-	const getWorkspace = useGetWorkspace();
 
 	const [workspaceMembers, setWorkspaceMembers] = useState('');
 	const [selectedMember, setSelectedMember] = useState('default');
@@ -76,9 +73,12 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 	}, [editedTask]);
 
 	useEffect(() => {
+		const workspace = userWorkspaces.find(
+			(ws) => ws._id === taskData.selectedWorkspace
+		);
+
 		const checkUserPrivileges = async () => {
 		  if (taskData && taskData.selectedWorkspace && taskData.selectedWorkspace !== 'default') {
-			  const workspace = await getWorkspace(taskData.selectedWorkspace);
 			  const userId = await getUserId();
 	  
 			  const isSuperAdminVerification = workspace.members.some(
@@ -103,16 +103,11 @@ const ModalEditTask = ({ taskData, setTaskData }) => {
 			const deadline = await frenchFormattedDate(taskData?.deadline);
 			setConvertedDeadline(deadline);
 		};
-
-		const fetchConvertedWorkspace = async () => {
-			const workspace = await getWorkspace(editedTask?.workspaceId);
-			setConvertedWorkspace(workspace?.title);
-		};
 	  
 		checkUserPrivileges();
 		fetchConvertedMember();
 		fetchConvertedDeadline();
-		if (taskData && taskData.selectedWorkspace) fetchConvertedWorkspace();
+		if (taskData && taskData.selectedWorkspace) setConvertedWorkspace(workspace?.title);
 		setSelectedMember(taskData?.assignedTo[0]?.userId);
 	  }, [taskData]);
 
