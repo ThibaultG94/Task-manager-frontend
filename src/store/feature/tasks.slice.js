@@ -20,12 +20,8 @@ export const tasksSlice = createSlice({
     isTomorrowTasksLoaded: false,
     thisWeekTasks: [],
     isThisWeekTasksLoaded: false,
-    thisWeekendTasks: [],
-    isThisWeekendTasksLoaded: false,
     nextWeekTasks: [],
     isNextWeekTasksLoaded: false,
-    nextWeekendTasks: [],
-    isNextWeekendTasksLoaded: false,
     thisMonthTasks: [],
     isThisMonthTasksLoaded: false,
     nextMonthTasks: [],
@@ -160,19 +156,6 @@ export const tasksSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    setThisWeekendTasksAction: (state) => {
-      state.loading = true;
-    },
-    setThisWeekendTasksSuccess: (state, action) => {
-      state.loading = false;
-      state.thisWeekendTasks = action.payload;
-      state.isThisWeekendTasksLoaded = true;
-      state.error = null;
-    },
-    setThisWeekendTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
     setNextWeekTasksAction: (state) => {
       state.loading = true;
     },
@@ -183,19 +166,6 @@ export const tasksSlice = createSlice({
       state.error = null;
     },
     setNextWeekTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setNextWeekendTasksAction: (state) => {
-      state.loading = true;
-    },
-    setNextWeekendTasksSuccess: (state, action) => {
-      state.loading = false;
-      state.nextWeekendTasks = action.payload;
-      state.isNextWeekendTasksLoaded = true;
-      state.error = null;
-    },
-    setNextWeekendTasksFailed: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -380,15 +350,9 @@ export const {
   setThisWeekTasksAction,
   setThisWeekTasksSuccess,
   setThisWeekTasksFailed,
-  setThisWeekendTasksAction,
-  setThisWeekendTasksSuccess,
-  setThisWeekendTasksFailed,
   setNextWeekTasksAction,
   setNextWeekTasksSuccess,
   setNextWeekTasksFailed,
-  setNextWeekendTasksAction,
-  setNextWeekendTasksSuccess,
-  setNextWeekendTasksFailed,
   setThisMonthTasksAction,
   setThisMonthTasksSuccess,
   setThisMonthTasksFailed,

@@ -4,12 +4,10 @@ import {
 	selectBecomingTasksHasBeenUpdated,
 	selectNextMonthTasksHasBeenUpdated,
 	selectNextWeekTasksHasBeenUpdated,
-	selectNextWeekendTasksHasBeenUpdated,
 	selectNextYearTasksHasBeenUpdated,
 	selectOverdueTasksHasBeenUpdated,
 	selectThisMonthTasksHasBeenUpdated,
 	selectThisWeekTasksHasBeenUpdated,
-	selectThisWeekendTasksHasBeenUpdated,
 	selectThisYearTasksHasBeenUpdated,
 	selectTodayTasksHasBeenUpdated,
 	selectTomorrowTasksHasBeenUpdated,
@@ -18,9 +16,7 @@ import { useGetOverdueTasks } from '../api/tasks/useGetOverdueTasks';
 import { useGetTodayTasks } from '../api/tasks/useGetTodayTasks';
 import { useGetTomorrowTasks } from '../api/tasks/useGetTomorrowTasks';
 import { useGetThisWeekTasks } from '../api/tasks/useGetThisWeekTasks';
-import { useGetThisWeekendTasks } from '../api/tasks/useGetThisWeekendTasks';
 import { useGetNextWeekTasks } from '../api/tasks/useGetNextWeekTasks';
-import { useGetNextWeekendTasks } from '../api/tasks/useGetNextWeekendTasks';
 import { useGetThisMonthTasks } from '../api/tasks/useGetThisMonthTasks';
 import { useGetNextMonthTasks } from '../api/tasks/useGetNextMonthTasks';
 import { useGetThisYearTasks } from '../api/tasks/useGetThisYearTasks';
@@ -33,12 +29,10 @@ import {
 	setBecomingTasksHasBeenUpdated,
 	setNextMonthTasksHasBeenUpdated,
 	setNextWeekTasksHasBeenUpdated,
-	setNextWeekendTasksHasBeenUpdated,
 	setNextYearTasksHasBeenUpdated,
 	setOverdueTasksHasBeenUpdated,
 	setThisMonthTasksHasBeenUpdated,
 	setThisWeekTasksHasBeenUpdated,
-	setThisWeekendTasksHasBeenUpdated,
 	setThisYearTasksHasBeenUpdated,
 	setTodayTasksHasBeenUpdated,
 	setTomorrowTasksHasBeenUpdated,
@@ -64,14 +58,8 @@ export const useUpdateTasksInStore = () => {
 	const thisWeekTasksHasBeenUpdated = useSelector(
 		selectThisWeekTasksHasBeenUpdated
 	);
-	const thisWeekendTasksHasBeenUpdated = useSelector(
-		selectThisWeekendTasksHasBeenUpdated
-	);
 	const nextWeekTasksHasBeenUpdated = useSelector(
 		selectNextWeekTasksHasBeenUpdated
-	);
-	const nextWeekendTasksHasBeenUpdated = useSelector(
-		selectNextWeekendTasksHasBeenUpdated
 	);
 	const thisMonthTasksHasBeenUpdated = useSelector(
 		selectThisMonthTasksHasBeenUpdated
@@ -96,9 +84,7 @@ export const useUpdateTasksInStore = () => {
 	const getTodayTasks = useGetTodayTasks();
 	const getTomorrowTasks = useGetTomorrowTasks();
 	const getThisWeekTasks = useGetThisWeekTasks();
-	const getThisWeekendTasks = useGetThisWeekendTasks();
 	const getNextWeekTasks = useGetNextWeekTasks();
-	const getNextWeekendTasks = useGetNextWeekendTasks();
 	const getThisMonthTasks = useGetThisMonthTasks();
 	const getNextMonthTasks = useGetNextMonthTasks();
 	const getThisYearTasks = useGetThisYearTasks();
@@ -144,25 +130,11 @@ export const useUpdateTasksInStore = () => {
 	}, [thisWeekTasksHasBeenUpdated]);
 
 	useEffect(() => {
-		if (thisWeekendTasksHasBeenUpdated) {
-			userId !== null && getThisWeekendTasks(userId);
-			dispatch(setThisWeekendTasksHasBeenUpdated(false));
-		}
-	}, [thisWeekendTasksHasBeenUpdated]);
-
-	useEffect(() => {
 		if (nextWeekTasksHasBeenUpdated) {
 			userId !== null && getNextWeekTasks(userId);
 			dispatch(setNextWeekTasksHasBeenUpdated(false));
 		}
 	}, [nextWeekTasksHasBeenUpdated]);
-
-	useEffect(() => {
-		if (nextWeekendTasksHasBeenUpdated) {
-			userId !== null && getNextWeekendTasks(userId);
-			dispatch(setNextWeekendTasksHasBeenUpdated(false));
-		}
-	}, [nextWeekendTasksHasBeenUpdated]);
 
 	useEffect(() => {
 		if (thisMonthTasksHasBeenUpdated) {

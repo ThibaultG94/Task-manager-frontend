@@ -87,16 +87,6 @@ export const selectIsThisWeekTasksLoaded = createSelector(
   (tasks) => tasks.isThisWeekTasksLoaded
 );
 
-export const selectThisWeekendTasks = createSelector(
-  [selectTasksState],
-  (tasks) => tasks.thisWeekendTasks
-);
-
-export const selectIsThisWeekendTasksLoaded = createSelector(
-  [selectTasksState],
-  (tasks) => tasks.isThisWeekendTasksLoaded
-);
-
 export const selectNextWeekTasks = createSelector(
   [selectTasksState],
   (tasks) => tasks.nextWeekTasks
@@ -105,16 +95,6 @@ export const selectNextWeekTasks = createSelector(
 export const selectIsNextWeekTasksLoaded = createSelector(
   [selectTasksState],
   (tasks) => tasks.isNextWeekTasksLoaded
-);
-
-export const selectNextWeekendTasks = createSelector(
-  [selectTasksState],
-  (tasks) => tasks.nextWeekendTasks
-);
-
-export const selectIsNextWeekendTasksLoaded = createSelector(
-  [selectTasksState],
-  (tasks) => tasks.isNextWeekendTasksLoaded
 );
 
 export const selectThisMonthTasks = createSelector(

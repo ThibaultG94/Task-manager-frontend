@@ -8,12 +8,10 @@ import {
 	selectBecomingTasks,
 	selectNextMonthTasks,
 	selectNextWeekTasks,
-	selectNextWeekendTasks,
 	selectNextYearTasks,
 	selectOverdueTasks,
 	selectThisMonthTasks,
 	selectThisWeekTasks,
-	selectThisWeekendTasks,
 	selectThisYearTasks,
 	selectTodayTasks,
 	selectTomorrowTasks,
@@ -25,9 +23,7 @@ import DisplayOverdueTasks from './DisplayOverdueTasks';
 import DisplayTodayTasks from './DisplayTodayTasks';
 import DisplayTomorrowTasks from './DisplayTomorrowTasks';
 import DisplayThisWeekTasks from './DisplayThisWeekTasks';
-import DisplayThisWeekendTasks from './DisplayThisWeekendTasks';
 import DisplayNextWeekTasks from './DisplayNextWeekTasks';
-import DisplayNextWeekendTasks from './DisplayNextWeekendTasks';
 import DisplayThisMonthTasks from './DisplayThisMonthTasks';
 import DisplayNextMonthTasks from './DisplayNextMonthTasks';
 import DisplayThisYearTasks from './DisplayThisYearTasks';
@@ -50,9 +46,7 @@ const DisplayTasks = () => {
 		userTodayTasks: useSelector(selectTodayTasks),
 		userTomorrowTasks: useSelector(selectTomorrowTasks),
 		userThisWeekTasks: useSelector(selectThisWeekTasks),
-		userThisWeekendTasks: useSelector(selectThisWeekendTasks),
 		userNextWeekTasks: useSelector(selectNextWeekTasks),
-		userNextWeekendTasks: useSelector(selectNextWeekendTasks),
 		userThisMonthTasks: useSelector(selectThisMonthTasks),
 		userNextMonthTasks: useSelector(selectNextMonthTasks),
 		userThisYearTasks: useSelector(selectThisYearTasks),
@@ -65,9 +59,7 @@ const DisplayTasks = () => {
 		'today-tasks': true,
 		'tomorrow-tasks': true,
 		'this-week-tasks': false,
-		'this-weekend-tasks': false,
 		'next-week-tasks': false,
-		'next-weekend-tasks': false,
 		'this-month-tasks': false,
 		'next-month-tasks': false,
 		'this-year-tasks': false,
@@ -151,23 +143,7 @@ const DisplayTasks = () => {
 				setExpandedBlocks={setExpandedBlocks}
 			/>
 
-			<DisplayThisWeekendTasks
-				setSelectedTask={setSelectedTask}
-				openModal={openModal}
-				allTasks={allTasks}
-				expandedBlocks={expandedBlocks}
-				setExpandedBlocks={setExpandedBlocks}
-			/>
-
 			<DisplayNextWeekTasks
-				setSelectedTask={setSelectedTask}
-				openModal={openModal}
-				allTasks={allTasks}
-				expandedBlocks={expandedBlocks}
-				setExpandedBlocks={setExpandedBlocks}
-			/>
-
-			<DisplayNextWeekendTasks
 				setSelectedTask={setSelectedTask}
 				openModal={openModal}
 				allTasks={allTasks}

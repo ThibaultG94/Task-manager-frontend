@@ -5,12 +5,10 @@ import {
 	setHasBeenUpdated,
 	setNextMonthTasksHasBeenUpdated,
 	setNextWeekTasksHasBeenUpdated,
-	setNextWeekendTasksHasBeenUpdated,
 	setNextYearTasksHasBeenUpdated,
 	setOverdueTasksHasBeenUpdated,
 	setThisMonthTasksHasBeenUpdated,
 	setThisWeekTasksHasBeenUpdated,
-	setThisWeekendTasksHasBeenUpdated,
 	setThisYearTasksHasBeenUpdated,
 	setTodayTasksHasBeenUpdated,
 	setTomorrowTasksHasBeenUpdated,
@@ -38,14 +36,8 @@ export const useTasksHasBeenUpdated = () => {
 			case 'this-week-tasks':
 				dispatch(setThisWeekTasksHasBeenUpdated(true));
 				break;
-			case 'this-weekend-tasks':
-				dispatch(setThisWeekendTasksHasBeenUpdated(true));
-				break;
 			case 'next-week-tasks':
 				dispatch(setNextWeekTasksHasBeenUpdated(true));
-				break;
-			case 'next-weekend-tasks':
-				dispatch(setNextWeekendTasksHasBeenUpdated(true));
 				break;
 			case 'this-month-tasks':
 				dispatch(setThisMonthTasksHasBeenUpdated(true));

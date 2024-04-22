@@ -8,7 +8,6 @@ import {
 	selectIsOverdueTasksLoaded,
 	selectIsThisMonthTasksLoaded,
 	selectIsThisWeekTasksLoaded,
-	selectIsThisWeekendTasksLoaded,
 	selectIsThisYearTasksLoaded,
 	selectIsTodayTasksLoaded,
 	selectIsTomorrowTasksLoaded,
@@ -23,9 +22,7 @@ import { useGetOverdueTasks } from '../api/tasks/useGetOverdueTasks';
 import { useGetTodayTasks } from '../api/tasks/useGetTodayTasks';
 import { useGetTomorrowTasks } from '../api/tasks/useGetTomorrowTasks';
 import { useGetThisWeekTasks } from '../api/tasks/useGetThisWeekTasks';
-import { useGetThisWeekendTasks } from '../api/tasks/useGetThisWeekendTasks';
 import { useGetNextWeekTasks } from '../api/tasks/useGetNextWeekTasks';
-import { useGetNextWeekendTasks } from '../api/tasks/useGetNextWeekendTasks';
 import { useGetThisMonthTasks } from '../api/tasks/useGetThisMonthTasks';
 import { useGetNextMonthTasks } from '../api/tasks/useGetNextMonthTasks';
 import { useGetThisYearTasks } from '../api/tasks/useGetThisYearTasks';
@@ -44,11 +41,7 @@ const TasksPage = () => {
 	const isTodayTasksLoaded = useSelector(selectIsTodayTasksLoaded);
 	const isTomorrowTasksLoaded = useSelector(selectIsTomorrowTasksLoaded);
 	const isThisWeekTasksLoaded = useSelector(selectIsThisWeekTasksLoaded);
-	const isThisWeekendTasksLoaded = useSelector(
-		selectIsThisWeekendTasksLoaded
-	);
 	const isNextWeekTasksLoaded = useSelector(selectIsNextWeekTasksLoaded);
-	const isNextWeekendTasksLoaded = useSelector(selectIsNextWeekTasksLoaded);
 	const isThisMonthTasksLoaded = useSelector(selectIsThisMonthTasksLoaded);
 	const isNextMonthTasksLoaded = useSelector(selectIsNextMonthTasksLoaded);
 	const isThisYearTasksLoaded = useSelector(selectIsThisYearTasksLoaded);
@@ -75,9 +68,7 @@ const TasksPage = () => {
 	const getTodayTasks = useGetTodayTasks();
 	const getTomorrowTasks = useGetTomorrowTasks();
 	const getThisWeekTasks = useGetThisWeekTasks();
-	const getThisWeekendTasks = useGetThisWeekendTasks();
 	const getNextWeekTasks = useGetNextWeekTasks();
-	const getNextWeekendTasks = useGetNextWeekendTasks();
 	const getThisMonthTasks = useGetThisMonthTasks();
 	const getNextMonthTasks = useGetNextMonthTasks();
 	const getThisYearTasks = useGetThisYearTasks();
@@ -101,11 +92,7 @@ const TasksPage = () => {
 				if (!isTodayTasksLoaded) await getTodayTasks(userId);
 				if (!isTomorrowTasksLoaded) await getTomorrowTasks(userId);
 				if (!isThisWeekTasksLoaded) await getThisWeekTasks(userId);
-				if (!isThisWeekendTasksLoaded)
-					await getThisWeekendTasks(userId);
 				if (!isNextWeekTasksLoaded) await getNextWeekTasks(userId);
-				if (!isNextWeekendTasksLoaded)
-					await getNextWeekendTasks(userId);
 				if (!isThisMonthTasksLoaded) await getThisMonthTasks(userId);
 				if (!isNextMonthTasksLoaded) await getNextMonthTasks(userId);
 				if (!isThisYearTasksLoaded) await getThisYearTasks(userId);
