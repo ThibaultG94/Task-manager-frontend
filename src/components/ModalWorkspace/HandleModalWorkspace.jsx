@@ -89,10 +89,13 @@ const HandleModalWorkspace = ({
 				const isSuperAdminVerification = selectedWorkspace.members.some(
 				  (member) => member.userId === userId && member.role === 'superadmin'
 				);
+				const isAdminVerification = selectedWorkspace.members.some(
+					(member) => member.userId === userId && member.role === 'admin'
+				);
 		
 				setIsSuperAdmin(isSuperAdminVerification);
 			}
-		  };
+		};
 
 		checkUserPrivileges();
 	}, [selectedWorkspace]);
@@ -147,11 +150,13 @@ const HandleModalWorkspace = ({
 								{!isSuperAdmin && (
 									<ExitWorkspace setIsModalWorkspaceOpen={setIsModalWorkspaceOpen} workspaceId={workspaceDataChange._id}
 								/>)}
+								{isSuperAdmin && (
 									<button
-										className="button bg-light-blue-2 hover:bg-dark-blue mt-2 mb-3 mr-6"
-										onClick={handleEditWorkspace}>
+									className="button bg-light-blue-2 hover:bg-dark-blue mt-2 mb-3 mr-6"
+									onClick={handleEditWorkspace}>
 										<i className="fas fa-pencil-alt mr-2"></i> Editer
 									</button>
+								)}
 							</div>
 						</div>
 					) : (
