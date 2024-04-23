@@ -21,6 +21,8 @@ const ListWorkspaces = ({ userId }) => {
 	const [isModalWorkspaceOpen, setIsModalWorkspaceOpen] = useState(false);
 	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
 
+	const statusOrder = ['Pending', 'In Progress', 'Completed', 'Archived'];
+
 	const checkIfEditedWorkspace = useCheckIfEditedWorkspace({
 		setIsModalWorkspaceOpen,
 		setIsEditingWorkspace,
@@ -116,16 +118,16 @@ const ListWorkspaces = ({ userId }) => {
 											Object.entries(
 												workspace?.taskStatusCount
 											)
-												.filter(
-													([, count]) => count > 0
-												)
-												.map(([status, count]) => (
-													<TaskStatusIcon
-														key={status}
-														status={status}
-														count={count}
-													/>
-												))}
+											.filter(([, count]) => count > 0)
+											.sort((a, b) => statusOrder.indexOf(a[0]) - statusOrder.indexOf(b[0]))
+											.map(([status, count]) => (
+												<TaskStatusIcon
+													key={status}
+													status={status}
+													count={count}
+												/>
+											))
+										}
 									</div>
 								</div>
 							) : (
@@ -156,16 +158,15 @@ const ListWorkspaces = ({ userId }) => {
 											Object.entries(
 												workspace?.taskStatusCount
 											)
-												.filter(
-													([, count]) => count > 0
-												)
-												.map(([status, count]) => (
-													<TaskStatusCount
-														key={status}
-														status={status}
-														count={count}
-													/>
-												))}
+											.filter(([, count]) => count > 0)
+											.sort((a, b) => statusOrder.indexOf(a[0]) - statusOrder.indexOf(b[0]))
+											.map(([status, count]) => (
+												<TaskStatusCount
+													key={status}
+													status={status}
+													count={count}
+												/>
+										))}
 									</div>
 								</div>
 							)}
