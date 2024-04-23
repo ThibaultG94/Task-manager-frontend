@@ -1,0 +1,78 @@
+.loading-animation {
+    animation: fadeInOut 3s infinite;
+}
+
+.error-animation {
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    border-color: red;
+}
+
+@keyframes fadeInOut {
+
+    0% {
+        opacity: 1;
+    }
+
+    1% {
+        opacity: 0;
+        display: none;
+    }
+
+    99% {
+        opacity: 0;
+        display: none;
+    }
+
+    100% {
+        opacity: 1;
+        display: block;
+    }
+}
+
+@keyframes shake {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    10% {
+        transform: translateX(-10px);
+    }
+
+    20% {
+        transform: translateX(10px);
+    }
+
+    30% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(10px);
+    }
+
+    50% {
+        transform: translateX(-10px);
+    }
+
+    60% {
+        transform: translateX(10px);
+    }
+
+    70% {
+        transform: translateX(-10px);
+    }
+
+    80% {
+        transform: translateX(10px);
+    }
+
+    90% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}

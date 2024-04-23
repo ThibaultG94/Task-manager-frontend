@@ -20,7 +20,7 @@ const LoginForm = ({ setShowLoginForm }) => {
 		password: null,
 	});
 
-	const errorLogin = useErrorLogin({ setInputsFormErrors });
+	const { errorLogin, isDelayActive, errorCount  } = useErrorLogin({ setInputsFormErrors });
 	const handleLoginInputChange = useHandleLoginInputChange({
 		setInputsFormValues,
 	});
@@ -56,6 +56,7 @@ const LoginForm = ({ setShowLoginForm }) => {
 						inputsFormErrors={inputsFormErrors}
 						inputsFormValues={inputsFormValues}
 						handleLoginInputChange={handleLoginInputChange}
+						errorCount={errorCount}
 					/>
 
 					<PasswordLogin
@@ -63,6 +64,7 @@ const LoginForm = ({ setShowLoginForm }) => {
 						inputsFormValues={inputsFormValues}
 						handleLoginInputChange={handleLoginInputChange}
 						openModalResetPassword={openModalResetPassword}
+						errorCount={errorCount}
 					/>
 
 					<div className="w-full flex justify-between md:justify-end">
@@ -72,9 +74,10 @@ const LoginForm = ({ setShowLoginForm }) => {
 							Pas encore inscrit ?
 						</button>
 						<button
-							className="button bg-light-blue hover:bg-light-blue-3 mt-2 sm:mt-3 md:mt-5 text-sm sm:text-base md:text-lg text-dark-blue"
-							type="submit">
-							Se connecter
+							className={`button bg-light-blue hover:bg-light-blue-300 mt-2 sm:mt-3 md:mt-5 text-sm sm:text-base md:text-lg text-dark-blue ${isDelayActive ? 'loading-animation' : ''}`}
+							type="submit"
+							disabled={isDelayActive}>
+								Se connecter
 						</button>
 					</div>
 				</form>

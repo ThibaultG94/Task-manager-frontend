@@ -31,20 +31,20 @@ const ModalDisplayWorkspace = ({ selectedWorkspace }) => {
             <div className="flex flex-wrap justify-end py-1">
 				{selectedWorkspace?.taskStatusCount && Object.values(selectedWorkspace.taskStatusCount).reduce((total, count) => total + count, 0) > 0 &&
 					<>
-					<span className="text-sm font-bold self-end text-gray-500 py-1 mr-3">
-						Tâches ({Object.values(selectedWorkspace.taskStatusCount).reduce((total, count) => total + count, 0)})
-					</span>
-					{Object.entries(selectedWorkspace.taskStatusCount)
-						.filter(([, count]) => count > 0)
-						.sort((a, b) => statusOrder.indexOf(a[0]) - statusOrder.indexOf(b[0]))
-						.map(([status, count]) => (
-						<TaskStatusIcon
-							key={status}
-							status={status}
-							count={count}
-						/>
-						))
-					}
+						<span className="text-sm font-bold self-end text-gray-500 py-1 mr-3">
+							Tâches ({Object.values(selectedWorkspace.taskStatusCount).reduce((total, count) => total + count, 0)})
+						</span>
+						{Object.entries(selectedWorkspace.taskStatusCount)
+							.filter(([, count]) => count > 0)
+							.sort((a, b) => statusOrder.indexOf(a[0]) - statusOrder.indexOf(b[0]))
+							.map(([status, count]) => (
+								<TaskStatusIcon
+									key={status}
+									status={status}
+									count={count}
+								/>
+							))
+						}
 					</>
 				}
 			</div>

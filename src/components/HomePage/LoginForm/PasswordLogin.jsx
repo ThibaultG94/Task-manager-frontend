@@ -5,6 +5,7 @@ const PasswordLogin = ({
 	inputsFormValues,
 	handleLoginInputChange,
 	openModalResetPassword,
+	errorCount,
 }) => {
 	return (
 		<div className="flex flex-col w-full">
@@ -21,10 +22,8 @@ const PasswordLogin = ({
 				</span>
 			</div>
 			<input
-				className={`appearance-none border focus:border-blue-300 h-9 mt-2 px-2 rounded-lg shadow text-base text-black transition-colors w-full ${
-					inputsFormErrors.password &&
-					'border-red-500 text-red-600 focus:border-red-500'
-				}`}
+				className={`appearance-none border focus:border-blue-300 h-9 mt-2 px-2 rounded-lg shadow text-base text-black transition-colors w-full ${inputsFormErrors.password ? 'error-animation' : ''}`}
+				key={`password-${errorCount}`}
 				id="password"
 				maxLength="128"
 				minLength="8"
@@ -34,6 +33,7 @@ const PasswordLogin = ({
 				type="password"
 				value={inputsFormValues.password}
 			/>
+
 			<span className="h-6 my-1 text-red-400 text-sm max-w-full">
 				{inputsFormErrors.password}
 			</span>
