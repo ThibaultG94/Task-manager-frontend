@@ -45,7 +45,7 @@ const useErrorLogin = ({ setInputsFormErrors }) => {
         }
     };
 
-    return { errorLogin, isDelayActive };
+    return { errorLogin, isDelayActive, errorCount };
 };
 
 export default useErrorLogin;
