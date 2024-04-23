@@ -89,9 +89,6 @@ const HandleModalWorkspace = ({
 				const isSuperAdminVerification = selectedWorkspace.members.some(
 				  (member) => member.userId === userId && member.role === 'superadmin'
 				);
-				const isAdminVerification = selectedWorkspace.members.some(
-					(member) => member.userId === userId && member.role === 'admin'
-				);
 		
 				setIsSuperAdmin(isSuperAdminVerification);
 			}

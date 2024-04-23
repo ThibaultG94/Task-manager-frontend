@@ -94,36 +94,40 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} isPriorityCanBeEdited={isPriorityCanBeEdited} />
 			<QuickEditWorkspace task={task} setSelectedTask={setSelectedTask} />
 
-			<div className="hidden sm:flex items-center">
-				<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full w-8">
-					<span id="avatarLetterAssigned">
-						{task.assignedToLetter}
-					</span>
+			<div className='flex justify-between'>
+				<div className="hidden sm:flex items-center">
+					<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full w-8">
+						<span id="avatarLetterAssigned">
+							{task.assignedToLetter}
+						</span>
+					</div>
 				</div>
-			</div>
 
-			<ButtonToEditTaskInModal
-				openModal={openModal}
-				setSelectedTask={setSelectedTask}
-				task={task}
-			/>
-			
-			<div
-				className="archive-icon"
-				onClick={(e) => validateTask(e, task)}>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					strokeWidth={1.5}
-					stroke="currentColor"
-					className="w-6 h-6">
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						d="M4.5 12.75l6 6 9-13.5"
+				<ButtonToEditTaskInModal
+					openModal={openModal}
+					setSelectedTask={setSelectedTask}
+					task={task}
 					/>
-				</svg>
+
+				<div className='relative w-8'>
+					<div
+						className="archive-icon archive-icon-item"
+						onClick={(e) => validateTask(e, task)}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							strokeWidth={1.5}
+							stroke="currentColor"
+							className="w-6 h-6">
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="M4.5 12.75l6 6 9-13.5"
+								/>
+						</svg>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

@@ -179,7 +179,7 @@ const UrgentTasks = () => {
 								</div>
 							</div>
 							<div
-								className="archive-icon"
+								className="archive-icon archive-icon-urgent"
 								onClick={(e) => validateTask(e, task)}>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
