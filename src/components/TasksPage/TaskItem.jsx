@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+	resetEditState,
+	setHasEdited,
+} from '../../store/feature/editState.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
 import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import getUserId from '../../api/users/getUserId';
+import { useDeleteTask } from '../../api/tasks/useDeleteTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ButtonToGrab from '../Buttons/ButtonToGrab';
@@ -14,7 +20,9 @@ import QuickEditWorkspace from './QuickEditWorkspace';
 import ButtonToEditTaskInModal from '../Buttons/ButtonToEditTaskInModal';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
+	const dispatch = useDispatch();
 	const editTask = useEditTask();
+	const deleteTask = useDeleteTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
 	const getWorkspace = useGetWorkspace();
@@ -86,6 +94,30 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 		}
 	};
 
+	const removeTask = async () => {
+		try {
+			await deleteTask(task.taskId);
+			dispatch(resetEditState());
+			dispatch(setHasEdited(false));
+			await tasksHasBeenUpdated(task, task.category);
+			toast.success('La tâche a été supprimée avec succès !');
+		} catch (error) {
+			toast.error('Échec de la suppression de la tâche.');
+			return;
+		}
+	};
+
+	const handleDelete = async (e) => {
+		e.stopPropagation();
+		const confirmation = window.confirm(
+			'Etes-vous sûr de vouloir supprimer cette tâche ?'
+		);
+
+		if (confirmation) {
+			await removeTask();
+		}
+	  };
+
 	return (
 		<div className="task-item relative py-6 px-2 sm:px-3 md:px-4 mx-auto">
 			<ButtonToGrab />
@@ -111,23 +143,42 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 					/>
 
 				<div className='relative w-8'>
-					<div
-						className="archive-icon archive-icon-item"
-						onClick={(e) => validateTask(e, task)}>
-						<svg
+					{task.category === 'archived-tasks' ? (
+						<div
+						className="delete-icon"
+						onClick={(e) => handleDelete(e, task)}>
+						  <svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
 							className="w-6 h-6">
-							<path
+							  <path
 								strokeLinecap="round"
 								strokeLinejoin="round"
-								d="M4.5 12.75l6 6 9-13.5"
-								/>
-						</svg>
-					</div>
+								d="M6 18L18 6M6 6l12 12" />
+						  </svg>
+					  </div>					  
+					) : (
+						<div
+							className="archive-icon archive-icon-item"
+							onClick={(e) => validateTask(e, task)}>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="w-6 h-6">
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											d="M4.5 12.75l6 6 9-13.5"
+										/>
+								</svg>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
