@@ -60,8 +60,8 @@ const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 				await editTask(task);
 				dispatch(resetEditState());
 				dispatch(setHasEdited(false));
-				await tasksHasBeenUpdated(editedTask, editedTask.category);
-				await setTaskNotification(editedTask, userId);
+				await tasksHasBeenUpdated(task, editedTask.category);
+				await setTaskNotification(task, userId);
 				toast.success(
 					'Le status de la tâche a été mise à jour avec succès !'
 				);
