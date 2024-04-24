@@ -75,9 +75,10 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			const editedTask = {
 				status: newStatus,
 				_id: task.taskId,
+				deadline: task.deadline,
 			}
 			await editTask({ status: newStatus, _id: task.taskId });
-			await tasksHasBeenUpdated(task, task.category);
+			await tasksHasBeenUpdated(editedTask, task.category);
 			await setTaskNotification(editedTask, userId);
 			toast.success('La tâche a été archivée avec succès !');
 		} catch (error) {

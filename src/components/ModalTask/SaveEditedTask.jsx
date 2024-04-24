@@ -69,8 +69,8 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData, workspaceTask 
 			await editTask(task);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
-			await tasksHasBeenUpdated(editedTask, editedTask.category);
-			await setTaskNotification(editedTask, userId);
+			await tasksHasBeenUpdated(task, editedTask.category);
+			await setTaskNotification(task, userId);
 			toast.success('La tâche a été mise à jour avec succès !');
 		} catch (error) {
 			console.error(error);
