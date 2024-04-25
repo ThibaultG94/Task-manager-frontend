@@ -12,7 +12,7 @@ export const useGetWorkspaceTaskStatusCount = () => {
 	const errorApi = useErrorApi();
 
 	const getWorkspaceTaskStatusCount = async (workspaceId) => {
-		dispatch(setWorkspaceTaskStatusCountAction());
+		// dispatch(setWorkspaceTaskStatusCountAction());
 
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
@@ -23,11 +23,12 @@ export const useGetWorkspaceTaskStatusCount = () => {
 				}
 			);
 
-			dispatch(setWorkspaceTaskStatusCountSuccess(res.data));
+			// dispatch(setWorkspaceTaskStatusCountSuccess(res.data));
 			return res.data;
 		} catch (error) {
-			dispatch(setWorkspaceTaskStatusCountFailed(error));
-			errorApi(error);
+			// dispatch(setWorkspaceTaskStatusCountFailed(error));
+			// errorApi(error);
+			return error;
 		}
 	};
 
