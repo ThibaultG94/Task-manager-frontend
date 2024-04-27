@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { selectUrgentTasks } from '../../store/selectors/taskSelectors';
+import { selectIsUrgentTasksLoaded, selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
 import getUserId from '../../api/users/getUserId';
+import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import useCheckIfEdited from '../../utils/useCheckIfEdited';
 import { formatDateForDisplay } from '../../utils/formatDateForDisplay';
 import { getCategoryDay } from '../../utils/getCategoryDay';
-import { toast } from 'react-toastify';
 import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
+import { toast } from 'react-toastify';
 import HandleModalTask from '../ModalTask/HandleModalTask';
-import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import LoadingComponent from '../Buttons/LoadingComponent';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();
 	const workspaces = useSelector(selectWorkspaces);
 	const urgentTasks = useSelector(selectUrgentTasks);
+	const isUrgentTasksLoaded = useSelector(selectIsUrgentTasksLoaded);
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
@@ -92,8 +93,11 @@ const UrgentTasks = () => {
 	};
 
 	useEffect(() => {
+		isUrgentTasksLoaded ? setIsLoading(false) : setIsLoading(true);
+	}, [isUrgentTasksLoaded]);
+
+	useEffect(() => {
 		const updateDisplayTasks = async () => {
-			setIsLoading(true);
 			const updatedTasks = [];
 			for (let i = 0; i < 4; i++) {
 				if (urgentTasks && urgentTasks[i]) {
@@ -138,7 +142,6 @@ const UrgentTasks = () => {
 		};
 
 		updateDisplayTasks();
-		setIsLoading(false);
 	}, [urgentTasks]);
 
 	useEffect(() => {

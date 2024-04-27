@@ -66,7 +66,7 @@ export const tasksSlice = createSlice({
       state.error = action.payload;
     },
     setUrgentTasksAction: (state) => {
-      state.loading = true;
+      state.isUrgentTasksLoaded = true;
     },
     setUrgentTasksSuccess: (state, action) => {
       state.loading = false;
