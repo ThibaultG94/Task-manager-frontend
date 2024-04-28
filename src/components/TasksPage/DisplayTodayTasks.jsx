@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { selectIsTodayTasksLoaded } from '../../store/selectors/taskSelectors';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import HeaderBlock from './HeaderBlock';
 import TaskItem from './TaskItem';
+import LoadingTaskComponent from '../Buttons/LoadingTaskComponent';
 
 const DisplayTodayTasks = ({
 	setSelectedTask,
@@ -13,8 +15,10 @@ const DisplayTodayTasks = ({
 	setExpandedBlocks,
 }) => {
 	const workspaces = useSelector(selectWorkspaces);
+	const isTodayTasksLoaded = useSelector(selectIsTodayTasksLoaded);
 
 	const [displayTodayTasks, setDisplayTodayTasks] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({
@@ -22,6 +26,14 @@ const DisplayTodayTasks = ({
 			[blockId]: !expandedBlocks[blockId],
 		});
 	};
+
+	useEffect(() => {
+		if (!isTodayTasksLoaded) {
+			setIsLoading(true);
+		} else {
+			setIsLoading(false);
+		}
+	}, [isTodayTasksLoaded]);
 
 	useEffect(() => {
 		const updateDisplayTodayTasks = async () => {
@@ -52,25 +64,29 @@ const DisplayTodayTasks = ({
 						toggleBlock={toggleBlock}
 					/>
 
-					<div
+					{isLoading ? (
+						<LoadingTaskComponent />
+					) : (
+						<div
 						className="task-list"
 						onClick={(e) => e.stopPropagation()}>
-						{displayTodayTasks && displayTodayTasks?.length > 0
-							? displayTodayTasks
-									.filter(
-										(task) =>
-											task.category === 'today-tasks'
-									)
-									.map((task, index) => (
-										<TaskItem
-											task={task}
-											openModal={openModal}
-											key={index}
-											setSelectedTask={setSelectedTask}
-										/>
-									))
+							{displayTodayTasks && displayTodayTasks?.length > 0
+								? displayTodayTasks
+								.filter(
+									(task) =>
+									task.category === 'today-tasks'
+								)
+								.map((task, index) => (
+									<TaskItem
+									task={task}
+									openModal={openModal}
+									key={index}
+									setSelectedTask={setSelectedTask}
+									/>
+								))
 							: null}
-					</div>
+						</div>
+					)}
 				</div>
 			)}
 		</>

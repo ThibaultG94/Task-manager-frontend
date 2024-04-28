@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { selectIsOverdueTasksLoaded } from '../../store/selectors/taskSelectors';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import HeaderBlock from './HeaderBlock';
 import TaskItem from './TaskItem';
+import LoadingTaskComponent from '../Buttons/LoadingTaskComponent';
 
 const DisplayOverdueTasks = ({
 	setSelectedTask,
@@ -13,8 +15,10 @@ const DisplayOverdueTasks = ({
 	setExpandedBlocks,
 }) => {
 	const workspaces = useSelector(selectWorkspaces);
+	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);
 
 	const [displayOverdueTasks, setDisplayOverdueTasks] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({
@@ -22,6 +26,14 @@ const DisplayOverdueTasks = ({
 			[blockId]: !expandedBlocks[blockId],
 		});
 	};
+
+	useEffect(() => {
+		if (!isOverdueTasksLoaded) {
+			setIsLoading(true);
+		} else {
+			setIsLoading(false);
+		}
+	}, [isOverdueTasksLoaded]);
 
 	useEffect(() => {
 		const updateDisplayOverdueTasks = async () => {
@@ -51,25 +63,29 @@ const DisplayOverdueTasks = ({
 						toggleBlock={toggleBlock}
 					/>
 
-					<div
+					{isLoading ? (
+						<LoadingTaskComponent/>
+					) : (
+						<div
 						className="task-list"
-						onClick={(e) => e.stopPropagation()}>
-						{displayOverdueTasks && displayOverdueTasks?.length > 0
-							? displayOverdueTasks
-									.filter(
-										(task) =>
-											task.category === 'retard-tasks'
-									)
-									.map((task, index) => (
-										<TaskItem
-											task={task}
-											openModal={openModal}
-											key={index}
-											setSelectedTask={setSelectedTask}
-										/>
-									))
-							: null}
-					</div>
+							onClick={(e) => e.stopPropagation()}>
+							{displayOverdueTasks && displayOverdueTasks?.length > 0
+								? displayOverdueTasks
+								.filter(
+									(task) =>
+									task.category === 'retard-tasks'
+								)
+								.map((task, index) => (
+									<TaskItem
+									task={task}
+									openModal={openModal}
+									key={index}
+									setSelectedTask={setSelectedTask}
+									/>
+								))
+								: null}
+						</div>
+					)}
 				</div>
 			)}
 		</>

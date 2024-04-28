@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { selectIsThisWeekTasksLoaded } from '../../store/selectors/taskSelectors';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import HeaderBlock from './HeaderBlock';
 import TaskItem from './TaskItem';
+import LoadingTaskComponent from '../Buttons/LoadingTaskComponent';
 
 const DisplayThisWeekTasks = ({
 	setSelectedTask,
@@ -12,8 +14,11 @@ const DisplayThisWeekTasks = ({
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
-	const [displayThisWeekTasks, setDisplayThisWeekTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
+	const isThisWeekTasksLoaded = useSelector(selectIsThisWeekTasksLoaded);
+
+	const [displayThisWeekTasks, setDisplayThisWeekTasks] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({
@@ -21,6 +26,14 @@ const DisplayThisWeekTasks = ({
 			[blockId]: !expandedBlocks[blockId],
 		});
 	};
+
+	useEffect(() => {
+		if (!isThisWeekTasksLoaded) {
+			setIsLoading(true);
+		} else {
+			setIsLoading(false);
+		}
+	}, [isThisWeekTasksLoaded]);
 
 	useEffect(() => {
 		const updateDisplayThisWeekTasks = async () => {
@@ -51,26 +64,30 @@ const DisplayThisWeekTasks = ({
 						toggleBlock={toggleBlock}
 					/>
 
-					<div
-						className="task-list"
-						onClick={(e) => e.stopPropagation()}>
-						{displayThisWeekTasks &&
-						displayThisWeekTasks?.length > 0
-							? displayThisWeekTasks
-									.filter(
-										(task) =>
-											task.category === 'this-week-tasks'
-									)
-									.map((task, index) => (
-										<TaskItem
-											task={task}
-											openModal={openModal}
-											key={index}
-											setSelectedTask={setSelectedTask}
-										/>
-									))
-							: null}
-					</div>
+					{isLoading ? (
+						<LoadingTaskComponent />
+					) : (
+						<div
+							className="task-list"
+							onClick={(e) => e.stopPropagation()}>
+							{displayThisWeekTasks &&
+							displayThisWeekTasks?.length > 0
+								? displayThisWeekTasks
+										.filter(
+											(task) =>
+												task.category === 'this-week-tasks'
+										)
+										.map((task, index) => (
+											<TaskItem
+												task={task}
+												openModal={openModal}
+												key={index}
+												setSelectedTask={setSelectedTask}
+											/>
+										))
+								: null}
+						</div>
+					)}
 				</div>
 			)}
 		</>
