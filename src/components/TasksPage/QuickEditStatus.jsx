@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
@@ -15,6 +15,7 @@ import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ArrowDown from '../Buttons/ArrowDown';
 import CloseField from '../Buttons/CloseField';
+import LoadingEditComponent from '../Buttons/LoadingEditComponent';
 
 const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 	const dispatch = useDispatch();
@@ -26,6 +27,8 @@ const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 	const setTaskNotification = useSetTaskNotification();
 
 	const inputStatusRef = useRef(null);
+
+	const [isLoading, setIsLoading] = useState(false);
 
 	const statusIcon = {
 		Archived: 'fa-archive',
@@ -39,6 +42,7 @@ const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 		dispatch(setEditedTask({ status: newStatus }));
 		if (newStatus !== task.status) {
 			try {
+				setIsLoading(true);
 				const userId = await getUserId();
 				let assigned = [];
 				for (const member of editedTask.assignedTo) {
@@ -62,6 +66,8 @@ const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 				dispatch(setHasEdited(false));
 				await tasksHasBeenUpdated(task, editedTask.category);
 				await setTaskNotification(task, userId);
+
+				setIsLoading(false);
 				toast.success(
 					'Le status de la tâche a été mise à jour avec succès !'
 				);
@@ -82,14 +88,14 @@ const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 				`cursor-auto flex h-10 items-center m-auto px-2 sm:px-3 md:px-4 p-1.5 rounded-lg relative select-none text-base md:text-sm lg:text-base ` +
 				task.convertedStatus
 			}>
-			{!isEditingField.status && (
+			{!isEditingField.status && !isLoading && (
 				<span>
 					<i className={`fas ${statusIcon[task.status]} block md:hidden`}></i>
 					<span className="hidden md:inline">{task.convertedStatus}</span>
 				</span>
 			)}
 
-			{isEditingField.status && editedTask?._id === task.taskId ? (
+			{isEditingField.status && editedTask?._id === task.taskId && !isLoading ? (
 				<>
 					<form className="md:block hidden">
 						<select
@@ -113,12 +119,15 @@ const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 					</span>
 				</>
 			) : (
-				isEditingField.status && (
+				isEditingField.status && !isLoading && (
 					<span>
 						<i className={`fas ${statusIcon[task.status]} block md:hidden`}></i>
 						<span className="hidden md:inline">{task.convertedStatus}</span>
 					</span>
 				)
+			)}
+			{isLoading && (
+				<LoadingEditComponent />
 			)}
 		</div>
 	);

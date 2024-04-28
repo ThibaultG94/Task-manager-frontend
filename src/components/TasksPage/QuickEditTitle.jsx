@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
@@ -14,6 +14,7 @@ import getUserId from '../../api/users/getUserId';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import CloseTitle from '../Buttons/CloseTitle';
+import LoadingEditComponent from '../Buttons/LoadingEditComponent';
 
 const QuickEditTitle = ({ task, setSelectedTask, isTitleCanBeEdited }) => {
 	const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const QuickEditTitle = ({ task, setSelectedTask, isTitleCanBeEdited }) => {
 	const setTaskNotification = useSetTaskNotification();
 
 	const inputTitleRef = useRef(null);
+
+	const [isLoading, setIsLoading] = useState(false);
 
 	const editTitle = (task) => {
 		setSelectedTask(task);
@@ -51,6 +54,7 @@ const QuickEditTitle = ({ task, setSelectedTask, isTitleCanBeEdited }) => {
 		}
 		dispatch(setEditedTask({ title: newTitle }));
 		try {
+			setIsLoading(true);
 			const userId = await getUserId();
 			let assigned = [];
 			for (const member of editedTask.assignedTo) {
@@ -74,6 +78,8 @@ const QuickEditTitle = ({ task, setSelectedTask, isTitleCanBeEdited }) => {
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
 			await setTaskNotification(editedTask, userId);
+
+			setIsLoading(false);
 			toast.success(
 				'Le titre de la tâche a été mise à jour avec succès !'
 			);
@@ -86,10 +92,10 @@ const QuickEditTitle = ({ task, setSelectedTask, isTitleCanBeEdited }) => {
 		<div
 			onDoubleClick={() => editTitle(task)}
 			className="cursor-auto flex justify-start overflow-hidden relative rounded-md self-center text-xs sm:text-sm md:text-base">
-			{!isEditingField.title && (
+			{!isEditingField.title && !isLoading && (
 				<span className="ellipsis">{task?.title}</span>
 			)}
-			{isEditingField.title && editedTask?._id === task.taskId ? (
+			{isEditingField.title && editedTask?._id === task.taskId && !isLoading ? (
 				<div className="md:w-10/12">
 					<form
 						className="w-full md:block hidden"
@@ -111,9 +117,12 @@ const QuickEditTitle = ({ task, setSelectedTask, isTitleCanBeEdited }) => {
 					</span>
 				</div>
 			) : (
-				isEditingField.title && (
+				isEditingField.title && !isLoading && (
 					<span className="ellipsis">{task?.title}</span>
 				)
+			)}
+			{isLoading && (
+				<LoadingEditComponent />
 			)}
 		</div>
 	);

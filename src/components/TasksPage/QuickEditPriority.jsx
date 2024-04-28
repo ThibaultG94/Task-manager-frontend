@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsEditingField } from '../../store/selectors/editStateSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
@@ -15,6 +15,7 @@ import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ArrowDown from '../Buttons/ArrowDown';
 import CloseField from '../Buttons/CloseField';
+import LoadingEditComponent from '../Buttons/LoadingEditComponent';
 
 const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => {
 	const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => 
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
+
+	const [isLoading, setIsLoading] = useState(false);
 
 	const inputPriorityRef = useRef(null);
 
@@ -38,6 +41,7 @@ const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => 
 		const newPriority = priority;
 		dispatch(setEditedTask({ priority: newPriority }));
 		try {
+			setIsLoading(true);
 			const userId = await getUserId();
 
 			let assigned = [];
@@ -65,6 +69,7 @@ const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => 
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
 			await setTaskNotification(editedTask, userId);
 
+			setIsLoading(false);
 			toast.success(
 				'La priorité de la tâche a été mise à jour avec succès !'
 			);
@@ -86,7 +91,7 @@ const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => 
 				`cursor-auto flex h-10 items-center m-auto p-1.5 px-2 sm:px-3 md:px-4 relative rounded-lg text-base md:text-sm lg:text-base ` +
 				task.convertedPriority
 			}>
-			{!isEditingField.priority && (
+			{!isEditingField.priority && !isLoading && (
 				<span>
 					<i className={`fas ${priorityIcon[task.convertedPriority]} block lg:hidden`}></i>
 					<span className="ellipsis hidden lg:inline">
@@ -94,7 +99,7 @@ const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => 
 					</span>
 				</span>
 			)}
-			{isEditingField.priority && editedTask?._id === task.taskId ? (
+			{isEditingField.priority && editedTask?._id === task.taskId && !isLoading ? (
 				<>
 					<form className="lg:block hidden">
 						<select
@@ -124,7 +129,7 @@ const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => 
 					</span>
 				</>
 			) : (
-				isEditingField.priority && (
+				isEditingField.priority && !isLoading && (
 					<span>
 						<i className={`fas ${priorityIcon[task.convertedPriority]} block lg:hidden`}></i>
 						<span className="ellipsis hidden lg:inline">
@@ -132,6 +137,9 @@ const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => 
 						</span>
 					</span>
 				)
+			)}
+			{isLoading && (
+				<LoadingEditComponent />
 			)}
 		</div>
 	);

@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
 import getUserId from '../../api/users/getUserId';
 import { selectUserContacts } from '../../store/selectors/userSelectors';
+import LoadingCreateComponent from '../Buttons/LoadingCreateComponent';
 
 const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData, workspaceTask }) => {
 	const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData, workspaceTask 
 	const setTaskNotification = useSetTaskNotification();
 
 	const [editedTask, setEditedTask] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		let assigned = [];
@@ -84,17 +86,25 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData, workspaceTask 
 			toast.error('Veuillez saisir un titre.');
 			return;
 		}
+		setIsLoading(true);
 		await updateTask();
+		setIsLoading(false);
 		setIsModalOpen(false);
 		setIsEditing(false);
 	};
 
 	return (
-		<button
-			className="button mt-2 bg-light-blue-2 hover:bg-dark-blue"
-			onClick={handleSave}>
-			<i className="fas fa-save mr-2"></i> Sauvegarder
-		</button>
+		<div>
+			{isLoading ? (
+				<LoadingCreateComponent />
+			) : (
+				<button
+				className="button mt-2 bg-light-blue-2 hover:bg-dark-blue"
+				onClick={handleSave}>
+					<i className="fas fa-save mr-2"></i> Sauvegarder
+				</button>
+			)}
+		</div>
 	);
 };
 

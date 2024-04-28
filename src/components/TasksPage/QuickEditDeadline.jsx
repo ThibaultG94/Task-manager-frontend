@@ -18,6 +18,7 @@ import useWindowSize from '../../utils/useWindowSize';
 import { inverseDateFormat, formatDateForResponsive, formatDateArchived } from '../../utils/dateFormatTools';
 import { toast } from 'react-toastify';
 import CloseDeadline from '../Buttons/CloseDeadline';
+import LoadingEditComponent from '../Buttons/LoadingEditComponent';
 
 const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => {
 	const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => 
 	const isLargeScreen = width > 1023;
 
 	const [convertedDeadline, setConvertedDeadline] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 	
 	const dayWeek = [
 		'Lundi',
@@ -58,6 +60,7 @@ const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => 
 	}, [task]);
 
 	const handleSubmitDeadline = async (newDeadline) => {
+		setIsLoading(true);
 		dispatch(setEditedTask({ deadline: newDeadline }));
 		try {
 			const userId = await getUserId();
@@ -86,6 +89,7 @@ const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => 
 				editedTask.category
 			);
 			await setTaskNotification(editedTask, userId);
+			setIsLoading(false);
 			toast.success(
 				'La deadline de la tâche a été mise à jour avec succès !'
 			);
@@ -138,7 +142,7 @@ const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => 
 				`cursor-auto flex items-center mx-auto p-0.5 md:p-1 lg:p-1.5 md:p px-1 sm:px-1.5 md:px-2 lg:px-2.5 rounded-lg select-none text-xs md:text-sm relative lg:text-base ` +
 				classInFunctionOfDayorCategory
 			}>
-			{!isEditingField.deadline && (
+			{!isEditingField.deadline && !isLoading && (
 				<>
 					<span className="block lg:hidden">
 						{formatDateForResponsive(task.deadline)}{' '}
@@ -150,7 +154,7 @@ const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => 
 					</span>
 				</>
 			)}
-			{isEditingField.deadline && editedTask?._id === task.taskId ? (
+			{isEditingField.deadline && editedTask?._id === task.taskId && !isLoading ? (
 				<>
 					{isLargeScreen ? (
 						<div className="relative hidden sm:block select-none">
@@ -177,7 +181,7 @@ const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => 
 					)}
 				</>
 			) : (
-				isEditingField.deadline && (
+				isEditingField.deadline && !isLoading && (
 					<>
 						<span className="block lg:hidden">
 							{formatDateForResponsive(task.deadline)}{' '}
@@ -189,6 +193,9 @@ const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => 
 						</span>
 					</>
 				)
+			)}
+			{isLoading && (
+				<LoadingEditComponent />
 			)}
 		</div>
 	);

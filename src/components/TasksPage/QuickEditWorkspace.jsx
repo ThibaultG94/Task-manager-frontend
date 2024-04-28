@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 import { getInitials } from '../../utils/getInitials';
 import ArrowDown from '../Buttons/ArrowDown';
 import CloseWorkspace from '../Buttons/CloseWorkspace';
+import LoadingEditComponent from '../Buttons/LoadingEditComponent';
 
 const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 	const dispatch = useDispatch();
@@ -33,6 +34,8 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 	const screenWidth = useWindowWidth();
 
 	const [workspaces, setWorkspaces] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const classDiv =
 		'cursor-auto flex h-10 items-center m-auto relative rounded-lg self-enter text-xs lg:text-sm xl:text-base';
 
@@ -44,6 +47,7 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 		const newWorkspace = workspaceId;
 		dispatch(setEditedTask({ workspace: newWorkspace }));
 		try {
+			setIsLoading(true);
 			const userId = await getUserId();
 
 			let assigned = [];
@@ -68,6 +72,8 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 			dispatch(setHasEdited(false));
 			await tasksHasBeenUpdated(editedTask, editedTask.category);
 			await setTaskNotification(editedTask, userId);
+
+			setIsLoading(false);
 			toast.success(
 				'Le workspace de la tâche a été mise à jour avec succès !'
 			);
@@ -84,14 +90,14 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 					? `${classDiv} z-10`
 					: `${classDiv} ellipsis`
 			}>
-			{!isEditingField.workspace && (
+			{!isEditingField.workspace && !isLoading && (
 				<span className="ellipsis">
 					{screenWidth < 480
 						? getInitials(task.workspaceTitle)
 						: task.workspaceTitle}
 				</span>
 			)}
-			{isEditingField.workspace && editedTask?._id === task.taskId ? (
+			{isEditingField.workspace && editedTask?._id === task.taskId && !isLoading ? (
 				<>
 					<form className="relative lg:block hidden">
 						<select
@@ -120,13 +126,16 @@ const QuickEditWorkspace = ({ task, setSelectedTask }) => {
 					</span>
 				</>
 			) : (
-				isEditingField.workspace && (
+				isEditingField.workspace && !isLoading && (
 					<span className="ellipsis max-w-16">
 						{screenWidth < 480
 							? getInitials(task.workspaceTitle)
 							: task.workspaceTitle}
 					</span>
 				)
+			)}
+			{isLoading && (
+				<LoadingEditComponent />
 			)}
 		</div>
 	);
