@@ -11,6 +11,7 @@ import ArrowDown from '../../Buttons/ArrowDown';
 import { useCreateTask } from '../../../api/tasks/useCreateTask';
 import { useTasksHasBeenUpdated } from '../../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
+import LoadingCreateComponent from '../../Buttons/LoadingCreateComponent';
 
 const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const createTask = useCreateTask();
@@ -25,6 +26,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const [selectedWorkspace, setSelectedWorkspace] = useState('default');
 	const [workspaceMembers, setWorkspaceMembers] = useState('');
 	const [selectedMember, setSelectedMember] = useState('default');
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		if (selectedWorkspace && userWorkspaces) {
@@ -50,6 +52,8 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		setIsLoading(true);
+
 		if (selectedWorkspace === 'default') {
 			toast.error('Veuillez sélectionner un workspace.');
 			return;
@@ -69,6 +73,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 		try {
 			await createTask(task);
 			await tasksHasBeenUpdated(task);
+			setIsLoading(false);
 			toast.success('Tâche créée avec succès !');
 			setIsModalOpen(false);
 		} catch (error) {
@@ -146,7 +151,11 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 						workspaceMembers={workspaceMembers}
 					/>
 				</div>
-				<SubmitButton label={'Créer la tâche'} />
+				{isLoading ? (
+					<LoadingCreateComponent />
+				) : (
+					<SubmitButton label={'Créer la tâche'} />
+				)}
 			</form>
 		</div>
 	);
