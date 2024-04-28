@@ -28,11 +28,7 @@ const DisplayTomorrowTasks = ({
 	};
 
 	useEffect(() => {
-		if (!isTomorrowTasksLoaded) {
-			setIsLoading(true);
-		} else {
-			setIsLoading(false);
-		}
+		isTomorrowTasksLoaded ? setIsLoading(false) : setIsLoading(true);
 	}, [isTomorrowTasksLoaded]);
 
 	useEffect(() => {

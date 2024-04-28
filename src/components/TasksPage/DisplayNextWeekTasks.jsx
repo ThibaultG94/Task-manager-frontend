@@ -28,11 +28,7 @@ const DisplayNextWeekTasks = ({
 	};
 
 	useEffect(() => {
-		if (!isNextWeekTasksLoaded) {
-			setIsLoading(true);
-		} else {
-			setIsLoading(false);
-		}
+		isNextWeekTasksLoaded ? setIsLoading(false) : setIsLoading(true);
 	}, [isNextWeekTasksLoaded]);
 
 	useEffect(() => {

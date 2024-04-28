@@ -10,9 +10,10 @@ import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetArchivedTasks } from '../../api/tasks/getArchivedTasks';
 import getUserId from '../../api/users/getUserId';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
+import Pagination from '../../utils/Pagination';
 import HeaderBlock from './HeaderBlock';
 import TaskItem from './TaskItem';
-import Pagination from '../../utils/Pagination';
+import LoadingTaskComponent from '../Buttons/LoadingTaskComponent';
 
 const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	const currentArchivedTasks = useSelector(selectCurrentArchivedPage);
@@ -30,6 +31,7 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	const [isArchivedTasksHasBeenCalled, setIsArchivedTasksHasBeenCalled] =
 		useState(false);
 	const [displayArchivedTasks, setDisplayArchivedTasks] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const getId = async () => {
 		const id = await getUserId();
@@ -46,6 +48,10 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 			setIsArchivedTasksHasBeenCalled(true);
 		}
 	};
+
+	useEffect(() => {
+		isArchivedTasksLoaded ? setIsLoading(false) : setIsLoading(true);
+	}, [isArchivedTasksLoaded]);
 
 	useEffect(() => {
 		if (!isArchivedTasksLoaded && currentPage) {
@@ -102,22 +108,26 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 				toggleBlock={toggleBlock}
 			/>
 
-			<div className="task-list" onClick={(e) => e.stopPropagation()}>
-				{displayArchivedTasks && displayArchivedTasks?.length > 0
-					? displayArchivedTasks
-							.filter(
-								(task) => task.category === 'archived-tasks'
-							)
-							.map((task, index) => (
-								<TaskItem
-									task={task}
-									openModal={openModal}
-									key={index}
-									setSelectedTask={setSelectedTask}
-								/>
-							))
-					: null}
-			</div>
+			{isLoading && expandedBlocks['archived-tasks'] ? (
+				<LoadingTaskComponent />
+			) : (
+				<div className="task-list" onClick={(e) => e.stopPropagation()}>
+					{displayArchivedTasks && displayArchivedTasks?.length > 0
+						? displayArchivedTasks
+								.filter(
+									(task) => task.category === 'archived-tasks'
+								)
+								.map((task, index) => (
+									<TaskItem
+										task={task}
+										openModal={openModal}
+										key={index}
+										setSelectedTask={setSelectedTask}
+									/>
+								))
+						: null}
+				</div>
+			)}
 			{expandedBlocks && expandedBlocks['archived-tasks'] ? (
 				<Pagination
 					currentPage={currentPage}

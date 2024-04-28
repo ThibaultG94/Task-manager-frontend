@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { selectIsBecomingTasksLoaded } from '../../store/selectors/taskSelectors';
+import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import HeaderBlock from './HeaderBlock';
 import TaskItem from './TaskItem';
+import LoadingTaskComponent from '../Buttons/LoadingTaskComponent';
 
 const DisplayBecomingTasks = ({
 	setSelectedTask,
@@ -12,8 +14,11 @@ const DisplayBecomingTasks = ({
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
-	const [displayBecomingTasks, setDisplayBecomingTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
+	const isBecomingTasksLoaded = useSelector(selectIsBecomingTasksLoaded);
+
+	const [displayBecomingTasks, setDisplayBecomingTasks] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({
@@ -21,6 +26,10 @@ const DisplayBecomingTasks = ({
 			[blockId]: !expandedBlocks[blockId],
 		});
 	};
+
+	useEffect(() => {
+		isBecomingTasksLoaded ? setIsLoading(false) : setIsLoading(true);
+	}, [isBecomingTasksLoaded]);
 
 	useEffect(() => {
 		const updateDisplayBecomingTasks = async () => {
@@ -51,26 +60,30 @@ const DisplayBecomingTasks = ({
 						toggleBlock={toggleBlock}
 					/>
 
-					<div
-						className="task-list"
-						onClick={(e) => e.stopPropagation()}>
-						{displayBecomingTasks &&
-						displayBecomingTasks?.length > 0
-							? displayBecomingTasks
-									.filter(
-										(task) =>
-											task.category === 'becoming-tasks'
-									)
-									.map((task, index) => (
-										<TaskItem
-											task={task}
-											openModal={openModal}
-											key={index}
-											setSelectedTask={setSelectedTask}
-										/>
-									))
-							: null}
-					</div>
+					{isLoading ? (
+						<LoadingTaskComponent />
+					) : (
+						<div
+							className="task-list"
+							onClick={(e) => e.stopPropagation()}>
+							{displayBecomingTasks &&
+							displayBecomingTasks?.length > 0
+								? displayBecomingTasks
+										.filter(
+											(task) =>
+												task.category === 'becoming-tasks'
+										)
+										.map((task, index) => (
+											<TaskItem
+												task={task}
+												openModal={openModal}
+												key={index}
+												setSelectedTask={setSelectedTask}
+											/>
+										))
+								: null}
+						</div>
+					)}
 				</div>
 			)}
 		</>

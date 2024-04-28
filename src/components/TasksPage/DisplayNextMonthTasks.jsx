@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { selectIsNextMonthTasksLoaded } from '../../store/selectors/taskSelectors';
+import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import HeaderBlock from './HeaderBlock';
 import TaskItem from './TaskItem';
+import LoadingTaskComponent from '../Buttons/LoadingTaskComponent';
 
 const DisplayNextMonthTasks = ({
 	setSelectedTask,
@@ -12,8 +14,11 @@ const DisplayNextMonthTasks = ({
 	expandedBlocks,
 	setExpandedBlocks,
 }) => {
-	const [displayNextMonthTasks, setDisplayNextMonthTasks] = useState([]);
 	const workspaces = useSelector(selectWorkspaces);
+	const isNextMonthTasksLoaded = useSelector(selectIsNextMonthTasksLoaded);
+
+	const [displayNextMonthTasks, setDisplayNextMonthTasks] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const toggleBlock = (blockId) => {
 		setExpandedBlocks({
@@ -21,6 +26,10 @@ const DisplayNextMonthTasks = ({
 			[blockId]: !expandedBlocks[blockId],
 		});
 	};
+
+	useEffect(() => {
+		isNextMonthTasksLoaded ? setIsLoading(false) : setIsLoading(true);
+	}, [isNextMonthTasksLoaded]);
 
 	useEffect(() => {
 		const updateDisplayNextMonthTasks = async () => {
@@ -50,26 +59,31 @@ const DisplayNextMonthTasks = ({
 						type={'next-month-tasks'}
 						toggleBlock={toggleBlock}
 					/>
-					<div
-						className="task-list"
-						onClick={(e) => e.stopPropagation()}>
-						{displayNextMonthTasks &&
-						displayNextMonthTasks?.length > 0
-							? displayNextMonthTasks
-									.filter(
-										(task) =>
-											task.category === 'next-month-tasks'
-									)
-									.map((task, index) => (
-										<TaskItem
-											task={task}
-											openModal={openModal}
-											key={index}
-											setSelectedTask={setSelectedTask}
-										/>
-									))
-							: null}
-					</div>
+
+					{isLoading ? (
+						<LoadingTaskComponent />
+					) : (
+						<div
+							className="task-list"
+							onClick={(e) => e.stopPropagation()}>
+							{displayNextMonthTasks &&
+							displayNextMonthTasks?.length > 0
+								? displayNextMonthTasks
+										.filter(
+											(task) =>
+												task.category === 'next-month-tasks'
+										)
+										.map((task, index) => (
+											<TaskItem
+												task={task}
+												openModal={openModal}
+												key={index}
+												setSelectedTask={setSelectedTask}
+											/>
+										))
+								: null}
+						</div>
+					)}
 				</div>
 			)}
 		</>

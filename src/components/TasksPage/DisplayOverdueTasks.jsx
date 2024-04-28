@@ -28,11 +28,7 @@ const DisplayOverdueTasks = ({
 	};
 
 	useEffect(() => {
-		if (!isOverdueTasksLoaded) {
-			setIsLoading(true);
-		} else {
-			setIsLoading(false);
-		}
+		isOverdueTasksLoaded ? setIsLoading(false) : setIsLoading(true);
 	}, [isOverdueTasksLoaded]);
 
 	useEffect(() => {
