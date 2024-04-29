@@ -6,6 +6,8 @@ import { useAcceptWorkspaceInvitation } from '../../../api/workspaceInvitations/
 import { useDeclineWorkspaceInvitation } from '../../../api/workspaceInvitations/useDeclineWorkspaceInvitation';
 import { useGetReceivedWorkspaceInvitations } from '../../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
 import { toast } from 'react-toastify';
+import LoadingEditComponent from '../../Buttons/LoadingEditComponent';
+import LoadingDeleteComponent from '../../Buttons/LoadingDeleteComponent';
 
 const ReceivedWorkspaceInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedWorkspaceInvitations);
@@ -22,6 +24,9 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 	const [receivedInvitationsRejected, setReceivedInvitationsRejected] =
 		useState();
 	const [isRejectedOpen, setIsRejectedOpen] = useState(false);
+	const [isLoadingAccept, setIsLoadingAccept] = useState(false);
+	const [isLoadingDecline, setIsLoadingDecline] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		if (invitations) {
@@ -33,9 +38,14 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 
 	const handleAcceptInvitation = async (invitationId) => {
 		try {
+			setIsLoadingAccept(true);
 			const res = await acceptWorkspaceInvitation(invitationId, userId);
 			if (res.status === 200) {
+				setIsLoadingAccept(false);
+
+				setIsLoading(true);
 				await getReceivedWorkspaceInvitations(userId);
+				setIsLoading(false);
 				toast.success("L'invitation a été acceptée");
 				await getWorkspaces(userId);
 				// await setInvitationNotification(res.data.invitation, userId);
@@ -48,8 +58,13 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 
 	const handleDeclineInvitation = async (invitationId) => {
 		try {
+			setIsLoadingDecline(true);
 			await declineWorkspaceInvitation(invitationId, userId);
+			setIsLoadingDecline(false);
+
+			setIsLoading(true);
 			await getReceivedWorkspaceInvitations(userId);
+			setIsLoading(false);
 			toast.success("L'invitation a été déclinée");
 		} catch (error) {
 			toast.error("Échec du rejet de l'invitation");
@@ -67,7 +82,7 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 			<div className="md:flex md:flex-wrap md:justify-between max-h-96 overflow-auto">
 				<div className="flex-1">
 					<h3 className="text-lg text-center mb-4">En attente</h3>
-					{receivedInvitationsPending &&
+					{receivedInvitationsPending && !isLoading &&
 						receivedInvitationsPending.map((invitation) => (
 							<div
 								key={invitation.invitationId}
@@ -85,53 +100,61 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 										</p>
 									</div>
 									<div className="flex flex-col gap-2 ml-2 invitation-list">
-										<button
-											className="accept-icon"
-											onClick={() =>
-												handleAcceptInvitation(
-													invitation.invitationId
-												)
-											}>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												strokeWidth={1.5}
-												stroke="currentColor"
-												className="w-6 h-6">
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M4.5 12.75l6 6 9-13.5"
-												/>
-											</svg>
-										</button>
-										<button
-											className="decline-icon"
-											onClick={() =>
-												handleDeclineInvitation(
-													invitation.invitationId
-												)
-											}>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												strokeWidth={1.5}
-												stroke="currentColor"
-												className="w-6 h-6">
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M6 18L18 6M6 6l12 12"
-												/>
-											</svg>
-										</button>
+										{isLoadingAccept ? (
+											<LoadingEditComponent />
+										) : (
+											<button
+												className="accept-icon"
+												onClick={() =>
+													handleAcceptInvitation(
+														invitation.invitationId
+													)
+												}>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 24 24"
+													strokeWidth={1.5}
+													stroke="currentColor"
+													className="w-6 h-6">
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														d="M4.5 12.75l6 6 9-13.5"
+													/>
+												</svg>
+											</button>
+										)}
+										{isLoadingDecline ? (
+											<LoadingDeleteComponent />
+										) : (
+											<button
+												className="decline-icon"
+												onClick={() =>
+													handleDeclineInvitation(
+														invitation.invitationId
+													)
+												}>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 24 24"
+													strokeWidth={1.5}
+													stroke="currentColor"
+													className="w-6 h-6">
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														d="M6 18L18 6M6 6l12 12"
+													/>
+												</svg>
+											</button>
+										)}
 									</div>
 								</div>
 							</div>
 						))}
-					{receivedInvitationsPending &&
+					{receivedInvitationsPending && !isLoading &&
 						receivedInvitationsPending.length === 0 && (
 							<p className="text-gray-500 font-light text-center">
 								Vous n'avez envoyé aucune invitation
@@ -140,7 +163,7 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 				</div>
 				<div className="flex-1 mt-6 md:mt-0 md:ml-8">
 					<h3 className="text-lg text-center mb-4">Acceptés</h3>
-					{receivedInvitationsAccepted &&
+					{receivedInvitationsAccepted && !isLoading &&
 						receivedInvitationsAccepted.map((invitation) => (
 							<div
 								key={invitation.invitationId}
@@ -156,7 +179,7 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 								</p>
 							</div>
 						))}
-					{receivedInvitationsAccepted &&
+					{receivedInvitationsAccepted && !isLoading &&
 						receivedInvitationsAccepted.length === 0 && (
 							<p className="text-gray-500 font-light text-center">
 								Vous n'avez aucune invitation acceptée
@@ -184,7 +207,7 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 
 							{isRejectedOpen && (
 								<div className="accordion-content">
-									{receivedInvitationsRejected &&
+									{receivedInvitationsRejected && !isLoading &&
 										receivedInvitationsRejected.map(
 											(invitation) => (
 												<div
@@ -199,22 +222,21 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 																	invitation.senderUsername
 																}{' '}
 																<span className="text-gray-500">
-																	(
-																	{
+																	({
 																		invitation.senderEmail
-																	}
-																	)
+																	})
 																</span>
 															</p>
 															<p className="text-gray-600 font-bold">
 																{
-																	invitation
-																		.workspace
-																		.title
+																	invitation.workspace.title
 																}
 															</p>
 														</div>
 														<div className="flex flex-col gap-2 ml-2 invitation-list">
+														{isLoadingAccept ? (
+															<LoadingEditComponent />
+														) : (
 															<button
 																className="accept-icon"
 																onClick={() =>
@@ -226,9 +248,7 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 																	xmlns="http://www.w3.org/2000/svg"
 																	fill="none"
 																	viewBox="0 0 24 24"
-																	strokeWidth={
-																		1.5
-																	}
+																	strokeWidth={1.5}
 																	stroke="currentColor"
 																	className="w-6 h-6">
 																	<path
@@ -238,19 +258,20 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 																	/>
 																</svg>
 															</button>
+														)}
 														</div>
 													</div>
 												</div>
 											)
-										)}
-									{receivedInvitationsRejected &&
+									)}
+									{receivedInvitationsRejected && !isLoading &&
 										receivedInvitationsRejected.length ===
 											0 && (
 											<p className="text-gray-500 font-light text-center">
 												Vous n'avez aucune invitation
 												refusée
 											</p>
-										)}
+									)}
 								</div>
 							)}
 						</div>

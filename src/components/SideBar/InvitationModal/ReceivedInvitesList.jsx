@@ -7,6 +7,9 @@ import { useAcceptInvitation } from '../../../api/invitations/useAcceptInvitatio
 import { useGetContacts } from '../../../api/users/useGetContacts';
 import { useSetInvitationNotification } from '../../../api/notifications/useSetInvitationNotification';
 import { toast } from 'react-toastify';
+import LoadingComponent from '../../Buttons/LoadingComponent';
+import LoadingEditComponent from '../../Buttons/LoadingEditComponent';
+import LoadingDeleteComponent from '../../Buttons/LoadingDeleteComponent';
 
 const ReceivedInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedInvitations);
@@ -19,13 +22,21 @@ const ReceivedInvitesList = ({ userId }) => {
 		useState();
 	const [receivedInvitationsAccepted, setReceivedInvitationsAccepted] =
 		useState();
+	const [isLoadingAccept, setIsLoadingAccept] = useState(false);
+	const [isLoadingDecline, setIsLoadingDecline] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleAcceptInvitation = async (invitationId) => {
 		try {
+			setIsLoadingAccept(true);
 			const res = await acceptInvitation(invitationId, userId);
-			console.log('res from handleAcceptInvitation', res);
+
 			if (res.status === 200) {
+				setIsLoadingAccept(false);
+
+				setIsLoading(true);
 				await getReceivedInvitations(userId);
+				setIsLoading(false);
 				toast.success("L'invitation a été acceptée");
 				await getContacts(userId);
 				await setInvitationNotification(res.data.invitation, userId);
@@ -38,8 +49,13 @@ const ReceivedInvitesList = ({ userId }) => {
 
 	const handleDeclineInvitation = async (invitationId) => {
 		try {
+			setIsLoadingDecline(true);
 			await declineInvitation(invitationId, userId);
+			setIsLoadingDecline(false);
+
+			setIsLoading(true);
 			await getReceivedInvitations(userId);
+			setIsLoading(false);
 			toast.success("L'invitation a été déclinée");
 		} catch (error) {
 			toast.error("Échec du rejet de l'invitation");
@@ -64,7 +80,7 @@ const ReceivedInvitesList = ({ userId }) => {
 			<div className="flex flex-wrap md:flex-nowrap max-h-96 overflow-auto">
 				<div className="flex-1">
 					<h3 className="text-lg text-center mb-4">En attente</h3>
-					{receivedInvitationsPending &&
+					{receivedInvitationsPending && !isLoading &&
 						receivedInvitationsPending.map((invitation) => (
 							<div
 								key={invitation.invitationId}
@@ -82,66 +98,77 @@ const ReceivedInvitesList = ({ userId }) => {
 										</p>
 									</div>
 									<div className="flex flex-col gap-2 ml-2 invitation-list">
-										<button
-											className="accept-icon"
-											onClick={() =>
-												handleAcceptInvitation(
-													invitation.invitationId
-												)
-											}>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												strokeWidth={1.5}
-												stroke="currentColor"
-												className="w-6 h-6">
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M4.5 12.75l6 6 9-13.5"
-												/>
-											</svg>
-										</button>
-										<button
-											className="decline-icon"
-											onClick={() =>
-												handleDeclineInvitation(
-													invitation.invitationId
-												)
-											}>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												strokeWidth={1.5}
-												stroke="currentColor"
-												className="w-6 h-6">
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M6 18L18 6M6 6l12 12"
-												/>
-											</svg>
-										</button>
+										{isLoadingAccept ? (
+											<LoadingEditComponent />
+										) : (
+											<button
+												className="accept-icon"
+												onClick={() =>
+													handleAcceptInvitation(
+														invitation.invitationId
+													)
+												}>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 24 24"
+													strokeWidth={1.5}
+													stroke="currentColor"
+													className="w-6 h-6">
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														d="M4.5 12.75l6 6 9-13.5"
+													/>
+												</svg>
+											</button>
+										)}
+										{isLoadingDecline ? (
+											<LoadingDeleteComponent />
+										) : (
+											<button
+												className="decline-icon"
+												onClick={() =>
+													handleDeclineInvitation(
+														invitation.invitationId
+													)
+												}>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 24 24"
+													strokeWidth={1.5}
+													stroke="currentColor"
+													className="w-6 h-6">
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														d="M6 18L18 6M6 6l12 12"
+													/>
+												</svg>
+											</button>
+										)}
 									</div>
 								</div>
 							</div>
 						))}
-					{receivedInvitationsPending &&
+					{receivedInvitationsPending && !isLoading &&
 						receivedInvitationsPending.length === 0 && (
 							<p className="text-gray-500 font-light text-center">
 								Vous n'avez envoyé aucune invitation
 							</p>
-						)}
+					)}
+					{isLoading && (
+						<LoadingComponent />
+					)}
 				</div>
 				<div className="flex-1 mt-6 md:mt-0 md:ml-8">
 					<h3 className="text-lg text-center mb-4">Acceptés</h3>
-					{receivedInvitationsAccepted &&
+					{receivedInvitationsAccepted && !isLoading &&
 						receivedInvitationsAccepted.map((invitation) => (
 							<div
-								key={invitation.invitationId}
-								className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-yellow-primary transition duration-300 ease-in-out">
+							key={invitation.invitationId}
+							className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-yellow-primary transition duration-300 ease-in-out">
 								<p className="text-dark-blue font-medium">
 									{invitation.senderUsername}{' '}
 									<span className="text-gray-500">
@@ -152,13 +179,16 @@ const ReceivedInvitesList = ({ userId }) => {
 									{invitation.message}
 								</p>
 							</div>
-						))}
-					{receivedInvitationsAccepted &&
+					))}
+					{receivedInvitationsAccepted && !isLoading &&
 						receivedInvitationsAccepted.length === 0 && (
 							<p className="text-gray-500 font-light text-center">
 								Vous n'avez aucune invitation acceptée
 							</p>
-						)}
+					)}
+					{isLoading && (
+						<LoadingComponent />
+					)}
 				</div>
 			</div>
 		</div>

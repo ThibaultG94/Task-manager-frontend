@@ -52,10 +52,10 @@ const DeleteTask = ({ setIsModalOpen }) => {
 	return (
 		<div>
 			{isLoading ? (
-				<button
+				<div
 				className="absolute top-4 left-4">
 					<LoadingDeleteComponent />
-				</button>
+				</div>
 			) : (
 				<button
 				className="text-base hover:text-red-error-2 px-4 py-2 rounded-md absolute top-1 left-0"

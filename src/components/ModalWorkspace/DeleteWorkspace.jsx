@@ -52,20 +52,20 @@ const DeleteWorkspace = ({ setIsModalWorkspaceOpen, workspaceData }) => {
 	};
 
 	return (
-				<div>
-				{isLoading ? (
-					<button
-					className="absolute top-4 left-4">
-						<LoadingDeleteComponent />
-					</button>
-				) : (
-					<button
-					className="hover:bg-red-error-2 text-base hover:text-red-error px-4 py-2 rounded-md absolute top-1 left-0"
-					onClick={handleDelete}>
-						<i className="fas fa-trash-alt"></i>
-					</button>
-				)}
-			</div>
+		<div>
+			{isLoading ? (
+				<div
+				className="absolute top-4 left-4">
+					<LoadingDeleteComponent />
+				</div>
+			) : (
+				<button
+				className="hover:bg-red-error-2 text-base hover:text-red-error px-4 py-2 rounded-md absolute top-1 left-0"
+				onClick={handleDelete}>
+					<i className="fas fa-trash-alt"></i>
+				</button>
+			)}
+		</div>
 	);
 };
 
