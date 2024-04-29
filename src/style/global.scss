@@ -167,6 +167,15 @@
 	animation: spin 1.7s linear infinite;
 }
 
+.loader-delete {
+	border: 2px solid #f3f3f3;
+	border-top: 2px solid #db3434;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	animation: spin 1.7s linear infinite;
+}
+
 @keyframes spin {
 	0% {
 		transform: rotate(0deg);

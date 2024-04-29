@@ -10,6 +10,7 @@ import {
 } from '../../../store/feature/invitations.slice';
 import ErrorInvitation from './ErrorInvitation';
 import { toast } from 'react-toastify';
+import LoadingCreateComponent from '../../Buttons/LoadingCreateComponent';
 
 const SendInviteForm = ({ userId }) => {
 	const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const SendInviteForm = ({ userId }) => {
 					email: null,
 				});
 				await getSendOutInvitations(userId);
-				
+
 				setIsLoading(false);
 				toast.success('Invitation envoyée !');
 				dispatch(sendInvitationSuccess(res.data.invitation));
@@ -103,7 +104,11 @@ const SendInviteForm = ({ userId }) => {
 							value={message}></textarea>
 					</div>
 				</div>
-				<SubmitButton label={"Envoyer l'invitation"} />
+				{isLoading ? (
+					<LoadingCreateComponent />
+				) : (
+					<SubmitButton label={"Envoyer l'invitation"} />
+				)}
 
 				{displayErrors && (
 					<ErrorInvitation

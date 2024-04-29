@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
 	resetEditState,
@@ -12,16 +12,22 @@ import {
 import { deleteTaskFailed } from '../../store/feature/tasks.slice';
 import { useDeleteWorkspace } from '../../api/workspaces/useDeleteWorkspace';
 import { toast } from 'react-toastify';
+import LoadingDeleteComponent from '../Buttons/LoadingDeleteComponent';
 
 const DeleteWorkspace = ({ setIsModalWorkspaceOpen, workspaceData }) => {
 	const dispatch = useDispatch();
 	
 	const deleteWorkspace = useDeleteWorkspace();
 
+	const [isLoading, setIsLoading] = useState(false);
+
 	const removeWorkspace = async () => {
 		dispatch(deleteWorkspaceAction());
 		try {
+			setIsLoading(true);
 			await deleteWorkspace(workspaceData._id);
+			setIsLoading(false);
+
 			dispatch(deleteWorkspaceSuccess(workspaceData._id));
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
@@ -46,11 +52,20 @@ const DeleteWorkspace = ({ setIsModalWorkspaceOpen, workspaceData }) => {
 	};
 
 	return (
-		<button
-			className="hover:bg-red-error-2 text-base hover:text-red-error px-4 py-2 rounded-md absolute top-1 left-0"
-			onClick={handleDelete}>
-			<i className="fas fa-trash-alt"></i>
-		</button>
+				<div>
+				{isLoading ? (
+					<button
+					className="absolute top-4 left-4">
+						<LoadingDeleteComponent />
+					</button>
+				) : (
+					<button
+					className="hover:bg-red-error-2 text-base hover:text-red-error px-4 py-2 rounded-md absolute top-1 left-0"
+					onClick={handleDelete}>
+						<i className="fas fa-trash-alt"></i>
+					</button>
+				)}
+			</div>
 	);
 };
 
