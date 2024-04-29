@@ -35,7 +35,14 @@ const Contacts = ({ userId }) => {
 
 	return (
 		<div className="coworkers-container dashboard-card">
-			<h4 className="pl-2">Contacts</h4>
+			<div className="flex justify-between">
+				<h4 className="pl-2">Contacts</h4>
+				<div
+				className='cursor-pointer text-xl pr-2'
+				onClick={() => setIsInvitationModalOpen(true)}>
+					<i className="fa-solid fa-user-plus"></i>
+				</div>
+			</div>
 			{isLoading ? (
 				<LoadingComponent />
 			) : 
