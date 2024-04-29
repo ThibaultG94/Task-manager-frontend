@@ -25,9 +25,11 @@ const SendInviteForm = ({ userId }) => {
 		email: null,
 	});
 	const [displayErrors, setDisplayErrors] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setIsLoading(true);
 
 		const invitation = {
 			userId,
@@ -45,6 +47,8 @@ const SendInviteForm = ({ userId }) => {
 					email: null,
 				});
 				await getSendOutInvitations(userId);
+				
+				setIsLoading(false);
 				toast.success('Invitation envoyée !');
 				dispatch(sendInvitationSuccess(res.data.invitation));
 			} else {

@@ -9,6 +9,7 @@ import { useCreateWorkspace } from '../../../api/workspaces/useCreateWorkspace';
 import { useSendInvitationWorkspace } from '../../../api/workspaceInvitations/useSendInvitationWorkspace';
 import { toast } from 'react-toastify';
 import { setWorkspacesHasBeenUpdated } from '../../../store/feature/editState.slice';
+import LoadingCreateComponent from '../../Buttons/LoadingCreateComponent';
 
 const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const dispatch = useDispatch();
@@ -19,7 +20,8 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 	const [workspaceDescription, setWorkspaceDescription] = useState('');
 	const [contacts, setContacts] = useState([]);
 	const [selectedMembers, setSelectedMembers] = useState([]);
-	
+	const [isLoading, setIsLoading] = useState(false);
+
 	useEffect(() => {
 		if (userContacts) setContacts(userContacts);
 	}, [userContacts]);
@@ -35,6 +37,8 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		setIsLoading(true);
 
 		const workspace = {
 			title: workspaceTitle,
@@ -63,6 +67,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 			);
 
 			toast.success('Workspace créé !');
+			setIsLoading(false);
 			setIsModalOpen(false);
 			dispatch(setWorkspacesHasBeenUpdated(true));
 		} catch (err) {
@@ -73,7 +78,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<div id="tab-content2">
-			<h2 className="font-light mb-2 sm:mb-4 md:mb-6 mt-1 sm:mt-2 md:mt-4 xl:mt-6 sm:mt-1 md:mt-0 text-lg sm:text-xl md:text-2xl text-center">
+			<h2 className="font-light mb-2 sm:mb-4 md:mb-6 mt-1 sm:mt-2 md:mt-4 xl:mt-6 text-lg sm:text-xl md:text-2xl text-center">
 				Nouveau Workspace
 			</h2>
 			<form
@@ -102,7 +107,11 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 						label={'Description du workspace'}
 					/>
 				</div>
-				<SubmitButton label={'Créer le workspace'} />
+				{isLoading ? (
+					<LoadingCreateComponent />
+				) : (
+					<SubmitButton label={'Créer le workspace'} />
+				)}
 			</form>
 		</div>
 	);

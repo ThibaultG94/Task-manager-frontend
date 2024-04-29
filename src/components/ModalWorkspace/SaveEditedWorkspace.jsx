@@ -7,6 +7,7 @@ import {
 } from '../../store/feature/editState.slice';
 import { useEditWorkspace } from '../../api/workspaces/useEditWorkspace';
 import { toast } from 'react-toastify';
+import LoadingCreateComponent from '../Buttons/LoadingCreateComponent';
 
 const SaveEditedWorkspace = ({
 	selectedMembers,
@@ -20,6 +21,7 @@ const SaveEditedWorkspace = ({
 	const editWorkspace = useEditWorkspace();
 
 	const [editedWorkspace, setEditedWorkspace] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		const membersArray = [
@@ -59,17 +61,26 @@ const SaveEditedWorkspace = ({
 			toast.error('Veuillez saisir un titre.');
 			return;
 		}
+
+		setIsLoading(true);
 		await updateWorkspace();
+		setIsLoading(false);
 		setIsModalWorkspaceOpen(false);
 		setIsEditingWorkspace(false);
 	};
 
 	return (
-		<button
-			className="button mt-2 bg-light-blue-2 hover:bg-dark-blue"
-			onClick={handleSave}>
-			<i className="fas fa-save mr-2"></i> Sauvegarder
-		</button>
+		<div>
+			{isLoading ? (
+				<LoadingCreateComponent />
+			) : (
+				<button
+				className="button mt-2 bg-light-blue-2 hover:bg-dark-blue"
+				onClick={handleSave}>
+				<i className="fas fa-save mr-2"></i> Sauvegarder
+			</button>
+			)}
+		</div>
 	);
 };
 
