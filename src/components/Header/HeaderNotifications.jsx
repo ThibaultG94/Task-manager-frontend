@@ -128,17 +128,17 @@ const HeaderNotifications = ({ userId }) => {
 		}
 		if (notification.type === 'invitationUpdate') {
 			if (notification.message.includes('envoyé')) {
-				setTab('tab3');
+				setTab('tab4');
 			} else if (notification.message.includes('accepté')) {
-				setTab('tab2');
+				setTab('tab3');
 			} else {
 				console.error("Can't find tab");
 			}
 		} else if (notification.type === 'workspaceInvitation') {
 			if (notification.message.includes('rejoindre')) {
-				setTab('tab3');
+				setTab('tab4');
 			} else if (notification.message.includes('rejoint')) {
-				setTab('tab2');
+				setTab('tab3');
 			} else {
 				console.error("Can't find tab");
 			}
