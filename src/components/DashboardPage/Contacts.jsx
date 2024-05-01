@@ -18,6 +18,12 @@ const Contacts = ({ userId }) => {
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
 	const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [contactId, setContactId] = useState();
+
+	const openWorkspaceModal = (contactId) => {
+		setContactId(contactId);
+		setIsWorkspaceModalOpen(true);
+	};
 
 	useEffect(() => {
 		if (!isUserContactsLoaded) setIsLoading(true);
@@ -77,7 +83,7 @@ const Contacts = ({ userId }) => {
 											</div>
 										</div>
 									</div>
-									<button className='mr-3' onClick={()=> setIsWorkspaceModalOpen(true)}><i className="fa-solid fa-circle-plus"></i></button>
+									<button className='mr-3' onClick={()=> openWorkspaceModal(contact.id)}><i className="fa-solid fa-circle-plus"></i></button>
 								</li>
 							))}
 						</ul>
@@ -104,6 +110,7 @@ const Contacts = ({ userId }) => {
 					userId={userId}
 					setIsWorkspaceModalOpen={setIsWorkspaceModalOpen}
 					tab={'tab2'}
+					contactId={contactId}
 				/>
 			)}
 		</div>

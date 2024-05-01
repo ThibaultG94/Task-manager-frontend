@@ -8,7 +8,7 @@ import LoadingCreateComponent from '../../Buttons/LoadingCreateComponent';
 import SubmitButton from '../../ModalForm/SubmitButton';
 import { toast } from 'react-toastify';
 
-const SendWorkspaceInviteForm = ({ userId }) => {
+const SendWorkspaceInviteForm = ({ userId, contactId }) => {
     const contacts = useSelector(selectUserContacts);
     const userWorkspaces = useSelector(selectWorkspaces);
 
@@ -37,8 +37,9 @@ const SendWorkspaceInviteForm = ({ userId }) => {
 
     useEffect(() => {
         setSelectedMember('default');
+        if (contactId) setSelectedMember(contactId);
         if (contacts) setFilteredContacts(contacts);
-    }, [userId]);
+    }, [userId, contactId]);
 
     useEffect(() => {
         if (selectedWorkspaceId === 'default' || !selectedWorkspaceId) {

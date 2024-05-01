@@ -5,7 +5,7 @@ import SentOutWorkspaceInvitations from './SentOutWorkspaceInvitations';
 import ReceivedWorkspaceInvitesList from './ReceivedWorkspaceInvitesList';
 import SendWorkspaceInviteForm from './SendWorkspaceInviteForm';
 
-const WorkspaceManageModal = ({ userId, setIsWorkspaceModalOpen, tab }) => {
+const WorkspaceManageModal = ({ userId, setIsWorkspaceModalOpen, tab, contactId }) => {
 	const [activeTab, setActiveTab] = useState(tab);
 	const tabData = [
 		{
@@ -16,7 +16,7 @@ const WorkspaceManageModal = ({ userId, setIsWorkspaceModalOpen, tab }) => {
 		{
 			id: 'tab2',
 			label: 'Inviter un contact à un Workspace',
-			component: <SendWorkspaceInviteForm userId={userId} />,
+			component: <SendWorkspaceInviteForm userId={userId} contactId={contactId} />,
 		},
 		{
 			id: 'tab3',
