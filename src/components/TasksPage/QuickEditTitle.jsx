@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import CloseTitle from '../Buttons/CloseTitle';
 import LoadingEditComponent from '../Buttons/LoadingEditComponent';
 
-const QuickEditTitle = ({ task, setSelectedTask, isTitleCanBeEdited }) => {
+const QuickEditTitle = ({ task, setSelectedTask, isTitleCanBeEdited, isActive, activeStyle }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
@@ -91,7 +91,7 @@ const QuickEditTitle = ({ task, setSelectedTask, isTitleCanBeEdited }) => {
 	return (
 		<div
 			onDoubleClick={() => editTitle(task)}
-			className="cursor-auto flex justify-start overflow-hidden relative rounded-md self-center text-xs sm:text-sm md:text-base">
+			className={`cursor-auto flex justify-start overflow-hidden relative rounded-md self-center text-xs sm:text-sm md:text-base ${isActive ? activeStyle : ""}`}>
 			{!isEditingField.title && !isLoading && (
 				<span className="ellipsis">{task?.title}</span>
 			)}

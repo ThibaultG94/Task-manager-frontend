@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 import CloseDeadline from '../Buttons/CloseDeadline';
 import LoadingEditComponent from '../Buttons/LoadingEditComponent';
 
-const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => {
+const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited, isActive, activeStyle }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
@@ -139,8 +139,8 @@ const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited }) => 
 			onClick={(e) => e.stopPropagation()}
 			onDoubleClick={() => editDeadline(task)}
 			className={
-				`cursor-auto flex items-center mx-auto p-0.5 md:p-1 lg:p-1.5 md:p px-1 sm:px-1.5 md:px-2 lg:px-2.5 rounded-lg select-none text-xs md:text-sm relative lg:text-base ` +
-				classInFunctionOfDayorCategory
+				`cursor-auto flex items-center mx-auto p-0.5 md:p-1 lg:p-1.5 md:p px-1 sm:px-1.5 md:px-2 lg:px-2.5 rounded-lg select-none text-xs md:text-sm relative lg:text-base 
+				${classInFunctionOfDayorCategory} ${isActive ? activeStyle : ""}`
 			}>
 			{!isEditingField.deadline && !isLoading && (
 				<>

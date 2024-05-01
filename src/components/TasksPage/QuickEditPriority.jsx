@@ -17,7 +17,7 @@ import ArrowDown from '../Buttons/ArrowDown';
 import CloseField from '../Buttons/CloseField';
 import LoadingEditComponent from '../Buttons/LoadingEditComponent';
 
-const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => {
+const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited, isActive, activeStyle }) => {
 	const dispatch = useDispatch();
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
@@ -88,8 +88,8 @@ const QuickEditPriority = ({ task, setSelectedTask, isPriorityCanBeEdited }) => 
 			onClick={(e) => e.stopPropagation()}
 			onDoubleClick={() => editPriority(task)}
 			className={
-				`cursor-auto flex h-10 items-center m-auto p-1.5 px-2 sm:px-3 md:px-4 relative rounded-lg text-base md:text-sm lg:text-base ` +
-				task.convertedPriority
+				`cursor-auto flex h-10 items-center m-auto p-1.5 px-2 sm:px-3 md:px-4 relative rounded-lg text-base md:text-sm lg:text-base
+				${task.convertedPriority} ${isActive ? activeStyle : ''}`
 			}>
 			{!isEditingField.priority && !isLoading && (
 				<span>

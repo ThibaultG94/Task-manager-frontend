@@ -35,6 +35,8 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const [isStatusCanBeEdited, setIsStatusCanBeEdited] = useState(false);
 	const [isDeadlineCanBeEdited, setIsDeadlineCanBeEdited] = useState(false);
 	const [isPriorityCanBeEdited, setIsPriorityCanBeEdited] = useState(false);
+	const [isActive, setIsActive] = useState(false);
+	const activeStyle = 'cursor-pointer';
 
 	useEffect(() => {
 		const checkUserPrivileges = async () => {
@@ -65,6 +67,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 		  setIsStatusCanBeEdited(true);
 		  setIsDeadlineCanBeEdited(true);
 		  setIsPriorityCanBeEdited(true);
+		  setIsActive(true);
 		}
 	  }, [isSuperAdmin, isAdmin, isTaskOwner]);
 
@@ -121,11 +124,11 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	return (
 		<div className="task-item relative py-6 px-2 sm:px-3 md:px-4 mx-auto">
 			<ButtonToGrab />
-			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} isTitleCanBeEdited={isTitleCanBeEdited} />
-			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} isDeadlineCanBeEdited={isDeadlineCanBeEdited} />
+			<QuickEditTitle task={task} setSelectedTask={setSelectedTask} isTitleCanBeEdited={isTitleCanBeEdited} isActive={isActive} activeStyle={activeStyle} />
+			<QuickEditDeadline task={task} setSelectedTask={setSelectedTask} isDeadlineCanBeEdited={isDeadlineCanBeEdited} isActive={isActive} activeStyle={activeStyle} />
 			<QuickEditStatus task={task} setSelectedTask={setSelectedTask} isStatusCanBeEdited={isStatusCanBeEdited} />
-			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} isPriorityCanBeEdited={isPriorityCanBeEdited} />
-			<QuickEditWorkspace task={task} setSelectedTask={setSelectedTask} />
+			<QuickEditPriority task={task} setSelectedTask={setSelectedTask} isPriorityCanBeEdited={isPriorityCanBeEdited} isActive={isActive} activeStyle={activeStyle} />
+			<QuickEditWorkspace task={task} setSelectedTask={setSelectedTask} isActive={isActive} activeStyle={activeStyle} />
 
 			<div className='flex justify-between'>
 				<div className="hidden sm:flex items-center">

@@ -85,7 +85,7 @@ const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 				dispatch(setExclusiveEditingField('status'));
 			}}
 			className={
-				`cursor-auto flex h-10 items-center m-auto px-2 sm:px-3 md:px-4 p-1.5 rounded-lg relative select-none text-base md:text-sm lg:text-base ` +
+				`cursor-pointer flex h-10 items-center m-auto px-2 sm:px-3 md:px-4 p-1.5 rounded-lg relative select-none text-base md:text-sm lg:text-base ` +
 				task.convertedStatus
 			}>
 			{!isEditingField.status && !isLoading && (
