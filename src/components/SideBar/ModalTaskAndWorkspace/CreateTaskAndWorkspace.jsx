@@ -12,6 +12,7 @@ const CreateTaskAndWorkspace = ({
 		{
 			id: 'tab1',
 			label: 'Tâche',
+			icon: 'fas fa-tasks',
 			component: (
 				<CreateTaskForm
 					userId={userId}
@@ -22,6 +23,7 @@ const CreateTaskAndWorkspace = ({
 		{
 			id: 'tab2',
 			label: 'Workspace',
+			icon: 'fas fa-building',
 			component: (
 				<CreateWorkspaceForm
 					userId={userId}

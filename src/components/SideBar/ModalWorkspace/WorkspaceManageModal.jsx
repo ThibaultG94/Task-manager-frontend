@@ -11,21 +11,25 @@ const WorkspaceManageModal = ({ userId, setIsWorkspaceModalOpen, tab, contactId 
 		{
 			id: 'tab1',
 			label: 'Liste des Workspaces',
+			icon: 'fas fa-th-large',
 			component: <ListWorkspaces userId={userId} />,
 		},
 		{
 			id: 'tab2',
 			label: 'Inviter un contact à un Workspace',
+			icon: 'fas fa-user-plus',
 			component: <SendWorkspaceInviteForm userId={userId} contactId={contactId} />,
 		},
 		{
 			id: 'tab3',
 			label: 'Invitations Workspaces Envoyées',
+			icon: 'fas fa-paper-plane',
 			component: <SentOutWorkspaceInvitations userId={userId} />,
 		},
 		{
 			id: 'tab4',
 			label: 'Invitations Workspaces Reçues',
+			icon: 'fas fa-envelope-open',
 			component: <ReceivedWorkspaceInvitesList userId={userId} />,
 		},
 	];

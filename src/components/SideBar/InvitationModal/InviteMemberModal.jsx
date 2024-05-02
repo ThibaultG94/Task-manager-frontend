@@ -11,21 +11,25 @@ const InviteMemberModal = ({ userId, setIsInvitationModalOpen, tab }) => {
 		{
 			id: 'tab1',
 			label: 'Liste des contacts',
+			icon: 'fas fa-address-book',
 			component: <ListContacts userId={userId} />,
 		},
 		{
 			id: 'tab2',
 			label: 'Ajouter un contact',
+			icon: 'fas fa-user-plus',
 			component: <SendInviteForm userId={userId} />,
 		},
 		{
 			id: 'tab3',
 			label: 'Invitations Envoyées',
+			icon: 'fas fa-paper-plane',
 			component: <SentOutInvitations userId={userId} />,
 		},
 		{
 			id: 'tab4',
 			label: 'Invitations Reçues',
+			icon: 'fas fa-envelope-open',
 			component: <ReceivedInvitesList userId={userId} />,
 		},
 	];
