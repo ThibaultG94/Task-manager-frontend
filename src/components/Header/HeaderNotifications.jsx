@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectEarlierNotifications,
 	selectNewNotifications,
 } from '../../store/selectors/notificationSelectors';
 import { setEditedTask, setInitialEditedTask } from '../../store/feature/tasks.slice';
+import { setInitialEditedWorkspace } from '../../store/feature/workspaces.slice';
 import { useMarkNotificationsAsViewed } from '../../api/notifications/useMarkNotificationsAsViewed';
 import { useMarkNotificationAsRead } from '../../api/notifications/useMarkNotificationAsRead';
 import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
 import { useGetTask } from '../../api/tasks/useGetTask';
 import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
+import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
+import { useGetSentOutWorkspaceInvitations } from '../../api/workspaceInvitations/useGetSentOutWorkspaceInvitations';
+import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
+import useCheckIfEdited from '../../utils/useCheckIfEdited';
+import useCheckIfEditedWorkspace from '../../utils/useCheckIfEditedWorkspace';
 import NotificationsMenu from './NotificationsMenu';
 import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
 import HandleModalTask from '../ModalTask/HandleModalTask';
-import useCheckIfEdited from '../../utils/useCheckIfEdited';
-import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
-import { setInitialEditedWorkspace } from '../../store/feature/workspaces.slice';
 import HandleModalWorkspace from '../ModalWorkspace/HandleModalWorkspace';
-import useCheckIfEditedWorkspace from '../../utils/useCheckIfEditedWorkspace';
 import WorkspaceManageModal from '../SideBar/ModalWorkspace/WorkspaceManageModal';
-import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
-import { useGetSentOutWorkspaceInvitations } from '../../api/workspaceInvitations/useGetSentOutWorkspaceInvitations';
+import { useOutsideClick } from '../../utils/useOutsideClick';
 
 const HeaderNotifications = ({ userId }) => {
 	const dispatch = useDispatch();
@@ -52,6 +53,14 @@ const HeaderNotifications = ({ userId }) => {
 	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
 	const [tab, setTab] = useState('tab1');
 	const [openNotificationsModal, setOpenNotificationsModal] = useState(false);
+
+	const modalRef = useRef(null);
+    const bellRef = useRef(null);
+	const onOutsideClick = useCallback(() => {
+        setShowNotifications(false);
+    }, []);
+
+    useOutsideClick(modalRef, bellRef, onOutsideClick, showNotifications);
 
 	const checkIfEdited = useCheckIfEdited({
 		setIsModalOpen,
@@ -145,17 +154,23 @@ const HeaderNotifications = ({ userId }) => {
 		}
 	};
 
-	const handleNotificationsMenu = () => {
-		if (showNotifications) {
-			setShowNotifications(false);
+	const showNotificationsRef = useRef(showNotifications);
+	useEffect(() => {
+		showNotificationsRef.current = showNotifications;
+	}, [showNotifications]);
+
+	const handleNotificationsMenu = (event) => {
+		event.stopPropagation();
+		if (!showNotificationsRef.current) {
+			setShowNotifications(true);
 			const viewedNotificationsIds = unreadNotifications
 				.filter((notif) => !notif.viewedAt)
 				.map((notif) => notif._id);
-			if (viewedNotificationsIds.length > 0) {
-				markAsViewed(viewedNotificationsIds);
-			}
-		} else if (!showNotifications) {
-			setShowNotifications(true);
+				if (viewedNotificationsIds.length > 0) {
+					markAsViewed(viewedNotificationsIds);
+				}
+		} else {
+			setShowNotifications(false);
 		}
 	};
 
@@ -206,7 +221,7 @@ const HeaderNotifications = ({ userId }) => {
 	return (
 		<div
 			className="flex relative mr-2 sm:mr-4 h-8 sm:h-10 md:h-12 mt-2 md:mt-0 items-center justify-center"
-			onClick={handleNotificationsMenu}>
+			onClick={(e) => handleNotificationsMenu(e)} ref={bellRef}>
 			<span className="cursor-pointer text-dark-blue text-2xl sm:text-3xl">
 				<i className="fa-regular fa-bell"></i>
 			</span>
@@ -226,6 +241,7 @@ const HeaderNotifications = ({ userId }) => {
 					onRead={markAsRead}
 					openNotificationsModal={openNotificationsModal}
 					setOpenNotificationsModal={setOpenNotificationsModal}
+					modalRef={modalRef}
 				/>
 			)}
 

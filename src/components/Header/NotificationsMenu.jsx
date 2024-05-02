@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import NotificationsModal from './NotificationsModal';
@@ -10,6 +10,7 @@ const NotificationsMenu = ({
 	onRead,
 	openNotificationsModal,
 	setOpenNotificationsModal,
+	modalRef,
 }) => {
 	const handleNotificationsModal = () => {
 		if (openNotificationsModal) {
@@ -30,7 +31,7 @@ const NotificationsMenu = ({
 	return (
 		<div
 			className="absolute top-full right-0 w-80 bg-white rounded-md shadow-lg border-gray-200 z-10 overflow-hidden pt-2"
-			onClick={(e) => e.stopPropagation()}>
+			onClick={(e) => e.stopPropagation()} ref={modalRef}>
 			<div className="overflow-y-auto overflow-x-hidden max-h-96">
 				{unreadNotifications.length === 0 &&
 				readedNotifications.length === 0 ? (
