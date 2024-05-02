@@ -18,10 +18,10 @@ const ReceivedInvitesList = ({ userId }) => {
 	const declineInvitation = useDeclineInvitation();
 	const getReceivedInvitations = useGetReceivedInvitations();
 	const setInvitationNotification = useSetInvitationNotification();
-	const [receivedInvitationsPending, setReceivedInvitationsPending] =
-		useState();
-	const [receivedInvitationsAccepted, setReceivedInvitationsAccepted] =
-		useState();
+	const [receivedInvitationsPending, setReceivedInvitationsPending] = useState();
+	const [receivedInvitationsAccepted, setReceivedInvitationsAccepted] = useState();
+	const [receivedInvitationsRejected, setReceivedInvitationsRejected] = useState([]);
+	const [isRejectedOpen, setIsRejectedOpen] = useState(false);
 	const [isLoadingAccept, setIsLoadingAccept] = useState(false);
 	const [isLoadingDecline, setIsLoadingDecline] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -67,8 +67,9 @@ const ReceivedInvitesList = ({ userId }) => {
 		if (invitations) {
 			setReceivedInvitationsPending(invitations.pending || []);
 			setReceivedInvitationsAccepted(invitations.accepted || []);
+			setReceivedInvitationsRejected(invitations.rejected || []);
 		}
-	}, [invitations]);
+	}, [invitations]);	
 
 	return (
 		<div
@@ -77,7 +78,7 @@ const ReceivedInvitesList = ({ userId }) => {
 			<h2 className="text-dark-blue mb-4 text-xl sm:text-2xl text-center">
 				Invitations reçues
 			</h2>
-			<div className="flex flex-wrap md:flex-nowrap max-h-96 overflow-auto">
+			<div className="md:flex md:flex-wrap md:justify-between max-h-96 overflow-auto">
 				<div className="flex-1">
 					<h3 className="text-lg text-center mb-4">En attente</h3>
 					{receivedInvitationsPending && !isLoading &&
@@ -189,6 +190,47 @@ const ReceivedInvitesList = ({ userId }) => {
 					{isLoading && (
 						<LoadingComponent />
 					)}
+				</div>
+				<div className="mt-6 w-full flex justify-center">
+					<div className="w-96">
+						<h3 className="text-lg text-center mb-1">Refusées</h3>
+						<button
+							className="mb-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:underline"
+							onClick={() => setIsRejectedOpen(!isRejectedOpen)}>
+							{isRejectedOpen ? 'Cacher les invitations refusées ' : 'Voir les invitations refusées '}
+							{isRejectedOpen ? (
+								<i className="fa-solid fa-arrow-up"></i>
+							) : (
+								<i className="fa-solid fa-arrow-down"></i>
+							)}
+						</button>
+
+						{isRejectedOpen && (
+							<div className="accordion-content">
+								{receivedInvitationsRejected && !isLoading &&
+									receivedInvitationsRejected.map((invitation) => (
+										<div
+											key={invitation.invitationId}
+											className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out">
+											<div className="flex justify-between items-center">
+												<p className="text-dark-blue font-medium">
+													{invitation.senderUsername}{' '}
+													<span className="text-gray-500">
+														({invitation.senderEmail})
+													</span>
+												</p>
+											</div>
+										</div>
+									))
+								}
+								{receivedInvitationsRejected.length === 0 && (
+									<p className="text-gray-500 font-light text-center">
+										Vous n'avez aucune invitation refusée
+									</p>
+								)}
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>
