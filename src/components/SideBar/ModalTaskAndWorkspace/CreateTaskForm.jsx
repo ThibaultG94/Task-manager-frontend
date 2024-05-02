@@ -45,7 +45,6 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 				ws.members.some((member) => member.userId === userId && (member.role === 'admin' || member.role === 'superadmin'))
 			);
 			setFilteredWorkspaces(filter);
-			console.log(filter);
 		}
 	}, [userWorkspaces]);
 

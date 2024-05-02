@@ -24,7 +24,6 @@ export const useAcceptInvitation = () => {
 				}
 			);
 			dispatch(acceptInvitationSuccess(res));
-			console.log('res from acceptInvitation', res);
 			return res;
 		} catch (error) {
 			dispatch(acceptInvitationFailure(error));

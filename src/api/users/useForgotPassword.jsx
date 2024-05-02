@@ -19,7 +19,7 @@ export const useForgotPassword = () => {
 						email
 				);
 			} else if (response.status === 500) {
-				console.error('Password reset error', response);
+				console.error('Password reset error ', response);
 			}
 		} catch (error) {
 			if (error.response) {
