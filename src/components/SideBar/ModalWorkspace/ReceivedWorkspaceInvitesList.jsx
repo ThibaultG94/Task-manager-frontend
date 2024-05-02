@@ -189,9 +189,9 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 				<div className="mt-6 w-full flex justify-center">
 					<div className="w-96">
 						<h3 className="text-lg text-center mb-1">Refusées</h3>
-						<div>
+						<div className='flex flex-col justify-center items-center'>
 							<button
-								className="mb-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:underline"
+								className="mb-2 mx-auto text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:underline"
 								onClick={() =>
 									setIsRejectedOpen(!isRejectedOpen)
 								}>
