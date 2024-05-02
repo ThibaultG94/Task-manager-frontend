@@ -3,22 +3,28 @@ import Tabs from '../../ModalForm/Tabs';
 import SendInviteForm from './SendInviteForm';
 import SentOutInvitations from './SentOutInvitations';
 import ReceivedInvitesList from './ReceivedInvitesList';
+import ListContacts from './ListContacts';
 
 const InviteMemberModal = ({ userId, setIsInvitationModalOpen, tab }) => {
 	const [activeTab, setActiveTab] = useState(tab);
 	const tabData = [
 		{
 			id: 'tab1',
+			label: 'Liste des contacts',
+			component: <ListContacts userId={userId} />,
+		},
+		{
+			id: 'tab2',
 			label: 'Ajouter un contact',
 			component: <SendInviteForm userId={userId} />,
 		},
 		{
-			id: 'tab2',
+			id: 'tab3',
 			label: 'Invitations Envoyées',
 			component: <SentOutInvitations userId={userId} />,
 		},
 		{
-			id: 'tab3',
+			id: 'tab4',
 			label: 'Invitations Reçues',
 			component: <ReceivedInvitesList userId={userId} />,
 		},

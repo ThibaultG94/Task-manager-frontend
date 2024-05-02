@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectIsUserContactsLoaded, selectUserContacts } from '../../store/selectors/userSelectors';
-import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
-import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
-import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
-import WorkspaceManageModal from '../SideBar/ModalWorkspace/WorkspaceManageModal';
-import LoadingComponent from '../Buttons/LoadingComponent';
+import { selectIsUserContactsLoaded, selectUserContacts } from '../../../store/selectors/userSelectors';
+import { useGetSentOutInvitations } from '../../../api/invitations/useGetSentOutInvitations';
+import { useGetReceivedInvitations } from '../../../api/invitations/useGetReceivedInvitations';
+import InviteMemberModal from '../../SideBar/InvitationModal/InviteMemberModal';
+import WorkspaceManageModal from '../../SideBar/ModalWorkspace/WorkspaceManageModal';
+import LoadingComponent from '../../Buttons/LoadingComponent';
 
-const Contacts = ({ userId }) => {
+const ListContacts = ({ userId }) => {
 	const contacts = useSelector(selectUserContacts);
 	const isUserContactsLoaded = useSelector(selectIsUserContactsLoaded);
 
@@ -45,11 +45,6 @@ const Contacts = ({ userId }) => {
 		<div className="coworkers-container dashboard-card">
 			<div className="flex justify-between">
 				<h4 className="pl-2">Contacts</h4>
-				<div
-				className='cursor-pointer text-xl pr-2'
-				onClick={() => setIsInvitationModalOpen(true)}>
-					<i className="fa-solid fa-user-plus"></i>
-				</div>
 			</div>
 			{isLoading ? (
 				<LoadingComponent />
@@ -57,7 +52,7 @@ const Contacts = ({ userId }) => {
 				<div className="flex flex-col justify-center">
 					{userContacts && userContacts.length > 0 ? (
 						<ul>
-							{userContacts.slice(0, 4).map((contact) => (
+							{userContacts.map((contact) => (
 								<li className='flex justify-between items-center' key={contact.id}>		
 									<div
 										className="flex items-center justify-start p-1 md:p-2 py-2.5 relative transition duration-100 ease-in-out"
@@ -83,7 +78,7 @@ const Contacts = ({ userId }) => {
 											</div>
 										</div>
 									</div>
-									<button className='mr-3' onClick={()=> openWorkspaceModal(contact.id)}><i className="fa-solid fa-circle-plus"></i></button>
+									{/* <button className='mr-3' onClick={()=> openWorkspaceModal(contact.id)}><i className="fa-solid fa-circle-plus"></i></button> */}
 								</li>
 							))}
 						</ul>
@@ -117,4 +112,4 @@ const Contacts = ({ userId }) => {
 	);
 };
 
-export default Contacts;
+export default ListContacts;

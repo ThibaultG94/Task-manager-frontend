@@ -87,12 +87,12 @@ const ListWorkspaces = ({ userId }) => {
 			{isLoading ? (
 				<LoadingComponent />
 			) : (
-				<div className="flex flex-col h-full">
+				<div className="flex flex-col h-full pl-2 md:pl-0">
 					{displayWorkspaces &&
 						displayWorkspaces.map((workspace, index) => (
 							<div
 								className="workspace p-1 md:p-2"
-								key={workspace._id || index}
+								key={index}
 								onClick={(e) => {
 									openModalWorkspace(e);
 									setSelectedWorkspace(workspace);
@@ -113,7 +113,7 @@ const ListWorkspaces = ({ userId }) => {
 												<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2">
 													<span
 														id="avatarLetterAssigned"
-														key={index}>
+														key={index + 1000}>
 														{member && member[0]}
 													</span>
 												</div>
