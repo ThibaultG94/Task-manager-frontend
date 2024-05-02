@@ -75,7 +75,7 @@ const NotificationsModal = ({
 			className="bg-modal-bg duration-300 ease-in-out fixed h-full text-black left-0 top-0 transition-all w-full z-10"
 			onClick={handleNotificationsModal}>
 			<div
-				className="bg-white border border-gray-400 flex flex-col mx-auto my-modal-margin mt-20 rounded-lg shadow-md min-w-80 sm:min-w-96 max-w-max pb-2"
+				className="bg-white border border-gray-400 flex flex-col mx-auto my-modal-margin mt-20 rounded-lg shadow-md w-modal-xs custom-xs:w-modal-sm md:w-modal-md lg:w-modal-lg xl:w-modal-xl pb-2"
 				onClick={(e) => e.stopPropagation()}>
 				<div className="overflow-y-auto max-h-[500px]">
 					{displayNotifications &&

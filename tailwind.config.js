@@ -41,7 +41,14 @@ module.exports = {
       screens: {
         "custom-1120": "1120px",
         "custom-860": "860px",
-        "custom-xs": "450px",
+        "custom-xs": "480px",
+      },
+      width: {
+        "modal-xs": "300px", // Modal width on extra small screens
+        "modal-sm": "450px", // Modal width on small screens
+        "modal-md": "600px", // Modal width on medium screens
+        "modal-lg": "750px", // Modal width on large screens
+        "modal-xl": "900px", // Modal width on extra large screens
       },
     },
   },

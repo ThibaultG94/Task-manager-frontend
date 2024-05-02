@@ -163,7 +163,7 @@ const ReceivedInvitesList = ({ userId }) => {
 						<LoadingComponent />
 					)}
 				</div>
-				<div className="flex-1 mt-6 md:mt-0 md:ml-8">
+				<div className="flex-1 mt-6 md:mt-0 md:ml-8 mr-4">
 					<h3 className="text-lg text-center mb-4">Acceptés</h3>
 					{receivedInvitationsAccepted && !isLoading &&
 						receivedInvitationsAccepted.map((invitation) => (

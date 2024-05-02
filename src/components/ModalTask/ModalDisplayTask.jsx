@@ -42,7 +42,6 @@ const ModalDisplayTask = () => {
 		fetchConvertedDeadline();
 		if (editedTask && editedTask?.workspaceId) fetchConvertedWorkspace();
 		if (editedTask?.assignedTo) {
-			console.log('editedTask?.assignedTo', editedTask?.assignedTo);
 			fetchConvertedMember();
 		}
 	}, [editedTask]);
