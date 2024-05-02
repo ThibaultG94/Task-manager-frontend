@@ -89,7 +89,7 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData, workspaceTask 
 		setIsLoading(true);
 		await updateTask();
 		setIsLoading(false);
-		setIsModalOpen(false);
+		// setIsModalOpen(false);
 		setIsEditing(false);
 	};
 

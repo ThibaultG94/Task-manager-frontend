@@ -4,6 +4,7 @@ import {
 	editTaskAction,
 	editTaskFailed,
 	editTaskSuccess,
+	setEditedTask,
 } from '../../store/feature/tasks.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
@@ -19,6 +20,7 @@ export const useEditTask = () => {
 			const res = await axios.put(`${API_URL}/tasks/${task._id}`, task, {
 				withCredentials: true,
 			});
+			dispatch(setEditedTask(res.data.task));
 			// dispatch(editTaskSuccess(res.data.task));
 			return res.data.task;
 		} catch (error) {

@@ -33,7 +33,7 @@ const ModalDisplayTask = () => {
 			const workspace = await getWorkspace(editedTask?.workspaceId);
 			setConvertedWorkspace(workspace?.title);
 		};
-		const fetchConvertedMember = async () => {
+		const fetchConvertedMember = () => {
 			setConvertedMember(editedTask?.assignedTo[0].username);
 		};
 
@@ -41,7 +41,10 @@ const ModalDisplayTask = () => {
 		fetchConvertedPriority();
 		fetchConvertedDeadline();
 		if (editedTask && editedTask?.workspaceId) fetchConvertedWorkspace();
-		if (editedTask?.assignedTo) fetchConvertedMember();
+		if (editedTask?.assignedTo) {
+			console.log('editedTask?.assignedTo', editedTask?.assignedTo);
+			fetchConvertedMember();
+		}
 	}, [editedTask]);
 
 	return (
