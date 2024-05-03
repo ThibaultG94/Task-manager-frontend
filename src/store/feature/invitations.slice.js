@@ -5,19 +5,13 @@ export const invitationsSlice = createSlice({
   initialState: {
     dispatchedInvitations: [],
     receivedInvitations: [],
-    loading: false,
-    error: null,
   },
   reducers: {
     setSendOutInvitations: (state, action) => {
       state.dispatchedInvitations = action.payload;
-      state.loading = false;
-      state.error = null;
     },
     setReceivedInvitations: (state, action) => {
       state.receivedInvitations = action.payload;
-      state.loading = false;
-      state.error = null;
     },
   },
 });
