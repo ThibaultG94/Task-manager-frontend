@@ -35,7 +35,7 @@ const ReceivedInvitesList = ({ userId }) => {
 				setIsLoadingAccept(false);
 
 				setIsLoading(true);
-				await getReceivedInvitations(userId);
+				// await getReceivedInvitations(userId);
 				setIsLoading(false);
 				toast.success("L'invitation a été acceptée");
 				await getContacts(userId);

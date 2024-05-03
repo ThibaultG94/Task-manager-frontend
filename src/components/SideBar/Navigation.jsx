@@ -148,7 +148,7 @@ const Navigation = ({ userId }) => {
 				<InviteMemberModal
 					userId={userId}
 					setIsInvitationModalOpen={setIsInvitationModalOpen}
-					tab={'tab1'}
+					tab={'tab2'}
 				/>
 			)}
 
