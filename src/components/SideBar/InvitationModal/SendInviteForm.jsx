@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSendInvitation } from '../../../api/invitations/useSendInvitation';
-import { useSetInvitationNotification } from '../../../api/notifications/useSetInvitationNotification';
 import { toast } from 'react-toastify';
 import ErrorInvitation from './ErrorInvitation';
 import SubmitButton from '../../ModalForm/SubmitButton';
@@ -8,7 +7,6 @@ import LoadingCreateComponent from '../../Buttons/LoadingCreateComponent';
 
 const SendInviteForm = ({ userId }) => {
 	const sendInvitation = useSendInvitation();
-	const setInvitationNotification = useSetInvitationNotification();
 
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
