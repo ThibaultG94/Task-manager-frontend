@@ -1,21 +1,13 @@
 import React, { useState } from 'react';
-import SubmitButton from '../../ModalForm/SubmitButton';
-import { useDispatch } from 'react-redux';
 import { useSendInvitation } from '../../../api/invitations/useSendInvitation';
-import { useGetSentOutInvitations } from '../../../api/invitations/useGetSentOutInvitations';
 import { useSetInvitationNotification } from '../../../api/notifications/useSetInvitationNotification';
-import {
-	sendInvitationFailure,
-	sendInvitationSuccess,
-} from '../../../store/feature/invitations.slice';
-import ErrorInvitation from './ErrorInvitation';
 import { toast } from 'react-toastify';
+import ErrorInvitation from './ErrorInvitation';
+import SubmitButton from '../../ModalForm/SubmitButton';
 import LoadingCreateComponent from '../../Buttons/LoadingCreateComponent';
 
 const SendInviteForm = ({ userId }) => {
-	const dispatch = useDispatch();
 	const sendInvitation = useSendInvitation();
-	const getSendOutInvitations = useGetSentOutInvitations();
 	const setInvitationNotification = useSetInvitationNotification();
 
 	const [email, setEmail] = useState('');
@@ -41,17 +33,14 @@ const SendInviteForm = ({ userId }) => {
 		try {
 			const res = await sendInvitation(invitation);
 			if (res.status === 200) {
-				await setInvitationNotification(res.data.invitation, userId);
+				// await setInvitationNotification(res.data.invitation, userId);
 				setEmail('');
 				setMessage('');
 				setErrors({
 					email: null,
 				});
-				await getSendOutInvitations(userId);
-
 				setIsLoading(false);
 				toast.success('Invitation envoyée !');
-				dispatch(sendInvitationSuccess(res.data.invitation));
 			} else {
 				setError(res);
 			}
@@ -63,7 +52,6 @@ const SendInviteForm = ({ userId }) => {
 				setErrorCode(null);
 			}
 			setDisplayErrors(true);
-			dispatch(sendInvitationFailure(error));
 		}
 	};
 
