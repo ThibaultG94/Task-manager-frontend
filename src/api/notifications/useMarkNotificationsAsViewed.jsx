@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	markNotificationsViewedAction,
-	markNotificationsViewedFailure,
-	markNotificationsViewedSuccess,
-} from '../../store/feature/notifications.slice';
+import { markNotificationsViewedSuccess } from '../../store/feature/notifications.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useMarkNotificationsAsViewed = () => {
@@ -12,8 +8,6 @@ export const useMarkNotificationsAsViewed = () => {
 	const errorApi = useErrorApi();
 
 	const markNotificationsAsViewed = async (userId, notificationsIds) => {
-		dispatch(markNotificationsViewedAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.put(
@@ -28,7 +22,6 @@ export const useMarkNotificationsAsViewed = () => {
 			dispatch(markNotificationsViewedSuccess(notificationsIds));
 			return res;
 		} catch (error) {
-			dispatch(markNotificationsViewedFailure(error));
 			errorApi(error);
 		}
 	};

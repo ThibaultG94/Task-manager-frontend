@@ -35,9 +35,6 @@ export const notificationsSlice = createSlice({
       state.newNotifications = newNotifications;
       state.earlierNotifications = earlierNotifications;
     },
-    markNotificationsViewedAction: (state) => {
-      state.loading = true;
-    },
     markNotificationsViewedSuccess: (state, action) => {
       const viewedIds = action.payload;
       state.newNotifications = state.newNotifications.map((notif) =>
@@ -48,27 +45,18 @@ export const notificationsSlice = createSlice({
       state.loading = false;
       state.error = null;
     },
-    markNotificationsViewedFailure: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
-    },
-    markNotificationAsReadAction: (state) => {
-      state.loading = true;
-    },
     markNotificationAsReadSuccess: (state, action) => {
       const notificationId = action.payload;
-      state.newNotifications = state.newNotifications.map((notif) =>
-        notif._id === notificationId ? { ...notif, read: true } : notif
+      state.newNotifications = state.newNotifications?.map((notif) =>
+        notif._id === notificationId
+          ? { ...notif, read: true, viewedAt: new Date() }
+          : notif
       );
-      state.earlierNotifications = state.earlierNotifications.map((notif) =>
-        notif._id === notificationId ? { ...notif, read: true } : notif
+      state.earlierNotifications = state.earlierNotifications?.map((notif) =>
+        notif._id === notificationId
+          ? { ...notif, read: true, viewedAt: new Date() }
+          : notif
       );
-      state.loading = false;
-      state.error = null;
-    },
-    markNotificationAsReadFailure: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
     },
   },
 });
@@ -79,12 +67,8 @@ export const {
   setNotificationsFailure,
   getAllNotificationsSuccess,
   getNotificationsSuccess,
-  markNotificationsViewedAction,
   markNotificationsViewedSuccess,
-  markNotificationsViewedFailure,
-  markNotificationAsReadAction,
   markNotificationAsReadSuccess,
-  markNotificationAsReadFailure,
 } = notificationsSlice.actions;
 
 export default notificationsSlice.reducer;
