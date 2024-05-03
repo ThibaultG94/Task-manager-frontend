@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	setReceivedInvitationsAction,
-	setReceivedInvitationsFailure,
-	setReceivedInvitationsSuccess,
-} from '../../store/feature/invitations.slice';
+import { setReceivedInvitations } from '../../store/feature/invitations.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetReceivedInvitations = () => {
@@ -12,8 +8,6 @@ export const useGetReceivedInvitations = () => {
 	const errorApi = useErrorApi();
 
 	const getReceivedInvitations = async (userId) => {
-		dispatch(setReceivedInvitationsAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
@@ -22,10 +16,9 @@ export const useGetReceivedInvitations = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(setReceivedInvitationsSuccess(res.data.invitations));
-			return res.data.invitations;
+			dispatch(setReceivedInvitations(res.data.invitations));
+			return res;
 		} catch (error) {
-			dispatch(setReceivedInvitationsFailure(error));
 			errorApi(error);
 		}
 	};

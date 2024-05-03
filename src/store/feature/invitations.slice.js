@@ -33,17 +33,10 @@ export const invitationsSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    setReceivedInvitationsAction: (state) => {
-      state.loading = true;
-    },
-    setReceivedInvitationsSuccess: (state, action) => {
+    setReceivedInvitations: (state, action) => {
       state.receivedInvitations = action.payload;
       state.loading = false;
       state.error = null;
-    },
-    setReceivedInvitationsFailure: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
     },
   },
 });
@@ -55,9 +48,7 @@ export const {
   setSendOutInvitationsAction,
   setSendOutInvitationsSuccess,
   setSendOutInvitationsFailure,
-  setReceivedInvitationsAction,
-  setReceivedInvitationsSuccess,
-  setReceivedInvitationsFailure,
+  setReceivedInvitations,
 } = invitationsSlice.actions;
 
 export default invitationsSlice.reducer;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setReceivedInvitationsSuccess } from '../../store/feature/invitations.slice';
+import { setReceivedInvitations } from '../../store/feature/invitations.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useDeclineInvitation = () => {
@@ -17,7 +17,7 @@ export const useDeclineInvitation = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(setReceivedInvitationsSuccess(res.data.invitations));
+			dispatch(setReceivedInvitations(res.data.invitations));
 			return res;
 		} catch (error) {
 			errorApi(error);

@@ -4,7 +4,6 @@ import { selectReceivedInvitations } from '../../../store/selectors/invitationsS
 import { useDeclineInvitation } from '../../../api/invitations/useDeclineInvitation';
 import { useAcceptInvitation } from '../../../api/invitations/useAcceptInvitation';
 import { toast } from 'react-toastify';
-import LoadingComponent from '../../Buttons/LoadingComponent';
 import LoadingEditComponent from '../../Buttons/LoadingEditComponent';
 import LoadingDeleteComponent from '../../Buttons/LoadingDeleteComponent';
 
