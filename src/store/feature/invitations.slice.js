@@ -45,17 +45,6 @@ export const invitationsSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    cancelInvitationAction: (state) => {
-      state.loading = true;
-    },
-    cancelInvitationSuccess: (state) => {
-      state.loading = false;
-      state.error = null;
-    },
-    cancelInvitationFailure: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
-    },
     declineInvitationAction: (state) => {
       state.loading = true;
     },
@@ -80,9 +69,6 @@ export const {
   setReceivedInvitationsAction,
   setReceivedInvitationsSuccess,
   setReceivedInvitationsFailure,
-  cancelInvitationAction,
-  cancelInvitationSuccess,
-  cancelInvitationFailure,
   declineInvitationAction,
   declineInvitationSuccess,
   declineInvitationFailure,

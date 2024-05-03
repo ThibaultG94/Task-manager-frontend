@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useGetSentOutInvitations } from '../../../api/invitations/useGetSentOutInvitations';
 import { useSelector } from 'react-redux';
 import { selectDispathedInvitations } from '../../../store/selectors/invitationsSelectors';
 import { useCancelInvitation } from '../../../api/invitations/useCancelInvitation';
@@ -7,10 +6,9 @@ import { toast } from 'react-toastify';
 import LoadingDeleteComponent from '../../Buttons/LoadingDeleteComponent';
 import LoadingComponent from '../../Buttons/LoadingComponent';
 
-const SentOutInvitations = ({ userId }) => {
+const SentOutInvitations = () => {
 	const invitations = useSelector(selectDispathedInvitations);
 	const cancelInvitation = useCancelInvitation();
-	const getSendOutInvitations = useGetSentOutInvitations();
 	const [invitationsPending, setInvitationsPending] = useState([]);
 	const [invitationsAccepted, setInvitationsAccepted] = useState([]);
 	const [isLoadingAction, setIsLoadingAction] = useState(false);
@@ -20,14 +18,13 @@ const SentOutInvitations = ({ userId }) => {
 	const handleCancelInvitation = async (invitationId) => {
 		try {
 			setIsLoadingAction(true);
-			await cancelInvitation(invitationId);
-			setIsLoadingAction(false);
-
 			setIsLoadingPending(true);
 			setIsLoadingAccepted(true);
-			await getSendOutInvitations(userId);
+			await cancelInvitation(invitationId);
+			setIsLoadingAction(false);
 			setIsLoadingPending(false);
 			setIsLoadingAccepted(false);
+
 			toast.success("L'invitation a été annulée");
 		} catch (error) {
 			toast.error("Échec de l'annulation de l'invitation");

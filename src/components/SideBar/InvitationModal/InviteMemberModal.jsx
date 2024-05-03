@@ -24,7 +24,7 @@ const InviteMemberModal = ({ userId, setIsInvitationModalOpen, tab }) => {
 			id: 'tab3',
 			label: 'Invitations Envoyées',
 			icon: 'fas fa-paper-plane',
-			component: <SentOutInvitations userId={userId} />,
+			component: <SentOutInvitations />,
 		},
 		{
 			id: 'tab4',

@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	cancelInvitationAction,
-	cancelInvitationFailure,
-	cancelInvitationSuccess,
-} from '../../store/feature/invitations.slice';
+import { setSendOutInvitationsSuccess } from '../../store/feature/invitations.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useCancelInvitation = () => {
@@ -12,8 +8,6 @@ export const useCancelInvitation = () => {
 	const errorApi = useErrorApi();
 
 	const cancelInvitation = async (invitationId) => {
-		dispatch(cancelInvitationAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.delete(
@@ -22,10 +16,9 @@ export const useCancelInvitation = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(cancelInvitationSuccess(res));
-			return res;
+			dispatch(setSendOutInvitationsSuccess(res.data.invitations));
+			return res.data;
 		} catch (error) {
-			dispatch(cancelInvitationFailure(error));
 			errorApi(error);
 		}
 	};
