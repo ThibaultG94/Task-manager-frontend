@@ -4,8 +4,6 @@ import { selectReceivedInvitations } from '../../../store/selectors/invitationsS
 import { useGetReceivedInvitations } from '../../../api/invitations/useGetReceivedInvitations';
 import { useDeclineInvitation } from '../../../api/invitations/useDeclineInvitation';
 import { useAcceptInvitation } from '../../../api/invitations/useAcceptInvitation';
-import { useGetContacts } from '../../../api/users/useGetContacts';
-import { useSetInvitationNotification } from '../../../api/notifications/useSetInvitationNotification';
 import { toast } from 'react-toastify';
 import LoadingComponent from '../../Buttons/LoadingComponent';
 import LoadingEditComponent from '../../Buttons/LoadingEditComponent';
@@ -13,11 +11,9 @@ import LoadingDeleteComponent from '../../Buttons/LoadingDeleteComponent';
 
 const ReceivedInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedInvitations);
-	const getContacts = useGetContacts();
 	const acceptInvitation = useAcceptInvitation();
 	const declineInvitation = useDeclineInvitation();
 	const getReceivedInvitations = useGetReceivedInvitations();
-	const setInvitationNotification = useSetInvitationNotification();
 	const [receivedInvitationsPending, setReceivedInvitationsPending] = useState();
 	const [receivedInvitationsAccepted, setReceivedInvitationsAccepted] = useState();
 	const [receivedInvitationsRejected, setReceivedInvitationsRejected] = useState([]);
@@ -33,13 +29,7 @@ const ReceivedInvitesList = ({ userId }) => {
 
 			if (res.status === 200) {
 				setIsLoadingAccept(false);
-
-				setIsLoading(true);
-				// await getReceivedInvitations(userId);
-				setIsLoading(false);
 				toast.success("L'invitation a été acceptée");
-				await getContacts(userId);
-				await setInvitationNotification(res.data.invitation, userId);
 			}
 		} catch (error) {
 			toast.error("Échec de l'acceptation de l'invitation");
