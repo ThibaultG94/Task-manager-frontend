@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import getUserId from '../../api/users/getUserId';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { selectIsUrgentTasksLoaded, selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
-import getUserId from '../../api/users/getUserId';
 import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import useCheckIfEdited from '../../utils/useCheckIfEdited';
 import { formatDateForDisplay } from '../../utils/formatDateForDisplay';
 import { getCategoryDay } from '../../utils/getCategoryDay';
 import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
+import { useUndoActions } from '../../utils/useUndoActions';
 import { toast } from 'react-toastify';
 import HandleModalTask from '../ModalTask/HandleModalTask';
 import LoadingComponent from '../Buttons/LoadingComponent';
-import { useDeleteNotification } from '../../api/notifications/useDeleteNotification';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();
@@ -25,16 +25,15 @@ const UrgentTasks = () => {
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
-	const deleteNotification = useDeleteNotification();
 	const getWorkspace = useGetWorkspace();
+
+	const { notifyWithUndo } = useUndoActions();
 	
 	const [displayTasks, setDisplayTasks] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
-	const [previousTask, setPreviousTask] = useState(null);
-	const [previousNotification, setPreviousNotification] = useState(null);
 
 	const checkIfEdited = useCheckIfEdited({
 		setIsModalOpen,
@@ -100,34 +99,6 @@ const UrgentTasks = () => {
 			toast.error("Échec de l'archivage de la tâche.");
 		}
 	};
-	
-	const notifyWithUndo = (previousTask, notifications) => {
-		const toastId = toast(<div>
-				Tâche mise à jour ! 
-				<button className='button ml-4 bg-red-error' onClick={() => undoTask(previousTask, toastId, notifications)}>Annuler</button>
-			  </div>, {
-		  position: "top-center",
-		  autoClose: 5000,
-		  closeOnClick: false,
-		  draggable: false
-		});
-	};
-	
-	const undoTask = async (previousTask, toastId, notifications) => {
-		await editTask({
-		status: previousTask.status,
-		_id: previousTask.taskId
-		});
-		await tasksHasBeenUpdated(previousTask, previousTask.category);
-		if (notifications && notifications.length > 0) {
-			notifications.forEach(async (notificationId) => {
-				await deleteNotification(notificationId);  // Supprimer chaque notification par son ID
-			});
-		}
-		toast.dismiss(toastId);
-		toast.success('Modifications annulées avec succès!');
-	};
-	
 
 	useEffect(() => {
 		isUrgentTasksLoaded ? setIsLoading(false) : setIsLoading(true);

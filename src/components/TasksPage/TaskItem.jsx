@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import getUserId from '../../api/users/getUserId';
 import { useDispatch } from 'react-redux';
 import {
 	resetEditState,
@@ -7,9 +8,9 @@ import {
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
 import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
-import getUserId from '../../api/users/getUserId';
 import { useDeleteTask } from '../../api/tasks/useDeleteTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
+import { useUndoActions } from '../../utils/useUndoActions';
 import { toast } from 'react-toastify';
 import ButtonToGrab from '../Buttons/ButtonToGrab';
 import QuickEditTitle from './QuickEditTitle';
@@ -26,6 +27,8 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
 	const getWorkspace = useGetWorkspace();
+
+	const { notifyWithUndo } = useUndoActions();
 
 	const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 	const [isAdmin, setIsAdmin] = useState(false);
@@ -81,6 +84,12 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			newStatus = 'Completed';
 		} 
 
+		const previousTask = {
+			status: task.status,
+			taskId: task.taskId,
+			deadline: task.deadline,
+		};
+
 		try {
 			const userId = await getUserId();
 			const editedTask = {
@@ -90,8 +99,9 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			}
 			await editTask({ status: newStatus, _id: task.taskId });
 			await tasksHasBeenUpdated(editedTask, task.category);
-			await setTaskNotification(editedTask, userId);
-			toast.success('La tâche a été archivée avec succès !');
+			const notifications = await setTaskNotification(editedTask, userId);
+
+			notifyWithUndo(previousTask, notifications); 
 		} catch (error) {
 			toast.error("Échec de l'archivage de la tâche.");
 		}
