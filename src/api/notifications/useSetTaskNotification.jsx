@@ -19,7 +19,7 @@ export const useSetTaskNotification = () => {
 					withCredentials: true,
 				}
 			);
-			return res;
+			return res.data.notificationsIds;
 		} catch (error) {
 			errorApi(error);
 		}

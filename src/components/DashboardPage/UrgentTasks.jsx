@@ -15,6 +15,7 @@ import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
 import { toast } from 'react-toastify';
 import HandleModalTask from '../ModalTask/HandleModalTask';
 import LoadingComponent from '../Buttons/LoadingComponent';
+import { useDeleteNotification } from '../../api/notifications/useDeleteNotification';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const UrgentTasks = () => {
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
+	const deleteNotification = useDeleteNotification();
 	const getWorkspace = useGetWorkspace();
 	
 	const [displayTasks, setDisplayTasks] = useState([]);
@@ -31,6 +33,8 @@ const UrgentTasks = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+	const [previousTask, setPreviousTask] = useState(null);
+	const [previousNotification, setPreviousNotification] = useState(null);
 
 	const checkIfEdited = useCheckIfEdited({
 		setIsModalOpen,
@@ -74,23 +78,56 @@ const UrgentTasks = () => {
 		let newStatus = "Completed";
 		const canArchiveTask = await checkIfTheUserCanArchiveTask(task);
 		if (canArchiveTask) newStatus = 'Archived';
-
+	
+		const previousTask = {
+			status: task.status,
+			taskId: task.taskId,
+			deadline: task.deadline,
+		};
+	
 		try {
 			const userId = await getUserId();
 			const editedTask = {
 				status: newStatus,
 				_id: task.taskId,
-			}
+			};
 			await editTask({ status: newStatus, _id: task.taskId });
 			await tasksHasBeenUpdated(task, task.category);
-			await setTaskNotification(editedTask, userId);
-
-			if (canArchiveTask) toast.success('La tâche a été archivée avec succès !');
-			if (!canArchiveTask) toast.success('La tâche a été marquée comme complétée avec succès !');
+			const notifications = await setTaskNotification(editedTask, userId);
+	
+			notifyWithUndo(previousTask, notifications); 
 		} catch (error) {
 			toast.error("Échec de l'archivage de la tâche.");
 		}
 	};
+	
+	const notifyWithUndo = (previousTask, notifications) => {
+		const toastId = toast(<div>
+				Tâche mise à jour ! 
+				<button className='button ml-4 bg-red-error' onClick={() => undoTask(previousTask, toastId, notifications)}>Annuler</button>
+			  </div>, {
+		  position: "top-center",
+		  autoClose: 5000,
+		  closeOnClick: false,
+		  draggable: false
+		});
+	};
+	
+	const undoTask = async (previousTask, toastId, notifications) => {
+		await editTask({
+		status: previousTask.status,
+		_id: previousTask.taskId
+		});
+		await tasksHasBeenUpdated(previousTask, previousTask.category);
+		if (notifications && notifications.length > 0) {
+			notifications.forEach(async (notificationId) => {
+				await deleteNotification(notificationId);  // Supprimer chaque notification par son ID
+			});
+		}
+		toast.dismiss(toastId);
+		toast.success('Modifications annulées avec succès!');
+	};
+	
 
 	useEffect(() => {
 		isUrgentTasksLoaded ? setIsLoading(false) : setIsLoading(true);
