@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectReceivedInvitations } from '../../../store/selectors/invitationsSelectors';
-import { useGetReceivedInvitations } from '../../../api/invitations/useGetReceivedInvitations';
 import { useDeclineInvitation } from '../../../api/invitations/useDeclineInvitation';
 import { useAcceptInvitation } from '../../../api/invitations/useAcceptInvitation';
 import { toast } from 'react-toastify';
@@ -13,14 +12,12 @@ const ReceivedInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedInvitations);
 	const acceptInvitation = useAcceptInvitation();
 	const declineInvitation = useDeclineInvitation();
-	const getReceivedInvitations = useGetReceivedInvitations();
 	const [receivedInvitationsPending, setReceivedInvitationsPending] = useState();
 	const [receivedInvitationsAccepted, setReceivedInvitationsAccepted] = useState();
 	const [receivedInvitationsRejected, setReceivedInvitationsRejected] = useState([]);
 	const [isRejectedOpen, setIsRejectedOpen] = useState(false);
 	const [isLoadingAccept, setIsLoadingAccept] = useState(false);
 	const [isLoadingDecline, setIsLoadingDecline] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
 
 	const handleAcceptInvitation = async (invitationId) => {
 		try {
@@ -43,9 +40,6 @@ const ReceivedInvitesList = ({ userId }) => {
 			await declineInvitation(invitationId, userId);
 			setIsLoadingDecline(false);
 
-			setIsLoading(true);
-			await getReceivedInvitations(userId);
-			setIsLoading(false);
 			toast.success("L'invitation a été déclinée");
 		} catch (error) {
 			toast.error("Échec du rejet de l'invitation");
@@ -71,7 +65,7 @@ const ReceivedInvitesList = ({ userId }) => {
 			<div className="md:flex md:flex-wrap md:justify-between max-h-96 overflow-auto">
 				<div className="flex-1">
 					<h3 className="text-lg text-center mb-4">En attente</h3>
-					{receivedInvitationsPending && !isLoading &&
+					{receivedInvitationsPending &&
 						receivedInvitationsPending.map((invitation) => (
 							<div
 								key={invitation.invitationId}
@@ -143,19 +137,16 @@ const ReceivedInvitesList = ({ userId }) => {
 								</div>
 							</div>
 						))}
-					{receivedInvitationsPending && !isLoading &&
+					{receivedInvitationsPending &&
 						receivedInvitationsPending.length === 0 && (
 							<p className="text-gray-500 font-light text-center">
 								Vous n'avez envoyé aucune invitation
 							</p>
 					)}
-					{isLoading && (
-						<LoadingComponent />
-					)}
 				</div>
 				<div className="flex-1 mt-6 md:mt-0 md:ml-8 mr-4">
 					<h3 className="text-lg text-center mb-4">Acceptés</h3>
-					{receivedInvitationsAccepted && !isLoading &&
+					{receivedInvitationsAccepted &&
 						receivedInvitationsAccepted.map((invitation) => (
 							<div
 							key={invitation.invitationId}
@@ -171,14 +162,11 @@ const ReceivedInvitesList = ({ userId }) => {
 								</p>
 							</div>
 					))}
-					{receivedInvitationsAccepted && !isLoading &&
+					{receivedInvitationsAccepted &&
 						receivedInvitationsAccepted.length === 0 && (
 							<p className="text-gray-500 font-light text-center">
 								Vous n'avez aucune invitation acceptée
 							</p>
-					)}
-					{isLoading && (
-						<LoadingComponent />
 					)}
 				</div>
 				<div className="mt-6 w-full flex justify-center">
@@ -198,7 +186,7 @@ const ReceivedInvitesList = ({ userId }) => {
 
 							{isRejectedOpen && (
 								<div className="accordion-content">
-									{receivedInvitationsRejected && !isLoading &&
+									{receivedInvitationsRejected &&
 										receivedInvitationsRejected.map((invitation) => (
 											<div
 												key={invitation.invitationId}
