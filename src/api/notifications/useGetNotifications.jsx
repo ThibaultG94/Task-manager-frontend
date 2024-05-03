@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	getNotificationsAction,
-	getNotificationsFailure,
-	getNotificationsSuccess,
-} from '../../store/feature/notifications.slice';
+import { getNotificationsSuccess } from '../../store/feature/notifications.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetNotifications = () => {
@@ -12,8 +8,6 @@ export const useGetNotifications = () => {
 	const errorApi = useErrorApi();
 
 	const getNotifications = async (userId) => {
-		dispatch(getNotificationsAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
@@ -28,9 +22,8 @@ export const useGetNotifications = () => {
 					earlierNotifications: res.data.earlierNotifications,
 				})
 			);
-			return res.data;
+			return res;
 		} catch (error) {
-			dispatch(getNotificationsFailure(error));
 			errorApi(error);
 		}
 	};

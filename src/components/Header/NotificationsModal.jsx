@@ -4,7 +4,7 @@ import { selectCurrentNotificationsPage } from '../../store/selectors/pagesSelec
 import {
 	selectIsNotificationsLoaded,
 	selectNotifications,
-	selectTotalNotifications,
+	selectTotalNumberOfNotifications,
 } from '../../store/selectors/notificationSelectors';
 import { useGetAllNotifications } from '../../api/notifications/useGetAllNotifications';
 import getUserId from '../../api/users/getUserId';
@@ -19,7 +19,8 @@ const NotificationsModal = ({
 	const currentNotifications = useSelector(selectCurrentNotificationsPage);
 	const isNotificationsLoaded = useSelector(selectIsNotificationsLoaded);
 	const userNotifications = useSelector(selectNotifications);
-	const totalNotifications = useSelector(selectTotalNotifications);
+	const totalNumberOfNotifications = useSelector(selectTotalNumberOfNotifications);
+	
 	const getAllNotifications = useGetAllNotifications();
 	
 	const [userId, setUserId] = useState(null);
@@ -62,9 +63,9 @@ const NotificationsModal = ({
 	}, [userNotifications]);
 
 	useEffect(() => {
-		const pages = Math.ceil(totalNotifications / 10);
+		const pages = Math.ceil(totalNumberOfNotifications / 10);
 		setTotalPages(pages);
-	}, [totalNotifications]);
+	}, [totalNumberOfNotifications]);
 
 	useEffect(() => {
 		if (currentNotifications) setCurrentPage(currentNotifications);
