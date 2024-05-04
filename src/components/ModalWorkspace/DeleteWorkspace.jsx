@@ -9,7 +9,6 @@ import {
 	deleteWorkspaceAction,
 	deleteWorkspaceSuccess,
 } from '../../store/feature/workspaces.slice';
-import { deleteTaskFailed } from '../../store/feature/tasks.slice';
 import { useDeleteWorkspace } from '../../api/workspaces/useDeleteWorkspace';
 import { toast } from 'react-toastify';
 import LoadingDeleteComponent from '../Buttons/LoadingDeleteComponent';
@@ -34,7 +33,6 @@ const DeleteWorkspace = ({ setIsModalWorkspaceOpen, workspaceData }) => {
 			dispatch(setWorkspacesHasBeenUpdated(true));
 			toast.success('Le workspace a été supprimée avec succès !');
 		} catch (error) {
-			dispatch(deleteTaskFailed(error));
 			toast.error('Échec de la suppression de la tâche.');
 			return;
 		}

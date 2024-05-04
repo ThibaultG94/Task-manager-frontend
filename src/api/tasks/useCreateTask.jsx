@@ -1,19 +1,10 @@
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import {
-	createTaskAction,
-	createTaskFailed,
-	createTaskSuccess,
-} from '../../store/feature/tasks.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useCreateTask = () => {
-	const dispatch = useDispatch();
 	const errorApi = useErrorApi();
 
 	const createTask = async (task) => {
-		dispatch(createTaskAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.post(
@@ -33,10 +24,8 @@ export const useCreateTask = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(createTaskSuccess(res.data.task));
-			return res.data.task;
+			return res;
 		} catch (error) {
-			dispatch(createTaskFailed(error));
 			errorApi(error);
 		}
 	};

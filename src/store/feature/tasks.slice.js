@@ -84,10 +84,8 @@ export const tasksSlice = createSlice({
       state.isThisMonthTasksLoaded = true;
     },
     setNextMonthTasks: (state, action) => {
-      state.loading = false;
       state.nextMonthTasks = action.payload;
       state.isNextMonthTasksLoaded = true;
-      state.error = null;
     },
     setThisYearTasks: (state, action) => {
       state.thisYearTasks = action.payload;
@@ -104,60 +102,6 @@ export const tasksSlice = createSlice({
     setArchivedTasks: (state, action) => {
       state.archivedTasks = action.payload;
       state.isArchivedTasksLoaded = true;
-    },
-    createTaskAction: (state) => {
-      state.loading = true;
-    },
-    createTaskSuccess: (state, action) => {
-      state.loading = false;
-      state.tasks.push(action.payload);
-      state.error = null;
-    },
-    createTaskFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    editTaskAction: (state) => {
-      state.loading = true;
-    },
-    editTaskSuccess: (state, action) => {
-      state.loading = false;
-      state.tasks = state.tasks.map((task) => {
-        if (task._id === action.payload._id) {
-          return {
-            ...task,
-            title: action.payload.title,
-            userId: action.payload.userId,
-            description: action.payload.description,
-            status: action.payload.status,
-            priority: action.payload.priority,
-            workspaceId: action.payload.workspaceId,
-            deadline: action.payload.deadline,
-            comments: action.payload.comments,
-            assignedTo: action.payload.assignedTo,
-            archiveDate: action.payload.archiveDate,
-          };
-        } else {
-          return task;
-        }
-      });
-      state.error = null;
-    },
-    editTaskFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    deleteTaskAction: (state) => {
-      state.loading = true;
-    },
-    deleteTaskSuccess: (state, action) => {
-      state.loading = false;
-      state.tasks = state.tasks.filter((task) => task._id !== action.payload);
-      state.error = null;
-    },
-    deleteTaskFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
     },
     setTotalArchivedTasks: (state, action) => {
       state.totalArchivedTasks = action.payload;
@@ -197,15 +141,6 @@ export const {
   setNextYearTasks,
   setBecomingTasks,
   setArchivedTasks,
-  createTaskAction,
-  createTaskSuccess,
-  createTaskFailed,
-  editTaskAction,
-  editTaskSuccess,
-  editTaskFailed,
-  deleteTaskAction,
-  deleteTaskSuccess,
-  deleteTaskFailed,
   setTotalArchivedTasks,
   setInitialEditedTask,
   setEditedTask,

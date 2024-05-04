@@ -58,6 +58,11 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 			return;
 		}
 
+		if (selectedMember === 'default') {
+			toast.error('Veuillez sélectionner un membre.');
+			return;
+		}
+
 		const task = {
 			title: taskTitle,
 			userId,
@@ -72,6 +77,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 		try {
 			await createTask(task);
 			await tasksHasBeenUpdated(task);
+			
 			setIsLoading(false);
 			toast.success('Tâche créée avec succès !');
 			setIsModalOpen(false);
