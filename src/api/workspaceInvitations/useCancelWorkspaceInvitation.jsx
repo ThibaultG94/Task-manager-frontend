@@ -1,7 +1,10 @@
 import axios from 'axios';
+import { setSendOutWorkspaceInvitations } from '../../store/feature/workspaceInvitation.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
+import { useDispatch } from 'react-redux';
 
 export const useCancelWorkspaceInvitation = () => {
+	const dispatch = useDispatch();
 	const errorApi = useErrorApi();
 
 	const cancelWorkspaceInvitation = async (invitationId) => {
@@ -12,6 +15,11 @@ export const useCancelWorkspaceInvitation = () => {
 				{
 					withCredentials: true,
 				}
+			);
+			dispatch(
+				setSendOutWorkspaceInvitations(
+					res.data.workspaceInvitations
+				)
 			);
 			return res;
 		} catch (error) {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectDispathedWorkspaceInvitations } from '../../../store/selectors/workspaceInvitationsSelectors';
-import { useGetSentOutWorkspaceInvitations } from '../../../api/workspaceInvitations/useGetSentOutWorkspaceInvitations';
 import { useCancelWorkspaceInvitation } from '../../../api/workspaceInvitations/useCancelWorkspaceInvitation';
 import { useGetWorkspaces } from '../../../api/workspaces/useGetWorkspaces';
 import { toast } from 'react-toastify';
@@ -11,25 +10,16 @@ import LoadingDeleteComponent from '../../Buttons/LoadingDeleteComponent';
 const SentOutWorkspaceInvitations = ({ userId }) => {
 	const invitations = useSelector(selectDispathedWorkspaceInvitations);
 	const cancelWorkspaceInvitation = useCancelWorkspaceInvitation();
-	const getSendOutWorkspaceInvitations = useGetSentOutWorkspaceInvitations();
 	const getWorkspaces = useGetWorkspaces();
 	const [invitationsPending, setInvitationsPending] = useState([]);
 	const [invitationsAccepted, setInvitationsAccepted] = useState([]);
 	const [isLoadingAction, setIsLoadingAction] = useState(false);
-	const [isLoadingPending, setIsLoadingPending] = useState(false);
-	const [isLoadingAccepted, setIsLoadingAccepted] = useState(false);
 
 	const handleCancelInvitation = async (invitationId) => {
 		try {
 			setIsLoadingAction(true);
 			await cancelWorkspaceInvitation(invitationId);
 			setIsLoadingAction(false);
-
-			setIsLoadingPending(true);
-			setIsLoadingAccepted(true);
-			await getSendOutWorkspaceInvitations(userId);
-			setIsLoadingPending(false);
-			setIsLoadingAccepted(false);
 
 			await getWorkspaces(userId);
 			toast.success("L'invitation a été annulée");
@@ -56,7 +46,7 @@ const SentOutWorkspaceInvitations = ({ userId }) => {
 			<div className="flex flex-wrap md:flex-nowrap max-h-96 overflow-auto">
 				<div className="flex-1">
 					<h3 className="text-lg text-center mb-4">En attente</h3>
-					{invitationsPending && !isLoadingPending &&
+					{invitationsPending &&
 						invitationsPending.map((invitation) => (
 							<div
 								key={invitation.invitationId}
@@ -104,18 +94,15 @@ const SentOutWorkspaceInvitations = ({ userId }) => {
 							</div>
 						))}
 
-					{invitationsPending && !isLoadingPending && invitationsPending.length === 0 && (
+					{invitationsPending && invitationsPending.length === 0 && (
 						<p className="text-gray-500 font-light text-center">
 							Vous n'avez envoyé aucune invitation
 						</p>
 					)}
-					{isLoadingPending && (
-						<LoadingComponent />
-					)}
 				</div>
 				<div className="flex-1 mt-6 md:mt-0 md:ml-8">
 					<h3 className="text-lg text-center mb-4">Acceptés</h3>
-					{invitationsAccepted && !isLoadingAccepted &&
+					{invitationsAccepted &&
 						invitationsAccepted.map((invitation) => (
 							<div
 								key={invitation.invitationId}
@@ -131,14 +118,11 @@ const SentOutWorkspaceInvitations = ({ userId }) => {
 								</p>
 							</div>
 					))}
-					{invitationsAccepted && !isLoadingAccepted && 
+					{invitationsAccepted && 
 						invitationsAccepted.length === 0 && (
 							<p className="text-gray-500 font-light text-center">
 								Vous n'avez aucune invitation acceptée
 							</p>
-					)}
-					{isLoadingAccepted && (
-						<LoadingComponent />
 					)}
 				</div>
 			</div>
