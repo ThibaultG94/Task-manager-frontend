@@ -10,54 +10,19 @@ export const usersSlice = createSlice({
     error: null,
   },
   reducers: {
-    setUserData: (state) => {
-      state.loading = true;
-    },
-    setUserDataSuccess: (state, action) => {
-      state.loading = false;
+    setUserData: (state, action) => {
       state.currentUser = action.payload;
-      state.error = null;
     },
-    setUserDataFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    updateUser: (state) => {
-      state.loading = true;
-    },
-    updateUserSuccess: (state, action) => {
-      state.loading = false;
+    updateUserAction: (state, action) => {
       state.currentUser = action.payload;
-      state.error = null;
     },
-    updateUserFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setUserContactsAction: (state) => {
-      state.isUserContactsLoaded = false;
-    },
-    setUserContactsSuccess: (state, action) => {
+    setUserContacts: (state, action) => {
       state.userContacts = action.payload;
       state.isUserContactsLoaded = true;
-      state.error = null;
-    },
-    setUserContactsFailed: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
     },
   },
 });
 
-export const {
-  setUserData,
-  setUserDataSuccess,
-  setUserDataFailed,
-  updateUser,
-  updateUserSuccess,
-  updateUserFailed,
-  setUserContactsAction,
-  setUserContactsSuccess,
-  setUserContactsFailed,
-} = usersSlice.actions;
+export const { setUserData, updateUserAction, setUserContacts } =
+  usersSlice.actions;
 export default usersSlice.reducer;
