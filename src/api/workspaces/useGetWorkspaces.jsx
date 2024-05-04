@@ -23,7 +23,7 @@ export const useGetWorkspaces = () => {
 				}
 			);
 
-			dispatch(setWorkspacesSuccess(res.data));
+			dispatch(setWorkspacesSuccess(res.data.workspaces));
 		} catch (error) {
 			dispatch(setWorkspacesFailed(error));
 			errorApi(error);
