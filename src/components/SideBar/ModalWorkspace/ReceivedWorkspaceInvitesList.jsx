@@ -48,7 +48,6 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 				setIsLoading(false);
 				toast.success("L'invitation a été acceptée");
 				await getWorkspaces(userId);
-				// await setInvitationNotification(res.data.invitation, userId);
 			}
 		} catch (error) {
 			toast.error("Échec de l'acceptation de l'invitation");

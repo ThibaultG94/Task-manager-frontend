@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	setSendOutWorkspaceInvitationsAction,
-	setSendOutWorkspaceInvitationsFailure,
-	setSendOutWorkspaceInvitationsSuccess,
-} from '../../store/feature/workspaceInvitation.slice';
+import { setSendOutWorkspaceInvitations } from '../../store/feature/workspaceInvitation.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetSentOutWorkspaceInvitations = () => {
@@ -12,8 +8,6 @@ export const useGetSentOutWorkspaceInvitations = () => {
 	const errorApi = useErrorApi();
 
 	const getSendOutWorkspaceInvitations = async (userId) => {
-		dispatch(setSendOutWorkspaceInvitationsAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
@@ -23,13 +17,12 @@ export const useGetSentOutWorkspaceInvitations = () => {
 				}
 			);
 			dispatch(
-				setSendOutWorkspaceInvitationsSuccess(
+				setSendOutWorkspaceInvitations(
 					res.data.workspaceInvitations
 				)
 			);
 			return res.data.workspaceInvitations;
 		} catch (error) {
-			dispatch(setSendOutWorkspaceInvitationsFailure(error));
 			errorApi(error);
 		}
 	};

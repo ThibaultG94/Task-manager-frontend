@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	setReceivedWorkspaceInvitationsAction,
-	setReceivedWorkspaceInvitationsFailure,
-	setReceivedWorkspaceInvitationsSuccess,
-} from '../../store/feature/workspaceInvitation.slice';
+import { setReceivedWorkspaceInvitations } from '../../store/feature/workspaceInvitation.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetReceivedWorkspaceInvitations = () => {
@@ -12,8 +8,6 @@ export const useGetReceivedWorkspaceInvitations = () => {
 	const errorApi = useErrorApi();
 
 	const getReceivedWorkspaceInvitations = async (userId) => {
-		dispatch(setReceivedWorkspaceInvitationsAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
@@ -23,13 +17,12 @@ export const useGetReceivedWorkspaceInvitations = () => {
 				}
 			);
 			dispatch(
-				setReceivedWorkspaceInvitationsSuccess(
+				setReceivedWorkspaceInvitations(
 					res.data.workspaceInvitations
 				)
 			);
 			return res.data.workspaceInvitations;
 		} catch (error) {
-			dispatch(setReceivedWorkspaceInvitationsFailure(error));
 			errorApi(error);
 		}
 	};
