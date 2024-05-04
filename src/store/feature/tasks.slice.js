@@ -40,212 +40,70 @@ export const tasksSlice = createSlice({
     error: null,
   },
   reducers: {
-    setSingleTaskAction: (state) => {
-      state.loading = true;
-    },
-    setSingleTaskSuccess: (state, action) => {
-      state.loading = false;
+    setSingleTask: (state, action) => {
       state.singleTask = action.payload;
-      state.error = null;
     },
-    setSingleTaskFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setTasksAction: (state) => {
-      state.loading = true;
-    },
-    setTasksSuccess: (state, action) => {
-      state.loading = false;
+    setTasks: (state, action) => {
       state.tasks = action.payload;
       state.isTasksLoaded = true;
-      state.error = null;
     },
-    setTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setUrgentTasksAction: (state) => {
-      state.isUrgentTasksLoaded = true;
-    },
-    setUrgentTasksSuccess: (state, action) => {
-      state.loading = false;
+    setUrgentTasks: (state, action) => {
       state.urgentTasks = action.payload;
       state.isUrgentTasksLoaded = true;
-      state.error = null;
     },
-    setUrgentTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setWorkspaceTasksAction: (state) => {
-      state.loading = true;
-    },
-    setWorkspaceTasksSuccess: (state, action) => {
-      state.loading = false;
+    setWorkspaceTasks: (state, action) => {
       state.workspaceTasks = action.payload;
       state.isWorkspaceTasksLoaded = true;
-      state.error = null;
     },
-    setWorkspaceTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setWorkspaceTaskStatusCountAction: (state) => {
-      state.loading = true;
-    },
-    setWorkspaceTaskStatusCountSuccess: (state, action) => {
-      state.loading = false;
+    setWorkspaceTaskStatusCount: (state, action) => {
       state.workspaceTaskStatusCount = action.payload;
       state.isWorkspaceTaskStatusCount = true;
-      state.error = null;
     },
-    setWorkspaceTaskStatusCountFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setOverdueTasksAction: (state) => {
-      state.loading = true;
-    },
-    setOverdueTasksSuccess: (state, action) => {
-      state.loading = false;
+    setOverdueTasks: (state, action) => {
       state.overdueTasks = action.payload;
       state.isOverdueTasksLoaded = true;
-      state.error = null;
     },
-    setOverdueTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setTodayTasksAction: (state) => {
-      state.loading = true;
-    },
-    setTodayTasksSuccess: (state, action) => {
-      state.loading = false;
+    setTodayTasks: (state, action) => {
       state.todayTasks = action.payload;
       state.isTodayTasksLoaded = true;
-      state.error = null;
     },
-    setTodayTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setTomorrowTasksAction: (state) => {
-      state.loading = true;
-    },
-    setTomorrowTasksSuccess: (state, action) => {
-      state.loading = false;
+    setTomorrowTasks: (state, action) => {
       state.tomorrowTasks = action.payload;
       state.isTomorrowTasksLoaded = true;
-      state.error = null;
     },
-    setTomorrowTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setThisWeekTasksAction: (state) => {
-      state.loading = true;
-    },
-    setThisWeekTasksSuccess: (state, action) => {
-      state.loading = false;
+    setThisWeekTasks: (state, action) => {
       state.thisWeekTasks = action.payload;
       state.isThisWeekTasksLoaded = true;
-      state.error = null;
     },
-    setThisWeekTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setNextWeekTasksAction: (state) => {
-      state.loading = true;
-    },
-    setNextWeekTasksSuccess: (state, action) => {
-      state.loading = false;
+    setNextWeekTasks: (state, action) => {
       state.nextWeekTasks = action.payload;
       state.isNextWeekTasksLoaded = true;
-      state.error = null;
     },
-    setNextWeekTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setThisMonthTasksAction: (state) => {
-      state.loading = true;
-    },
-    setThisMonthTasksSuccess: (state, action) => {
-      state.loading = false;
+    setThisMonthTasks: (state, action) => {
       state.thisMonthTasks = action.payload;
       state.isThisMonthTasksLoaded = true;
-      state.error = null;
     },
-    setThisMonthTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setNextMonthTasksAction: (state) => {
-      state.loading = true;
-    },
-    setNextMonthTasksSuccess: (state, action) => {
+    setNextMonthTasks: (state, action) => {
       state.loading = false;
       state.nextMonthTasks = action.payload;
       state.isNextMonthTasksLoaded = true;
       state.error = null;
     },
-    setNextMonthTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setThisYearTasksAction: (state) => {
-      state.loading = true;
-    },
-    setThisYearTasksSuccess: (state, action) => {
-      state.loading = false;
+    setThisYearTasks: (state, action) => {
       state.thisYearTasks = action.payload;
       state.isThisYearTasksLoaded = true;
-      state.error = null;
     },
-    setThisYearTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setNextYearTasksAction: (state) => {
-      state.loading = true;
-    },
-    setNextYearTasksSuccess: (state, action) => {
-      state.loading = false;
+    setNextYearTasks: (state, action) => {
       state.nextYearTasks = action.payload;
       state.isNextYearTasksLoaded = true;
-      state.error = null;
     },
-    setNextYearTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setBecomingTasksAction: (state) => {
-      state.loading = true;
-    },
-    setBecomingTasksSuccess: (state, action) => {
-      state.loading = false;
+    setBecomingTasks: (state, action) => {
       state.becomingTasks = action.payload;
       state.isBecomingTasksLoaded = true;
-      state.error = null;
     },
-    setBecomingTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    setArchivedTasksAction: (state) => {
-      state.loading = true;
-    },
-    setArchivedTasksSuccess: (state, action) => {
-      state.loading = false;
+    setArchivedTasks: (state, action) => {
       state.archivedTasks = action.payload;
       state.isArchivedTasksLoaded = true;
-      state.error = null;
-    },
-    setArchivedTasksFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
     },
     createTaskAction: (state) => {
       state.loading = true;
@@ -323,54 +181,22 @@ export const tasksSlice = createSlice({
 });
 
 export const {
-  setSingleTaskAction,
-  setSingleTaskSuccess,
-  setSingleTaskFailed,
-  setTasksAction,
-  setTasksSuccess,
-  setTasksFailed,
-  setUrgentTasksAction,
-  setUrgentTasksSuccess,
-  setUrgentTasksFailed,
-  setWorkspaceTasksAction,
-  setWorkspaceTasksSuccess,
-  setWorkspaceTasksFailed,
-  setWorkspaceTaskStatusCountAction,
-  setWorkspaceTaskStatusCountSuccess,
-  setWorkspaceTaskStatusCountFailed,
-  setOverdueTasksAction,
-  setOverdueTasksSuccess,
-  setOverdueTasksFailed,
-  setTodayTasksAction,
-  setTodayTasksSuccess,
-  setTodayTasksFailed,
-  setTomorrowTasksAction,
-  setTomorrowTasksSuccess,
-  setTomorrowTasksFailed,
-  setThisWeekTasksAction,
-  setThisWeekTasksSuccess,
-  setThisWeekTasksFailed,
-  setNextWeekTasksAction,
-  setNextWeekTasksSuccess,
-  setNextWeekTasksFailed,
-  setThisMonthTasksAction,
-  setThisMonthTasksSuccess,
-  setThisMonthTasksFailed,
-  setNextMonthTasksAction,
-  setNextMonthTasksSuccess,
-  setNextMonthTasksFailed,
-  setThisYearTasksAction,
-  setThisYearTasksSuccess,
-  setThisYearTasksFailed,
-  setNextYearTasksAction,
-  setNextYearTasksSuccess,
-  setNextYearTasksFailed,
-  setBecomingTasksAction,
-  setBecomingTasksSuccess,
-  setBecomingTasksFailed,
-  setArchivedTasksAction,
-  setArchivedTasksSuccess,
-  setArchivedTasksFailed,
+  setSingleTask,
+  setTasks,
+  setUrgentTasks,
+  setWorkspaceTasks,
+  setWorkspaceTaskStatusCount,
+  setOverdueTasks,
+  setTodayTasks,
+  setTomorrowTasks,
+  setThisWeekTasks,
+  setNextWeekTasks,
+  setThisMonthTasks,
+  setNextMonthTasks,
+  setThisYearTasks,
+  setNextYearTasks,
+  setBecomingTasks,
+  setArchivedTasks,
   createTaskAction,
   createTaskSuccess,
   createTaskFailed,

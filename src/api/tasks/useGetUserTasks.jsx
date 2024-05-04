@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	setTasksFailed,
-	setTasksSuccess,
-	setTasksAction,
-} from '../../store/feature/tasks.slice';
+import { setTasks } from '../../store/feature/tasks.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetUserTasks = () => {
@@ -12,8 +8,6 @@ export const useGetUserTasks = () => {
 	const errorApi = useErrorApi();
 
 	const getUserTasks = async (userId) => {
-		dispatch(setTasksAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
@@ -22,10 +16,9 @@ export const useGetUserTasks = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(setTasksSuccess(res.data.userTasks));
-			return res.data.userTasks;
+			dispatch(setTasks(res.data.userTasks));
+			return res;
 		} catch (error) {
-			dispatch(setTasksFailed(error));
 			errorApi(error);
 		}
 	};

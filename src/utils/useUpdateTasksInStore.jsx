@@ -22,7 +22,7 @@ import { useGetNextMonthTasks } from '../api/tasks/useGetNextMonthTasks';
 import { useGetThisYearTasks } from '../api/tasks/useGetThisYearTasks';
 import { useGetNextYearTasks } from '../api/tasks/useGetNextYearTasks';
 import { useGetBecomingTasks } from '../api/tasks/useGetBecomingTasks';
-import { useGetArchivedTasks } from '../api/tasks/getArchivedTasks';
+import { useGetArchivedTasks } from '../api/tasks/useGetArchivedTasks';
 import { useEffect, useState } from 'react';
 import {
 	setArchivedTasksHasBeenUpdated,

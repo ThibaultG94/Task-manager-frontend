@@ -7,7 +7,7 @@ import {
 	selectTotalArchivedTasks,
 } from '../../store/selectors/taskSelectors';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { useGetArchivedTasks } from '../../api/tasks/getArchivedTasks';
+import { useGetArchivedTasks } from '../../api/tasks/useGetArchivedTasks';
 import getUserId from '../../api/users/getUserId';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import Pagination from '../../utils/Pagination';

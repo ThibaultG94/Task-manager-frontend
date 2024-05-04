@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	setWorkspaceTasksAction,
-	setWorkspaceTasksFailed,
-	setWorkspaceTasksSuccess,
-} from '../../store/feature/tasks.slice';
+import { setWorkspaceTasks } from '../../store/feature/tasks.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetWorkspaceTasks = () => {
@@ -12,8 +8,6 @@ export const useGetWorkspaceTasks = () => {
 	const errorApi = useErrorApi();
 
 	const getWorkspaceTasks = async (workspaceId) => {
-		dispatch(setWorkspaceTasksAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
@@ -23,9 +17,9 @@ export const useGetWorkspaceTasks = () => {
 				}
 			);
 
-			dispatch(setWorkspaceTasksSuccess(res.data));
+			dispatch(setWorkspaceTasks(res.data));
+			return res;
 		} catch (error) {
-			dispatch(setWorkspaceTasksFailed(error));
 			errorApi(error);
 		}
 	};

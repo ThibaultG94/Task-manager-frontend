@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	setNextMonthTasksAction,
-	setNextMonthTasksFailed,
-	setNextMonthTasksSuccess,
-} from '../../store/feature/tasks.slice';
+import { setNextMonthTasks } from '../../store/feature/tasks.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetNextMonthTasks = () => {
@@ -12,8 +8,6 @@ export const useGetNextMonthTasks = () => {
 	const errorApi = useErrorApi();
 
 	const getNextMonthTasks = async (userId) => {
-		dispatch(setNextMonthTasksAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
@@ -22,10 +16,9 @@ export const useGetNextMonthTasks = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(setNextMonthTasksSuccess(res.data.nextMonthTasks));
+			dispatch(setNextMonthTasks(res.data.nextMonthTasks));
 			return res.data.nextMonthTasks;
 		} catch (error) {
-			dispatch(setNextMonthTasksFailed(error));
 			errorApi(error);
 		}
 	};
