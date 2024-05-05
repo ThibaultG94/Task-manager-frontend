@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setSendOutWorkspaceInvitations } from '../../store/feature/workspaceInvitation.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
-import { setWorkspacesSuccess } from '../../store/feature/workspaces.slice';
+import { setWorkspacesAction } from '../../store/feature/workspaces.slice';
 
 export const useSendInvitationWorkspace = () => {
 	const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export const useSendInvitationWorkspace = () => {
 					res.data.workspaceInvitations
 				)
 			);
-			dispatch(setWorkspacesSuccess(res.data.workspaces));
+			dispatch(setWorkspacesAction(res.data.workspaces));
 			return res;
 		} catch (error) {
 			errorApi(error);

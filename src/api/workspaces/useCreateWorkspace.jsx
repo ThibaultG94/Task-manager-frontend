@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setWorkspacesSuccess } from '../../store/feature/workspaces.slice';
+import { setWorkspacesAction } from '../../store/feature/workspaces.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useCreateWorkspace = () => {
@@ -23,7 +23,7 @@ export const useCreateWorkspace = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(setWorkspacesSuccess(res.data.workspaces));
+			dispatch(setWorkspacesAction(res.data.workspaces));
 			return res.data.workspace;
 		} catch (error) {
 			errorApi(error);

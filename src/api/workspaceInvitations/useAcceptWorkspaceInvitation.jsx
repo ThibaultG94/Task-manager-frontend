@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setReceivedWorkspaceInvitations } from '../../store/feature/workspaceInvitation.slice';
-import { setWorkspacesSuccess } from '../../store/feature/workspaces.slice';
+import { setWorkspacesAction } from '../../store/feature/workspaces.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useAcceptWorkspaceInvitation = () => {
@@ -23,7 +23,7 @@ export const useAcceptWorkspaceInvitation = () => {
 					res.data.workspaceInvitations
 				)
 			);
-			dispatch(setWorkspacesSuccess(res.data.workspaces));
+			dispatch(setWorkspacesAction(res.data.workspaces));
 			return res;
 		} catch (error) {
 			errorApi(error);

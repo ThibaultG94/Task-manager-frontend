@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setWorkspacesSuccess } from '../../store/feature/workspaces.slice';
+import { setWorkspacesAction } from '../../store/feature/workspaces.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useDeleteWorkspace = () => {
@@ -16,7 +16,7 @@ export const useDeleteWorkspace = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(setWorkspacesSuccess(res.data.workspaces));
+			dispatch(setWorkspacesAction(res.data.workspaces));
 			return res.data;
 		} catch (error) {
 			errorApi(error);
