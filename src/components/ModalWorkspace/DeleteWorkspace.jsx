@@ -3,12 +3,7 @@ import { useDispatch } from 'react-redux';
 import {
 	resetEditState,
 	setHasEdited,
-	setWorkspacesHasBeenUpdated,
 } from '../../store/feature/editState.slice';
-import {
-	deleteWorkspaceAction,
-	deleteWorkspaceSuccess,
-} from '../../store/feature/workspaces.slice';
 import { useDeleteWorkspace } from '../../api/workspaces/useDeleteWorkspace';
 import { toast } from 'react-toastify';
 import LoadingDeleteComponent from '../Buttons/LoadingDeleteComponent';
@@ -21,19 +16,16 @@ const DeleteWorkspace = ({ setIsModalWorkspaceOpen, workspaceData }) => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const removeWorkspace = async () => {
-		dispatch(deleteWorkspaceAction());
 		try {
 			setIsLoading(true);
 			await deleteWorkspace(workspaceData._id);
 			setIsLoading(false);
 
-			dispatch(deleteWorkspaceSuccess(workspaceData._id));
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
-			dispatch(setWorkspacesHasBeenUpdated(true));
 			toast.success('Le workspace a été supprimée avec succès !');
 		} catch (error) {
-			toast.error('Échec de la suppression de la tâche.');
+			toast.error('Échec de la suppression du workspace');
 			return;
 		}
 	};
