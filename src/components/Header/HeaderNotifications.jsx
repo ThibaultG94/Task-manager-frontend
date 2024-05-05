@@ -4,6 +4,7 @@ import {
 	selectEarlierNotifications,
 	selectNewNotifications,
 } from '../../store/selectors/notificationSelectors';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { setEditedTask, setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { setInitialEditedWorkspace } from '../../store/feature/workspaces.slice';
 import { useMarkNotificationsAsViewed } from '../../api/notifications/useMarkNotificationsAsViewed';
@@ -11,7 +12,6 @@ import { useMarkNotificationAsRead } from '../../api/notifications/useMarkNotifi
 import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
 import { useGetTask } from '../../api/tasks/useGetTask';
-import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
 import { useGetSentOutWorkspaceInvitations } from '../../api/workspaceInvitations/useGetSentOutWorkspaceInvitations';
 import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
@@ -30,6 +30,8 @@ const HeaderNotifications = ({ userId }) => {
 	const receivedEarlierNotifications = useSelector(
 		selectEarlierNotifications
 	);
+	const userWorkspaces = useSelector(selectWorkspaces);
+
 	const markNotificationsAsViewed = useMarkNotificationsAsViewed();
 	const markNotificationAsRead = useMarkNotificationAsRead();
 	const getSentOutInvitations = useGetSentOutInvitations();
@@ -37,7 +39,6 @@ const HeaderNotifications = ({ userId }) => {
 	const getReceivedWorkspaceInvitations = useGetReceivedWorkspaceInvitations();
 	const getSentOutWorkspaceInvitations = useGetSentOutWorkspaceInvitations();
 	const getTask = useGetTask();
-	const getWorkspace = useGetWorkspace();
 
 	const [hasNewNotification, setHasNewNotification] = useState(0);
 	const [unreadNotifications, setUnreadNotifications] = useState([]);
@@ -88,7 +89,9 @@ const HeaderNotifications = ({ userId }) => {
 	};
 
 	const getWorkspaceDetails = async (workspaceId) => {
-		const workspace = await getWorkspace(workspaceId);
+		const workspace = userWorkspaces.find(
+			(workspace) => workspace._id === workspaceId
+		);
 		const formattedWorkspace = {
 			_id: workspace._id,
 			title: workspace.title,

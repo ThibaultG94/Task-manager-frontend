@@ -6,7 +6,6 @@ import { selectIsUrgentTasksLoaded, selectUrgentTasks } from '../../store/select
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
-import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import useCheckIfEdited from '../../utils/useCheckIfEdited';
 import { formatDateForDisplay } from '../../utils/formatDateForDisplay';
@@ -22,10 +21,10 @@ const UrgentTasks = () => {
 	const workspaces = useSelector(selectWorkspaces);
 	const urgentTasks = useSelector(selectUrgentTasks);
 	const isUrgentTasksLoaded = useSelector(selectIsUrgentTasksLoaded);
+
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
-	const getWorkspace = useGetWorkspace();
 
 	const { notifyWithUndo } = useUndoActions();
 	
@@ -54,7 +53,9 @@ const UrgentTasks = () => {
 
 	const checkIfTheUserCanArchiveTask = async (task) => {
 		const userId = await getUserId();
-		const workspace = await getWorkspace(task.workspace);
+		const workspace = workspaces.find(
+			(workspace) => workspace._id === task.workspace
+		);
 		const isSuperAdmin = workspace.members.some(
 			(member) =>
 				member.userId === userId &&
