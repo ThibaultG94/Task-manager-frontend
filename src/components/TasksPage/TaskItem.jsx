@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import getUserId from '../../api/users/getUserId';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	resetEditState,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
-import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import { useDeleteTask } from '../../api/tasks/useDeleteTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { useUndoActions } from '../../utils/useUndoActions';
@@ -26,7 +26,8 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const deleteTask = useDeleteTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
-	const getWorkspace = useGetWorkspace();
+
+	const userWorkspaces = useSelector(selectWorkspaces);
 
 	const { notifyWithUndo } = useUndoActions();
 
@@ -44,22 +45,31 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	useEffect(() => {
 		const checkUserPrivileges = async () => {
 			if (task && task.workspace) {
-				const workspace = await getWorkspace(task.workspace);
+				const workspace = userWorkspaces.find(
+					(workspace) => workspace._id === task.workspace
+				);
 				const userId = await getUserId();
+
+				if (workspace && Array.isArray(workspace.members)) {
+					const isSuperAdminVerification = workspace.members.some(
+						(member) => member.userId == userId && member.role === 'superadmin'
+					);
+					const isAdminVerification = workspace.members.some(
+						(member) => member.userId == userId && member.role === 'admin'
+					);
+					const isTaskOwner = task.userId == userId;
 		
-				const isSuperAdminVerification = workspace.members.some(
-				  (member) => member.userId == userId && member.role === 'superadmin'
-				);
-				const isAdminVerification = workspace.members.some(
-				  (member) => member.userId == userId && member.role === 'admin'
-				);
-				const isTaskOwner = task.userId == userId;
-		
-				setIsSuperAdmin(isSuperAdminVerification);
-				setIsAdmin(isAdminVerification);
-				setIsTaskOwner(isTaskOwner);
+					setIsSuperAdmin(isSuperAdminVerification);
+					setIsAdmin(isAdminVerification);
+					setIsTaskOwner(isTaskOwner);
+				} else {
+					setIsSuperAdmin(false);
+					setIsAdmin(false);
+					setIsTaskOwner(task.userId == userId);
+				}
 			}
 		};
+		
 
 		checkUserPrivileges();
 	}, [task]);

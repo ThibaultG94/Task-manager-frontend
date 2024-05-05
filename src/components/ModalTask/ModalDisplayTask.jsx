@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
-import { useGetWorkspace } from '../../api/workspaces/useGetWorkspace';
 import { convertStatus, convertPriority } from '../../utils/convertTools';
 import { frenchFormattedDate } from '../../utils/dateFormatTools';
+import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 
 const ModalDisplayTask = () => {
 	const editedTask = useSelector(selectEditedTask);
+	const userWorkspaces = useSelector(selectWorkspaces);
 	
 	const [convertedStatus, setConvertedStatus] = useState('');
 	const [convertedPriority, setConvertedPriority] = useState('');
 	const [convertedDeadline, setConvertedDeadline] = useState('');
 	const [convertedWorkspace, setConvertedWorkspace] = useState('');
 	const [convertedMember, setConvertedMember] = useState('');
-
-	const getWorkspace = useGetWorkspace();
 
 	useEffect(() => {
 		const fetchConvertedStatus = async () => {
@@ -30,7 +29,9 @@ const ModalDisplayTask = () => {
 			setConvertedDeadline(deadline);
 		};
 		const fetchConvertedWorkspace = async () => {
-			const workspace = await getWorkspace(editedTask?.workspaceId);
+			const workspace = userWorkspaces.find(
+				(workspace) => workspace._id === editedTask?.workspaceId
+			);
 			setConvertedWorkspace(workspace?.title);
 		};
 		const fetchConvertedMember = () => {
@@ -116,7 +117,7 @@ const ModalDisplayTask = () => {
 					</span>
 					<div className="workspace-icon mt-2 px-2 py-1 rounded-lg bg-light-blue">
 						<span className="ml-2 text-sm">
-							{convertedWorkspace}{' '}
+							{convertedWorkspace}
 						</span>
 					</div>
 				</div>
