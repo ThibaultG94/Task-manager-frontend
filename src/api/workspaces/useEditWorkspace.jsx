@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	editWorkspaceAction,
-	editWorkspaceFailed,
-	editWorkspaceSuccess,
-} from '../../store/feature/workspaces.slice';
+import { setWorkspacesSuccess } from '../../store/feature/workspaces.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useEditWorkspace = () => {
@@ -12,8 +8,6 @@ export const useEditWorkspace = () => {
 	const errorApi = useErrorApi();
 
 	const editWorkspace = async (workspace) => {
-		dispatch(editWorkspaceAction());
-
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.put(
@@ -23,13 +17,10 @@ export const useEditWorkspace = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(editWorkspaceSuccess(res.data.workspace));
+			dispatch(setWorkspacesSuccess(res.data.workspaces));
 			return res.data.workspace;
 		} catch (error) {
-			dispatch(editWorkspaceFailed(error));
 			errorApi(error);
-			console.error(error);
-			throw new Error('Échec de la mise à jour de la tâche');
 		}
 	};
 

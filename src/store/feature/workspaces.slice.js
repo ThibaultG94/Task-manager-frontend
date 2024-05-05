@@ -35,20 +35,6 @@ export const workspacesSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    editWorkspaceAction: (state) => {
-      state.loading = true;
-    },
-    editWorkspaceSuccess: (state, action) => {
-      state.loading = false;
-      state.workspaces = state.workspaces.map((workspace) =>
-        workspace.id === action.payload.id ? action.payload : workspace
-      );
-      state.error = null;
-    },
-    editWorkspaceFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
     setInitialEditedWorkspace: (state, action) => {
       state.editedWorkspace = action.payload;
     },
@@ -62,9 +48,6 @@ export const {
   setSingleWorkspace,
   setSingleWorkspaceSuccess,
   setSingleWorkspaceFailed,
-  editWorkspaceAction,
-  editWorkspaceSuccess,
-  editWorkspaceFailed,
   setInitialEditedWorkspace,
 } = workspacesSlice.actions;
 export default workspacesSlice.reducer;
