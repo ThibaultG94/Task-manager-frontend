@@ -1,23 +1,19 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { resetEditState, setHasEdited, setWorkspacesHasBeenUpdated } from '../../store/feature/editState.slice';
+import { resetEditState, setHasEdited } from '../../store/feature/editState.slice';
 import { useExitWorkspace } from '../../api/workspaces/useExitWorkspace';
 import { toast } from 'react-toastify';
-import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 
 const ExitWorkspace = ({ setIsModalWorkspaceOpen, workspaceId }) => {
     const dispatch = useDispatch();
 
     const exitWorkspace = useExitWorkspace();
-	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 
     const removeWorkspace = async () => {
 		try {
 			await exitWorkspace(workspaceId);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
-			dispatch(setWorkspacesHasBeenUpdated(true));
-			// await tasksHasBeenUpdated();
 			toast.success('Vous avez quitté le workspace avec succès !');
 		} catch (error) {
 			toast.error('Échec de la modification du workspace.');
