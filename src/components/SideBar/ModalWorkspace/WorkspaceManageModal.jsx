@@ -24,7 +24,7 @@ const WorkspaceManageModal = ({ userId, setIsWorkspaceModalOpen, tab, contactId 
 			id: 'tab3',
 			label: 'Invitations Workspaces Envoyées',
 			icon: 'fas fa-paper-plane',
-			component: <SentOutWorkspaceInvitations userId={userId} />,
+			component: <SentOutWorkspaceInvitations />,
 		},
 		{
 			id: 'tab4',

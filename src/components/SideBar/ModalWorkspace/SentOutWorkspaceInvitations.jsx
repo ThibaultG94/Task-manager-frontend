@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectDispathedWorkspaceInvitations } from '../../../store/selectors/workspaceInvitationsSelectors';
 import { useCancelWorkspaceInvitation } from '../../../api/workspaceInvitations/useCancelWorkspaceInvitation';
-import { useGetWorkspaces } from '../../../api/workspaces/useGetWorkspaces';
 import { toast } from 'react-toastify';
-import LoadingComponent from '../../Buttons/LoadingComponent';
 import LoadingDeleteComponent from '../../Buttons/LoadingDeleteComponent';
 
-const SentOutWorkspaceInvitations = ({ userId }) => {
+const SentOutWorkspaceInvitations = () => {
 	const invitations = useSelector(selectDispathedWorkspaceInvitations);
 	const cancelWorkspaceInvitation = useCancelWorkspaceInvitation();
-	const getWorkspaces = useGetWorkspaces();
 	const [invitationsPending, setInvitationsPending] = useState([]);
 	const [invitationsAccepted, setInvitationsAccepted] = useState([]);
 	const [isLoadingAction, setIsLoadingAction] = useState(false);
@@ -21,7 +18,6 @@ const SentOutWorkspaceInvitations = ({ userId }) => {
 			await cancelWorkspaceInvitation(invitationId);
 			setIsLoadingAction(false);
 
-			await getWorkspaces(userId);
 			toast.success("L'invitation a été annulée");
 		} catch (error) {
 			toast.error("Échec de l'annulation de l'invitation");
