@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { selectReceivedWorkspaceInvitations } from '../../../store/selectors/workspaceInvitationsSelectors';
 import { useAcceptWorkspaceInvitation } from '../../../api/workspaceInvitations/useAcceptWorkspaceInvitation';
 import { useDeclineWorkspaceInvitation } from '../../../api/workspaceInvitations/useDeclineWorkspaceInvitation';
-import { useGetReceivedWorkspaceInvitations } from '../../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
 import { toast } from 'react-toastify';
 import LoadingEditComponent from '../../Buttons/LoadingEditComponent';
 import LoadingDeleteComponent from '../../Buttons/LoadingDeleteComponent';
@@ -12,8 +11,6 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 	const invitations = useSelector(selectReceivedWorkspaceInvitations);
 	const acceptWorkspaceInvitation = useAcceptWorkspaceInvitation();
 	const declineWorkspaceInvitation = useDeclineWorkspaceInvitation();
-	const getReceivedWorkspaceInvitations =
-		useGetReceivedWorkspaceInvitations();
 	
 	const [receivedInvitationsPending, setReceivedInvitationsPending] =
 		useState();
@@ -51,12 +48,11 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 	const handleDeclineInvitation = async (invitationId) => {
 		try {
 			setIsLoadingDecline(true);
+			setIsLoading(true);
 			await declineWorkspaceInvitation(invitationId, userId);
 			setIsLoadingDecline(false);
-
-			setIsLoading(true);
-			await getReceivedWorkspaceInvitations(userId);
 			setIsLoading(false);
+
 			toast.success("L'invitation a été déclinée");
 		} catch (error) {
 			toast.error("Échec du rejet de l'invitation");
