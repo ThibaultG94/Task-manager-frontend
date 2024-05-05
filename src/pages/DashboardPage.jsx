@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	selectHasBeenUpdated,
-	selectWorkspacesHasBeenUpdated,
-} from '../store/selectors/editStateSelectors';
-import {
-	setHasBeenUpdated,
-	setWorkspacesHasBeenUpdated,
-} from '../store/feature/editState.slice';
+import { selectHasBeenUpdated } from '../store/selectors/editStateSelectors';
+import { setHasBeenUpdated } from '../store/feature/editState.slice';
 import getUserId from '../api/users/getUserId';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
@@ -27,9 +21,6 @@ import Contacts from '../components/DashboardPage/Contacts';
 const DashboardPage = () => {
 	const dispatch = useDispatch();
 	const hasBeenUpdated = useSelector(selectHasBeenUpdated);
-	const workspacesHasBeenUpdated = useSelector(
-		selectWorkspacesHasBeenUpdated
-	);
 
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
@@ -66,15 +57,9 @@ const DashboardPage = () => {
 	useEffect(() => {
 		if (hasBeenUpdated) {
 			userId !== null && getUrgentTasks(userId);
-			userId !== null && getWorkspaces(userId);
 			dispatch(setHasBeenUpdated(false));
 		}
-		if (workspacesHasBeenUpdated) {
-			userId !== null && getWorkspaces(userId);
-			userId !== null && getUrgentTasks(userId);
-			dispatch(setWorkspacesHasBeenUpdated(false));
-		}
-	}, [hasBeenUpdated, workspacesHasBeenUpdated]);
+	}, [hasBeenUpdated]);
 
 	return (
 		<div className="bg-light-blue min-h-screen flex relative">

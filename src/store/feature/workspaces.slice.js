@@ -35,18 +35,6 @@ export const workspacesSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    createWorkspaceAction: (state) => {
-      state.loading = true;
-    },
-    createWorkspaceSuccess: (state, action) => {
-      state.loading = false;
-      state.workspaces.push(action.payload);
-      state.error = null;
-    },
-    createWorkspaceFailed: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
     editWorkspaceAction: (state) => {
       state.loading = true;
     },
@@ -88,9 +76,6 @@ export const {
   setSingleWorkspace,
   setSingleWorkspaceSuccess,
   setSingleWorkspaceFailed,
-  createWorkspaceAction,
-  createWorkspaceSuccess,
-  createWorkspaceFailed,
   editWorkspaceAction,
   editWorkspaceSuccess,
   editWorkspaceFailed,
