@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {
-	setSingleWorkspace,
-	setSingleWorkspaceFailed,
-	setSingleWorkspaceSuccess,
-} from '../../store/feature/workspaces.slice';
+import { setSingleWorkspaceAction } from '../../store/feature/workspaces.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useGetWorkspace = () => {
@@ -12,7 +8,6 @@ export const useGetWorkspace = () => {
 	const errorApi = useErrorApi();
 
 	const getWorkspace = async (workspaceId) => {
-		dispatch(setSingleWorkspace());
 		try {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(
@@ -21,10 +16,9 @@ export const useGetWorkspace = () => {
 					withCredentials: true,
 				}
 			);
-			dispatch(setSingleWorkspaceSuccess(res.data));
-			return res.data;
+			dispatch(setSingleWorkspaceAction(res.data.workspace));
+			return res;
 		} catch (error) {
-			dispatch(setSingleWorkspaceFailed(error));
 			errorApi(error);
 		}
 	};
