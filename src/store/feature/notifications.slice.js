@@ -39,7 +39,7 @@ export const notificationsSlice = createSlice({
       const viewedIds = action.payload;
       state.newNotifications = state.newNotifications.map((notif) =>
         viewedIds.includes(notif._id)
-          ? { ...notif, viewedAt: new Date() }
+          ? { ...notif, viewedAt: new Date().toISOString() }
           : notif
       );
       state.loading = false;
@@ -49,12 +49,12 @@ export const notificationsSlice = createSlice({
       const notificationId = action.payload;
       state.newNotifications = state.newNotifications?.map((notif) =>
         notif._id === notificationId
-          ? { ...notif, read: true, viewedAt: new Date() }
+          ? { ...notif, read: true, viewedAt: new Date().toISOString() }
           : notif
       );
       state.earlierNotifications = state.earlierNotifications?.map((notif) =>
         notif._id === notificationId
-          ? { ...notif, read: true, viewedAt: new Date() }
+          ? { ...notif, read: true, viewedAt: new Date().toISOString() }
           : notif
       );
     },
