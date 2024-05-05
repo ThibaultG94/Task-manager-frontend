@@ -58,7 +58,7 @@ const DisplayTasks = () => {
 		'retard-tasks': true,
 		'today-tasks': true,
 		'tomorrow-tasks': true,
-		'this-week-tasks': false,
+		'this-week-tasks': true,
 		'next-week-tasks': false,
 		'this-month-tasks': false,
 		'next-month-tasks': false,
