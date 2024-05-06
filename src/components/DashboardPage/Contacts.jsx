@@ -4,8 +4,8 @@ import { selectIsUserContactsLoaded, selectUserContacts } from '../../store/sele
 import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
 import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
-import WorkspaceManageModal from '../SideBar/ModalWorkspace/WorkspaceManageModal';
 import LoadingComponent from '../Buttons/LoadingComponent';
+import WorkspaceInviteModal from '../ModalWorkspace/WorkspaceInviteModal';
 
 const Contacts = ({ userId }) => {
 	const contacts = useSelector(selectUserContacts);
@@ -16,14 +16,18 @@ const Contacts = ({ userId }) => {
 
 	const [userContacts, setUserContacts] = useState();
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
-	const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [contactId, setContactId] = useState();
+	const [selectedContactId, setSelectedContactId] = useState(null);
+	const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+    const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
 
-	const openWorkspaceModal = (contactId) => {
-		setContactId(contactId);
-		setIsWorkspaceModalOpen(true);
-	};
+    const openInviteModal = (event, contactId) => {
+        const button = event.currentTarget;
+        const rect = button.getBoundingClientRect();
+        setSelectedContactId(contactId);
+        setModalPosition({ x: rect.x + rect.width, y: rect.y });
+        setIsInviteModalOpen(true);
+    };
 
 	useEffect(() => {
 		if (!isUserContactsLoaded) setIsLoading(true);
@@ -42,7 +46,7 @@ const Contacts = ({ userId }) => {
 	}, [isInvitationModalOpen]);
 
 	return (
-		<div className="coworkers-container dashboard-card">
+		<div className="coworkers-container dashboard-card relative">
 			<div className="flex justify-between">
 				<h4 className="pl-2">Contacts</h4>
 				<div
@@ -83,7 +87,9 @@ const Contacts = ({ userId }) => {
 											</div>
 										</div>
 									</div>
-									<button className='mr-3' onClick={()=> openWorkspaceModal(contact.id)}><i className="fa-solid fa-circle-plus"></i></button>
+									<button className='mr-3' onClick={(e) => openInviteModal(e, contact.id)}>
+										<i className="fa-solid fa-circle-plus"></i>
+									</button>
 								</li>
 							))}
 						</ul>
@@ -105,14 +111,14 @@ const Contacts = ({ userId }) => {
 				/>
 			)}
 
-			{isWorkspaceModalOpen && (
-				<WorkspaceManageModal
-					userId={userId}
-					setIsWorkspaceModalOpen={setIsWorkspaceModalOpen}
-					tab={'tab2'}
-					contactId={contactId}
-				/>
-			)}
+			{isInviteModalOpen && (
+                <WorkspaceInviteModal
+                    contactId={selectedContactId}
+                    closeModal={() => setIsInviteModalOpen(false)}
+					position={modalPosition}
+					userContacts={userContacts}
+                />
+            )}
 		</div>
 	);
 };
