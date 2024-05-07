@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import {
 	resetEditState,
 	setHasEdited,
-	setWorkspacesHasBeenUpdated,
 } from '../../store/feature/editState.slice';
 import { useEditWorkspace } from '../../api/workspaces/useEditWorkspace';
 import { toast } from 'react-toastify';
@@ -47,7 +46,6 @@ const SaveEditedWorkspace = ({
 			await editWorkspace(editedWorkspace);
 			dispatch(resetEditState());
 			dispatch(setHasEdited(false));
-			dispatch(setWorkspacesHasBeenUpdated(true));
 
 			toast.success('Le workspace a été mise à jour avec succès !');
 		} catch (error) {

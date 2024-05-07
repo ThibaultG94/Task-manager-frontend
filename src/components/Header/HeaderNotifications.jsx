@@ -148,9 +148,9 @@ const HeaderNotifications = ({ userId }) => {
 			}
 		} else if (notification.type === 'workspaceInvitation') {
 			if (notification.message.includes('rejoindre')) {
-				setTab('tab4');
-			} else if (notification.message.includes('rejoint')) {
 				setTab('tab3');
+			} else if (notification.message.includes('rejoint')) {
+				setTab('tab2');
 			} else {
 				console.error("Can't find tab");
 			}

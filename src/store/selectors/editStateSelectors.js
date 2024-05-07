@@ -81,8 +81,3 @@ export const selectArchivedTasksHasBeenUpdated = createSelector(
   [selectEditState],
   (editState) => editState.archivedTasksHasBeenUpdated
 );
-
-export const selectWorkspacesHasBeenUpdated = createSelector(
-  [selectEditState],
-  (editState) => editState.workspacesHasBeenUpdated
-);

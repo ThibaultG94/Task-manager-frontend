@@ -25,7 +25,6 @@ const initialState = {
   nextYearTasksHasBeenUpdated: false,
   becomingTasksHasBeenUpdated: false,
   archivedTasksHasBeenUpdated: false,
-  workspacesHasBeenUpdated: false,
 };
 
 const editStateSlice = createSlice({
@@ -87,9 +86,6 @@ const editStateSlice = createSlice({
     setArchivedTasksHasBeenUpdated: (state, action) => {
       state.archivedTasksHasBeenUpdated = action.payload;
     },
-    setWorkspacesHasBeenUpdated: (state, action) => {
-      state.workspacesHasBeenUpdated = action.payload;
-    },
     resetEditState: (state) => {
       state.isEditing = {
         title: false,
@@ -123,7 +119,6 @@ export const {
   setNextYearTasksHasBeenUpdated,
   setBecomingTasksHasBeenUpdated,
   setArchivedTasksHasBeenUpdated,
-  setWorkspacesHasBeenUpdated,
   resetEditState,
 } = editStateSlice.actions;
 

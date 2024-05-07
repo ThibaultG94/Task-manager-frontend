@@ -13,13 +13,15 @@ const WorkspaceInviteModal = ({ contactId, closeModal, position, userContacts })
     const [selectedWorkspace, setSelectedWorkspace] = useState('');
     const [contactName, setContactName] = useState('');
 
-    const modalStyle = {
+    const [modalStyle, setModalStyle] = useState({
         position: 'fixed',
-        left: `${position.x}px`,
+        left: `${position.x - 32}px`,
         top: `${position.y}px`,
         transform: 'translateX(-100%)',
         width: '24rem'
-    };
+    });
+
+    const isSmallScreen = window.innerWidth < 450;
 
     const handleInvite = async () => {
         const workspace = userWorkspaces.find(ws => ws._id === selectedWorkspace);
@@ -38,6 +40,14 @@ const WorkspaceInviteModal = ({ contactId, closeModal, position, userContacts })
         console.log(editedWorkspace);
         closeModal();
     };
+
+    useEffect(() => {
+        const newStyle = {...modalStyle};
+        if (window.innerWidth < 450) {
+            newStyle.width = '16rem';
+        }
+        setModalStyle(newStyle);
+    }, [isSmallScreen]);
 
     useEffect(() => {
         const fetchAvailableWorkspaces = async () => {
@@ -73,12 +83,12 @@ const WorkspaceInviteModal = ({ contactId, closeModal, position, userContacts })
                 onChange={e => setSelectedWorkspace(e.target.value)}>
                     <option value="">Sélectionner un Workspace</option>
                      {workspaces.map(ws => (
-                     <option  option key={ws.id} value={ws._id}>{ws.title}</option>
+                     <option  option key={ws._id} value={ws._id}>{ws.title}</option>
                     ))
                 }
                 </select>
                 <div className="flex justify-end mt-6">
-                    <button className="text-dark-blue hover:text-blue-700" onClick={handleInvite}>
+                    <button className="text-light-blue-2 hover:text-dark-blue" onClick={handleInvite}>
                      <i className="fa-solid fa-paper-plane"></i>
                     </button>
                 </div>

@@ -3,7 +3,6 @@ import Tabs from '../../ModalForm/Tabs';
 import ListWorkspaces from '../../DashboardPage/ListWorkspaces';
 import SentOutWorkspaceInvitations from './SentOutWorkspaceInvitations';
 import ReceivedWorkspaceInvitesList from './ReceivedWorkspaceInvitesList';
-import SendWorkspaceInviteForm from './SendWorkspaceInviteForm';
 
 const WorkspaceManageModal = ({ userId, setIsWorkspaceModalOpen, tab, contactId }) => {
 	const [activeTab, setActiveTab] = useState(tab);
@@ -16,18 +15,12 @@ const WorkspaceManageModal = ({ userId, setIsWorkspaceModalOpen, tab, contactId 
 		},
 		{
 			id: 'tab2',
-			label: 'Inviter un contact à un Workspace',
-			icon: 'fas fa-user-plus',
-			component: <SendWorkspaceInviteForm userId={userId} contactId={contactId} />,
-		},
-		{
-			id: 'tab3',
 			label: 'Invitations Workspaces Envoyées',
 			icon: 'fas fa-paper-plane',
 			component: <SentOutWorkspaceInvitations />,
 		},
 		{
-			id: 'tab4',
+			id: 'tab3',
 			label: 'Invitations Workspaces Reçues',
 			icon: 'fas fa-envelope-open',
 			component: <ReceivedWorkspaceInvitesList userId={userId} />,
