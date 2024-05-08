@@ -10,7 +10,7 @@ const useDeleteContact = () => {
     const deleteContact = async (contactId) => {
         try {
             const API_URL = process.env.REACT_APP_API_URL;
-            await axios.delete(`${API_URL}/contacts/${contactId}/delete-contact`, {
+            const res = await axios.delete(`${API_URL}/contacts/${contactId}/delete-contact`, {
                 withCredentials: true,
             });
             dispatch(setUserContacts(res.data.userContacts));
