@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import CloseButton from '../Buttons/CloseButton';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import CloseButton from '../Buttons/CloseButton';
+import BlockContact from './BlockContact';
+import DeleteContact from './HandleDeleteContact';
 
 const HandleModalContact = ({ closeModal, selectedContact }) => {
     const userWorkspaces = useSelector(selectWorkspaces);
 
     const [workspaces, setWorkspaces] = useState([]);
+    const [tasks, setTasks] = useState([]);
 
     const modalRef = useRef(null);
 
@@ -35,7 +38,7 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
 						modalTabs={false}
 					/>
                     <div className="max-w-lg mx-auto px-6 rounded-lg">
-                        <div className="text-center pt-4 px-6 mb-2">
+                        <div className="text-center pt-4 px-6 mb-4">
                             <h5 className="text-gray-900 text-lg md:text-xl leading-tight font-medium mb-2">
                                 {selectedContact?.username}
                             </h5>
@@ -56,7 +59,7 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
                             </div>
 
                             {workspaces && workspaces.length > 0 && (
-                                <div className="flex justify-between items-center py-1">
+                                <div className="flex flex-wrap justify-between items-center py-1">
                                     <span className="text-sm font-bold self-end text-gray-500">
                                         Workspaces
                                     </span>
@@ -68,39 +71,30 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
                                 </div>
                             )}
 
-                            <div className="flex justify-between items-center py-1">
-                                <span className="text-sm font-bold self-end text-gray-500">
-                                    Tâches
-                                </span>
-                                <div
-                                    className={
-                                        'task-icon mt-2 ml-6 px-2 py-1 rounded-lg bg-light-blue-2 '
-                                    }>
-                                    <span className="ml-2 text-sm">
-                                        {/* {convertedDeadline} */}
+                            {tasks && tasks.length > 0 && (
+                                <div className="flex flex-wrap justify-between items-center py-1">
+                                    <span className="text-sm font-bold self-end text-gray-500">
+                                        Tâches
                                     </span>
+                                        {tasks && tasks.map((task) => (
+                                             <div className="task-icon mt-2 ml-6 px-2 py-1 rounded-lg bg-light-blue-3" key={task._id}>
+                                                    <span className="ml-2 text-sm">{task?.title} </span>
+                                            </div>
+                                        ))}
                                 </div>
-                            </div>
-
-                            {/* <div className="flex justify-between items-center py-1">
-                                <span className="text-sm font-bold self-end text-gray-500">
-                                    Priorité
-                                </span>
-                                <div
-                                    className={
-                                        'priority-icon mt-2 ml-6 px-2 py-1 rounded-lg ' +
-                                        convertedPriority
-                                    }>
-                                    <span className="ml-2 text-sm">
-                                        {convertedPriority}
-                                    </span>
-                                </div>
-                            </div> */}
+                            )}
                         </div>
                     </div>
 				</div>
 
-				<div className="mt-auto p-2">
+                <div className="absolute left-0 top-0 p-4">
+                    <div className="w-10 flex justify-between items-center">
+                        {/* <BlockContact /> */}
+                        <DeleteContact />
+                    </div>
+                </div>
+
+                <div className="absolute left-0 bottom-0 p-4">
 					
 				</div>
 			</div>

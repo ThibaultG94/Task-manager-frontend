@@ -209,3 +209,16 @@
 		transform: rotate(360deg);
 	}
 }
+
+.block-icon,
+.delete-icon {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	color: #555;
+}
+
+.block-icon:hover,
+.delete-icon:hover {
+	color: #FF0000;
+}
