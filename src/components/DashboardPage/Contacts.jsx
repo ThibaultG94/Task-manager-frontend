@@ -6,6 +6,7 @@ import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedI
 import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
 import LoadingComponent from '../Buttons/LoadingComponent';
 import WorkspaceInviteModal from '../ModalWorkspace/WorkspaceInviteModal';
+import HandleModalContact from '../ModalContact/HandleModalContact';
 
 const Contacts = ({ userId }) => {
 	const contacts = useSelector(selectUserContacts);
@@ -18,8 +19,19 @@ const Contacts = ({ userId }) => {
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectedContactId, setSelectedContactId] = useState(null);
+	const [selectedContact, setSelectedContact] = useState(null);
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
     const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const openModal = (e) => {
+		e.stopPropagation();
+		setIsModalOpen(true);
+	};
+
+	const closeModal = async () => {
+		setIsModalOpen(false);
+	};
 
     const openInviteModal = (event, contactId) => {
         const button = event.currentTarget;
@@ -62,13 +74,16 @@ const Contacts = ({ userId }) => {
 					{userContacts && userContacts.length > 0 ? (
 						<ul>
 							{userContacts.slice(0, 4).map((contact) => (
-								<li className='flex justify-between items-center' key={contact.id}>		
+								<li className='contact' key={contact.id} onClick={(e) => {
+									openModal(e);
+									setSelectedContact(contact)
+								}}>		
 									<div
 										className="flex items-center justify-start p-1 md:p-2 py-2.5 relative transition duration-100 ease-in-out"
 										key={contact.id}>
 										<div className="flex h-8 items-center ellipsis">
 											<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">
-												<i className="fa-solid fa-user"></i>{' '}
+												<i className="fa-solid fa-user"></i>
 											</div>
 											<div className="flex items-center">
 												<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8">
@@ -119,6 +134,10 @@ const Contacts = ({ userId }) => {
 					userContacts={userContacts}
                 />
             )}
+
+			{isModalOpen && (
+				<HandleModalContact closeModal={closeModal} selectedContact={selectedContact} />
+			)}
 		</div>
 	);
 };

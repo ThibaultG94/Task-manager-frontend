@@ -69,6 +69,30 @@
 	font-size: 1.1rem;
 }
 
+.email-icon::before {
+	content: '\f0e0';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	width: 30px;
+	font-size: 1rem;
+}
+
+.workspace-icon::before {
+	content: '\f1ad';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	width: 30px;
+	font-size: 1.1rem;
+}
+
+.task-icon::before {
+	content: '\f0ae';
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	width: 30px;
+	font-size: 1.1rem;
+}
+
 .edit-icon::before {
 	content: '\f040';
 	font-family: 'Font Awesome 5 Free';

@@ -402,6 +402,22 @@ body {
 	}
 }
 
+// CONTACTS
+.contact {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	justify-content: space-between;
+	padding: 2px 0;
+	position: relative;
+	transition: 0.1s ease;
+
+	&:hover,
+	&:focus {
+		background: #F9F871;
+	}
+}
+
 // INVITATIONS
 
 .invitation-list {
