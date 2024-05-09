@@ -79,7 +79,7 @@ const Contacts = ({ userId }) => {
 									setSelectedContact(contact)
 								}}>		
 									<div
-										className="flex items-center justify-start p-1 md:p-2 py-2.5 relative transition duration-100 ease-in-out"
+										className="flex items-center justify-start p-1 md:p-1.5 relative transition duration-100 ease-in-out"
 										key={contact.id}>
 										<div className="flex h-8 items-center ellipsis">
 											<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">

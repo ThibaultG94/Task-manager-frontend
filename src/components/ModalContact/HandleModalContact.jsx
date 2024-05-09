@@ -90,7 +90,7 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
                 <div className="absolute left-0 top-0 p-4">
                     <div className="w-10 flex justify-between items-center">
                         {/* <BlockContact /> */}
-                        <DeleteContact closeModal={closeModal} />
+                        <DeleteContact closeModal={closeModal} selectedContact={selectedContact} />
                     </div>
                 </div>
 

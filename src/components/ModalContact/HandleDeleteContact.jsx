@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import LoadingDeleteComponent from '../Buttons/LoadingDeleteComponent';
 import useDeleteContact from '../../api/users/useDeleteContact';
+import LoadingDeleteComponent from '../Buttons/LoadingDeleteComponent';
 import { toast } from 'react-toastify';
 
-const HandleDeleteContact = ({ closeModal }) => {
+const HandleDeleteContact = ({ closeModal, selectedContact }) => {
     const deleteContact = useDeleteContact();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -11,7 +11,7 @@ const HandleDeleteContact = ({ closeModal }) => {
     const handleRemoveContact = async () => {
 		try {
 			setIsLoading(true);
-			await deleteContact();
+			await deleteContact(selectedContact.id);
 			setIsLoading(false);
 
 			toast.success('Le contact a été retiré avec succès !');
