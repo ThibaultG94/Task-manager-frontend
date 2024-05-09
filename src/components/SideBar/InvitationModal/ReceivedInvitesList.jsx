@@ -168,49 +168,52 @@ const ReceivedInvitesList = ({ userId }) => {
 							</p>
 					)}
 				</div>
-				<div className="mt-6 w-full flex justify-center">
-					<div className="w-96">
-						<h3 className="text-lg text-center mb-1">Refusées</h3>
-						<div className='flex flex-col justify-center items-center'>
-							<button
-								className="mb-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:underline"
-								onClick={() => setIsRejectedOpen(!isRejectedOpen)}>
-								{isRejectedOpen ? 'Cacher les invitations refusées ' : 'Voir les invitations refusées '}
-								{isRejectedOpen ? (
-									<i className="fa-solid fa-arrow-up"></i>
-								) : (
-									<i className="fa-solid fa-arrow-down"></i>
-								)}
-							</button>
 
-							{isRejectedOpen && (
-								<div className="accordion-content">
-									{receivedInvitationsRejected &&
-										receivedInvitationsRejected.map((invitation) => (
-											<div
-												key={invitation.invitationId}
-												className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out">
-												<div className="flex justify-between items-center">
-													<p className="text-dark-blue font-medium">
-														{invitation.senderUsername}{' '}
-														<span className="text-gray-500">
-															({invitation.senderEmail})
-														</span>
-													</p>
-												</div>
-											</div>
-										))
-									}
-									{receivedInvitationsRejected.length === 0 && (
-										<p className="text-gray-500 font-light text-center">
-											Vous n'avez aucune invitation refusée
-										</p>
+				{receivedInvitationsRejected && receivedInvitationsRejected.length > 0 && (
+					<div className="mt-6 w-full flex justify-center">
+						<div className="w-96">
+							<h3 className="text-lg text-center mb-1">Refusées</h3>
+							<div className='flex flex-col justify-center items-center'>
+								<button
+									className="mb-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:underline"
+									onClick={() => setIsRejectedOpen(!isRejectedOpen)}>
+									{isRejectedOpen ? 'Cacher les invitations refusées ' : 'Voir les invitations refusées '}
+									{isRejectedOpen ? (
+										<i className="fa-solid fa-arrow-up"></i>
+									) : (
+										<i className="fa-solid fa-arrow-down"></i>
 									)}
-								</div>
-							)}
+								</button>
+
+								{isRejectedOpen && (
+									<div className="accordion-content">
+										{receivedInvitationsRejected &&
+											receivedInvitationsRejected.map((invitation) => (
+												<div
+													key={invitation.invitationId}
+													className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out">
+													<div className="flex justify-between items-center">
+														<p className="text-dark-blue font-medium">
+															{invitation.senderUsername}{' '}
+															<span className="text-gray-500">
+																({invitation.senderEmail})
+															</span>
+														</p>
+													</div>
+												</div>
+											))
+										}
+										{receivedInvitationsRejected.length === 0 && (
+											<p className="text-gray-500 font-light text-center">
+												Vous n'avez aucune invitation refusée
+											</p>
+										)}
+									</div>
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
+				)}
 			</div>
 		</div>
 	);

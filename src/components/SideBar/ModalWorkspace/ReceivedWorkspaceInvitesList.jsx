@@ -174,97 +174,100 @@ const ReceivedWorkspaceInvitesList = ({ userId }) => {
 							</p>
 						)}
 				</div>
-				<div className="mt-6 w-full flex justify-center">
-					<div className="w-96">
-						<h3 className="text-lg text-center mb-1">Refusées</h3>
-						<div className='flex flex-col justify-center items-center'>
-							<button
-								className="mb-2 mx-auto text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:underline"
-								onClick={() =>
-									setIsRejectedOpen(!isRejectedOpen)
-								}>
-								{isRejectedOpen
-									? 'Cacher les invitations refusées '
-									: 'Voir les invitations refusées '}
-								{isRejectedOpen ? (
-									<i className="fa-solid fa-arrow-up"></i>
-								) : (
-									<i className="fa-solid fa-arrow-down"></i>
-								)}
-							</button>
 
-							{isRejectedOpen && (
-								<div className="accordion-content">
-									{receivedInvitationsRejected && !isLoading &&
-										receivedInvitationsRejected.map(
-											(invitation) => (
-												<div
-													key={
-														invitation.invitationId
-													}
-													className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out">
-													<div className="flex justify-between items-center">
-														<div>
-															<p className="text-dark-blue font-medium">
-																{
-																	invitation.senderUsername
-																}{' '}
-																<span className="text-gray-500">
-																	({
-																		invitation.senderEmail
-																	})
-																</span>
-															</p>
-															<p className="text-gray-600 font-bold">
-																{
-																	invitation.workspace.title
-																}
-															</p>
-														</div>
-														<div className="flex flex-col gap-2 ml-2 invitation-list">
-														{isLoadingAccept ? (
-															<LoadingEditComponent />
-														) : (
-															<button
-																className="accept-icon"
-																onClick={() =>
-																	handleAcceptInvitation(
-																		invitation.invitationId
-																	)
-																}>
-																<svg
-																	xmlns="http://www.w3.org/2000/svg"
-																	fill="none"
-																	viewBox="0 0 24 24"
-																	strokeWidth={1.5}
-																	stroke="currentColor"
-																	className="w-6 h-6">
-																	<path
-																		strokeLinecap="round"
-																		strokeLinejoin="round"
-																		d="M4.5 12.75l6 6 9-13.5"
-																	/>
-																</svg>
-															</button>
-														)}
+				{receivedInvitationsRejected && receivedInvitationsRejected.length > 0 && (
+					<div className="mt-6 w-full flex justify-center">
+						<div className="w-96">
+							<h3 className="text-lg text-center mb-1">Refusées</h3>
+							<div className='flex flex-col justify-center items-center'>
+								<button
+									className="mb-2 mx-auto text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:underline"
+									onClick={() =>
+										setIsRejectedOpen(!isRejectedOpen)
+									}>
+									{isRejectedOpen
+										? 'Cacher les invitations refusées '
+										: 'Voir les invitations refusées '}
+									{isRejectedOpen ? (
+										<i className="fa-solid fa-arrow-up"></i>
+									) : (
+										<i className="fa-solid fa-arrow-down"></i>
+									)}
+								</button>
+
+								{isRejectedOpen && (
+									<div className="accordion-content">
+										{receivedInvitationsRejected && !isLoading &&
+											receivedInvitationsRejected.map(
+												(invitation) => (
+													<div
+														key={
+															invitation.invitationId
+														}
+														className="bg-light-blue rounded-lg p-4 mb-4 last:mb-0 hover:bg-blue-200 transition duration-300 ease-in-out">
+														<div className="flex justify-between items-center">
+															<div>
+																<p className="text-dark-blue font-medium">
+																	{
+																		invitation.senderUsername
+																	}{' '}
+																	<span className="text-gray-500">
+																		({
+																			invitation.senderEmail
+																		})
+																	</span>
+																</p>
+																<p className="text-gray-600 font-bold">
+																	{
+																		invitation.workspace.title
+																	}
+																</p>
+															</div>
+															<div className="flex flex-col gap-2 ml-2 invitation-list">
+															{isLoadingAccept ? (
+																<LoadingEditComponent />
+															) : (
+																<button
+																	className="accept-icon"
+																	onClick={() =>
+																		handleAcceptInvitation(
+																			invitation.invitationId
+																		)
+																	}>
+																	<svg
+																		xmlns="http://www.w3.org/2000/svg"
+																		fill="none"
+																		viewBox="0 0 24 24"
+																		strokeWidth={1.5}
+																		stroke="currentColor"
+																		className="w-6 h-6">
+																		<path
+																			strokeLinecap="round"
+																			strokeLinejoin="round"
+																			d="M4.5 12.75l6 6 9-13.5"
+																		/>
+																	</svg>
+																</button>
+															)}
+															</div>
 														</div>
 													</div>
-												</div>
-											)
-									)}
-									{receivedInvitationsRejected && !isLoading &&
-										receivedInvitationsRejected.length ===
-											0 && (
-											<p className="text-gray-500 font-light text-center">
-												Vous n'avez aucune invitation
-												refusée
-											</p>
-									)}
-								</div>
-							)}
+												)
+										)}
+										{receivedInvitationsRejected && !isLoading &&
+											receivedInvitationsRejected.length ===
+												0 && (
+												<p className="text-gray-500 font-light text-center">
+													Vous n'avez aucune invitation
+													refusée
+												</p>
+										)}
+									</div>
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
+				)}
 			</div>
 		</div>
 	);
