@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Tabs from '../../ModalForm/Tabs';
 import SendInviteForm from './SendInviteForm';
 import SentOutInvitations from './SentOutInvitations';
@@ -6,7 +6,11 @@ import ReceivedInvitesList from './ReceivedInvitesList';
 import ListContacts from './ListContacts';
 
 const InviteMemberModal = ({ userId, setIsInvitationModalOpen, tab }) => {
+	const modalInvitRef = useRef(null);
+
 	const [activeTab, setActiveTab] = useState(tab);
+	const [isClosing, setIsClosing] = useState(false);
+
 	const tabData = [
 		{
 			id: 'tab1',
@@ -38,18 +42,32 @@ const InviteMemberModal = ({ userId, setIsInvitationModalOpen, tab }) => {
 		setIsInvitationModalOpen(false);
 	};
 
+	const closeHandler = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            closeInvitationModal();
+        }, 300);
+    };
+
+    useEffect(() => {
+        const currentModal = modalInvitRef.current;
+        if (currentModal) {
+            currentModal.style.animation = `${isClosing ? 'slideRightToLeftReverse' : 'slideLeftToRightReverse'} 0.3s forwards`;
+        }
+    }, [isClosing]);
+
 	return (
 		<section
 			className="bg-modal-bg duration-300 ease-in-out fixed h-full text-black left-0 top-0 transition-all w-full z-10"
-			onClick={closeInvitationModal}>
+			onClick={closeHandler}>
 			<div
 				className="bg-white border border-gray-400 flex flex-col mx-auto my-modal-margin rounded-lg shadow-md w-modal-xs custom-xs:w-modal-sm md:w-modal-md lg:w-modal-lg xl:w-modal-xl"
-				onClick={(e) => e.stopPropagation()}>
+				onClick={(e) => e.stopPropagation()} ref={modalInvitRef}>
 				<Tabs
 					tabs={tabData}
 					activeTab={activeTab}
 					setActiveTab={setActiveTab}
-					closeModal={closeInvitationModal}
+					closeModal={closeHandler}
 				/>
 			</div>
 		</section>
