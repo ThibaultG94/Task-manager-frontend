@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Tabs from '../../ModalForm/Tabs';
 import CreateTaskForm from './CreateTaskForm';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
@@ -7,7 +7,10 @@ const CreateTaskAndWorkspace = ({
 	userId,
 	setIsCreateTaskOrWorkspaceModalOpen,
 }) => {
+	const modalCreateRef = useRef(null);
+
 	const [activeTab, setActiveTab] = useState('tab1');
+	const [isClosing, setIsClosing] = useState(false);
 	const tabData = [
 		{
 			id: 'tab1',
@@ -39,18 +42,32 @@ const CreateTaskAndWorkspace = ({
 		setIsCreateTaskOrWorkspaceModalOpen(false);
 	};
 
+	const closeHandler = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            closeModal();
+        }, 300);
+    };
+
+    useEffect(() => {
+        const currentModal = modalCreateRef.current;
+        if (currentModal) {
+            currentModal.style.animation = `${isClosing ? 'slideRightToLeftReverse' : 'slideLeftToRightReverse'} 0.3s forwards`;
+        }
+    }, [isClosing]);
+
 	return (
 		<section
 			className="bg-modal-bg duration-300 ease-in-out fixed h-full text-black left-0 top-0 transition-all w-full z-10"
-			onClick={closeModal}>
+			onClick={closeHandler}>
 			<div
 				className="bg-[#f8f7fd] border border-gray-400 flex flex-col mx-auto my-modal-margin rounded-lg shadow-md w-modal-xs custom-xs:w-modal-sm md:w-modal-md lg:w-modal-lg xl:w-modal-xl"
-				onClick={(e) => e.stopPropagation()}>
+				onClick={(e) => e.stopPropagation()} ref={modalCreateRef}>
 				<Tabs
 					tabs={tabData}
 					activeTab={activeTab}
 					setActiveTab={setActiveTab}
-					closeModal={closeModal}
+					closeModal={closeHandler}
 				/>
 			</div>
 		</section>

@@ -310,3 +310,35 @@
 		opacity: 0;
 	}
 }
+
+@keyframes slideRightToLeftReverse {
+	from {
+		transform: translateX(0);
+		opacity: 1;
+	}
+
+	to {
+		transform: translateX(-150%);
+		opacity: 0;
+	}
+}
+
+@keyframes slideLeftToRightReverse {
+	from {
+		transform: translateX(-150%);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+.modal-enter-2 {
+	animation: slideRightToLeft 0.2s forwards;
+}
+
+.modal-exit-2 {
+	animation: slideLeftToRight 0.2s forwards;
+}
