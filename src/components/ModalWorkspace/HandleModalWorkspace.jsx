@@ -23,6 +23,7 @@ const HandleModalWorkspace = ({
 	const [contacts, setContacts] = useState([]);
 	const [selectedMembers, setSelectedMembers] = useState([]);
 	const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+	const [isClosing, setIsClosing] = useState(false);
 	const [workspaceDataChange, setWorkspaceDataChange] = useState({
 		_id: '',
 		title: '',
@@ -49,6 +50,20 @@ const HandleModalWorkspace = ({
 			isDefault: selectedWorkspace.isDefault,
 		});
 	};
+
+	const closeHandler = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            closeModalWorkspace();
+        }, 300);
+    };
+
+    useEffect(() => {
+        const currentModal = modalWorkspaceRef.current;
+        if (currentModal) {
+            currentModal.style.animation = `${isClosing ? 'slideOutReverse' : 'slideInReverse'} 0.3s forwards`;
+        }
+    }, [isClosing]);
 
 	useEffect(() => {
 		if (!isModalWorkspaceOpen) {
@@ -104,7 +119,7 @@ const HandleModalWorkspace = ({
 	return (
 		<section
 			className="bg-black bg-opacity-50 fixed h-full inset-0 w-full z-10"
-			onClick={closeModalWorkspace}>
+			onClick={closeHandler}>
 			<div
 				className="flex flex-col bg-white fixed left-1/2 max-h-[90vh] max-w-lg overflow-hidden transform -translate-x-1/2 top-20 rounded-lg shadow-md w-modal-xs custom-xs:w-modal-sm md:w-modal-md lg:w-modal-lg xl:w-modal-xl z-10"
 				ref={modalWorkspaceRef}
@@ -113,7 +128,7 @@ const HandleModalWorkspace = ({
 					{!isEditingWorkspace ? (
 						<>
 							<CloseButton
-								onClose={closeModalWorkspace}
+								onClose={closeHandler}
 								modalTabs={false}
 							/>
 							<ModalDisplayWorkspace
