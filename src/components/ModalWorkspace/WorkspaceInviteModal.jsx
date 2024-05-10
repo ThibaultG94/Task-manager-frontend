@@ -12,16 +12,25 @@ const WorkspaceInviteModal = ({ contactId, closeModal, position, userContacts })
     const [workspaces, setWorkspaces] = useState([]);
     const [selectedWorkspace, setSelectedWorkspace] = useState('');
     const [contactName, setContactName] = useState('');
+    const [isClosing, setIsClosing] = useState(false);
 
     const [modalStyle, setModalStyle] = useState({
         position: 'fixed',
         left: `${position.x - 32}px`,
         top: `${position.y}px`,
         transform: 'translateX(-100%)',
-        width: '24rem'
+        width: '24rem',
+        animation: 'slideRightToLeft 0.2s forwards'
     });
 
     const isSmallScreen = window.innerWidth < 450;
+
+    const closeHandler = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            closeModal();
+        }, 300);
+    };
 
     const handleInvite = async () => {
         const workspace = userWorkspaces.find(ws => ws._id === selectedWorkspace);
@@ -40,6 +49,14 @@ const WorkspaceInviteModal = ({ contactId, closeModal, position, userContacts })
         console.log(editedWorkspace);
         closeModal();
     };
+
+    useEffect(() => {
+        if (isClosing) {
+            setModalStyle({...modalStyle, animation: 'slideLeftToRight 0.2s forwards'})
+        } else {
+            setModalStyle({...modalStyle, animation: 'slideRightToLeft 0.2s forwards'})
+        }
+    }, [isClosing]);
 
     useEffect(() => {
         const newStyle = {...modalStyle};
@@ -72,7 +89,7 @@ const WorkspaceInviteModal = ({ contactId, closeModal, position, userContacts })
         <div style={modalStyle} className="relative">
             <div className="bg-modal-task-bg p-4 rounded-lg shadow-lg">
                 <div className="absolute right-2 top-2">
-                    <button onClick={closeModal} className="text-gray-400 hover:text-gray-600">
+                    <button onClick={closeHandler} className="text-gray-400 hover:text-gray-600">
                         <i className="fa fa-times fa-lg"></i>
                     </button>
                 </div>
