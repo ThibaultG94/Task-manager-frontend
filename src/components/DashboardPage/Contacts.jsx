@@ -34,6 +34,7 @@ const Contacts = ({ userId }) => {
 	};
 
     const openInviteModal = (event, contactId) => {
+		event.stopPropagation();
         const button = event.currentTarget;
         const rect = button.getBoundingClientRect();
         setSelectedContactId(contactId);
@@ -58,7 +59,7 @@ const Contacts = ({ userId }) => {
 	}, [isInvitationModalOpen]);
 
 	return (
-		<div className="coworkers-container dashboard-card relative">
+		<div className="coworkers-container dashboard-card">
 			<div className="flex justify-between">
 				<h4 className="pl-2">Contacts</h4>
 				<div

@@ -10,6 +10,7 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
 
     const [workspaces, setWorkspaces] = useState([]);
     const [tasks, setTasks] = useState([]);
+    const [isClosing, setIsClosing] = useState(false);
 
     const modalRef = useRef(null);
 
@@ -24,17 +25,31 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
         filterWorkspaces();
     }, [userWorkspaces, selectedContact.id]);
 
+    const closeHandler = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            closeModal();
+        }, 300);
+    };
+
+    useEffect(() => {
+        const currentModal = modalRef.current;
+        if (currentModal) {
+            currentModal.style.animation = `${isClosing ? 'slideOut' : 'slideIn'} 0.3s forwards`;
+        }
+    }, [isClosing]);
+
     return (
         <section
 			className="bg-black bg-opacity-50 fixed h-full inset-0 w-full z-10"
-			onClick={closeModal}>
+			onClick={closeHandler}>
 			<div
 				className="flex flex-col bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-hidden transform -translate-x-1/2 top-20 rounded-lg shadow-md w-modal-xs custom-xs:w-modal-sm md:w-modal-md lg:w-modal-lg xl:w-modal-xl z-10"
 				ref={modalRef}
 				onClick={(e) => e.stopPropagation()}>
 				<div className="flex-grow overflow-y-auto">
 					<CloseButton
-						onClose={closeModal}
+						onClose={closeHandler}
 						modalTabs={false}
 					/>
                     <div className="max-w-lg mx-auto px-6 rounded-lg">

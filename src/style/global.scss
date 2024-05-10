@@ -222,3 +222,35 @@
 .delete-icon:hover {
 	color: #FF0000;
 }
+
+@keyframes slideIn {
+	from {
+		transform: translateX(-50%) translateY(-100%);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateX(-50%) translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes slideOut {
+	from {
+		transform: translateX(-50%) translateY(0);
+		opacity: 1;
+	}
+
+	to {
+		transform: translateX(-50%) translateY(-100%);
+		opacity: 0;
+	}
+}
+
+.modal-enter {
+	animation: slideIn 0.3s forwards;
+}
+
+.modal-exit {
+	animation: slideOut 0.3s forwards;
+}

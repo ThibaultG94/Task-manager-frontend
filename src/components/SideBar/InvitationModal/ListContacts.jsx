@@ -34,6 +34,7 @@ const ListContacts = ({ userId }) => {
 	};
 
     const openInviteModal = (event, contactId) => {
+		event.stopPropagation();
         const button = event.currentTarget;
         const rect = button.getBoundingClientRect();
         setSelectedContactId(contactId);
