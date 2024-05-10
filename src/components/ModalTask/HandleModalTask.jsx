@@ -24,6 +24,7 @@ const HandleModalTask = ({
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [isTaskOwner, setIsTaskOwner] = useState(false);
 	const [workspaceTask, setWorkspaceTask] = useState([]);
+	const [isClosing, setIsClosing] = useState(false);
 	
 	const [taskData, setTaskData] = useState({
 		_id: '',
@@ -48,6 +49,20 @@ const HandleModalTask = ({
 	const handleCancelEdit = () => {
 		setIsEditing(false);
 	};
+
+	const closeHandler = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            closeModal();
+        }, 300);
+    };
+
+    useEffect(() => {
+        const currentModal = modalRef.current;
+        if (currentModal) {
+            currentModal.style.animation = `${isClosing ? 'slideOut' : 'slideIn'} 0.3s forwards`;
+        }
+    }, [isClosing]);
 
 	useEffect(() => {
 		const checkUserPrivileges = async () => {
@@ -78,7 +93,7 @@ const HandleModalTask = ({
 	return (
 		<section
 			className="bg-black bg-opacity-50 fixed h-full inset-0 w-full z-10"
-			onClick={closeModal}>
+			onClick={closeHandler}>
 			<div
 				className="flex flex-col bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-hidden transform -translate-x-1/2 top-20 rounded-lg shadow-md w-modal-xs custom-xs:w-modal-sm md:w-modal-md lg:w-modal-lg xl:w-modal-xl z-10"
 				ref={modalRef}
@@ -87,7 +102,7 @@ const HandleModalTask = ({
 					{!isEditing ? (
 						<>
 							<CloseButton
-								onClose={closeModal}
+								onClose={closeHandler}
 								modalTabs={false}
 							/>
 							<ModalDisplayTask />
