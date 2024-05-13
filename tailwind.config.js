@@ -17,6 +17,7 @@ module.exports = {
         "dark-purple-2": "#5A385F",
         "red-error": "#e1786a",
         "red-error-2": "#98000d",
+        "red-error-3": "#FF2400",
         "red-error-overdue": "#fdded1",
         "light-grey": "#a8a9b4",
         "dark-grey": "#747687",

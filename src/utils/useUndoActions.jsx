@@ -11,7 +11,7 @@ export const useUndoActions = () => {
     const notifyWithUndo = (previousTask, notifications) => {
         const toastId = toast(<div>
             Tâche mise à jour ! 
-            <button className='button ml-4 bg-red-error' onClick={() => undoTask(previousTask, toastId, notifications)}>Annuler</button>
+            <button className='button ml-4 bg-red-error-3' onClick={() => undoTask(previousTask, toastId, notifications)}>Annuler</button>
           </div>, {
           position: "top-center",
           autoClose: 5000,
