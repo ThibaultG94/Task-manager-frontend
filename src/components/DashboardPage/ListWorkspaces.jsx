@@ -178,7 +178,7 @@ const ListWorkspaces = ({ userId }) => {
 							</div>
 						))}
 					{displayWorkspaces.length === 0 && (
-						<div className="h-full flex items-center justify-center">
+						<div className="no-urgent-tasks">
 							<span>
 								Vous n'avez aucun espace de travail actuellement
 							</span>

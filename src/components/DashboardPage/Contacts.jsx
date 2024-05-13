@@ -59,7 +59,7 @@ const Contacts = ({ userId }) => {
 	}, [isInvitationModalOpen]);
 
 	return (
-		<div className="coworkers-container dashboard-card">
+		<div className="coworkers-container dashboard-card relative">
 			<div className="flex justify-between">
 				<h4 className="pl-2">Contacts</h4>
 				<div
@@ -110,10 +110,8 @@ const Contacts = ({ userId }) => {
 							))}
 						</ul>
 					) : (
-						<div className="flex flex-col justify-center items-center h-4/6">
-							<p className="text-base">
-								Vous n'avez pas encore de contact
-							</p>
+						<div className="no-urgent-tasks">
+							Vous n'avez pas encore de contact
 						</div>
 					)}
 				</div>
