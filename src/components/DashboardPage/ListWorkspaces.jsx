@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import { selectIsWorkspacesLoaded, selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { useGetWorkspaceTaskStatusCount } from '../../api/tasks/useGetWorkspaceTaskStatusCount';
 import useCheckIfEditedWorkspace from '../../utils/useCheckIfEditedWorkspace';
 import { TaskStatusCount } from '../ModalTask/TaskStatusCount';
 import { TaskStatusIcon } from '../ModalTask/TaskStatusIcon';
@@ -14,8 +13,6 @@ const ListWorkspaces = ({ userId }) => {
 	const isTabletOrLaptop = useMediaQuery({ maxWidth: 1024 });
 	const workspaces = useSelector(selectWorkspaces);
 	const isWorkspacesLoaded = useSelector(selectIsWorkspacesLoaded);
-
-	const getWorkspaceTaskStatusCount = useGetWorkspaceTaskStatusCount();
 
 	const [allWorkspaces, setAllWorkspaces] = useState([]);
 	const [displayWorkspaces, setDisplayWorkspaces] = useState([]);
@@ -57,15 +54,12 @@ const ListWorkspaces = ({ userId }) => {
 				if (allWorkspaces && allWorkspaces[i]) {
 					const members = allWorkspaces[i].members;
 					const membersName = members.map((user) => user?.username);
-					const taskStatusCount = await getWorkspaceTaskStatusCount(
-						allWorkspaces[i]._id
-					);
 
 					updatedWorkspaces.push({
 						title: allWorkspaces[i].title,
 						members: allWorkspaces[i].members,
 						membersName: membersName,
-						taskStatusCount: taskStatusCount,
+						taskStatusCount: allWorkspaces[i].taskStatusCounts,
 						workspaceId: allWorkspaces[i]._id,
 						description: allWorkspaces[i].description,
 						invitationStatus: allWorkspaces[i].invitationStatus

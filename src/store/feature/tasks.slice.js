@@ -10,8 +10,6 @@ export const tasksSlice = createSlice({
     isUrgentTasksLoaded: false,
     workspaceTasks: [],
     isWorkspaceTasksLoaded: false,
-    workspaceTaskStatusCount: [],
-    isWorkspaceTaskStatusCount: false,
     overdueTasks: [],
     isOverdueTasksLoaded: false,
     todayTasks: [],
@@ -54,10 +52,6 @@ export const tasksSlice = createSlice({
     setWorkspaceTasks: (state, action) => {
       state.workspaceTasks = action.payload;
       state.isWorkspaceTasksLoaded = true;
-    },
-    setWorkspaceTaskStatusCount: (state, action) => {
-      state.workspaceTaskStatusCount = action.payload;
-      state.isWorkspaceTaskStatusCount = true;
     },
     setOverdueTasks: (state, action) => {
       state.overdueTasks = action.payload;
@@ -129,7 +123,6 @@ export const {
   setTasks,
   setUrgentTasks,
   setWorkspaceTasks,
-  setWorkspaceTaskStatusCount,
   setOverdueTasks,
   setTodayTasks,
   setTomorrowTasks,

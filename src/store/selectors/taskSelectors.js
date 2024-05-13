@@ -37,16 +37,6 @@ export const selectIsWorkspaceTasksLoaded = createSelector(
   (tasks) => tasks.isWorkspaceTasksLoaded
 );
 
-export const selectWorkspaceTaskStatusCount = createSelector(
-  [selectTasksState],
-  (tasks) => tasks.workspaceTaskStatusCount
-);
-
-export const selectWorkspaceTaskStatusCountLoaded = createSelector(
-  [selectTasksState],
-  (tasks) => tasks.workspaceTaskStatusCountLoaded
-);
-
 export const selectOverdueTasks = createSelector(
   [selectTasksState],
   (tasks) => tasks.overdueTasks

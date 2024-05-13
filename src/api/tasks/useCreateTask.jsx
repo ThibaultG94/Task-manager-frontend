@@ -1,7 +1,9 @@
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useCreateTask = () => {
+	const dispatch = useDispatch();
 	const errorApi = useErrorApi();
 
 	const createTask = async (task) => {
