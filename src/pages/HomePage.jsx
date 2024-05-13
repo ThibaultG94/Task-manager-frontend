@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCreateVisitorSession } from '../api/users/useCreateVisitorSession';
+import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 import SignupForm from '../components/HomePage/SignupForm';
 import LoginForm from '../components/HomePage/LoginForm';
-import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 import { ToastContainer } from 'react-toastify';
 
 const HomePage = () => {
+	const navigate = useNavigate();
+
 	const checkAuthentication = useCheckAuthentication();
+	const createVisitorSession = useCreateVisitorSession();
+
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [showLoginForm, setShowLoginForm] = useState(false);
 
-	const handleVisitorLogin = () => {
-		console.log('Visitor mode');
+	const handleVisitorLogin = async () => {
+		const user = await createVisitorSession();
+		const userId = user.id;
+		sessionStorage.setItem('userId', userId);
+		navigate('/pages/dashboard');
 	};
 
 	useEffect(() => {
