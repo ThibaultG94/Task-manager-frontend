@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setEditedTask } from '../../store/feature/tasks.slice';
+import { setWorkspacesAction } from '../../store/feature/workspaces.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
 export const useEditTask = () => {
@@ -14,6 +15,7 @@ export const useEditTask = () => {
 				withCredentials: true,
 			});
 			dispatch(setEditedTask(res.data.task));
+			dispatch(setWorkspacesAction(res.data.workspaces));
 			return res.data.task;
 		} catch (error) {
 			errorApi(error);
