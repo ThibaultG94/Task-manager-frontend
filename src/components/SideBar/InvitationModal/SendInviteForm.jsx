@@ -31,7 +31,6 @@ const SendInviteForm = ({ userId }) => {
 		try {
 			const res = await sendInvitation(invitation);
 			if (res.status === 200) {
-				// await setInvitationNotification(res.data.invitation, userId);
 				setEmail('');
 				setMessage('');
 				setErrors({

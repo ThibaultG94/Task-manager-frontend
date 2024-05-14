@@ -87,7 +87,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 							title={workspaceTitle}
 							setTitle={setWorkspaceTitle}
 							label={'Nom du Workspace'}
-							length={30}
+							length={40}
 						/>
 						{contacts && contacts.length > 0 && (
 							<ContactsSelect
