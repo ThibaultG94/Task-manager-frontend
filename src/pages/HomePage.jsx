@@ -5,6 +5,7 @@ import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 import SignupForm from '../components/HomePage/SignupForm';
 import LoginForm from '../components/HomePage/LoginForm';
 import { ToastContainer } from 'react-toastify';
+import LoadingComponent from '../components/Buttons/LoadingComponent';
 
 const HomePage = () => {
 	const navigate = useNavigate();
@@ -14,9 +15,12 @@ const HomePage = () => {
 
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [showLoginForm, setShowLoginForm] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleVisitorLogin = async () => {
+		setIsLoading(true);
 		const user = await createVisitorSession();
+		setIsLoading(false);
 		const userId = user.id;
 		sessionStorage.setItem('userId', userId);
 		navigate('/pages/dashboard');
@@ -46,11 +50,15 @@ const HomePage = () => {
 			</main>
 			<div className="absolute">
                 <button onClick={handleVisitorLogin} className="visitor-button">
-                  	<span>
-				 		Tester en un clic
+					{isLoading ? (
+						<LoadingComponent />
+					) : (
+						<span>
+				 			Tester en un clic
 						<br />
 						{/* <i className="fas fa-play play-icon"></i> */}
-					</span>  
+						</span>  
+					)}
                 </button>
             </div>
 		</div>
