@@ -14,7 +14,7 @@ export const useUndoActions = () => {
             <button className='button ml-4 bg-red-error-3' onClick={() => undoTask(previousTask, toastId, notifications)}>Annuler</button>
           </div>, {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 3000,
           closeOnClick: false,
           draggable: false
         });

@@ -173,15 +173,17 @@ export const useUpdateTasksInStore = () => {
 
 	useEffect(() => {
 		if (archivedTasksHasBeenUpdated) {
-			setCurrentPage(0);
+			console.log('archivedTasksHasBeenUpdated');
+			setCurrentPage(1);
 			setCurrentPage(currentArchivedTasks);
+			userId !== null && getArchivedTasks(userId, currentPage, 10);
 			dispatch(setArchivedTasksHasBeenUpdated(false));
 		}
 	}, [archivedTasksHasBeenUpdated]);
 
 	useEffect(() => {
-		if (currentPage && currentPage !== 0) {
-			userId !== null && getArchivedTasks(userId, currentPage, 10);
+		if (currentPage) {
+			userId !== null && getArchivedTasks(userId, 1, 10);
 		}
 	}, [currentPage, archivedTasksHasBeenUpdated]);
 };

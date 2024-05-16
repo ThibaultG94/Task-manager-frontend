@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { resetStore } from "../actions/reset.actions";
 
 const initialState = {
   isEditing: {
@@ -100,6 +101,9 @@ const editStateSlice = createSlice({
       state.hasEdited = false;
       state.isEditingWorkspace = false;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

@@ -16,6 +16,7 @@ import {
 import { formatDateForDisplay } from './formatDateForDisplay';
 import { getCategoryDay } from './getCategoryDay';
 import { useGetNotifications } from '../api/notifications/useGetNotifications';
+import getUserId from '../api/users/getUserId';
 
 export const useTasksHasBeenUpdated = () => {
 	const dispatch = useDispatch();
@@ -65,7 +66,8 @@ export const useTasksHasBeenUpdated = () => {
 	const tasksHasBeenUpdated = async (task, oldCategory) => {
 		const day = await formatDateForDisplay(task.deadline);
 		const category = await getCategoryDay(day, task.status, task.deadline);
-		await getNotifications();
+		const userId = await getUserId();
+		await getNotifications(userId);
 
 		if (oldCategory !== category) {
 			updateCategory(oldCategory);

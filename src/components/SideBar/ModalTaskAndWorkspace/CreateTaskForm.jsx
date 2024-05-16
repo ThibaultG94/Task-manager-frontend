@@ -55,11 +55,13 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 
 		if (selectedWorkspace === 'default') {
 			toast.error('Veuillez sélectionner un workspace.');
+			setIsLoading(false);
 			return;
 		}
 
 		if (selectedMember === 'default') {
 			toast.error('Veuillez sélectionner un membre.');
+			setIsLoading(false);
 			return;
 		}
 
@@ -83,6 +85,7 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 			setIsModalOpen(false);
 		} catch (error) {
 			toast.error('Échec de la création de la tâche.');
+			setIsLoading(false);
 		}
 	};
 

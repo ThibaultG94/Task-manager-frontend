@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { resetStore } from "../actions/reset.actions";
+
+const initialState = {
+  dispatchedWorkspaceInvitations: [],
+  receivedWorkspaceInvitations: [],
+  loading: false,
+  error: null,
+};
 
 export const workspaceInvitationsSlice = createSlice({
   name: "workspaceInvitations",
-  initialState: {
-    dispatchedWorkspaceInvitations: [],
-    receivedWorkspaceInvitations: [],
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     setSendOutWorkspaceInvitations: (state, action) => {
       state.dispatchedWorkspaceInvitations = action.payload;
@@ -15,6 +18,9 @@ export const workspaceInvitationsSlice = createSlice({
     setReceivedWorkspaceInvitations: (state, action) => {
       state.receivedWorkspaceInvitations = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

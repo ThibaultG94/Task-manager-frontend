@@ -1,14 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { resetStore } from "../actions/reset.actions";
+
+const initialState = {
+  currentUser: null,
+  userContacts: [],
+  isUserContactsLoaded: false,
+  loading: false,
+  error: null,
+};
 
 export const usersSlice = createSlice({
   name: "users",
-  initialState: {
-    currentUser: null,
-    userContacts: [],
-    isUserContactsLoaded: false,
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     setUserData: (state, action) => {
       state.currentUser = action.payload;
@@ -20,6 +23,9 @@ export const usersSlice = createSlice({
       state.userContacts = action.payload;
       state.isUserContactsLoaded = true;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

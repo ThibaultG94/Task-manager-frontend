@@ -1,42 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { resetStore } from "../actions/reset.actions";
+
+const initialState = {
+  singleTask: null,
+  tasks: [],
+  isTasksLoaded: false,
+  urgentTasks: [],
+  isUrgentTasksLoaded: false,
+  workspaceTasks: [],
+  isWorkspaceTasksLoaded: false,
+  overdueTasks: [],
+  isOverdueTasksLoaded: false,
+  todayTasks: [],
+  isTodayTasksLoaded: false,
+  tomorrowTasks: [],
+  isTomorrowTasksLoaded: false,
+  thisWeekTasks: [],
+  isThisWeekTasksLoaded: false,
+  nextWeekTasks: [],
+  isNextWeekTasksLoaded: false,
+  thisMonthTasks: [],
+  isThisMonthTasksLoaded: false,
+  nextMonthTasks: [],
+  isNextMonthTasksLoaded: false,
+  thisYearTasks: [],
+  isThisYearTasksLoaded: false,
+  nextYearTasks: [],
+  isNextYearTasksLoaded: false,
+  becomingTasks: [],
+  isBecomingTasksLoaded: false,
+  archivedTasks: [],
+  isArchivedTasksLoaded: false,
+  totalArchivedTasks: 0,
+  editedTask: null,
+  loading: false,
+  error: null,
+};
 
 export const tasksSlice = createSlice({
   name: "tasks",
-  initialState: {
-    singleTask: null,
-    tasks: [],
-    isTasksLoaded: false,
-    urgentTasks: [],
-    isUrgentTasksLoaded: false,
-    workspaceTasks: [],
-    isWorkspaceTasksLoaded: false,
-    overdueTasks: [],
-    isOverdueTasksLoaded: false,
-    todayTasks: [],
-    isTodayTasksLoaded: false,
-    tomorrowTasks: [],
-    isTomorrowTasksLoaded: false,
-    thisWeekTasks: [],
-    isThisWeekTasksLoaded: false,
-    nextWeekTasks: [],
-    isNextWeekTasksLoaded: false,
-    thisMonthTasks: [],
-    isThisMonthTasksLoaded: false,
-    nextMonthTasks: [],
-    isNextMonthTasksLoaded: false,
-    thisYearTasks: [],
-    isThisYearTasksLoaded: false,
-    nextYearTasks: [],
-    isNextYearTasksLoaded: false,
-    becomingTasks: [],
-    isBecomingTasksLoaded: false,
-    archivedTasks: [],
-    isArchivedTasksLoaded: false,
-    totalArchivedTasks: 0,
-    editedTask: null,
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     setSingleTask: (state, action) => {
       state.singleTask = action.payload;
@@ -115,6 +118,9 @@ export const tasksSlice = createSlice({
     clearEditedTask: (state) => {
       state.editedTask = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

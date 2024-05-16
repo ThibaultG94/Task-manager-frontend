@@ -1,16 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { resetStore } from "../actions/reset.actions";
+
+const initialState = {
+  notifications: [],
+  isNotificationsLoaded: false,
+  totalNumberOfNotifications: 0,
+  newNotifications: [],
+  earlierNotifications: [],
+  loading: false,
+  error: null,
+};
 
 export const notificationsSlice = createSlice({
   name: "notifications",
-  initialState: {
-    notifications: [],
-    isNotificationsLoaded: false,
-    totalNumberOfNotifications: 0,
-    newNotifications: [],
-    earlierNotifications: [],
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     setNotificationsAction: (state) => {
       state.loading = true;
@@ -58,6 +61,9 @@ export const notificationsSlice = createSlice({
           : notif
       );
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

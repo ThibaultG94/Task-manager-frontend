@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { resetStore } from "../actions/reset.actions";
+
+const initialState = {
+  workspaces: [],
+  isWorkspacesLoaded: false,
+  singleWorkspace: null,
+  editedWorkspace: null,
+  loading: false,
+  error: null,
+};
 
 export const workspacesSlice = createSlice({
   name: "workspaces",
-  initialState: {
-    workspaces: [],
-    isWorkspacesLoaded: false,
-    singleWorkspace: null,
-    editedWorkspace: null,
-    loading: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     setWorkspacesAction: (state, action) => {
       state.isWorkspacesLoaded = true;
@@ -21,6 +24,9 @@ export const workspacesSlice = createSlice({
     setInitialEditedWorkspace: (state, action) => {
       state.editedWorkspace = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

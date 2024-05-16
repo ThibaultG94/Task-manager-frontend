@@ -70,6 +70,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 		} catch (err) {
 			console.error('Error with CreateWorkspaceForm', err);
 			toast.error('Une erreur est survenue');
+			setIsLoading(false);
 		}
 	};
 
