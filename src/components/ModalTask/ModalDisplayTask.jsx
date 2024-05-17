@@ -4,8 +4,9 @@ import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { convertStatus, convertPriority } from '../../utils/convertTools';
 import { frenchFormattedDate } from '../../utils/dateFormatTools';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import CommentsSection from './CommentsSection'; // Import du nouveau composant
 
-const ModalDisplayTask = () => {
+const ModalDisplayTask = ({ workspaceTask }) => {
 	const editedTask = useSelector(selectEditedTask);
 	const userWorkspaces = useSelector(selectWorkspaces);
 	
@@ -17,35 +18,47 @@ const ModalDisplayTask = () => {
 
 	useEffect(() => {
 		const fetchConvertedStatus = async () => {
-			const status = await convertStatus(editedTask?.status);
-			setConvertedStatus(status);
+			if (editedTask?.status) {
+				const status = await convertStatus(editedTask.status);
+				setConvertedStatus(status);
+			}
 		};
+
 		const fetchConvertedPriority = async () => {
-			const priority = await convertPriority(editedTask?.priority);
-			setConvertedPriority(priority);
+			if (editedTask?.priority) {
+				const priority = await convertPriority(editedTask.priority);
+				setConvertedPriority(priority);
+			}
 		};
+
 		const fetchConvertedDeadline = async () => {
-			const deadline = await frenchFormattedDate(editedTask?.deadline);
-			setConvertedDeadline(deadline);
+			if (editedTask?.deadline) {
+				const deadline = await frenchFormattedDate(editedTask.deadline);
+				setConvertedDeadline(deadline);
+			}
 		};
-		const fetchConvertedWorkspace = async () => {
-			const workspace = userWorkspaces.find(
-				(workspace) => workspace._id === editedTask?.workspaceId
-			);
-			setConvertedWorkspace(workspace?.title);
+
+		const fetchConvertedWorkspace = () => {
+			if (editedTask?.workspaceId) {
+				const workspace = userWorkspaces.find(
+					(workspace) => workspace._id === editedTask.workspaceId
+				);
+				setConvertedWorkspace(workspace?.title || '');
+			}
 		};
+
 		const fetchConvertedMember = () => {
-			setConvertedMember(editedTask?.assignedTo[0].username);
+			if (editedTask?.assignedTo && editedTask.assignedTo.length > 0) {
+				setConvertedMember(editedTask.assignedTo[0].username || '');
+			}
 		};
 
 		fetchConvertedStatus();
 		fetchConvertedPriority();
 		fetchConvertedDeadline();
-		if (editedTask && editedTask?.workspaceId) fetchConvertedWorkspace();
-		if (editedTask?.assignedTo) {
-			fetchConvertedMember();
-		}
-	}, [editedTask]);
+		fetchConvertedWorkspace();
+		fetchConvertedMember();
+	}, [editedTask, userWorkspaces]);
 
 	return (
 		<div className="max-w-lg mx-auto px-6 rounded-lg">
@@ -60,13 +73,8 @@ const ModalDisplayTask = () => {
 					<span className="text-sm font-bold self-end text-gray-500">
 						Status
 					</span>
-					<div
-						className={
-							'status-icon mt-2 px-2 py-1 rounded-lg ' +
-							convertedStatus
-						}>
-						<span
-							className={`text-sm font-semibold px-2 rounded ${convertedStatus}`}>
+					<div className={'status-icon mt-2 px-2 py-1 rounded-lg ' + convertedStatus}>
+						<span className={`text-sm font-semibold px-2 rounded ${convertedStatus}`}>
 							{convertedStatus}
 						</span>
 					</div>
@@ -77,7 +85,7 @@ const ModalDisplayTask = () => {
 						Assigné à
 					</span>
 					<div className="assigned-icon mt-2 ml-6 px-2 py-1 rounded-lg bg-light-blue-3">
-						<span className="ml-2 text-sm">{convertedMember} </span>
+						<span className="ml-2 text-sm">{convertedMember}</span>
 					</div>
 				</div>
 
@@ -85,11 +93,7 @@ const ModalDisplayTask = () => {
 					<span className="text-sm font-bold self-end text-gray-500">
 						Deadline
 					</span>
-					<div
-						className={
-							'deadline-icon mt-2 ml-6 px-2 py-1 rounded-lg ' +
-							editedTask?.category
-						}>
+					<div className={'deadline-icon mt-2 ml-6 px-2 py-1 rounded-lg ' + editedTask?.category}>
 						<span className="ml-2 text-sm">
 							{convertedDeadline}
 						</span>
@@ -100,11 +104,7 @@ const ModalDisplayTask = () => {
 					<span className="text-sm font-bold self-end text-gray-500">
 						Priorité
 					</span>
-					<div
-						className={
-							'priority-icon mt-2 ml-6 px-2 py-1 rounded-lg ' +
-							convertedPriority
-						}>
+					<div className={'priority-icon mt-2 ml-6 px-2 py-1 rounded-lg ' + convertedPriority}>
 						<span className="ml-2 text-sm">
 							{convertedPriority}
 						</span>
@@ -123,23 +123,18 @@ const ModalDisplayTask = () => {
 				</div>
 			</div>
 
-			{editedTask?.description ? (
+			{editedTask?.description && (
 				<div className="mt-4 px-2">
 					<div className="bg-gray-100 description-icon p-3 rounded-lg">
 						<span className="ml-2 text-gray-600 whitespace-pre-line">
-							{editedTask?.description}
+							{editedTask.description}
 						</span>
 					</div>
 				</div>
-			) : null}
-		
-			{editedTask?.comments ? (
-				<div className="flex flex-wrap mb-2">
-				<div className="comments-icon mt-2 ml-6 px-2 py-1 rounded-lg">
-					<span className="ml-2 text-lg">{editedTask?.comments}</span>
-				</div>
-			</div>
-			) : null}
+			)}
+
+			<CommentsSection workspaceTask={workspaceTask} />
+
 		</div>
 	);
 };

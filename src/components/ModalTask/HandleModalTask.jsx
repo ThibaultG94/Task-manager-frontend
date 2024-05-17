@@ -40,6 +40,7 @@ const HandleModalTask = ({
 		assignedTo: [],
 		selectedMember: 'default',
 		category: '',
+		comments: [],
 	});
 
 	const handleEditTask = () => {
@@ -105,7 +106,7 @@ const HandleModalTask = ({
 								onClose={closeHandler}
 								modalTabs={false}
 							/>
-							<ModalDisplayTask />
+							<ModalDisplayTask workspaceTask={workspaceTask} />
 						</>
 					) : (
 						<>
@@ -143,7 +144,6 @@ const HandleModalTask = ({
 							</button>
 							<SaveEditedTask
 								setIsEditing={setIsEditing}
-								setIsModalOpen={setIsModalOpen}
 								taskData={taskData}
 								workspaceTask={workspaceTask}
 							/>

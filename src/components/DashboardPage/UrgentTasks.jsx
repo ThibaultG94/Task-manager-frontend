@@ -136,7 +136,7 @@ const UrgentTasks = () => {
 						priority: urgentTasks[i].priority,
 						deadline: urgentTasks[i].deadline,
 						description: urgentTasks[i].description,
-						comments: urgentTasks[i].comments,
+						comments: urgentTasks[i].comments ? urgentTasks[i].comments : [],
 						workspace: urgentTasks[i].workspaceId,
 						assignedTo: urgentTasks[i].assignedTo,
 						archiveDate: urgentTasks[i].archiveDate,

@@ -12,7 +12,7 @@ import getUserId from '../../api/users/getUserId';
 import { selectUserContacts } from '../../store/selectors/userSelectors';
 import LoadingCreateComponent from '../Buttons/LoadingCreateComponent';
 
-const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData, workspaceTask }) => {
+const SaveEditedTask = ({ setIsEditing, taskData, workspaceTask }) => {
 	const dispatch = useDispatch();
 
 	const contacts = useSelector(selectUserContacts);
@@ -66,6 +66,7 @@ const SaveEditedTask = ({ setIsEditing, setIsModalOpen, taskData, workspaceTask 
 				workspaceId: editedTask.workspaceId,
 				assignedTo: assigned,
 				category: editedTask.category,
+				comments: [...editedTask.comments],
 			};
 
 			await editTask(task);
