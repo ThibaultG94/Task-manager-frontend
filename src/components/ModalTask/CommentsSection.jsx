@@ -75,10 +75,17 @@ const CommentsSection = ({ workspaceTask }) => {
             <div className="max-h-64 overflow-y-auto bg-white p-3 rounded-lg shadow-inner">
                 {editedTask?.comments && editedTask?.comments.length > 0 ? (
                     editedTask?.comments.map((comment, index) => (
-                        <div key={index} className="mb-2">
-                            <div className="text-sm text-gray-800 font-semibold">{comment.username}</div>
-                            <div className="text-xs text-gray-600">{comment.message}</div>
-                            <div className="text-xs text-gray-500">{new Date(comment.date).toLocaleString()}</div>
+                        <div key={index} className="mb-4 p-2 border-b border-gray-200">
+                            <div className="flex items-center mb-2">
+                                <div className="h-8 w-8 rounded-full bg-blue-500 text-white flex items-center justify-center mr-2">
+                                    {comment.username.charAt(0).toUpperCase()}
+                                </div>
+                                <div>
+                                    <div className="text-sm text-gray-800 font-semibold">{comment.username}</div>
+                                    <div className="text-xs text-gray-500">{new Date(comment.date).toLocaleString()}</div>
+                                </div>
+                            </div>
+                            <div className="text-sm text-gray-700">{comment.message}</div>
                         </div>
                     ))
                 ) : (
@@ -88,23 +95,25 @@ const CommentsSection = ({ workspaceTask }) => {
             {isAddingComment ? (
                 <div className="mt-2">
                     <textarea
-                        className="w-full border border-gray-300 p-2 rounded-lg"
+                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder="Écrire un commentaire..."
                     ></textarea>
-                    <button
-                        className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-                        onClick={handleAddComment}
-                    >
-                        Envoyer
-                    </button>
-                    <button
-                        className="mt-2 ml-2 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
-                        onClick={() => setIsAddingComment(false)}
-                    >
-                        Annuler
-                    </button>
+                    <div className="flex justify-end mt-2">
+                        <button
+                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                            onClick={handleAddComment}
+                        >
+                            Envoyer
+                        </button>
+                        <button
+                            className="ml-2 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+                            onClick={() => setIsAddingComment(false)}
+                        >
+                            Annuler
+                        </button>
+                    </div>
                 </div>
             ) : (
                 <button
