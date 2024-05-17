@@ -76,9 +76,9 @@ const CommentsSection = ({ workspaceTask }) => {
                 {editedTask?.comments && editedTask?.comments.length > 0 ? (
                     editedTask?.comments.map((comment, index) => (
                         <div key={index} className="mb-2">
-                            <div className="text-sm text-gray-800 font-semibold">{comment.userId}</div>
-                            <div className="text-xs text-gray-600">{comment.content}</div>
-                            <div className="text-xs text-gray-500">{new Date(comment.createdAt).toLocaleString()}</div>
+                            <div className="text-sm text-gray-800 font-semibold">{comment.username}</div>
+                            <div className="text-xs text-gray-600">{comment.message}</div>
+                            <div className="text-xs text-gray-500">{new Date(comment.date).toLocaleString()}</div>
                         </div>
                     ))
                 ) : (
