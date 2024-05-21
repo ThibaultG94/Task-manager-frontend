@@ -9,6 +9,7 @@ import invitationsSlice from "./feature/invitations.slice";
 import notificationsSlice from "./feature/notifications.slice";
 import workspaceInvitationsSlice from "./feature/workspaceInvitation.slice";
 import { resetStore } from "./actions/reset.actions";
+import commentsSlice from "./feature/comments.slice";
 
 const appReducer = combineReducers({
   users: usersSlice,
@@ -20,6 +21,7 @@ const appReducer = combineReducers({
   invitations: invitationsSlice,
   workspaceInvitations: workspaceInvitationsSlice,
   notifications: notificationsSlice,
+  comments: commentsSlice,
 });
 
 const rootReducer = (state, action) => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { resetEditState, setHasEdited } from '../../store/feature/editState.slice';
@@ -8,10 +8,12 @@ import { useAddComment } from '../../api/comments/useAddComment';
 import { useAddCommentReply } from '../../api/comments/useAddCommentReply';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
+import { selectComments } from '../../store/selectors/commentSelectors';
 
 const CommentsSection = ({ workspaceTask }) => {
     const dispatch = useDispatch();
     const editedTask = useSelector(selectEditedTask);
+    const comments = useSelector(selectComments);
 
     const tasksHasBeenUpdated = useTasksHasBeenUpdated();
     const setTaskNotification = useSetTaskNotification();
@@ -21,6 +23,13 @@ const CommentsSection = ({ workspaceTask }) => {
     const [newComment, setNewComment] = useState('');
     const [isAddingComment, setIsAddingComment] = useState(false);
     const [replyingTo, setReplyingTo] = useState(null);
+    const [taskComments, setTaskComments] = useState([]);
+
+    useEffect(() => {
+        if (comments) setTaskComments(comments);
+    }, [comments]);
+
+    // PENSER A RESET LES COMMENTS QUAND ON CHANGE DE TACHE
 
     const handleAddComment = async (parentId) => {
         if (newComment.trim()) { 
@@ -117,8 +126,8 @@ const CommentsSection = ({ workspaceTask }) => {
     return (
         <div className="mt-4 px-2">
             <div className="max-h-64 overflow-y-auto bg-white p-3 rounded-lg shadow-inner">
-                {editedTask?.comments && editedTask?.comments.length > 0 ? (
-                    renderComments(editedTask.comments)
+                {taskComments && taskComments.length > 0 ? (
+                    renderComments(taskComments)
                 ) : (
                     <div className="text-gray-600 text-center italic">Aucun commentaire pour le moment. Soyez le premier à commenter !</div>
                 )}

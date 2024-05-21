@@ -15,6 +15,7 @@ import { useUndoActions } from '../../utils/useUndoActions';
 import { toast } from 'react-toastify';
 import HandleModalTask from '../ModalTask/HandleModalTask';
 import LoadingComponent from '../Buttons/LoadingComponent';
+import { useGetComments } from '../../api/comments/useGetComments';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const UrgentTasks = () => {
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
+	const getComments = useGetComments();
 
 	const { notifyWithUndo } = useUndoActions();
 	
@@ -159,6 +161,7 @@ const UrgentTasks = () => {
 			if (formattedTask) {
 				dispatch(setInitialEditedTask(formattedTask));
 			}
+			await getComments(selectedTask?.taskId);
 		};
 		resetEditedTask();
 	}, [selectedTask]);
