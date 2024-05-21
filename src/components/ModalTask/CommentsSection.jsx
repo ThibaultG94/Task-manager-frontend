@@ -24,15 +24,14 @@ const CommentsSection = ({ workspaceTask }) => {
     const [isAddingComment, setIsAddingComment] = useState(false);
     const [replyingTo, setReplyingTo] = useState(null);
     const [taskComments, setTaskComments] = useState([]);
+    const [expandedComments, setExpandedComments] = useState({});
 
     useEffect(() => {
         if (comments) setTaskComments(comments);
     }, [comments]);
 
-    // PENSER A RESET LES COMMENTS QUAND ON CHANGE DE TACHE
-
     const handleAddComment = async (parentId) => {
-        if (newComment.trim()) { 
+        if (newComment.trim()) {
             const userId = await getUserId();
 
             let assigned = [];
@@ -50,6 +49,10 @@ const CommentsSection = ({ workspaceTask }) => {
             try {
                 if (parentId) {
                     await addCommentReply(parentId, reply);
+                    setExpandedComments(prevState => ({
+                        ...prevState,
+                        [parentId]: true
+                    }));
                 } else {
                     await addComment(editedTask._id, reply);
                 }
@@ -67,6 +70,13 @@ const CommentsSection = ({ workspaceTask }) => {
                 toast.error(error.message);
             }
         }
+    };
+
+    const toggleExpand = (commentId) => {
+        setExpandedComments(prevState => ({
+            ...prevState,
+            [commentId]: !prevState[commentId]
+        }));
     };
 
     const renderComments = (comments) => {
@@ -89,6 +99,14 @@ const CommentsSection = ({ workspaceTask }) => {
                     >
                         Répondre
                     </button>
+                    {comment?.replies && comment?.replies.length > 0 && (
+                        <button
+                            className="text-xs text-blue-500"
+                            onClick={() => toggleExpand(comment?._id)}
+                        >
+                            {expandedComments[comment?._id] ? 'Masquer' : `Afficher les réponses (${comment?.replies.length})`}
+                        </button>
+                    )}
                 </div>
                 {replyingTo === comment?._id && (
                     <div className="mt-2">
@@ -114,7 +132,7 @@ const CommentsSection = ({ workspaceTask }) => {
                         </div>
                     </div>
                 )}
-                {comment?.replies && comment?.replies.length > 0 && (
+                {expandedComments[comment?._id] && comment?.replies && comment?.replies.length > 0 && (
                     <div className="ml-4">
                         {renderComments(comment?.replies)}
                     </div>
@@ -127,7 +145,10 @@ const CommentsSection = ({ workspaceTask }) => {
         <div className="mt-4 px-2">
             <div className="max-h-64 overflow-y-auto bg-white p-3 rounded-lg shadow-inner">
                 {taskComments && taskComments.length > 0 ? (
-                    renderComments(taskComments)
+                    <>
+                        <div className="text-gray-800 font-semibold mb-2">Commentaires ({taskComments.length})</div>
+                        {renderComments(taskComments)}
+                    </>
                 ) : (
                     <div className="text-gray-600 text-center italic">Aucun commentaire pour le moment. Soyez le premier à commenter !</div>
                 )}
