@@ -66,7 +66,6 @@ const SaveEditedTask = ({ setIsEditing, taskData, workspaceTask }) => {
 				workspaceId: editedTask.workspaceId,
 				assignedTo: assigned,
 				category: editedTask.category,
-				comments: [...editedTask.comments],
 			};
 
 			await editTask(task);
