@@ -17,8 +17,9 @@ export const useAddCommentReply = () => {
                     withCredentials: true,
                 }
             );
-            // dispatch(setEditedTask(res.data.reply));
-            return res.data.reply;
+            dispatch(setEditedTask(res.data.task));
+            console.log(res.data.task);
+            return res.data.task;
         } catch (error) {
             errorApi(error);
             throw new Error('Échec de l\'ajout de la réponse');
