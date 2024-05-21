@@ -6,6 +6,7 @@ import { selectIsUrgentTasksLoaded, selectUrgentTasks } from '../../store/select
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
+import { useGetComments } from '../../api/comments/useGetComments';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import useCheckIfEdited from '../../utils/useCheckIfEdited';
 import { formatDateForDisplay } from '../../utils/formatDateForDisplay';
@@ -15,7 +16,6 @@ import { useUndoActions } from '../../utils/useUndoActions';
 import { toast } from 'react-toastify';
 import HandleModalTask from '../ModalTask/HandleModalTask';
 import LoadingComponent from '../Buttons/LoadingComponent';
-import { useGetComments } from '../../api/comments/useGetComments';
 
 const UrgentTasks = () => {
 	const dispatch = useDispatch();

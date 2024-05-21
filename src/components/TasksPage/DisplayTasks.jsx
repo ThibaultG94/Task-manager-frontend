@@ -18,6 +18,7 @@ import {
 } from '../../store/selectors/taskSelectors';
 import { resetEditState } from '../../store/feature/editState.slice';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
+import { useGetComments } from '../../api/comments/useGetComments';
 import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
 import DisplayOverdueTasks from './DisplayOverdueTasks';
 import DisplayTodayTasks from './DisplayTodayTasks';
@@ -53,6 +54,8 @@ const DisplayTasks = () => {
 		userNextYearTasks: useSelector(selectNextYearTasks),
 		userBecomingTasks: useSelector(selectBecomingTasks),
 	};
+
+	const getComments = useGetComments();
 
 	const [expandedBlocks, setExpandedBlocks] = useState({
 		'retard-tasks': true,
@@ -105,6 +108,7 @@ const DisplayTasks = () => {
 			if (formattedTask) {
 				dispatch(setInitialEditedTask(formattedTask));
 			}
+			await getComments(selectedTask?.taskId);
 		};
 		resetEditedTask();
 	}, [selectedTask]);

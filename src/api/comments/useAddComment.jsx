@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setEditedTask } from '../../store/feature/tasks.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
+import { setComments } from '../../store/feature/comments.slice';
 
 export const useAddComment = () => {
     const dispatch = useDispatch();
@@ -17,9 +17,8 @@ export const useAddComment = () => {
                     withCredentials: true,
                 }
             );
-            dispatch(setEditedTask(res.data.task));
-            console.log(res.data.task);
-            return res.data.task;
+            dispatch(setComments(res.data.comments));
+            return res.data.comments;
         } catch (error) {
             errorApi(error);
             throw new Error('Échec de l\'ajout du commentaire');
