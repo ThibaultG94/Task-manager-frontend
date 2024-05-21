@@ -39,7 +39,7 @@ const ModalDisplayTask = ({ workspaceTask }) => {
 		};
 
 		const fetchConvertedWorkspace = () => {
-			if (editedTask?.workspaceId) {
+			if (editedTask?.workspaceId && userWorkspaces) {
 				const workspace = userWorkspaces.find(
 					(workspace) => workspace._id === editedTask.workspaceId
 				);

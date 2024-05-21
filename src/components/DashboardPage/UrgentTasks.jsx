@@ -122,7 +122,7 @@ const UrgentTasks = () => {
 						urgentTasks[i].deadline
 					);
 					const workspacesMap = {};
-					workspaces.forEach((workspace) => {
+					workspaces?.forEach((workspace) => {
 						workspacesMap[workspace._id] = workspace.title;
 					});
 					const workspaceName =

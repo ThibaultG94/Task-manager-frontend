@@ -67,7 +67,7 @@ const HandleModalTask = ({
 
 	useEffect(() => {
 		const checkUserPrivileges = async () => {
-			if (editedTask && editedTask.workspaceId) {
+			if (editedTask && editedTask.workspaceId && userWorkspaces) {
 				const workspace = userWorkspaces.find(
 					(ws) => ws._id === editedTask.workspaceId
 					);
