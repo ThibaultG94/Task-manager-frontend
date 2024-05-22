@@ -83,6 +83,7 @@ const HeaderNotifications = ({ userId }) => {
 
 	const getTaskDetails = async (taskId) => {
 		const task = await getTask(taskId);
+		console.log(task);
 		setSelectedTask(task);
 		dispatch(setEditedTask(task));
 		setIsModalOpen(true);

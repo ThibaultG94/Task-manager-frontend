@@ -14,7 +14,7 @@ export const useGetTask = () => {
 				withCredentials: true,
 			});
             dispatch(setSingleTask(res.data.task));
-            return res;
+            return res.data.task;
         } catch (error) {
             errorApi(error);
         }
