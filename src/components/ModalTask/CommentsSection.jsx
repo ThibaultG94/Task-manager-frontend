@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { resetEditState, setHasEdited } from '../../store/feature/editState.slice';
-import getUserId from '../../api/users/getUserId';
 import { useAddComment } from '../../api/comments/useAddComment';
 import { useAddCommentReply } from '../../api/comments/useAddCommentReply';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
@@ -30,8 +29,6 @@ const CommentsSection = ({ workspaceTask }) => {
 
     const handleAddComment = async (parentId) => {
         if (newComment.trim()) {
-            const userId = await getUserId();
-
             let assigned = [];
 
             for (const user of editedTask.assignedTo) {
@@ -46,7 +43,7 @@ const CommentsSection = ({ workspaceTask }) => {
 
             try {
                 if (parentId) {
-                    await addCommentReply(parentId, reply);
+                    await addCommentReply(parentId, reply, editedTask._id);
                     setExpandedComments(prevState => ({
                         ...prevState,
                         [parentId]: true

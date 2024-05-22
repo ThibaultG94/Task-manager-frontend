@@ -141,6 +141,9 @@ const HeaderNotifications = ({ userId }) => {
 			case 'newComment':
 				getTaskDetails(notification.taskId);
 				break;
+			case 'replycomment':
+				getTaskDetails(notification.taskId);
+				break;
 			default:
 				console.error('Notification type not found');
 		}

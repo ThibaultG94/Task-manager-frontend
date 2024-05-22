@@ -7,12 +7,12 @@ export const useAddCommentReply = () => {
     const dispatch = useDispatch();
     const errorApi = useErrorApi();
 
-    const addCommentReply = async (commentId, content) => {
+    const addCommentReply = async (commentId, content, taskId) => {
         try {
             const API_URL = process.env.REACT_APP_API_URL;
             const res = await axios.post(
                 `${API_URL}/comments/comment/reply`,
-                { commentId, content },
+                { commentId, content, taskId },
                 {
                     withCredentials: true,
                 }
