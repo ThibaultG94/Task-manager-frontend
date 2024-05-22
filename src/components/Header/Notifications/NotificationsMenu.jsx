@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { formatDistanceToNow, parseISO } from 'date-fns';
+import { formatDistanceToNow, parseISO, set } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import NotificationsModal from './NotificationsModal';
 
@@ -13,14 +13,24 @@ const NotificationsMenu = ({
 	modalRef,
 	isClosing,
 }) => {
+	const [isClosingModal, setIsClosingModal] = useState(false);
+
 	const handleNotificationsModal = () => {
 		if (openNotificationsModal) {
-			setOpenNotificationsModal(false);
-			setShowNotifications(false);
+			closeHandler();
 		} else {
+			setIsClosingModal(false);
 			setOpenNotificationsModal(true);
 		}
 	};
+
+	const closeHandler = () => {
+        setIsClosingModal(true);
+        setTimeout(() => {
+			setOpenNotificationsModal(false);
+			setShowNotifications(false);
+        }, 300);
+    };
 
 	const formatDateToNow = (dateString) => {
 		return formatDistanceToNow(parseISO(dateString), {
@@ -157,6 +167,7 @@ const NotificationsMenu = ({
 					handleNotificationsModal={handleNotificationsModal}
 					openNotificationsModal={openNotificationsModal}
 					onRead={onRead}
+					isClosingModal={isClosingModal}
 				/>
 			)}
 		</div>

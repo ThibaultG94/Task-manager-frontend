@@ -366,3 +366,31 @@
 		opacity: 0;
 	}
 }
+
+@keyframes slideInNotif {
+	from {
+		transform: translateY(-100%);
+		opacity: 0;
+		max-height: 0;
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+		max-height: 500px;
+	}
+}
+
+@keyframes slideOutNotif {
+	from {
+		transform: translateY(0);
+		opacity: 1;
+		max-height: 500px;
+	}
+
+	to {
+		transform: translateY(-100%);
+		opacity: 0;
+		max-height: 0;
+	}
+}
