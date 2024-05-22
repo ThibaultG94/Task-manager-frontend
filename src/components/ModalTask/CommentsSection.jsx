@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { resetEditState, setHasEdited } from '../../store/feature/editState.slice';
-import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
 import getUserId from '../../api/users/getUserId';
 import { useAddComment } from '../../api/comments/useAddComment';
 import { useAddCommentReply } from '../../api/comments/useAddCommentReply';
@@ -16,7 +15,6 @@ const CommentsSection = ({ workspaceTask }) => {
     const comments = useSelector(selectComments);
 
     const tasksHasBeenUpdated = useTasksHasBeenUpdated();
-    const setTaskNotification = useSetTaskNotification();
     const addComment = useAddComment();
     const addCommentReply = useAddCommentReply();
 
@@ -60,7 +58,6 @@ const CommentsSection = ({ workspaceTask }) => {
                 dispatch(resetEditState());
                 dispatch(setHasEdited(false));
                 await tasksHasBeenUpdated(editedTask, editedTask.category);
-                await setTaskNotification(editedTask, userId);
 
                 setNewComment('');
                 setIsAddingComment(false);

@@ -161,7 +161,7 @@ const UrgentTasks = () => {
 			if (formattedTask) {
 				dispatch(setInitialEditedTask(formattedTask));
 			}
-			await getComments(selectedTask?.taskId);
+			if (selectedTask) await getComments(selectedTask?.taskId);
 		};
 		resetEditedTask();
 	}, [selectedTask]);

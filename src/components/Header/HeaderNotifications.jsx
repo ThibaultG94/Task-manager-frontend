@@ -23,6 +23,7 @@ import HandleModalTask from '../ModalTask/HandleModalTask';
 import HandleModalWorkspace from '../ModalWorkspace/HandleModalWorkspace';
 import WorkspaceManageModal from '../SideBar/ModalWorkspace/WorkspaceManageModal';
 import { useOutsideClick } from '../../utils/useOutsideClick';
+import { useGetComments } from '../../api/comments/useGetComments';
 
 const HeaderNotifications = ({ userId }) => {
 	const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const HeaderNotifications = ({ userId }) => {
 	const getReceivedWorkspaceInvitations = useGetReceivedWorkspaceInvitations();
 	const getSentOutWorkspaceInvitations = useGetSentOutWorkspaceInvitations();
 	const getTask = useGetTask();
+	const getComments = useGetComments();
 
 	const [hasNewNotification, setHasNewNotification] = useState(0);
 	const [unreadNotifications, setUnreadNotifications] = useState([]);
@@ -218,6 +220,7 @@ const HeaderNotifications = ({ userId }) => {
 			if (formattedTask) {
 				dispatch(setInitialEditedTask(formattedTask));
 			}
+			if (selectedTask) await getComments(selectedTask?._id);
 		};
 		resetEditedTask();
 	}, [selectedTask]);

@@ -28,14 +28,8 @@ export const commentsSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: {
-    [resetStore]: (state) => {
-      state.comments = [];
-      state.isCommentsLoaded = false;
-      state.editedComment = null;
-      state.loading = false;
-      state.error = null;
-    },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 
