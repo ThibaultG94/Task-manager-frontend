@@ -138,6 +138,9 @@ const HeaderNotifications = ({ userId }) => {
 			case 'workspaceDeletion':
 				setOpenNotificationsModal(true);
 				break;
+			case 'newComment':
+				getTaskDetails(notification.taskId);
+				break;
 			default:
 				console.error('Notification type not found');
 		}
