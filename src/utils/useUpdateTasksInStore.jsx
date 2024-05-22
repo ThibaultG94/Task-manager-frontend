@@ -173,7 +173,6 @@ export const useUpdateTasksInStore = () => {
 
 	useEffect(() => {
 		if (archivedTasksHasBeenUpdated) {
-			console.log('archivedTasksHasBeenUpdated');
 			setCurrentPage(1);
 			setCurrentPage(currentArchivedTasks);
 			userId !== null && getArchivedTasks(userId, currentPage, 10);

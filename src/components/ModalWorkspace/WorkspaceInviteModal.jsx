@@ -46,7 +46,6 @@ const WorkspaceInviteModal = ({ contactId, closeModal, position, userContacts })
         };
         await editWorkspace(editedWorkspace);
         toast.success("Le contact a bien reçu l'invitation !");
-        console.log(editedWorkspace);
         closeModal();
     };
 
