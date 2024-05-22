@@ -4,8 +4,9 @@ import { selectCurrentUser } from '../../store/selectors/userSelectors';
 import HeaderWelcome from './HeaderWelcome';
 import HeaderNav from './HeaderNav';
 import HeaderSearch from './HeaderSearch';
-import HeaderNotifications from './HeaderNotifications';
+import HeaderNotifications from './Notifications/HeaderNotifications';
 import HeaderAvatar from './HeaderAvatar';
+import HeaderMessages from './Messages/HeaderMessages';
 
 const Header = () => {
 	const currentUser = useSelector(selectCurrentUser);
@@ -24,6 +25,7 @@ const Header = () => {
 			<div className="absolute flex h-full items-center right-0 top-0">
 				{/* <HeaderSearch /> */}
 				<div className="flex">
+					<HeaderMessages />
 					<HeaderNotifications userId={userId} />
 					<HeaderAvatar currentUser={currentUser} />
 				</div>

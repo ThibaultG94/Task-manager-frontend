@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import NotificationsModal from './NotificationsModal';
@@ -11,6 +11,7 @@ const NotificationsMenu = ({
 	openNotificationsModal,
 	setOpenNotificationsModal,
 	modalRef,
+	isClosing,
 }) => {
 	const handleNotificationsModal = () => {
 		if (openNotificationsModal) {
@@ -27,6 +28,13 @@ const NotificationsMenu = ({
 			locale: fr,
 		});
 	};
+
+	useEffect(() => {
+        const currentModal = modalRef.current;
+        if (currentModal) {
+            currentModal.style.animation = `${isClosing ? 'slideUpNotif' : 'slideDownNotif'} 0.3s forwards`;
+        }
+    }, [isClosing]);
 
 	return (
 		<div

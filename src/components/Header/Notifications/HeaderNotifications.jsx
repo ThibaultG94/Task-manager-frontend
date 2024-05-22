@@ -3,27 +3,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectEarlierNotifications,
 	selectNewNotifications,
-} from '../../store/selectors/notificationSelectors';
-import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import { setEditedTask, setInitialEditedTask } from '../../store/feature/tasks.slice';
-import { setInitialEditedWorkspace } from '../../store/feature/workspaces.slice';
-import { useMarkNotificationsAsViewed } from '../../api/notifications/useMarkNotificationsAsViewed';
-import { useMarkNotificationAsRead } from '../../api/notifications/useMarkNotificationAsRead';
-import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
-import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
-import { useGetTask } from '../../api/tasks/useGetTask';
-import { useGetReceivedWorkspaceInvitations } from '../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
-import { useGetSentOutWorkspaceInvitations } from '../../api/workspaceInvitations/useGetSentOutWorkspaceInvitations';
-import { formatTaskForEditing } from '../../utils/formatTaskForEditing';
-import useCheckIfEdited from '../../utils/useCheckIfEdited';
-import useCheckIfEditedWorkspace from '../../utils/useCheckIfEditedWorkspace';
+} from '../../../store/selectors/notificationSelectors';
+import { selectWorkspaces } from '../../../store/selectors/workspaceSelectors';
+import { setEditedTask, setInitialEditedTask } from '../../../store/feature/tasks.slice';
+import { setInitialEditedWorkspace } from '../../../store/feature/workspaces.slice';
+import { useMarkNotificationsAsViewed } from '../../../api/notifications/useMarkNotificationsAsViewed';
+import { useMarkNotificationAsRead } from '../../../api/notifications/useMarkNotificationAsRead';
+import { useGetSentOutInvitations } from '../../../api/invitations/useGetSentOutInvitations';
+import { useGetReceivedInvitations } from '../../../api/invitations/useGetReceivedInvitations';
+import { useGetTask } from '../../../api/tasks/useGetTask';
+import { useGetReceivedWorkspaceInvitations } from '../../../api/workspaceInvitations/useGetReceivedWorkspaceInvitations';
+import { useGetSentOutWorkspaceInvitations } from '../../../api/workspaceInvitations/useGetSentOutWorkspaceInvitations';
+import { formatTaskForEditing } from '../../../utils/formatTaskForEditing';
+import useCheckIfEdited from '../../../utils/useCheckIfEdited';
+import useCheckIfEditedWorkspace from '../../../utils/useCheckIfEditedWorkspace';
 import NotificationsMenu from './NotificationsMenu';
-import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
-import HandleModalTask from '../ModalTask/HandleModalTask';
-import HandleModalWorkspace from '../ModalWorkspace/HandleModalWorkspace';
-import WorkspaceManageModal from '../SideBar/ModalWorkspace/WorkspaceManageModal';
-import { useOutsideClick } from '../../utils/useOutsideClick';
-import { useGetComments } from '../../api/comments/useGetComments';
+import InviteMemberModal from '../../SideBar/InvitationModal/InviteMemberModal';
+import HandleModalTask from '../../ModalTask/HandleModalTask';
+import HandleModalWorkspace from '../../ModalWorkspace/HandleModalWorkspace';
+import WorkspaceManageModal from '../../SideBar/ModalWorkspace/WorkspaceManageModal';
+import { useOutsideClick } from '../../../utils/useOutsideClick';
+import { useGetComments } from '../../../api/comments/useGetComments';
 
 const HeaderNotifications = ({ userId }) => {
 	const dispatch = useDispatch();
@@ -56,11 +56,12 @@ const HeaderNotifications = ({ userId }) => {
 	const [isEditingWorkspace, setIsEditingWorkspace] = useState(false);
 	const [tab, setTab] = useState('tab1');
 	const [openNotificationsModal, setOpenNotificationsModal] = useState(false);
+	const [isClosing, setIsClosing] = useState(false);
 
 	const modalRef = useRef(null);
     const bellRef = useRef(null);
 	const onOutsideClick = useCallback(() => {
-        setShowNotifications(false);
+        closeHandler();
     }, []);
 
     useOutsideClick(modalRef, bellRef, onOutsideClick, showNotifications);
@@ -173,6 +174,7 @@ const HeaderNotifications = ({ userId }) => {
 	const handleNotificationsMenu = (event) => {
 		event.stopPropagation();
 		if (!showNotificationsRef.current) {
+			setIsClosing(false);
 			setShowNotifications(true);
 			const viewedNotificationsIds = unreadNotifications
 				.filter((notif) => !notif.viewedAt)
@@ -181,7 +183,7 @@ const HeaderNotifications = ({ userId }) => {
 					markAsViewed(viewedNotificationsIds);
 				}
 		} else {
-			setShowNotifications(false);
+			closeHandler();
 		}
 	};
 
@@ -192,6 +194,13 @@ const HeaderNotifications = ({ userId }) => {
 	const closeModalWorkspace = async () => {
 		await checkIfEditedWorkspace();
 	};
+
+	const closeHandler = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+			setShowNotifications(false);
+        }, 300);
+    };
 
 	useEffect(() => {
 		if (receivedNewNotifications && receivedNewNotifications.length > 0) {
@@ -254,6 +263,7 @@ const HeaderNotifications = ({ userId }) => {
 					openNotificationsModal={openNotificationsModal}
 					setOpenNotificationsModal={setOpenNotificationsModal}
 					modalRef={modalRef}
+					isClosing={isClosing}
 				/>
 			)}
 

@@ -4,7 +4,7 @@ import { selectEditedTask } from '../../store/selectors/taskSelectors';
 import { convertStatus, convertPriority } from '../../utils/convertTools';
 import { frenchFormattedDate } from '../../utils/dateFormatTools';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
-import CommentsSection from './CommentsSection'; // Import du nouveau composant
+import CommentsSection from './CommentsSection';
 
 const ModalDisplayTask = ({ workspaceTask }) => {
 	const editedTask = useSelector(selectEditedTask);

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCurrentNotificationsPage } from '../../store/selectors/pagesSelectors';
+import { selectCurrentNotificationsPage } from '../../../store/selectors/pagesSelectors';
 import {
 	selectIsNotificationsLoaded,
 	selectNotifications,
 	selectTotalNumberOfNotifications,
-} from '../../store/selectors/notificationSelectors';
-import { useGetAllNotifications } from '../../api/notifications/useGetAllNotifications';
-import getUserId from '../../api/users/getUserId';
-import Pagination from '../../utils/Pagination';
+} from '../../../store/selectors/notificationSelectors';
+import { useGetAllNotifications } from '../../../api/notifications/useGetAllNotifications';
+import getUserId from '../../../api/users/getUserId';
+import Pagination from '../../../utils/Pagination';
 
 const NotificationsModal = ({
 	formatDateToNow,
