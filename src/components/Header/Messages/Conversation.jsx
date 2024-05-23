@@ -45,7 +45,7 @@ const Conversation = ({ contact, onClose, onMinimize, index, isMinimized }) => {
                 <div className="flex flex-col h-full">
                     <div className="flex-grow overflow-y-auto mb-2">
                         {messages.length === 0 ? (
-                            <div className="text-center text-gray-500 mt-4">No messages yet</div>
+                            <div className="text-center text-gray-500 mt-4">Aucun message pour l'instant</div>
                         ) : (
                             messages.map((msg, index) => (
                                 <div key={index} className="mb-1">
@@ -59,10 +59,12 @@ const Conversation = ({ contact, onClose, onMinimize, index, isMinimized }) => {
                             type="text"
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Type your message..."
+                            placeholder="Tapez votre message..."
                             className="flex-grow p-2 border rounded-l"
                         />
-                        <button onClick={sendMessage} className="p-2 bg-blue-500 text-white rounded-r">Send</button>
+                        <button onClick={sendMessage} className="p-2 px-4 bg-blue-500 text-white rounded-r">
+                        <i className="fa-solid fa-paper-plane"></i>
+                        </button>
                     </div>
                 </div>
             )}
