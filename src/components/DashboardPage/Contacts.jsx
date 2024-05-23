@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectIsUserContactsLoaded, selectUserContacts } from '../../store/selectors/userSelectors';
+import { selectConversationWindows } from '../../store/selectors/conversationWindowsSelectors';
+import { closeWindow, minimizeWindow, openWindow } from '../../store/feature/conversationWindows.slice';
 import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
 import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
@@ -10,8 +12,10 @@ import HandleModalContact from '../ModalContact/HandleModalContact';
 import Conversation from '../Header/Messages/Conversation';
 
 const Contacts = ({ userId }) => {
+	const dispatch = useDispatch();
 	const contacts = useSelector(selectUserContacts);
 	const isUserContactsLoaded = useSelector(selectIsUserContactsLoaded);
+	const conversationWindows = useSelector(selectConversationWindows);
 
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
@@ -24,7 +28,6 @@ const Contacts = ({ userId }) => {
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
     const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [activeConversations, setActiveConversations] = useState([]); 
 
 	const openModal = (e) => {
 		e.stopPropagation();
@@ -46,18 +49,25 @@ const Contacts = ({ userId }) => {
 
 	const openConversation = (e, contact) => {
         e.stopPropagation();
-		if (activeConversations.some((c) => c.id === contact.id)) {
-			return;
-		}
-        setActiveConversations((prev) => [...prev, contact]);
-    };
-	const closeConversation = (contactId) => {
-        setActiveConversations((prev) => prev.filter((contact) => contact.id !== contactId));
+        const existingWindow = conversationWindows.find(window => window.contact.id === contact.id);
+        if (existingWindow) {
+            if (existingWindow.isMinimized) {
+                dispatch(minimizeWindow({ contactId: contact.id }));
+            } else {
+                dispatch(minimizeWindow({ contactId: contact.id }));
+            }
+        } else {
+            dispatch(openWindow({ contact }));
+        }
     };
 
-	useEffect(() => {
-		console.log(activeConversations);
-	}, [activeConversations]);
+	const closeConversation = (contactId) => {
+        dispatch(closeWindow({ contactId }));
+    };
+
+	const minimizeConversation = (contactId) => {
+        dispatch(minimizeWindow({ contactId }));
+    };
 
 	useEffect(() => {
 		if (!isUserContactsLoaded) setIsLoading(true);
@@ -162,12 +172,14 @@ const Contacts = ({ userId }) => {
 				<HandleModalContact closeModal={closeModal} selectedContact={selectedContact} />
 			)}
 
-			{activeConversations.map((contact, index) => (
+			{conversationWindows && conversationWindows.map((window, index) => (
                 <Conversation
-                    key={contact.id}
-                    contact={contact}
-                    onClose={() => closeConversation(contact.id)}
-					index={index}
+                    key={window.contact.id}
+                    contact={window.contact}
+                    onClose={() => closeConversation(window.contact.id)}
+					onMinimize={() => minimizeConversation(window.contact.id)}
+                    index={index}
+                    isMinimized={window.isMinimized}
                 />
             ))}
 		</div>
