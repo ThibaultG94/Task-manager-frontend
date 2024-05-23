@@ -7,6 +7,7 @@ import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
 import LoadingComponent from '../Buttons/LoadingComponent';
 import WorkspaceInviteModal from '../ModalWorkspace/WorkspaceInviteModal';
 import HandleModalContact from '../ModalContact/HandleModalContact';
+import Conversation from '../Header/Messages/Conversation';
 
 const Contacts = ({ userId }) => {
 	const contacts = useSelector(selectUserContacts);
@@ -23,6 +24,7 @@ const Contacts = ({ userId }) => {
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
     const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [activeConversations, setActiveConversations] = useState([]); 
 
 	const openModal = (e) => {
 		e.stopPropagation();
@@ -41,6 +43,21 @@ const Contacts = ({ userId }) => {
         setModalPosition({ x: rect.x + rect.width, y: rect.y });
         setIsInviteModalOpen(true);
     };
+
+	const openConversation = (e, contact) => {
+        e.stopPropagation();
+		if (activeConversations.some((c) => c.id === contact.id)) {
+			return;
+		}
+        setActiveConversations((prev) => [...prev, contact]);
+    };
+	const closeConversation = (contactId) => {
+        setActiveConversations((prev) => prev.filter((contact) => contact.id !== contactId));
+    };
+
+	useEffect(() => {
+		console.log(activeConversations);
+	}, [activeConversations]);
 
 	useEffect(() => {
 		if (!isUserContactsLoaded) setIsLoading(true);
@@ -103,9 +120,16 @@ const Contacts = ({ userId }) => {
 											</div>
 										</div>
 									</div>
-									<button className='mr-3' onClick={(e) => openInviteModal(e, contact.id)}>
-										<i className="fa-solid fa-circle-plus"></i>
-									</button>
+									<div className='flex justify-between items-center'>
+										<button className='mr-10 relative h-4 group text-lg' onClick={(e) => openConversation(e, contact)}>
+											<i className="fa-solid fa-paper-plane block absolute z-50 top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
+											<i className="fa-regular fa-paper-plane hidden absolute z-50 top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>
+										</button>
+										<button className='mr-3 relative h-4 group text-lg' onClick={(e) => openInviteModal(e, contact.id)}>
+											<i className="fa-solid fa-circle-plus block absolute z-50 top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
+											<i className="fa-solid fa-plus hidden absolute z-50 top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>
+										</button>
+									</div>
 								</li>
 							))}
 						</ul>
@@ -137,6 +161,15 @@ const Contacts = ({ userId }) => {
 			{isModalOpen && (
 				<HandleModalContact closeModal={closeModal} selectedContact={selectedContact} />
 			)}
+
+			{activeConversations.map((contact, index) => (
+                <Conversation
+                    key={contact.id}
+                    contact={contact}
+                    onClose={() => closeConversation(contact.id)}
+					index={index}
+                />
+            ))}
 		</div>
 	);
 };
