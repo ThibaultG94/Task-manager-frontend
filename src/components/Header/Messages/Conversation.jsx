@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import CloseConversation from '../../Buttons/CloseConversation';
 
 const API_URL = process.env.REACT_APP_API_URL;
 const socket = io(API_URL);
@@ -30,25 +31,28 @@ const Conversation = ({ contact, onClose, onMinimize, index, isMinimized }) => {
     };
 
     const windowWidth = window.innerWidth;
-    const maxConversations = Math.floor(windowWidth / 320);
+    const maxConversations = Math.floor(windowWidth / 330);
 
     return (
-        <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '0' : '40px' }}>
-            <div className="flex items-center justify-between bg-gray-200 p-2 rounded-t-lg">
-                <span>{contact.username}</span>
-                <div className="flex space-x-2">
-                    <button onClick={onMinimize} className="px-2 py-1 text-xs bg-gray-400 rounded">{isMinimized ? 'Maximize' : 'Minimize'}</button>
-                    <button onClick={onClose} className="px-2 py-1 text-xs bg-red-500 text-white rounded">Close</button>
+        <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>
+            <div className="flex items-center justify-between bg-blue-500 text-white rounded-t-lg cursor-pointer" onClick={onMinimize}>
+                <span className='p-2'>{contact.username}</span>
+                <div className='flex w-8 h-8 md:w-10 md:h-10 items-center justify-center'>
+                    <CloseConversation onClose={onClose} />
                 </div>
             </div>
             {!isMinimized && (
                 <div className="flex flex-col h-full">
                     <div className="flex-grow overflow-y-auto mb-2">
-                        {messages.map((msg, index) => (
-                            <div key={index} className="mb-1">
-                                <strong>{msg.user}:</strong> {msg.message}
-                            </div>
-                        ))}
+                        {messages.length === 0 ? (
+                            <div className="text-center text-gray-500 mt-4">No messages yet</div>
+                        ) : (
+                            messages.map((msg, index) => (
+                                <div key={index} className="mb-1">
+                                    <strong>{msg.user}:</strong> {msg.message}
+                                </div>
+                            ))
+                        )}
                     </div>
                     <div className="flex">
                         <input
