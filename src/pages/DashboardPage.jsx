@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectHasBeenUpdated } from '../store/selectors/editStateSelectors';
+import { selectConversationWindows } from '../store/selectors/conversationWindowsSelectors';
 import { setHasBeenUpdated } from '../store/feature/editState.slice';
 import getUserId from '../api/users/getUserId';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
@@ -17,10 +18,12 @@ import Calendar from '../components/DashboardPage/Calendar';
 import UrgentTasks from '../components/DashboardPage/UrgentTasks';
 import ListWorkspaces from '../components/DashboardPage/ListWorkspaces';
 import Contacts from '../components/DashboardPage/Contacts';
+import Conversation from '../components/Header/Messages/Conversation';
 
 const DashboardPage = () => {
 	const dispatch = useDispatch();
 	const hasBeenUpdated = useSelector(selectHasBeenUpdated);
+	const conversationWindows = useSelector(selectConversationWindows);
 
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
@@ -76,6 +79,15 @@ const DashboardPage = () => {
 					<Contacts userId={userId} />
 				</main>
 			</div>
+
+			{conversationWindows && conversationWindows.map((window, index) => (
+                <Conversation
+                    key={window.contact.id}
+                    contact={window.contact}
+                    index={index}
+                    isMinimized={window.isMinimized}
+                />
+            ))}
 		</div>
 	);
 };

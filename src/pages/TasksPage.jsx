@@ -13,6 +13,7 @@ import {
 	selectIsTomorrowTasksLoaded,
 } from '../store/selectors/taskSelectors';
 import { selectCurrentUser } from '../store/selectors/userSelectors';
+import { selectConversationWindows } from '../store/selectors/conversationWindowsSelectors';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
 import getUserId from '../api/users/getUserId';
@@ -35,6 +36,7 @@ import SideBar from '../components/SideBar/SideBar';
 import Header from '../components/Header/Header';
 import DisplayTasks from '../components/TasksPage/DisplayTasks';
 import TaskPageTip from '../components/TasksPage/TaskPageTip';
+import Conversation from '../components/Header/Messages/Conversation';
 
 const TasksPage = () => {
 	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);
@@ -49,6 +51,7 @@ const TasksPage = () => {
 	const isBecomingTasksLoaded = useSelector(selectIsBecomingTasksLoaded);
 
 	const currentUser = useSelector(selectCurrentUser);
+	const conversationWindows = useSelector(selectConversationWindows);
 
 	const checkAuthentication = useCheckAuthentication();
 
@@ -129,6 +132,15 @@ const TasksPage = () => {
 					<TaskPageTip />
 				</main>
 			</div>
+
+			{conversationWindows && conversationWindows.map((window, index) => (
+                <Conversation
+                    key={window.contact.id}
+                    contact={window.contact}
+                    index={index}
+                    isMinimized={window.isMinimized}
+                />
+            ))}
 		</div>
 	);
 };

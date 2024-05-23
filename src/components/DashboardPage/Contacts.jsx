@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsUserContactsLoaded, selectUserContacts } from '../../store/selectors/userSelectors';
 import { selectConversationWindows } from '../../store/selectors/conversationWindowsSelectors';
-import { closeWindow, minimizeWindow, openWindow } from '../../store/feature/conversationWindows.slice';
+import { minimizeWindow, openWindow } from '../../store/feature/conversationWindows.slice';
 import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
 import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
 import LoadingComponent from '../Buttons/LoadingComponent';
 import WorkspaceInviteModal from '../ModalWorkspace/WorkspaceInviteModal';
 import HandleModalContact from '../ModalContact/HandleModalContact';
-import Conversation from '../Header/Messages/Conversation';
 
 const Contacts = ({ userId }) => {
 	const dispatch = useDispatch();
@@ -59,14 +58,6 @@ const Contacts = ({ userId }) => {
         } else {
             dispatch(openWindow({ contact }));
         }
-    };
-
-	const closeConversation = (contactId) => {
-        dispatch(closeWindow({ contactId }));
-    };
-
-	const minimizeConversation = (contactId) => {
-        dispatch(minimizeWindow({ contactId }));
     };
 
 	useEffect(() => {
@@ -171,17 +162,6 @@ const Contacts = ({ userId }) => {
 			{isModalOpen && (
 				<HandleModalContact closeModal={closeModal} selectedContact={selectedContact} />
 			)}
-
-			{conversationWindows && conversationWindows.map((window, index) => (
-                <Conversation
-                    key={window.contact.id}
-                    contact={window.contact}
-                    onClose={() => closeConversation(window.contact.id)}
-					onMinimize={() => minimizeConversation(window.contact.id)}
-                    index={index}
-                    isMinimized={window.isMinimized}
-                />
-            ))}
 		</div>
 	);
 };
