@@ -70,7 +70,7 @@ const ListContacts = ({ userId }) => {
 					{userContacts && userContacts.length > 0 ? (
 						<ul>
 							{userContacts.map((contact) => (
-								<li className='contact' key={contact.id} onClick={(e) => {
+								<li className='contact' key={contact.id + 45554} onClick={(e) => {
 									openModal(e);
 									setSelectedContact(contact)
 								}}>		
@@ -79,12 +79,12 @@ const ListContacts = ({ userId }) => {
 										key={contact.id}>
 										<div className="flex h-8 items-center ellipsis">
 											<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">
-												<i className="fa-solid fa-user"></i>{' '}
+												<i className="fa-solid fa-user"></i>
 											</div>
 											<div className="flex items-center">
 												<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8">
-													<span id="avatarLetterAssigned">
-														{contact.username[0]}
+													<span className="avatarLetterAssigned">
+														{contact?.username?.[0]}
 													</span>
 												</div>
 											</div>

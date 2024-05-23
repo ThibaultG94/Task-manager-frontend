@@ -106,7 +106,7 @@ const Contacts = ({ userId }) => {
 											</div>
 											<div className="flex items-center">
 												<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8">
-													<span id="avatarLetterAssigned">
+													<span className="avatarLetterAssigned">
 														{contact.username[0]}
 													</span>
 												</div>

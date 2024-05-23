@@ -153,7 +153,7 @@ const TaskItem = ({ task, openModal, setSelectedTask }) => {
 			<div className='flex justify-between'>
 				<div className="hidden sm:flex items-center">
 					<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full w-8">
-						<span id="avatarLetterAssigned">
+						<span className="avatarLetterAssigned">
 							{task.assignedToLetter}
 						</span>
 					</div>

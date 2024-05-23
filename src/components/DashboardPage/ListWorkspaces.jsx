@@ -106,7 +106,7 @@ const ListWorkspaces = ({ userId }) => {
 											(member, index) => (
 												<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2">
 													<span
-														id="avatarLetterAssigned"
+														className="avatarLetterAssigned"
 														key={index + 1000}>
 														{member && member[0]}
 													</span>
@@ -143,7 +143,7 @@ const ListWorkspaces = ({ userId }) => {
 													className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2"
 													key={index}>
 													<span
-														id="avatarLetterAssigned"
+														className="avatarLetterAssigned"
 														key={index}>
 														{member && member[0]}
 													</span>
