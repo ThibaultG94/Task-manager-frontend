@@ -1,13 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useOutsideClick } from '../../../utils/useOutsideClick';
+import MessagesMenu from './MessagesMenu';
 
 const HeaderMessages = () => {
     const [showMessages, setShowMessages] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [unreadMessages, setUnreadMessages] = useState([]);
+	const [readedMessages, setReadedMessages] = useState([]);
     const [hasNewMessage, setHasNewMessage] = useState(0);
     
+	const modalRef = useRef(null);
     const messageRef = useRef(null);
     const showMessagesRef = useRef(showMessages);
+
+	const onOutsideClick = useCallback(() => {
+        closeHandler();
+    }, []);
+
+    useOutsideClick(modalRef, messageRef, onOutsideClick, showMessages);
 
     const markAsViewed = async (messagesIds) => {
 		// await markNotificationsAsViewed(userId, messagesIds);
@@ -36,6 +46,10 @@ const HeaderMessages = () => {
 		}
 	};
 
+	const markAsRead = async (message) => {
+		console.log(message);
+	};
+
     useEffect(() => {
 		showMessagesRef.current = showMessages;
 	}, [showMessages]);
@@ -52,6 +66,9 @@ const HeaderMessages = () => {
 						{hasNewMessage < 100 ? hasNewMessage : '99+'}
 					</span>
 				</span>
+			)}
+			{showMessages && (
+				<MessagesMenu modalRef={modalRef} unreadMessages={unreadMessages} readedMessages={readedMessages} onRead={markAsRead} />
 			)}
         </div>
     );
