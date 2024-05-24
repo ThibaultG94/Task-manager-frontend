@@ -128,8 +128,8 @@ const Conversation = ({ contact, index, isMinimized }) => {
                           <span>{time}</span>
                           {isSender && (
                             <span className="ml-2">
-                              <i className={`fa-solid fa-check ${msg.read ? 'text-blue-500' : 'text-gray-400'}`}></i>
-                            </span>
+                                <i className={`fa-solid ${msg.read ? 'fa-check-double text-green-300' : 'fa-check text-gray-300'}`}></i>
+                            </span>                          
                           )}
                         </div>
                       </div>
@@ -145,7 +145,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
               placeholder="Tapez votre message..."
               className="flex-grow p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
