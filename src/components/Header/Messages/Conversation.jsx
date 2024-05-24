@@ -14,7 +14,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
   const dispatch = useDispatch();
   const conversation = useSelector((state) => selectConversationByContactId(state, contact.id));
   
-  const [messages, setMessages] = useState(conversation.messages);
+  const [messages, setMessages] = useState(null);
   const [message, setMessage] = useState('');
 
   const windowWidth = window.innerWidth;
@@ -53,6 +53,10 @@ const Conversation = ({ contact, index, isMinimized }) => {
       socket.off('receive_message');
     };
   }, []);
+  
+  useEffect(() => {
+    if (conversation?.messages) setMessages(conversation?.messages);
+    }, [conversation]);
 
   return (
     <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>
@@ -65,10 +69,10 @@ const Conversation = ({ contact, index, isMinimized }) => {
       {!isMinimized && (
         <div className="flex flex-col h-full">
           <div className="flex-grow overflow-y-auto p-2 mb-2 space-y-2">
-            {messages.length === 0 ? (
+            {messages && messages.length === 0 ? (
               <div className="text-center text-gray-500 mt-4">Aucun message pour l'instant</div>
             ) : (
-              messages.map((msg, index) => {
+              messages && messages.map((msg, index) => {
                 const isSender = msg.senderId !== contact.id;
                 const createdAtDate = getCategoryDate(msg.createdAt);
                 const time = formatTime(msg.createdAt);
