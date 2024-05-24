@@ -19,6 +19,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
   const [messages, setMessages] = useState(null);
   const [message, setMessage] = useState('');
   const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
 
   const windowWidth = window.innerWidth;
   const maxConversations = Math.floor(windowWidth / 330);
@@ -33,6 +34,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
 
   const minimizeConversation = (contactId) => {
     dispatch(minimizeWindow({ contactId }));
+    scrollToBottom();
   };
 
   const sendMessage = async () => {
@@ -46,6 +48,12 @@ const Conversation = ({ contact, index, isMinimized }) => {
     socket.emit('send_message', msg);
     setMessage('');
     scrollToBottom();
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
   };
   
   const formatTime = (dateString) => {
@@ -97,7 +105,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
       </div>
       {!isMinimized && (
         <div className="flex flex-col h-full">
-          <div className="flex-grow overflow-y-auto p-2 mb-2 space-y-2">
+          <div className="flex-grow overflow-y-auto p-2 mb-2 space-y-2" ref={messagesContainerRef}>
             {messages && messages.length === 0 ? (
               <div className="text-center text-gray-500 mt-4">Aucun message pour l'instant</div>
             ) : (
@@ -114,9 +122,9 @@ const Conversation = ({ contact, index, isMinimized }) => {
                       </div>
                     ) : null}
                     <div className={`flex ${isSender ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-xs p-2 rounded-lg ${isSender ? 'bg-blue-500 text-white text-right' : 'bg-gray-200 text-left'} shadow`}>
-                        <div className="text-sm">{msg.content}</div>
-                        <div className="text-xs text-gray-400 mt-1 flex justify-between">
+                      <div className={`relative max-w-xs p-2 rounded-lg pb-4 ${isSender ? 'pr-16 bg-blue-500 text-white text-right' : 'pr-10 bg-gray-200 text-left'} shadow`}>
+                        <div className="text-base">{msg.content}</div>
+                        <div className={`text-xs mt-1 absolute bottom-1 right-2 ${isSender ? 'text-gray-300' : 'text-gray-500'}`}>
                           <span>{time}</span>
                           {isSender && (
                             <span className="ml-2">
@@ -137,6 +145,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
               placeholder="Tapez votre message..."
               className="flex-grow p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
