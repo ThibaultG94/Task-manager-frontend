@@ -35,7 +35,7 @@ const HeaderMessages = ({ userId }) => {
         setIsClosing(true);
         setTimeout(() => {
 			setShowMessages(false);
-        }, 300);
+        }, 600);
     };
 
     const handleMessagesMenu = (event) => {
@@ -84,7 +84,7 @@ const HeaderMessages = ({ userId }) => {
 				</span>
 			)}
 			{showMessages && (
-				<MessagesMenu modalRef={modalRef} conversations={sortedConversations} onRead={markAsRead} userId={userId} />
+				<MessagesMenu modalRef={modalRef} conversations={sortedConversations} onRead={markAsRead} userId={userId} isClosing={isClosing} />
 			)}
         </div>
     );

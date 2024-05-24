@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
-const MessagesMenu = ({ modalRef, conversations, onRead, userId }) => {
+const MessagesMenu = ({ modalRef, conversations, onRead, userId, isClosing }) => {
     const formatDateToNow = (dateString) => {
 		return formatDistanceToNow(parseISO(dateString), {
 			addSuffix: true,
 			locale: fr,
 		});
 	};
+
+	useEffect(() => {
+        const currentModal = modalRef.current;
+        if (currentModal) {
+            currentModal.style.animation = `${isClosing ? 'slideUpNotif' : 'slideDownNotif'} 0.3s forwards`;
+        }
+    }, [isClosing]);
 
     return (
         <div
