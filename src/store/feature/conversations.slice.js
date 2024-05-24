@@ -17,13 +17,15 @@ export const conversationsSlice = createSlice({
       state.isConversationsLoaded = true;
     },
     addMessageToConversation: (state, action) => {
-      const { conversationId, message } = action.payload;
-      const conversation = state.conversations.find(
-        (convo) => convo._id === conversationId
+      const { conversationId, msg } = action.payload;
+      const conversationIndex = state.conversations.findIndex(
+        (conv) => conv._id === conversationId
       );
-      if (conversation) {
-        conversation.messages.push(message);
-        conversation.lastMessage = message.content;
+      if (conversationIndex !== -1) {
+        state.conversations[conversationIndex].messages = [
+          ...state.conversations[conversationIndex].messages,
+          msg,
+        ];
       }
     },
   },

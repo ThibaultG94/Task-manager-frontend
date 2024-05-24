@@ -61,12 +61,10 @@ export async function getCategoryDay(day, status, taskDate) {
   return "uncategorized-tasks"; // default case
 }
 
-export const getCategoryDate = (isoDate) => {
-  console.log(isoDate);
+export function getCategoryDate(isoDate) {
   const today = new Date();
   const messageDate = parseISO(isoDate);
   const differenceInDays = differenceInCalendarDays(today, messageDate);
-  console.log(differenceInDays);
 
   const daysOfWeek = [
     "Dimanche",
@@ -84,9 +82,7 @@ export const getCategoryDate = (isoDate) => {
     return "Hier";
   } else if (differenceInDays < 7) {
     return daysOfWeek[messageDate.getDay()];
-  } else if (differenceInDays < 365) {
-    return format(messageDate, "dd/MM", { locale: fr });
   } else {
     return format(messageDate, "dd/MM/yyyy", { locale: fr });
   }
-};
+}

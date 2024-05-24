@@ -6,6 +6,8 @@ import { selectConversationByContactId } from '../../../store/selectors/conversa
 import CloseConversation from '../../Buttons/CloseConversation';
 import { format, parseISO } from 'date-fns';
 import { getCategoryDate } from '../../../utils/getCategoryDay';
+import { addMessageToConversation } from '../../../store/feature/conversations.slice';
+import getUserId from '../../../api/users/getUserId';
 
 const API_URL = process.env.REACT_APP_API_URL;
 const socket = io(API_URL);
@@ -27,13 +29,19 @@ const Conversation = ({ contact, index, isMinimized }) => {
   const minimizeConversation = (contactId) => {
     dispatch(minimizeWindow({ contactId }));
   };
-  
-  const sendMessage = () => {
-    const msg = { user: 'User', message, conversationId: conversation._id };
+
+  const sendMessage = async () => {
+    const userId = await getUserId();
+    const msg = {
+      senderId: userId,
+      guestId: contact.id,
+      message,
+      conversationId: conversation._id
+    };
     socket.emit('send_message', msg);
     setMessage('');
   };
-
+  
   const formatTime = (dateString) => {
     const date = parseISO(dateString);
     return format(date, 'HH:mm');
@@ -45,7 +53,8 @@ const Conversation = ({ contact, index, isMinimized }) => {
     });
 
     socket.on('receive_message', (msg) => {
-      setMessages(prev => [...prev, msg]);
+        dispatch(addMessageToConversation({ conversationId: msg.conversationId, msg }));
+        setMessages((prev) => [...prev, msg]);
     });
 
     return () => {
@@ -53,10 +62,10 @@ const Conversation = ({ contact, index, isMinimized }) => {
       socket.off('receive_message');
     };
   }, []);
-  
+
   useEffect(() => {
     if (conversation?.messages) setMessages(conversation?.messages);
-    }, [conversation]);
+  }, []);
 
   return (
     <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>
