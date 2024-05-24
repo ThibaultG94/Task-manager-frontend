@@ -26,7 +26,7 @@ const DashboardPage = () => {
 	const hasBeenUpdated = useSelector(selectHasBeenUpdated);
 	const conversationWindows = useSelector(selectConversationWindows);
 
-	useSocket();
+	// useSocket();
 
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);

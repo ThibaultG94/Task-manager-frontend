@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 import { closeWindow, minimizeWindow } from '../../../store/feature/conversationWindows.slice';
 import { selectConversationByContactId } from '../../../store/selectors/conversationsSelectors';
-import CloseConversation from '../../Buttons/CloseConversation';
-import { format, parseISO } from 'date-fns';
-import { getCategoryDate } from '../../../utils/getCategoryDay';
 import { addMessageToConversation } from '../../../store/feature/conversations.slice';
+import { format, parseISO } from 'date-fns';
 import getUserId from '../../../api/users/getUserId';
+import { getCategoryDate } from '../../../utils/getCategoryDay';
+import CloseConversation from '../../Buttons/CloseConversation';
 
 const API_URL = process.env.REACT_APP_API_URL;
 const socket = io(API_URL);
@@ -18,9 +18,14 @@ const Conversation = ({ contact, index, isMinimized }) => {
   
   const [messages, setMessages] = useState(null);
   const [message, setMessage] = useState('');
+  const messagesEndRef = useRef(null);
 
   const windowWidth = window.innerWidth;
   const maxConversations = Math.floor(windowWidth / 330);
+
+  const scrollToBottom = (behavior = 'smooth') => {
+    messagesEndRef.current?.scrollIntoView({ behavior });
+  };
 
   const closeConversation = (contactId) => {
     dispatch(closeWindow({ contactId }));
@@ -40,6 +45,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
     };
     socket.emit('send_message', msg);
     setMessage('');
+    scrollToBottom();
   };
   
   const formatTime = (dateString) => {
@@ -53,8 +59,9 @@ const Conversation = ({ contact, index, isMinimized }) => {
     });
 
     socket.on('receive_message', (msg) => {
-        dispatch(addMessageToConversation({ conversationId: msg.conversationId, msg }));
-        setMessages((prev) => [...prev, msg]);
+      dispatch(addMessageToConversation({ conversationId: msg.conversationId, msg }));
+      setMessages((prev) => [...prev, msg]);
+      scrollToBottom();
     });
 
     return () => {
@@ -64,8 +71,21 @@ const Conversation = ({ contact, index, isMinimized }) => {
   }, []);
 
   useEffect(() => {
-    if (conversation?.messages) setMessages(conversation?.messages);
-  }, []);
+    if (conversation?.messages) {
+      setMessages(conversation?.messages);
+      scrollToBottom('auto');
+    }
+  }, [conversation]);
+
+  useEffect(() => {
+    scrollToBottom('auto');
+  }, [messages]);
+
+  useEffect(() => {
+    if (!isMinimized) {
+      scrollToBottom('auto');
+    }
+  }, [isMinimized]);
 
   return (
     <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>
@@ -110,6 +130,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
                 );
               })
             )}
+            <div ref={messagesEndRef} />
           </div>
           <div className="flex items-center border-t">
             <input

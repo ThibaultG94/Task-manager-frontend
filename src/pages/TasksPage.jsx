@@ -56,7 +56,7 @@ const TasksPage = () => {
 
 	const checkAuthentication = useCheckAuthentication();
 
-	useSocket();
+	// useSocket();
 
 	useUpdateTasksInStore();
 
