@@ -28,12 +28,26 @@ export const conversationsSlice = createSlice({
         ];
       }
     },
+    markConversationAsRead: (state, action) => {
+      const conversationId = action.payload;
+      const conversation = state.conversations.find(
+        (conv) => conv._id === conversationId
+      );
+      if (conversation) {
+        conversation.messages.forEach((msg) => {
+          msg.read = true;
+        });
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(resetStore, () => initialState);
   },
 });
 
-export const { setConversations, addMessageToConversation } =
-  conversationsSlice.actions;
+export const {
+  setConversations,
+  addMessageToConversation,
+  markConversationAsRead,
+} = conversationsSlice.actions;
 export default conversationsSlice.reducer;

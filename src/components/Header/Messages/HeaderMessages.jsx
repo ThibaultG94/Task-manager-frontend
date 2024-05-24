@@ -1,18 +1,24 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetConversations } from '../../../api/conversations/useGetConversations';
 import { useOutsideClick } from '../../../utils/useOutsideClick';
 import MessagesMenu from './MessagesMenu';
+import { setConversations, markConversationAsRead } from '../../../store/feature/conversations.slice';
+import { selectConversations } from '../../../store/selectors/conversationsSelectors';
+import getUserId from '../../../api/users/getUserId';
 
 const HeaderMessages = () => {
 	const getConversations = useGetConversations();
+    const dispatch = useDispatch();
+    const conversations = useSelector(selectConversations);
 
     const [showMessages, setShowMessages] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
-    const [unreadMessages, setUnreadMessages] = useState([]);
-	const [readedMessages, setReadedMessages] = useState([]);
-    const [hasNewMessage, setHasNewMessage] = useState(0);
-    
-	const modalRef = useRef(null);
+    const [sortedConversations, setSortedConversations] = useState([]);
+    const [unreadCount, setUnreadCount] = useState(0);
+	const [userId, setUserId] = useState(null);
+
+    const modalRef = useRef(null);
     const messageRef = useRef(null);
     const showMessagesRef = useRef(showMessages);
 
@@ -22,8 +28,8 @@ const HeaderMessages = () => {
 
     useOutsideClick(modalRef, messageRef, onOutsideClick, showMessages);
 
-    const markAsViewed = async (messagesIds) => {
-		// await markNotificationsAsViewed(userId, messagesIds);
+    const markAsRead = async (conversationId) => {
+		dispatch(markConversationAsRead(conversationId));
 	};
 
     const closeHandler = () => {
@@ -38,26 +44,32 @@ const HeaderMessages = () => {
 		if (!showMessagesRef.current) {
 			setIsClosing(false);
 			setShowMessages(true);
-			const viewedMessagesIds = unreadMessages
-				.filter((notif) => !notif.viewedAt)
-				.map((notif) => notif._id);
-				if (viewedMessagesIds.length > 0) {
-					markAsViewed(viewedMessagesIds);
-				}
 		} else {
 			closeHandler();
 		}
-	};
-
-	const markAsRead = async (message) => {
-		console.log(message);
 	};
 
 	useEffect(() => {
 		getConversations();
 	}, []);
 
-    useEffect(() => {
+	useEffect(() => {
+		if (conversations.length > 0) {
+			const id = getUserId();
+			setUserId(id);
+			const sortedConvs = conversations
+				.filter(conv => conv.messages.length > 0)
+				.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+			setSortedConversations(sortedConvs);
+
+			const unreadMsgCount = sortedConvs.reduce((count, conv) => 
+				count + conv.messages.filter(msg => !msg.read && msg.guestId === userId).length, 0
+			);
+			setUnreadCount(unreadMsgCount);
+		}
+	}, [conversations]);
+
+	useEffect(() => {
 		showMessagesRef.current = showMessages;
 	}, [showMessages]);
 
@@ -67,15 +79,15 @@ const HeaderMessages = () => {
             <span className="cursor-pointer text-dark-blue text-2xl sm:text-3xl">
                 <i className="fa-regular fa-envelope"></i>
 			</span>
-            {hasNewMessage > 0 && (
+            {unreadCount > 0 && (
 				<span className="absolute top-0 sm:top-1 md:top-0 md:bottom-5 left-3.5 sm:left-4 h-4 sm:h-5 md:h-6 w-4 sm:w-5 md:w-6 bg-red-500 rounded-full flex items-center justify-center">
 					<span className="text-white text-[0.5rem] sm:text-xs font-semibold flex items-center justify-center">
-						{hasNewMessage < 100 ? hasNewMessage : '99+'}
+						{unreadCount < 100 ? unreadCount : '99+'}
 					</span>
 				</span>
 			)}
 			{showMessages && (
-				<MessagesMenu modalRef={modalRef} unreadMessages={unreadMessages} readedMessages={readedMessages} onRead={markAsRead} />
+				<MessagesMenu modalRef={modalRef} conversations={sortedConversations} onRead={markAsRead} userId={userId} />
 			)}
         </div>
     );
