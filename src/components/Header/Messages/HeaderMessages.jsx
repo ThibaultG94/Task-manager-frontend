@@ -1,8 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useGetConversations } from '../../../api/conversations/useGetConversations';
 import { useOutsideClick } from '../../../utils/useOutsideClick';
 import MessagesMenu from './MessagesMenu';
 
 const HeaderMessages = () => {
+	const getConversations = useGetConversations();
+
     const [showMessages, setShowMessages] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [unreadMessages, setUnreadMessages] = useState([]);
@@ -49,6 +52,10 @@ const HeaderMessages = () => {
 	const markAsRead = async (message) => {
 		console.log(message);
 	};
+
+	useEffect(() => {
+		getConversations();
+	}, []);
 
     useEffect(() => {
 		showMessagesRef.current = showMessages;

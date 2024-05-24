@@ -31,6 +31,7 @@ import { useGetNextYearTasks } from '../api/tasks/useGetNextYearTasks';
 import { useGetBecomingTasks } from '../api/tasks/useGetBecomingTasks';
 import { useGetNotifications } from '../api/notifications/useGetNotifications';
 import { useGetTips } from '../api/tips/useGetTips';
+import useSocket from '../hooks/useSocket';
 import { ToastContainer } from 'react-toastify';
 import SideBar from '../components/SideBar/SideBar';
 import Header from '../components/Header/Header';
@@ -54,6 +55,8 @@ const TasksPage = () => {
 	const conversationWindows = useSelector(selectConversationWindows);
 
 	const checkAuthentication = useCheckAuthentication();
+
+	useSocket();
 
 	useUpdateTasksInStore();
 

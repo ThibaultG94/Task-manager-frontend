@@ -10,6 +10,7 @@ import notificationsSlice from "./feature/notifications.slice";
 import workspaceInvitationsSlice from "./feature/workspaceInvitation.slice";
 import commentsSlice from "./feature/comments.slice";
 import conversationWindowsSlice from "./feature/conversationWindows.slice";
+import conversationsSlice from "./feature/conversations.slice";
 import { resetStore } from "./actions/reset.actions";
 
 const appReducer = combineReducers({
@@ -24,6 +25,7 @@ const appReducer = combineReducers({
   notifications: notificationsSlice,
   comments: commentsSlice,
   conversationWindows: conversationWindowsSlice,
+  conversations: conversationsSlice,
 });
 
 const rootReducer = (state, action) => {

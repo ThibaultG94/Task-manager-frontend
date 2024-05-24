@@ -1,3 +1,6 @@
+import { format, parseISO, differenceInCalendarDays } from "date-fns";
+import { fr } from "date-fns/locale";
+
 export async function getCategoryDay(day, status, taskDate) {
   const today = new Date();
   const todayDayOfWeek = today.getDay();
@@ -57,3 +60,33 @@ export async function getCategoryDay(day, status, taskDate) {
 
   return "uncategorized-tasks"; // default case
 }
+
+export const getCategoryDate = (isoDate) => {
+  console.log(isoDate);
+  const today = new Date();
+  const messageDate = parseISO(isoDate);
+  const differenceInDays = differenceInCalendarDays(today, messageDate);
+  console.log(differenceInDays);
+
+  const daysOfWeek = [
+    "Dimanche",
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi",
+  ];
+
+  if (differenceInDays === 0) {
+    return "Aujourd'hui";
+  } else if (differenceInDays === 1) {
+    return "Hier";
+  } else if (differenceInDays < 7) {
+    return daysOfWeek[messageDate.getDay()];
+  } else if (differenceInDays < 365) {
+    return format(messageDate, "dd/MM", { locale: fr });
+  } else {
+    return format(messageDate, "dd/MM/yyyy", { locale: fr });
+  }
+};
