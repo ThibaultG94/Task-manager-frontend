@@ -24,6 +24,8 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId }) => {
 						{conversations.map((conv) => {
 							const lastMessage = conv.messages[conv.messages.length - 1];
 							const hasUnreadMessages = conv.messages.some(msg => !msg.read && msg.guestId === userId);
+							const otherUser = conv.users.find(user => user._id !== userId);
+
 							return (
 								<li
 									key={conv._id}
@@ -37,7 +39,7 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId }) => {
 												id="avatarLetterNotif"
 												className="text-lg text-white">
 												{
-													conv.users[0].username[0]
+													otherUser?.username[0]
 												}
 											</span>
 										</div>

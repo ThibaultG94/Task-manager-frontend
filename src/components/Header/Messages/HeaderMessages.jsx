@@ -7,7 +7,7 @@ import { setConversations, markConversationAsRead } from '../../../store/feature
 import { selectConversations } from '../../../store/selectors/conversationsSelectors';
 import getUserId from '../../../api/users/getUserId';
 
-const HeaderMessages = () => {
+const HeaderMessages = ({ userId }) => {
 	const getConversations = useGetConversations();
     const dispatch = useDispatch();
     const conversations = useSelector(selectConversations);
@@ -16,7 +16,6 @@ const HeaderMessages = () => {
     const [isClosing, setIsClosing] = useState(false);
     const [sortedConversations, setSortedConversations] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
-	const [userId, setUserId] = useState(null);
 
     const modalRef = useRef(null);
     const messageRef = useRef(null);
@@ -55,8 +54,6 @@ const HeaderMessages = () => {
 
 	useEffect(() => {
 		if (conversations.length > 0) {
-			const id = getUserId();
-			setUserId(id);
 			const sortedConvs = conversations
 				.filter(conv => conv.messages.length > 0)
 				.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));

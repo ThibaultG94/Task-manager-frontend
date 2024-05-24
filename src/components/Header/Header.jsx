@@ -25,7 +25,7 @@ const Header = () => {
 			<div className="absolute flex h-full items-center right-0 top-0">
 				{/* <HeaderSearch /> */}
 				<div className="flex">
-					<HeaderMessages />
+					<HeaderMessages userId={userId} />
 					<HeaderNotifications userId={userId} />
 					<HeaderAvatar currentUser={currentUser} />
 				</div>
