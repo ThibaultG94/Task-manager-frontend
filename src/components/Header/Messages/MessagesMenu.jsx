@@ -1,14 +1,27 @@
 import React, { useEffect } from 'react';
+import useOpenConversation from '../../../hooks/useOpenConversation';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 const MessagesMenu = ({ modalRef, conversations, onRead, userId, showMessages }) => {
+	const openConversation = useOpenConversation();
+
     const formatDateToNow = (dateString) => {
         return formatDistanceToNow(parseISO(dateString), {
             addSuffix: true,
             locale: fr,
         });
     };
+
+	const processConversation = (e, conv) => {
+		onRead(conv._id);
+		const user = conv.users.find(user => user._id !== userId);
+		const contact = {
+			...user,
+			id: user._id,
+		};
+		openConversation(e, contact);
+	};
 
     useEffect(() => {
         const currentModal = modalRef.current;
@@ -45,7 +58,7 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId, showMessages })
                                     className={`px-4 py-2 text-sm border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-center ${
                                         hasUnreadMessages ? 'font-bold' : ''
                                     }`}
-                                    onClick={() => onRead(conv._id)}>
+                                    onClick={(e) => processConversation(e, conv)}>
                                     <div className="flex flex-1 items-center space-x-2 ellipsis">
                                         <div className="bg-dark-blue flex h-10 items-center justify-center mx-auto overflow-hidden p-2 relative rounded-full w-10">
                                             <span

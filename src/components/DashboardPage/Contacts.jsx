@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectIsUserContactsLoaded, selectUserContacts } from '../../store/selectors/userSelectors';
-import { selectConversationWindows } from '../../store/selectors/conversationWindowsSelectors';
-import { minimizeWindow, openWindow } from '../../store/feature/conversationWindows.slice';
 import { useGetSentOutInvitations } from '../../api/invitations/useGetSentOutInvitations';
 import { useGetReceivedInvitations } from '../../api/invitations/useGetReceivedInvitations';
+import useOpenConversation from '../../hooks/useOpenConversation';
 import InviteMemberModal from '../SideBar/InvitationModal/InviteMemberModal';
 import LoadingComponent from '../Buttons/LoadingComponent';
 import WorkspaceInviteModal from '../ModalWorkspace/WorkspaceInviteModal';
 import HandleModalContact from '../ModalContact/HandleModalContact';
 
 const Contacts = ({ userId }) => {
-	const dispatch = useDispatch();
 	const contacts = useSelector(selectUserContacts);
 	const isUserContactsLoaded = useSelector(selectIsUserContactsLoaded);
-	const conversationWindows = useSelector(selectConversationWindows);
 
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
+	const openConversation = useOpenConversation();
 
 	const [userContacts, setUserContacts] = useState();
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
@@ -44,20 +42,6 @@ const Contacts = ({ userId }) => {
         setSelectedContactId(contactId);
         setModalPosition({ x: rect.x + rect.width, y: rect.y });
         setIsInviteModalOpen(true);
-    };
-
-	const openConversation = (e, contact) => {
-        e.stopPropagation();
-        const existingWindow = conversationWindows.find(window => window.contact.id === contact.id);
-        if (existingWindow) {
-            if (existingWindow.isMinimized) {
-                dispatch(minimizeWindow({ contactId: contact.id }));
-            } else {
-                dispatch(minimizeWindow({ contactId: contact.id }));
-            }
-        } else {
-            dispatch(openWindow({ contact }));
-        }
     };
 
 	useEffect(() => {
