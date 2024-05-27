@@ -33,7 +33,6 @@ export const conversationsSlice = createSlice({
       const conversation = state.conversations.find(
         (conv) => conv._id === conversationId
       );
-      console.log(conversation);
       if (conversation) {
         conversation.messages.forEach((msg) => {
           if (msg.guestId === userId) {
