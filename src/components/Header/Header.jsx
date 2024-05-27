@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/selectors/userSelectors';
+import { useGetConversations } from '../../api/conversations/useGetConversations';
 import HeaderWelcome from './HeaderWelcome';
 import HeaderNav from './HeaderNav';
 import HeaderSearch from './HeaderSearch';
@@ -10,6 +11,8 @@ import HeaderMessages from './Messages/HeaderMessages';
 
 const Header = () => {
 	const currentUser = useSelector(selectCurrentUser);
+	const getConversations = useGetConversations();
+
 	const [userId, setUserId] = useState(null);
 
 	useEffect(() => {
@@ -17,6 +20,10 @@ const Header = () => {
 			setUserId(currentUser._id);
 		}
 	}, [currentUser]);
+
+	useEffect(() => {
+        getConversations();
+    }, [userId]);
 
 	return (
 		<header className="h-10 md:h-16 mx-auto py-2 relative w-full">

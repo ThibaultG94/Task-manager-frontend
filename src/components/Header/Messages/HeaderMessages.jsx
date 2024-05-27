@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetConversations } from '../../../api/conversations/useGetConversations';
 import { useOutsideClick } from '../../../utils/useOutsideClick';
 import MessagesMenu from './MessagesMenu';
-import { setConversations, markConversationAsRead } from '../../../store/feature/conversations.slice';
+import { markConversationAsRead } from '../../../store/feature/conversations.slice';
 import { selectConversations } from '../../../store/selectors/conversationsSelectors';
-import getUserId from '../../../api/users/getUserId';
 
 const HeaderMessages = ({ userId }) => {
-    const getConversations = useGetConversations();
     const dispatch = useDispatch();
     const conversations = useSelector(selectConversations);
 
@@ -36,19 +34,18 @@ const HeaderMessages = ({ userId }) => {
     };
 
     useEffect(() => {
-        getConversations();
-    }, []);
-
-    useEffect(() => {
         if (conversations.length > 0) {
             const sortedConvs = conversations
                 .filter(conv => conv.messages.length > 0)
                 .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
             setSortedConversations(sortedConvs);
 
+			console.log(sortedConvs);
+
             const unreadMsgCount = sortedConvs.reduce((count, conv) =>
                 count + conv.messages.filter(msg => !msg.read && msg.guestId === userId).length, 0
             );
+			console.log(unreadMsgCount);
             setUnreadCount(unreadMsgCount);
         }
     }, [conversations]);
