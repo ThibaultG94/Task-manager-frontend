@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/selectors/userSelectors';
+import { markConversationAsRead } from '../../store/feature/conversations.slice';
 import { useSocket } from '../../context/SocketContext';
 import { useGetConversations } from '../../api/conversations/useGetConversations';
 import HeaderWelcome from './HeaderWelcome';
@@ -34,9 +35,14 @@ const Header = () => {
 		  socket.on('receive_message', (message) => {
 			dispatch(addMessageToConversation({ conversationId: message.conversationId, msg: message }));
 		  });
+
+		  socket.on('message_read', ({ conversationId, userId }) => {
+			dispatch(markConversationAsRead({ conversationId, userId }));
+		  });
 	
 		  return () => {
 			socket.off('receive_message');
+			socket.off('message_read');
 		  };
 		}
 	  }, [socket]);

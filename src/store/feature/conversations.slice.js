@@ -29,13 +29,16 @@ export const conversationsSlice = createSlice({
       }
     },
     markConversationAsRead: (state, action) => {
-      const conversationId = action.payload;
+      const { conversationId, userId } = action.payload;
       const conversation = state.conversations.find(
         (conv) => conv._id === conversationId
       );
+      console.log(conversation);
       if (conversation) {
         conversation.messages.forEach((msg) => {
-          msg.read = true;
+          if (msg.guestId === userId) {
+            msg.read = true;
+          }
         });
       }
     },

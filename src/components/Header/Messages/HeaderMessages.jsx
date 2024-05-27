@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSocket } from '../../../context/SocketContext';
 import { useOutsideClick } from '../../../utils/useOutsideClick';
 import MessagesMenu from './MessagesMenu';
 import { markConversationAsRead } from '../../../store/feature/conversations.slice';
@@ -8,6 +9,7 @@ import { selectConversations } from '../../../store/selectors/conversationsSelec
 const HeaderMessages = ({ userId }) => {
     const dispatch = useDispatch();
     const conversations = useSelector(selectConversations);
+	const socket = useSocket();
 
     const [showMessages, setShowMessages] = useState(false);
     const [sortedConversations, setSortedConversations] = useState([]);
@@ -25,7 +27,8 @@ const HeaderMessages = ({ userId }) => {
     useOutsideClick(modalRef, messageRef, onOutsideClick, showMessages);
 
     const markAsRead = async (conversationId) => {
-        dispatch(markConversationAsRead(conversationId));
+        dispatch(markConversationAsRead({ conversationId, userId }));
+		socket.emit('read_message', { conversationId, userId });
     };
 
     const handleMessagesMenu = (event) => {
