@@ -40,13 +40,12 @@ const HeaderMessages = ({ userId }) => {
                 .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
             setSortedConversations(sortedConvs);
 
-			console.log(sortedConvs);
-
-            const unreadMsgCount = sortedConvs.reduce((count, conv) =>
-                count + conv.messages.filter(msg => !msg.read && msg.guestId === userId).length, 0
-            );
-			console.log(unreadMsgCount);
-            setUnreadCount(unreadMsgCount);
+			if (sortedConvs && sortedConvs.length > 0) {
+				const unreadMsgCount = sortedConvs.reduce((count, conv) =>
+					count + conv.messages.filter(msg => !msg?.read && msg?.guestId === userId).length, 0
+				);
+            	setUnreadCount(unreadMsgCount);
+			}
         }
     }, [conversations]);
 

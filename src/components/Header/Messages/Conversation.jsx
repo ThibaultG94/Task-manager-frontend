@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSocket } from '../../../context/SocketContext';
 import { useDispatch, useSelector } from 'react-redux';
-import { io } from 'socket.io-client';
 import { closeWindow, minimizeWindow } from '../../../store/feature/conversationWindows.slice';
 import { selectConversationByContactId } from '../../../store/selectors/conversationsSelectors';
 import { addMessageToConversation } from '../../../store/feature/conversations.slice';
@@ -9,11 +9,9 @@ import getUserId from '../../../api/users/getUserId';
 import { getCategoryDate } from '../../../utils/getCategoryDay';
 import CloseConversation from '../../Buttons/CloseConversation';
 
-const API_URL = process.env.REACT_APP_API_URL;
-const socket = io(API_URL);
-
 const Conversation = ({ contact, index, isMinimized }) => {
   const dispatch = useDispatch();
+  const socket = useSocket();
   const conversation = useSelector((state) => selectConversationByContactId(state, contact.id));
   
   const [messages, setMessages] = useState(null);
@@ -110,9 +108,9 @@ const Conversation = ({ contact, index, isMinimized }) => {
               <div className="text-center text-gray-500 mt-4">Aucun message pour l'instant</div>
             ) : (
               messages && messages.map((msg, index) => {
-                const isSender = msg.senderId !== contact.id;
-                const createdAtDate = getCategoryDate(msg.createdAt);
-                const time = formatTime(msg.createdAt);
+                const isSender = msg?.senderId !== contact.id;
+                const createdAtDate = getCategoryDate(msg?.createdAt);
+                const time = formatTime(msg?.createdAt);
 
                 return (
                   <React.Fragment key={index}>
@@ -123,12 +121,12 @@ const Conversation = ({ contact, index, isMinimized }) => {
                     ) : null}
                     <div className={`flex ${isSender ? 'justify-end' : 'justify-start'}`}>
                       <div className={`relative max-w-xs p-2 rounded-lg pb-4 ${isSender ? 'pr-16 bg-blue-500 text-white text-right' : 'pr-10 bg-gray-200 text-left'} shadow`}>
-                        <div className="text-base">{msg.content}</div>
+                        <div className="text-base">{msg?.content}</div>
                         <div className={`text-xs mt-1 absolute bottom-1 right-2 ${isSender ? 'text-gray-300' : 'text-gray-500'}`}>
                           <span>{time}</span>
                           {isSender && (
                             <span className="ml-2">
-                                <i className={`fa-solid ${msg.read ? 'fa-check-double text-green-300' : 'fa-check text-gray-300'}`}></i>
+                                <i className={`fa-solid ${msg?.read ? 'fa-check-double text-green-300' : 'fa-check text-gray-300'}`}></i>
                             </span>                          
                           )}
                         </div>

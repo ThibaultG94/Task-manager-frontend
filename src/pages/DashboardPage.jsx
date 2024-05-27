@@ -1,3 +1,4 @@
+// DashboardPage.jsx
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectHasBeenUpdated } from '../store/selectors/editStateSelectors';
@@ -11,7 +12,6 @@ import { useGetUrgentTasks } from '../api/tasks/useGetUrgentTasks';
 import { useGetWorkspaces } from '../api/workspaces/useGetWorkspaces';
 import { useGetContacts } from '../api/users/useGetContacts';
 import { useGetNotifications } from '../api/notifications/useGetNotifications';
-import useSocket from '../hooks/useSocket';
 import { ToastContainer } from 'react-toastify';
 import SideBar from '../components/SideBar/SideBar';
 import Header from '../components/Header/Header';
@@ -25,8 +25,6 @@ const DashboardPage = () => {
 	const dispatch = useDispatch();
 	const hasBeenUpdated = useSelector(selectHasBeenUpdated);
 	const conversationWindows = useSelector(selectConversationWindows);
-
-	// useSocket();
 
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
@@ -84,13 +82,13 @@ const DashboardPage = () => {
 			</div>
 
 			{conversationWindows && conversationWindows.map((window, index) => (
-                <Conversation
-                    key={window.contact.id}
-                    contact={window.contact}
-                    index={index}
-                    isMinimized={window.isMinimized}
-                />
-            ))}
+				<Conversation
+					key={window.contact.id}
+					contact={window.contact}
+					index={index}
+					isMinimized={window.isMinimized}
+				/>
+			))}
 		</div>
 	);
 };

@@ -48,8 +48,8 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId, showMessages })
                 ) : (
                     <ul>
                         {conversations.map((conv) => {
-                            const lastMessage = conv.messages[conv.messages.length - 1];
-                            const hasUnreadMessages = conv.messages.some(msg => !msg.read && msg.guestId === userId);
+                            const lastMessage = conv.messages[conv.messages?.length - 1];
+                            const hasUnreadMessages = conv.messages.some(msg => !msg?.read && msg?.guestId === userId);
                             const otherUser = conv.users.find(user => user._id !== userId);
 
                             return (
