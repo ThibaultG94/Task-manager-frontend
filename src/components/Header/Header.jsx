@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/selectors/userSelectors';
+import { useSocket } from '../../context/SocketContext';
 import { useGetConversations } from '../../api/conversations/useGetConversations';
 import HeaderWelcome from './HeaderWelcome';
 import HeaderNav from './HeaderNav';
@@ -8,9 +9,12 @@ import HeaderSearch from './HeaderSearch';
 import HeaderNotifications from './Notifications/HeaderNotifications';
 import HeaderAvatar from './HeaderAvatar';
 import HeaderMessages from './Messages/HeaderMessages';
+import { addMessageToConversation } from '../../store/feature/conversations.slice';
 
 const Header = () => {
+	const dispatch = useDispatch();
 	const currentUser = useSelector(selectCurrentUser);
+	const socket = useSocket();
 	const getConversations = useGetConversations();
 
 	const [userId, setUserId] = useState(null);
@@ -24,6 +28,18 @@ const Header = () => {
 	useEffect(() => {
         getConversations();
     }, [userId]);
+
+	useEffect(() => {
+		if (socket) {
+		  socket.on('receive_message', (message) => {
+			dispatch(addMessageToConversation({ conversationId: message.conversationId, msg: message }));
+		  });
+	
+		  return () => {
+			socket.off('receive_message');
+		  };
+		}
+	  }, [socket]);
 
 	return (
 		<header className="h-10 md:h-16 mx-auto py-2 relative w-full">
