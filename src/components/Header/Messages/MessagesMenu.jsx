@@ -3,7 +3,7 @@ import useOpenConversation from '../../../hooks/useOpenConversation';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
-const MessagesMenu = ({ modalRef, conversations, onRead, userId, showMessages }) => {
+const MessagesMenu = ({ modalRef, conversations, onRead, userId, setShowMessages, isClosing }) => {
 	const openConversation = useOpenConversation();
 
     const formatDateToNow = (dateString) => {
@@ -26,7 +26,7 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId, showMessages })
     useEffect(() => {
         const currentModal = modalRef.current;
         if (currentModal) {
-            if (showMessages) {
+            if (!isClosing) {
                 currentModal.classList.add('slideDownNotif');
                 currentModal.classList.remove('slideUpNotif');
             } else {
@@ -34,7 +34,7 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId, showMessages })
                 currentModal.classList.remove('slideDownNotif');
             }
         }
-    }, [showMessages]);
+    }, [isClosing]);
 
     return (
         <div

@@ -3,7 +3,6 @@ import { useSocket } from '../../../context/SocketContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeWindow, minimizeWindow } from '../../../store/feature/conversationWindows.slice';
 import { selectConversationByContactId } from '../../../store/selectors/conversationsSelectors';
-import { addMessageToConversation } from '../../../store/feature/conversations.slice';
 import { format, parseISO } from 'date-fns';
 import getUserId from '../../../api/users/getUserId';
 import { getCategoryDate } from '../../../utils/getCategoryDay';

@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetConversations } from '../../../api/conversations/useGetConversations';
 import { useOutsideClick } from '../../../utils/useOutsideClick';
 import MessagesMenu from './MessagesMenu';
 import { markConversationAsRead } from '../../../store/feature/conversations.slice';
@@ -13,13 +12,14 @@ const HeaderMessages = ({ userId }) => {
     const [showMessages, setShowMessages] = useState(false);
     const [sortedConversations, setSortedConversations] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
+	const [isClosing, setIsClosing] = useState(false);
 
     const modalRef = useRef(null);
     const messageRef = useRef(null);
     const showMessagesRef = useRef(showMessages);
 
     const onOutsideClick = useCallback(() => {
-        setShowMessages(false);
+        closeHandler();
     }, []);
 
     useOutsideClick(modalRef, messageRef, onOutsideClick, showMessages);
@@ -30,7 +30,19 @@ const HeaderMessages = ({ userId }) => {
 
     const handleMessagesMenu = (event) => {
         event.stopPropagation();
-        setShowMessages(prevState => !prevState);
+		if (!showMessagesRef.current) {
+			setIsClosing(false);
+			setShowMessages(prevState => !prevState);;
+		} else {
+			closeHandler();
+		}    
+    };
+
+	const closeHandler = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+			setShowMessages(false);
+        }, 300);
     };
 
     useEffect(() => {
@@ -66,7 +78,9 @@ const HeaderMessages = ({ userId }) => {
                     </span>
                 </span>
             )}
-            <MessagesMenu modalRef={modalRef} conversations={sortedConversations} onRead={markAsRead} userId={userId} showMessages={showMessages} />
+			{showMessages &&
+            	<MessagesMenu modalRef={modalRef} conversations={sortedConversations} onRead={markAsRead} userId={userId} isClosing={isClosing} setShowMessages={setShowMessages} />
+			}
         </div>
     );
 };
