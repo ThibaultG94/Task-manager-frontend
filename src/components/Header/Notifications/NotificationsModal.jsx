@@ -87,7 +87,7 @@ const NotificationsModal = ({
 			onClick={handleNotificationsModal}>
 			<div
 				className="bg-white border border-gray-400 flex flex-col mx-auto my-modal-margin mt-20 rounded-lg shadow-md w-modal-xs custom-xs:w-modal-sm md:w-modal-md lg:w-modal-lg xl:w-modal-xl pb-2"
-				onClick={(e) => e.stopPropagation()} ref={modalRef}>
+				onClick={(e) => e.stopPropagation()}>
 				<div className="overflow-y-auto max-h-[500px]">
 					{displayNotifications &&
 					displayNotifications.length === 0 ? (

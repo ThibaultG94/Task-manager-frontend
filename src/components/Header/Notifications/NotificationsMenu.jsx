@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { fr, is } from 'date-fns/locale';
 import NotificationsModal from './NotificationsModal';
 
 const NotificationsMenu = ({
@@ -42,11 +42,18 @@ const NotificationsMenu = ({
 	useEffect(() => {
         const currentModal = modalRef.current;
         if (currentModal) {
-            currentModal.style.animation = `${isClosing ? 'slideUpNotif' : 'slideDownNotif'} 0.3s forwards`;
+            if (!isClosing) {
+                currentModal.classList.add('slideDownNotif');
+                currentModal.classList.remove('slideUpNotif');
+            } else {
+                currentModal.classList.add('slideUpNotif');
+                currentModal.classList.remove('slideDownNotif');
+            }
         }
     }, [isClosing]);
 
 	return (
+		<>
 		<div
 			className="absolute top-full right-0 w-80 bg-white rounded-md shadow-lg border-gray-200 z-10 overflow-hidden pt-2 select-none"
 			onClick={(e) => e.stopPropagation()} ref={modalRef}>
@@ -66,25 +73,25 @@ const NotificationsMenu = ({
 						<ul>
 							{unreadNotifications.map((notification) => (
 								<li
-									key={notification._id}
-									className={`px-4 py-2 text-sm border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-center ${
-										notification.read
-											? 'opacity-50'
-											: 'font-bold'
-									} ${
-										!notification.viewedAt
-											? 'bg-gray-100'
-											: 'bg-white'
-									}`}
-									onClick={() => onRead(notification)}>
+								key={notification._id}
+								className={`px-4 py-2 text-sm border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-center ${
+									notification.read
+									? 'opacity-50'
+									: 'font-bold'
+								} ${
+									!notification.viewedAt
+									? 'bg-gray-100'
+									: 'bg-white'
+								}`}
+								onClick={() => onRead(notification)}>
 									<div className="flex flex-1 items-center space-x-2 ellipsis">
-										<div className="bg-dark-blue flex h-10 items-center justify-center mx-auto overflow-hidden p-2 relative rounded-full w-10">
+										<div className="bg-dark-blue flex h-10 items-center justify-center mx-auto overflow-hidden p-2 rounded-full w-10">
 											<span
 												id="avatarLetterNotif"
 												className="text-lg text-white">
 												{
 													notification
-														.creatorUsername[0]
+													.creatorUsername[0]
 												}
 											</span>
 										</div>
@@ -112,27 +119,27 @@ const NotificationsMenu = ({
 								{readedNotifications.map(
 									(notification) => (
 										<li
-											key={notification._id}
-											className={`px-4 py-2 text-sm border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-center ${
-												notification.read
-													? 'opacity-50'
-													: 'font-bold'
-											} ${
-												!notification.viewedAt
-													? 'bg-gray-100'
-													: 'bg-white'
-											}`}
-											onClick={() =>
-												onRead(notification)
-											}>
+										key={notification._id}
+										className={`px-4 py-2 text-sm border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex items-center ${
+											notification.read
+											? 'opacity-50'
+											: 'font-bold'
+										} ${
+											!notification.viewedAt
+											? 'bg-gray-100'
+											: 'bg-white'
+										}`}
+										onClick={() =>
+											onRead(notification)
+										}>
 											<div className="flex flex-1 items-center space-x-2 ellipsis">
-												<div className="bg-dark-blue flex h-10 items-center justify-center mx-auto overflow-hidden p-2 relative rounded-full w-10">
+												<div className="bg-dark-blue flex h-10 items-center justify-center mx-auto overflow-hidden p-2 rounded-full w-10">
 													<span
 														id="avatarLetterNotif"
 														className="text-lg text-white">
 														{
 															notification
-																.creatorUsername[0]
+															.creatorUsername[0]
 														}
 													</span>
 												</div>
@@ -160,17 +167,17 @@ const NotificationsMenu = ({
 				onClick={handleNotificationsModal}>
 				Voir toutes les notifications
 			</div>
-
-			{openNotificationsModal && (
-				<NotificationsModal
-					formatDateToNow={formatDateToNow}
-					handleNotificationsModal={handleNotificationsModal}
-					openNotificationsModal={openNotificationsModal}
-					onRead={onRead}
-					isClosingModal={isClosingModal}
-				/>
-			)}
 		</div>
+		{openNotificationsModal && (
+			<NotificationsModal
+				formatDateToNow={formatDateToNow}
+				handleNotificationsModal={handleNotificationsModal}
+				openNotificationsModal={openNotificationsModal}
+				onRead={onRead}
+				isClosingModal={isClosingModal}
+			/>
+		)}
+	</>
 	);
 };
 
