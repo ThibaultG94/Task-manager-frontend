@@ -60,23 +60,6 @@ const Conversation = ({ contact, index, isMinimized }) => {
   };
 
   useEffect(() => {
-    socket.on('init', (msgs) => {
-      setMessages(msgs);
-    });
-
-    socket.on('receive_message', (msg) => {
-      dispatch(addMessageToConversation({ conversationId: msg.conversationId, msg }));
-      setMessages((prev) => [...prev, msg]);
-      scrollToBottom();
-    });
-
-    return () => {
-      socket.off('init');
-      socket.off('receive_message');
-    };
-  }, []);
-
-  useEffect(() => {
     if (conversation?.messages) {
       setMessages(conversation?.messages);
       scrollToBottom('auto');
