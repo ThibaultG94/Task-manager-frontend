@@ -82,7 +82,7 @@ const HeaderMessages = ({ userId }) => {
                 </span>
             )}
 			{showMessages &&
-            	<MessagesMenu modalRef={modalRef} conversations={sortedConversations} onRead={markAsRead} userId={userId} isClosing={isClosing} setShowMessages={setShowMessages} />
+            	<MessagesMenu modalRef={modalRef} conversations={sortedConversations} onRead={markAsRead} userId={userId} isClosing={isClosing} />
 			}
         </div>
     );

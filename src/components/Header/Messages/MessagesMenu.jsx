@@ -3,8 +3,8 @@ import useOpenConversation from '../../../hooks/useOpenConversation';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
-const MessagesMenu = ({ modalRef, conversations, onRead, userId, setShowMessages, isClosing }) => {
-	const openConversation = useOpenConversation();
+const MessagesMenu = ({ modalRef, conversations, onRead, userId, isClosing }) => {
+    const openConversation = useOpenConversation();
 
     const formatDateToNow = (dateString) => {
         return formatDistanceToNow(parseISO(dateString), {
@@ -13,15 +13,15 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId, setShowMessages
         });
     };
 
-	const processConversation = (e, conv) => {
-		onRead(conv._id);
-		const user = conv.users.find(user => user._id !== userId);
-		const contact = {
-			...user,
-			id: user._id,
-		};
-		openConversation(e, contact);
-	};
+    const processConversation = (e, conv) => {
+        onRead(conv._id);
+        const user = conv.users.find(user => user._id !== userId);
+        const contact = {
+            ...user,
+            id: user._id,
+        };
+        openConversation(e, contact);
+    };
 
     useEffect(() => {
         const currentModal = modalRef.current;
@@ -50,6 +50,7 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId, setShowMessages
                         {conversations.map((conv) => {
                             const lastMessage = conv.messages[conv.messages?.length - 1];
                             const hasUnreadMessages = conv.messages.some(msg => !msg?.read && msg?.guestId === userId);
+                            const unreadMessagesCount = conv.messages.filter(msg => !msg.read && msg.guestId === userId).length;
                             const otherUser = conv.users.find(user => user._id !== userId);
 
                             return (
@@ -75,6 +76,16 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId, setShowMessages
                                                 {formatDateToNow(lastMessage.createdAt)}
                                             </span>
                                         </div>
+                                        {lastMessage.senderId === userId && (
+                                            <i className={`fa-solid ${lastMessage.read ? 'fa-check-double text-green-300' : 'fa-check text-gray-300'}`}></i>
+                                        )}
+                                        {unreadMessagesCount > 0 && (
+                                            <span className="absolute top-6 right-2 h-4 w-4 p-3 bg-red-500 rounded-full flex items-center justify-center">
+                                                <span className="text-white text-base font-semibold">
+                                                    {unreadMessagesCount < 100 ? unreadMessagesCount : '99+'}
+                                                </span>
+                                            </span>
+                                        )}
                                     </div>
                                 </li>
                             );
