@@ -8,14 +8,28 @@ export const useSocket = () => {
   return useContext(SocketContext);
 };
 
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+};
+
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(API_URL);
-    setSocket(newSocket);
+    const token = getCookie('token');
+    if (token) {
+      const newSocket = io(API_URL, {
+        auth: {
+          token: token
+        },
+        withCredentials: true
+      });
+      setSocket(newSocket);
 
-    return () => newSocket.close();
+      return () => newSocket.close();
+    }
   }, []);
 
   return (
@@ -24,4 +38,3 @@ export const SocketProvider = ({ children }) => {
     </SocketContext.Provider>
   );
 };
-

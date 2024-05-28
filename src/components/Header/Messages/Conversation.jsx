@@ -16,7 +16,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
 
   const openConversation = useOpenConversation();
   
-  const [messages, setMessages] = useState(null);
+  const [messages, setMessages] = useState(conversation?.messages || []);
   const [message, setMessage] = useState('');
   const [unreadCount, setUnreadCount] = useState(0);
   const messagesEndRef = useRef(null);
@@ -34,7 +34,6 @@ const Conversation = ({ contact, index, isMinimized }) => {
   };
 
   const minimizeConversation = (e, contact) => {
-    // dispatch(minimizeWindow({ contactId }));
     openConversation(e, contact);
     scrollToBottom();
   };
@@ -81,6 +80,22 @@ const Conversation = ({ contact, index, isMinimized }) => {
       scrollToBottom('auto');
     }
   }, [isMinimized]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('receive_message', (msg) => {
+        if (msg.conversationId === conversation._id) {
+          setMessages((prevMessages) => [...prevMessages, msg]);
+          scrollToBottom();
+        }
+      });
+    }
+    return () => {
+      if (socket) {
+        socket.off('receive_message');
+      }
+    };
+  }, [socket, conversation]);
 
   return (
     <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>
