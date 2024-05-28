@@ -102,7 +102,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
                       </div>
                     ) : null}
                     <div className={`flex ${isSender ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`relative max-w-xs p-2 rounded-lg pb-4 ${isSender ? 'pr-16 bg-blue-500 text-white text-right' : 'pr-10 bg-gray-200 text-left'} shadow`}>
+                      <div className={`relative message-bubble p-2 rounded-lg pb-4 text-left ${isSender ? 'pr-12 bg-blue-500 text-white' : 'pr-8 bg-gray-200'} shadow`}>
                         <div className="text-base">{msg?.content}</div>
                         <div className={`text-xs mt-1 absolute bottom-1 right-2 ${isSender ? 'text-gray-300' : 'text-gray-500'}`}>
                           <span>{time}</span>
