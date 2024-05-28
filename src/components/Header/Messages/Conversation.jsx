@@ -15,6 +15,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
   
   const [messages, setMessages] = useState(null);
   const [message, setMessage] = useState('');
+  const [unreadCount, setUnreadCount] = useState(0);
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
 
@@ -61,6 +62,8 @@ const Conversation = ({ contact, index, isMinimized }) => {
   useEffect(() => {
     if (conversation?.messages) {
       setMessages(conversation?.messages);
+      const unreadMessages = conversation.messages.filter(msg => !msg.read && msg.senderId === contact.id).length;
+      setUnreadCount(unreadMessages);
       scrollToBottom('auto');
     }
   }, [conversation]);
@@ -77,8 +80,9 @@ const Conversation = ({ contact, index, isMinimized }) => {
 
   return (
     <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>
-      <div className="flex items-center justify-between bg-blue-500 text-white rounded-t-lg cursor-pointer" onClick={() => minimizeConversation(contact.id)}>
+      <div className="flex items-center justify-between bg-blue-500 text-white rounded-t-lg cursor-pointer relative" onClick={() => minimizeConversation(contact.id)}>
         <span className='p-2'>{contact.username}</span>
+        {unreadCount > 0 && <span className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">{unreadCount}</span>}
         <div className='flex w-8 h-8 md:w-10 md:h-10 items-center justify-center'>
           <CloseConversation onClose={() => closeConversation(contact.id)} />
         </div>
