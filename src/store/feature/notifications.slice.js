@@ -61,6 +61,10 @@ export const notificationsSlice = createSlice({
           : notif
       );
     },
+    addNewNotification: (state, action) => {
+      // Ajout de l'action
+      state.newNotifications = [action.payload, ...state.newNotifications];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(resetStore, () => initialState);
@@ -75,6 +79,7 @@ export const {
   getNotificationsSuccess,
   markNotificationsViewedSuccess,
   markNotificationAsReadSuccess,
+  addNewNotification,
 } = notificationsSlice.actions;
 
 export default notificationsSlice.reducer;

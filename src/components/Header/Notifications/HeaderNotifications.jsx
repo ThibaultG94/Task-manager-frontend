@@ -81,6 +81,8 @@ const HeaderNotifications = ({ userId }) => {
 	});
 
 	const markAsViewed = async (notificationsIds) => {
+		console.log('markAsViewed', userId, notificationsIds);
+		
 		await markNotificationsAsViewed(userId, notificationsIds);
 	};
 
