@@ -4,6 +4,7 @@ import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import CloseButton from '../Buttons/CloseButton';
 import BlockContact from './BlockContact';
 import DeleteContact from './HandleDeleteContact';
+import useOpenConversation from '../../hooks/useOpenConversation';
 
 const HandleModalContact = ({ closeModal, selectedContact }) => {
     const userWorkspaces = useSelector(selectWorkspaces);
@@ -13,6 +14,8 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
     const [isClosing, setIsClosing] = useState(false);
 
     const modalRef = useRef(null);
+
+    const openConversation = useOpenConversation();
 
     useEffect(() => {
         const filterWorkspaces = () => {
@@ -47,7 +50,7 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
 				className="flex flex-col bg-white fixed left-1/2 max-h-[85vh] max-w-lg overflow-hidden transform -translate-x-1/2 top-20 rounded-lg shadow-md w-modal-xs custom-xs:w-modal-sm md:w-modal-md lg:w-modal-lg xl:w-modal-xl z-10"
 				ref={modalRef}
 				onClick={(e) => e.stopPropagation()}>
-				<div className="flex-grow overflow-y-auto">
+				<div className="flex-grow overflow-y-auto mb-12">
 					<CloseButton
 						onClose={closeHandler}
 						modalTabs={false}
@@ -109,8 +112,10 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
                     </div>
                 </div>
 
-                <div className="absolute left-0 bottom-0 p-4">
-					
+                <div className="absolute right-4 bottom-0 p-4">
+                    <button className="text-light-blue-2 hover:text-dark-blue" onClick={(e) => openConversation(e, selectedContact)}>
+                        Envoyer un message <i className="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
 				</div>
 			</div>
 		</section>

@@ -22,6 +22,8 @@ export const conversationsSlice = createSlice({
         (conv) => conv._id === conversationId
       );
       if (conversationIndex !== -1) {
+        state.conversations[conversationIndex].updatedAt =
+          new Date().toISOString();
         state.conversations[conversationIndex].messages = [
           ...state.conversations[conversationIndex].messages,
           msg,

@@ -105,7 +105,7 @@ const WorkspaceInviteModal = ({ contactId, closeModal, position, userContacts })
                 </select>
                 <div className="flex justify-end mt-6">
                     <button className="text-light-blue-2 hover:text-dark-blue" onClick={handleInvite}>
-                     <i className="fa-solid fa-paper-plane"></i>
+                        <i className="fa-solid fa-paper-plane"></i>
                     </button>
                 </div>
             </div>

@@ -60,7 +60,7 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId, isClosing }) =>
                                         hasUnreadMessages ? 'font-bold' : ''
                                     }`}
                                     onClick={(e) => processConversation(e, conv)}>
-                                    <div className="flex flex-1 items-center space-x-2 ellipsis">
+                                    <div className="flex flex-1 items-center space-x-2 ellipsis relative">
                                         <div className="bg-dark-blue flex h-10 items-center justify-center mx-auto overflow-hidden p-2 relative rounded-full w-10">
                                             <span
                                                 id="avatarLetterNotif"
@@ -80,7 +80,7 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId, isClosing }) =>
                                             <i className={`fa-solid ${lastMessage.read ? 'fa-check-double text-green-300' : 'fa-check text-gray-300'}`}></i>
                                         )}
                                         {unreadMessagesCount > 0 && (
-                                            <span className="absolute top-6 right-2 h-4 w-4 p-3 bg-red-500 rounded-full flex items-center justify-center">
+                                            <span className="absolute top-0 right-0 h-4 w-4 p-3 bg-red-500 rounded-full flex items-center justify-center">
                                                 <span className="text-white text-base font-semibold">
                                                     {unreadMessagesCount < 100 ? unreadMessagesCount : '99+'}
                                                 </span>

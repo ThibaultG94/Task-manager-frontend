@@ -9,7 +9,7 @@ import { selectConversations } from '../../../store/selectors/conversationsSelec
 const HeaderMessages = ({ userId }) => {
     const dispatch = useDispatch();
     const conversations = useSelector(selectConversations);
-	const socket = useSocket();
+	const { socket } = useSocket();
 
     const [showMessages, setShowMessages] = useState(false);
     const [sortedConversations, setSortedConversations] = useState([]);
