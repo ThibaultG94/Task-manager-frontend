@@ -11,7 +11,7 @@ import CloseConversation from '../../Buttons/CloseConversation';
 
 const Conversation = ({ contact, index, isMinimized }) => {
   const dispatch = useDispatch();
-  const socket = useSocket();
+  const { socket } = useSocket();
   const conversation = useSelector((state) => selectConversationByContactId(state, contact.id));
 
   const openConversation = useOpenConversation();

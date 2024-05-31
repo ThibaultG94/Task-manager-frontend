@@ -10,7 +10,7 @@ const useOpenConversation = () => {
     const dispatch = useDispatch();
     const conversationWindows = useSelector(selectConversationWindows);
     const conversations = useSelector(selectConversations);
-    const socket = useSocket();
+    const { socket } = useSocket();
 
     const markAsRead = async (conversationId) => {
         const userId = await getUserId();

@@ -55,7 +55,6 @@ const Header = () => {
 	useEffect(() => {
 		if (notificationSocket) {
 		  notificationSocket.on('new_notification', (notification) => {
-			console.log('new_notification', notification);
 			setNotifications((prevNotifications) => [notification, ...prevNotifications]);
 			dispatch(addNewNotification(notification)); // Dispatch the notification to the store
 		  });
