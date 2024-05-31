@@ -99,7 +99,7 @@ const WorkspaceInviteModal = ({ contactId, closeModal, position, userContacts })
                 onChange={e => setSelectedWorkspace(e.target.value)}>
                     <option value="">Sélectionner un Workspace</option>
                      {workspaces.map(ws => (
-                     <option  option key={ws._id} value={ws._id}>{ws.title}</option>
+                     <option key={ws._id} value={ws._id}>{ws.title}</option>
                     ))
                 }
                 </select>
