@@ -75,6 +75,30 @@ const ListWorkspaces = ({ userId }) => {
 		if (allWorkspaces) updateDisplayWorkspaces();
 	}, [allWorkspaces]);
 
+	const renderMembers = (membersName) => {
+		const maxMembersToShow = 3;
+		const extraMembers = membersName.length - maxMembersToShow;
+
+		return (
+			<div className="sm:flex items-center hidden">
+				{membersName.slice(0, maxMembersToShow).map((member, index) => (
+					<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2" key={index}>
+						<span className="avatarLetterAssigned">
+							{member && member[0]}
+						</span>
+					</div>
+				))}
+				{extraMembers > 0 && (
+					<div className="bg-light-blue flex h-8 items-center justify-center mx-auto p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2">
+						<span className="text-blue-950">
+							+{extraMembers}
+						</span>
+					</div>
+				)}
+			</div>
+		);
+	};
+
 	return (
 		<div className="dashboard-card workspaces-container">
 			<h4 className="pl-4">Workspaces</h4>
@@ -86,34 +110,24 @@ const ListWorkspaces = ({ userId }) => {
 						displayWorkspaces.map((workspace, index) => (
 							<div
 								className="workspace p-1 md:p-2"
-								key={index}
+								key={index + 1465565}
 								onClick={(e) => {
 									openModalWorkspace(e);
 									setSelectedWorkspace(workspace);
 								}}
 								style={{ opacity: workspace ? '1' : '0' }}>
-								<div className="flex h-8 items-center">
+								<div className="flex h-8 items-center ellipsis">
 									<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">
 										<i className="fa-solid fa-share-nodes"></i>
 									</div>
-									<div className="text-sm md:text-base">
+									<div className="text-sm md:text-base max-w-60 pr-4 ellipsis">
 										{workspace?.title}
 									</div>
 								</div>
 								{isTabletOrLaptop ? (
 									<div className="flex items-center">
-										{workspace?.membersName.map(
-											(member, index) => (
-												<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2">
-													<span
-														className="avatarLetterAssigned"
-														key={index + 1000}>
-														{member && member[0]}
-													</span>
-												</div>
-											)
-										)}
-										<div className="ml-2 mr-2">
+										{renderMembers(workspace?.membersName)}
+										<div className="ml-2 mr-2 hidden sm:block">
 											<FaUser
 												title={`${workspace?.members.length} membre(s)`}
 											/>
@@ -137,19 +151,7 @@ const ListWorkspaces = ({ userId }) => {
 									</div>
 								) : (
 									<div className="flex items-center">
-										{workspace?.membersName.map(
-											(member, index) => (
-												<div
-													className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2"
-													key={index}>
-													<span
-														className="avatarLetterAssigned"
-														key={index}>
-														{member && member[0]}
-													</span>
-												</div>
-											)
-										)}
+										{renderMembers(workspace?.membersName)}
 										<div className="ml-2">
 											<span className="bg-light-blue mr-2 px-2.5 py-1 rounded text-xs">
 												{workspace?.members.length}{' '}
