@@ -5,9 +5,20 @@ import CloseButton from '../Buttons/CloseButton';
 import BlockContact from './BlockContact';
 import DeleteContact from './HandleDeleteContact';
 import useOpenConversation from '../../hooks/useOpenConversation';
+import { selectBecomingTasks, selectNextMonthTasks, selectNextWeekTasks, selectNextYearTasks, selectOverdueTasks, selectThisMonthTasks, selectThisWeekTasks, selectThisYearTasks, selectTodayTasks, selectTomorrowTasks } from '../../store/selectors/taskSelectors';
 
 const HandleModalContact = ({ closeModal, selectedContact }) => {
     const userWorkspaces = useSelector(selectWorkspaces);
+    const overdueTasks = useSelector(selectOverdueTasks);
+    const todayTasks = useSelector(selectTodayTasks);
+    const tomorrowTasks = useSelector(selectTomorrowTasks);
+    const thisWeekTasks = useSelector(selectThisWeekTasks);
+    const nextWeekTasks = useSelector(selectNextWeekTasks);
+    const thisMonthTasks = useSelector(selectThisMonthTasks);
+    const nextMonthTasks = useSelector(selectNextMonthTasks);
+    const thisYearTasks = useSelector(selectThisYearTasks);
+    const nextYearTasks = useSelector(selectNextYearTasks);
+    const becomingTasks = useSelector(selectBecomingTasks);
 
     const [workspaces, setWorkspaces] = useState([]);
     const [tasks, setTasks] = useState([]);
@@ -41,6 +52,24 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
             currentModal.style.animation = `${isClosing ? 'slideOut' : 'slideIn'} 0.3s forwards`;
         }
     }, [isClosing]);
+
+    useEffect(() => {
+        const totalTasks = [
+            ...overdueTasks,
+            ...todayTasks,
+            ...tomorrowTasks,
+            ...thisWeekTasks,
+            ...nextWeekTasks,
+            ...thisMonthTasks,
+            ...nextMonthTasks,
+            ...thisYearTasks,
+            ...nextYearTasks,
+            ...becomingTasks
+        ];
+        const filteredTasks = totalTasks.filter(task => task.assignedTo.some(member => member.userId === selectedContact.id));
+
+        setTasks(filteredTasks);
+    }, [overdueTasks, todayTasks, tomorrowTasks, thisWeekTasks, nextWeekTasks, thisMonthTasks, nextMonthTasks, thisYearTasks, nextYearTasks, becomingTasks]);
 
     return (
         <section

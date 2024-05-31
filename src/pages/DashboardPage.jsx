@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectHasBeenUpdated } from '../store/selectors/editStateSelectors';
 import { selectConversationWindows } from '../store/selectors/conversationWindowsSelectors';
 import { setHasBeenUpdated } from '../store/feature/editState.slice';
+import { selectIsBecomingTasksLoaded, selectIsNextMonthTasksLoaded, selectIsNextWeekTasksLoaded, selectIsNextYearTasksLoaded, selectIsOverdueTasksLoaded, selectIsThisMonthTasksLoaded, selectIsThisWeekTasksLoaded, selectIsThisYearTasksLoaded, selectIsTodayTasksLoaded, selectIsTomorrowTasksLoaded } from '../store/selectors/taskSelectors';
 import getUserId from '../api/users/getUserId';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
@@ -20,11 +21,31 @@ import UrgentTasks from '../components/DashboardPage/UrgentTasks';
 import ListWorkspaces from '../components/DashboardPage/ListWorkspaces';
 import Contacts from '../components/DashboardPage/Contacts';
 import Conversation from '../components/Header/Messages/Conversation';
+import { useGetOverdueTasks } from '../api/tasks/useGetOverdueTasks';
+import { useGetTodayTasks } from '../api/tasks/useGetTodayTasks';
+import { useGetTomorrowTasks } from '../api/tasks/useGetTomorrowTasks';
+import { useGetThisWeekTasks } from '../api/tasks/useGetThisWeekTasks';
+import { useGetNextWeekTasks } from '../api/tasks/useGetNextWeekTasks';
+import { useGetThisMonthTasks } from '../api/tasks/useGetThisMonthTasks';
+import { useGetNextMonthTasks } from '../api/tasks/useGetNextMonthTasks';
+import { useGetThisYearTasks } from '../api/tasks/useGetThisYearTasks';
+import { useGetNextYearTasks } from '../api/tasks/useGetNextYearTasks';
+import { useGetBecomingTasks } from '../api/tasks/useGetBecomingTasks';
 
 const DashboardPage = () => {
 	const dispatch = useDispatch();
 	const hasBeenUpdated = useSelector(selectHasBeenUpdated);
 	const conversationWindows = useSelector(selectConversationWindows);
+	const isOverdueTasksLoaded = useSelector(selectIsOverdueTasksLoaded);
+	const isTodayTasksLoaded = useSelector(selectIsTodayTasksLoaded);
+	const isTomorrowTasksLoaded = useSelector(selectIsTomorrowTasksLoaded);
+	const isThisWeekTasksLoaded = useSelector(selectIsThisWeekTasksLoaded);
+	const isNextWeekTasksLoaded = useSelector(selectIsNextWeekTasksLoaded);
+	const isThisMonthTasksLoaded = useSelector(selectIsThisMonthTasksLoaded);
+	const isNextMonthTasksLoaded = useSelector(selectIsNextMonthTasksLoaded);
+	const isThisYearTasksLoaded = useSelector(selectIsThisYearTasksLoaded);
+	const isNextYearTasksLoaded = useSelector(selectIsNextYearTasksLoaded);
+	const isBecomingTasksLoaded = useSelector(selectIsBecomingTasksLoaded);
 
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
@@ -36,6 +57,16 @@ const DashboardPage = () => {
 	const getWorkspaces = useGetWorkspaces();
 	const getContacts = useGetContacts();
 	const getNotifications = useGetNotifications();
+	const getOverdueTasks = useGetOverdueTasks();
+	const getTodayTasks = useGetTodayTasks();
+	const getTomorrowTasks = useGetTomorrowTasks();
+	const getThisWeekTasks = useGetThisWeekTasks();
+	const getNextWeekTasks = useGetNextWeekTasks();
+	const getThisMonthTasks = useGetThisMonthTasks();
+	const getNextMonthTasks = useGetNextMonthTasks();
+	const getThisYearTasks = useGetThisYearTasks();
+	const getNextYearTasks = useGetNextYearTasks();
+	const getBecomingTasks = useGetBecomingTasks();
 
 	const getId = async () => {
 		const id = await getUserId();
@@ -49,13 +80,27 @@ const DashboardPage = () => {
 	}, [redirectAfterLogin]);
 
 	useEffect(() => {
-		if (userId !== null) {
-			getUser(userId);
-			getUrgentTasks(userId);
-			getWorkspaces(userId);
-			getContacts(userId);
-			getNotifications(userId);
-		}
+		const getData = async () => {
+			if (userId !== null) {
+				await getUser(userId);
+				await getUrgentTasks(userId);
+				await getWorkspaces(userId);
+				await getContacts(userId);
+				await getNotifications(userId);
+				if (!isOverdueTasksLoaded) await getOverdueTasks(userId);
+				if (!isTodayTasksLoaded) await getTodayTasks(userId);
+				if (!isTomorrowTasksLoaded) await getTomorrowTasks(userId);
+				if (!isThisWeekTasksLoaded) await getThisWeekTasks(userId);
+				if (!isNextWeekTasksLoaded) await getNextWeekTasks(userId);
+				if (!isThisMonthTasksLoaded) await getThisMonthTasks(userId);
+				if (!isNextMonthTasksLoaded) await getNextMonthTasks(userId);
+				if (!isThisYearTasksLoaded) await getThisYearTasks(userId);
+				if (!isNextYearTasksLoaded) await getNextYearTasks(userId);
+				if (!isBecomingTasksLoaded) await getBecomingTasks(userId);
+			}
+		};
+
+		getData();
 	}, [userId]);
 
 	useEffect(() => {
