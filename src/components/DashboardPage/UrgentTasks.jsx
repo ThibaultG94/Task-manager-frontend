@@ -186,12 +186,12 @@ const UrgentTasks = () => {
 								}}>
 								<div className="urgent-task-todo">
 									<div id="check"></div>
-									<div className="text-sm sm:text-base">
+									<div className="text-sm sm:text-base max-w-80 pr-4 ellipsis">
 										{task?.title}
 									</div>
 								</div>
 								<div className="flex flex-row">
-									<div className="mr-10 hidden sm:block">
+									<div className="mr-10 hidden md:block">
 										<div className="font-medium text-dark-purple-2 text-xs sm:text-sm md:text-base">
 											{task?.workspaceName}
 										</div>
