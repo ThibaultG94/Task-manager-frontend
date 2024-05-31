@@ -7,6 +7,7 @@ import InviteMemberModal from '../../SideBar/InvitationModal/InviteMemberModal';
 import LoadingComponent from '../../Buttons/LoadingComponent';
 import WorkspaceInviteModal from '../../ModalWorkspace/WorkspaceInviteModal';
 import HandleModalContact from '../../ModalContact/HandleModalContact';
+import useOpenConversation from '../../../hooks/useOpenConversation';
 
 const ListContacts = ({ userId }) => {
 	const contacts = useSelector(selectUserContacts);
@@ -14,6 +15,7 @@ const ListContacts = ({ userId }) => {
 
 	const getSentOutInvitations = useGetSentOutInvitations();
 	const getReceivedInvitations = useGetReceivedInvitations();
+	const openConversation = useOpenConversation();
 
 	const [userContacts, setUserContacts] = useState();
 	const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
@@ -75,14 +77,15 @@ const ListContacts = ({ userId }) => {
 					{userContacts && userContacts.length > 0 ? (
 						<ul>
 							{userContacts.map((contact) => (
-								<li className='contact contact-list cursor-pointer' key={contact.id + 45554} onClick={(e) => {
-									openModal(e);
-									setSelectedContact(contact)
-								}}>		
+								<li className='contact' key={contact.id + 45554} onClick={(e) => openConversation(e, contact)}>		
 									<div
 										className="flex items-center justify-start p-1 md:p-2 py-2.5 relative transition duration-100 ease-in-out"
 										key={contact.id}>
-										<div className="flex h-8 items-center ellipsis">
+										<div className="flex h-8 items-center ellipsis cursor-pointer" onClick={(e) => {
+												e.stopPropagation();
+												openModal(e);
+												setSelectedContact(contact)
+											}}>
 											<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">
 												<i className="fa-solid fa-user"></i>
 											</div>

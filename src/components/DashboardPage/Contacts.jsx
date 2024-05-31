@@ -81,12 +81,12 @@ const Contacts = ({ userId }) => {
 									<div
 										className="flex items-center justify-start py-1 md:py-1.5 px-2 relative transition duration-100 ease-in-out ellipsis"
 										key={contact.id}>
-										<div className="flex h-8 items-center ellipsis" >
-											<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg cursor-pointer" onClick={(e) => {
+										<div className="flex h-8 items-center ellipsis cursor-pointer" onClick={(e) => {
 													e.stopPropagation();
 													openModal(e);
 													setSelectedContact(contact)
 												}}>
+											<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">
 												<i className="fa-solid fa-user"></i>
 											</div>
 											<div className="flex items-center">
