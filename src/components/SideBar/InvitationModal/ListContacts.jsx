@@ -37,8 +37,13 @@ const ListContacts = ({ userId }) => {
 		event.stopPropagation();
         const button = event.currentTarget;
         const rect = button.getBoundingClientRect();
+        const availableWidth = window.innerWidth - rect.right;
+        
+		const adjustedX = availableWidth < 350 ? rect.left - availableWidth : rect.right;
+		const adjustedY = availableWidth < 350 ? rect.top - 50 : rect.top - 115;
+        
         setSelectedContactId(contactId);
-        setModalPosition({ x: rect.x + rect.width, y: rect.y });
+        setModalPosition({ x: adjustedX, y: adjustedY });
         setIsInviteModalOpen(true);
     };
 
@@ -98,9 +103,10 @@ const ListContacts = ({ userId }) => {
 											</div>
 										</div>
 									</div>
-									<button className='mr-3' onClick={(e) => openInviteModal(e, contact.id)}>
-										<i className="fa-solid fa-circle-plus"></i>
-									</button>								
+									<button className='mr-3 relative h-4 group text-lg' onClick={(e) => openInviteModal(e, contact.id)}>
+										<i className="fa-solid fa-circle-plus block absolute z-50 top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
+										<i className="fa-solid fa-plus hidden absolute z-50 top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>
+									</button>						
 								</li>
 							))}
 						</ul>

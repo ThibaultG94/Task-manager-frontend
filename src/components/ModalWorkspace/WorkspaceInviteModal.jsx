@@ -85,7 +85,7 @@ const WorkspaceInviteModal = ({ contactId, closeModal, position, userContacts })
     }, [contactId]);
 
     return (
-        <div style={modalStyle} className="relative">
+        <div style={modalStyle}>
             <div className="bg-modal-task-bg p-4 rounded-lg shadow-lg">
                 <div className="absolute right-2 top-2">
                     <button onClick={closeHandler} className="text-gray-400 hover:text-gray-600">

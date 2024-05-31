@@ -40,7 +40,7 @@ const Contacts = ({ userId }) => {
         const button = event.currentTarget;
         const rect = button.getBoundingClientRect();
         setSelectedContactId(contactId);
-        setModalPosition({ x: rect.x + rect.width, y: rect.y });
+        setModalPosition({ x: rect.x + rect.width, y: rect.y - 15});
         setIsInviteModalOpen(true);
     };
 
