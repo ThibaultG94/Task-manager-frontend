@@ -79,7 +79,7 @@ const Contacts = ({ userId }) => {
 							{userContacts.slice(0, 4).map((contact) => (
 								<li className='contact' key={contact.id} onClick={(e) => openConversation(e, contact)}>		
 									<div
-										className="flex items-center justify-start py-1 md:py-1.5 px-2 relative transition duration-100 ease-in-out"
+										className="flex items-center justify-start py-1 md:py-1.5 px-2 relative transition duration-100 ease-in-out ellipsis"
 										key={contact.id}>
 										<div className="flex h-8 items-center ellipsis" >
 											<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg cursor-pointer" onClick={(e) => {
