@@ -75,7 +75,7 @@ const ListContacts = ({ userId }) => {
 					{userContacts && userContacts.length > 0 ? (
 						<ul>
 							{userContacts.map((contact) => (
-								<li className='contact' key={contact.id + 45554} onClick={(e) => {
+								<li className='contact contact-list cursor-pointer' key={contact.id + 45554} onClick={(e) => {
 									openModal(e);
 									setSelectedContact(contact)
 								}}>		

@@ -77,15 +77,16 @@ const Contacts = ({ userId }) => {
 					{userContacts && userContacts.length > 0 ? (
 						<ul>
 							{userContacts.slice(0, 4).map((contact) => (
-								<li className='contact' key={contact.id} onClick={(e) => {
-									openModal(e);
-									setSelectedContact(contact)
-								}}>		
+								<li className='contact' key={contact.id} onClick={(e) => openConversation(e, contact)}>		
 									<div
 										className="flex items-center justify-start p-1 md:p-1.5 relative transition duration-100 ease-in-out"
 										key={contact.id}>
-										<div className="flex h-8 items-center ellipsis">
-											<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">
+										<div className="flex h-8 items-center ellipsis" >
+											<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg cursor-pointer" onClick={(e) => {
+													e.stopPropagation();
+													openModal(e);
+													setSelectedContact(contact)
+												}}>
 												<i className="fa-solid fa-user"></i>
 											</div>
 											<div className="flex items-center">
@@ -105,11 +106,11 @@ const Contacts = ({ userId }) => {
 											</div>
 										</div>
 									</div>
-									<div className='flex justify-between items-center'>
-										<button className='mr-10 relative h-4 group text-lg' onClick={(e) => openConversation(e, contact)}>
+									<div className='flex justify-between items-center cursor-pointer'>
+										{/* <button className='mr-10 relative h-4 group text-lg' onClick={(e) => openConversation(e, contact)}>
 											<i className="fa-solid fa-paper-plane block absolute z-50 top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
 											<i className="fa-regular fa-paper-plane hidden absolute z-50 top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>
-										</button>
+										</button> */}
 										<button className='mr-3 relative h-4 group text-lg' onClick={(e) => openInviteModal(e, contact.id)}>
 											<i className="fa-solid fa-circle-plus block absolute z-50 top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
 											<i className="fa-solid fa-plus hidden absolute z-50 top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>

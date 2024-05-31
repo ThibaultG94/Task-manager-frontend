@@ -406,15 +406,19 @@ body {
 .contact {
 	display: flex;
 	align-items: center;
-	cursor: pointer;
 	justify-content: space-between;
 	padding: 2px 0;
 	position: relative;
 	transition: 0.1s ease;
+	cursor: url('../../public/img/Custom-Icon-Design-Flatastic-10-Paper-plane.24.png') 12 12, auto;
 
 	&:hover,
 	&:focus {
 		background: #F9F871;
+	}
+
+	&-list {
+		cursor: pointer;
 	}
 }
 
