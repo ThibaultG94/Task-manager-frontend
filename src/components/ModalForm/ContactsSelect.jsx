@@ -44,7 +44,7 @@ const ContactsSelect = ({
 	};
 
 	return (
-		<div className="md:mr-2 relative w-full text-xs sm:text-sm md:text-base">
+		<div className="relative w-full text-xs sm:text-sm md:text-base">
 			<Select
 				isMulti
 				name="assignedTo"

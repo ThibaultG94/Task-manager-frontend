@@ -41,7 +41,7 @@ const DeadlineInput = ({ taskDeadline, setTaskDeadline }) => {
 	};
 
 	return (
-		<div className="mb-2 sm:mb-1 md:mb-0 relative">
+		<div className="mb-2 sm:mb-4 relative">
 			<Flatpickr
 				className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 focus:outline-none focus:shadow-outline leading-tight p-2 rounded shadow w-full"
 				onChange={(date) => handleDateChange(date[0])}

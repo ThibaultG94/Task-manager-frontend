@@ -91,21 +91,21 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<div id="tab-content1">
-			<h2 className="font-light mb-2 sm:mb-4 md:mb-6 sm:mt-2 md:mt-4 xl:mt-6 text-lg sm:text-xl md:text-2xl text-center">
+			<h2 className="font-light mb-2 sm:mb-4 sm:mt-2 text-lg sm:text-xl md:text-2xl text-center">
 				Nouvelle Tâche
 			</h2>
 			<form
 				className="w-5/6 mx-auto mb-9 flex flex-col"
 				onSubmit={handleSubmit}>
-				<div className="flex flex-col md:flex-row mb-2 sm:mb-4 md:mb-5">
-					<div className="flex flex-col md:w-1/2 sm:pr-1 md:pr-2">
+				<div className="flex flex-col mb-2 sm:mb-4">
+					<div className="flex flex-col">
 						<TitleInput
 							title={taskTitle}
 							setTitle={setTaskTitle}
 							label={'Nom de la tâche'}
 							length={60}
 						/>
-						<div className="flex flex-col sm:flex-row mb-2 sm:mb-4 md:mb-5">
+						<div className="flex flex-col sm:flex-row mb-2 sm:mb-4">
 							<div className="mb-2 sm:mb-0 relative w-full sm:w-1/2">
 								<select
 									className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"

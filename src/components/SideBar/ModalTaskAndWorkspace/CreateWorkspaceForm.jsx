@@ -76,14 +76,14 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 
 	return (
 		<div id="tab-content2">
-			<h2 className="font-light mb-2 sm:mb-4 md:mb-6 mt-1 sm:mt-2 md:mt-4 xl:mt-6 text-lg sm:text-xl md:text-2xl text-center">
+			<h2 className="font-light mb-2 sm:mb-4 mt-1 sm:mt-2 text-lg sm:text-xl md:text-2xl text-center">
 				Nouveau Workspace
 			</h2>
 			<form
 				className="w-5/6 mx-auto mb-9 flex flex-col"
 				onSubmit={handleSubmit}>
-				<div className="flex flex-col md:flex-row mb-2 sm:mb-4 md:mb-5">
-					<div className="flex flex-col md:w-1/2 sm:pr-1 md:pr-2">
+				<div className="flex flex-col mb-2 sm:mb-4">
+					<div className="flex flex-col mb-4">
 						<TitleInput
 							title={workspaceTitle}
 							setTitle={setWorkspaceTitle}

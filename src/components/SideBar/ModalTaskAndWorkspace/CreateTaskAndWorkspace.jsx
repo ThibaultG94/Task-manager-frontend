@@ -61,7 +61,7 @@ const CreateTaskAndWorkspace = ({
 			className="bg-modal-bg duration-300 ease-in-out fixed h-full text-black left-0 top-0 transition-all w-full z-10"
 			onClick={closeHandler}>
 			<div
-				className="bg-[#f8f7fd] border border-gray-400 flex flex-col mx-auto my-modal-margin rounded-lg shadow-md w-modal-xs custom-xs:w-modal-sm md:w-modal-md lg:w-modal-lg xl:w-modal-xl"
+				className="bg-[#f8f7fd] border border-gray-400 flex flex-col mx-auto my-modal-margin rounded-lg shadow-md w-modal-xs custom-xs:w-modal-sm md:w-modal-md"
 				onClick={(e) => e.stopPropagation()} ref={modalCreateRef}>
 				<Tabs
 					tabs={tabData}

@@ -21,8 +21,7 @@ const Tabs = ({ tabs, activeTab, setActiveTab, closeModal }) => {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={tabClass(tab.id, index)}>
-                            <i className={`${tab.icon} block md:hidden`}></i>
-                            <span className="hidden md:block">{tab.label}</span>
+                            <i className={`${tab.icon}`}></i>
                         </button>
                     ))}
                 </div>
