@@ -3,7 +3,7 @@ import CloseButton from '../Buttons/CloseButton';
 
 const Tabs = ({ tabs, activeTab, setActiveTab, closeModal }) => {
     const tabClass = (tabId, index) => {
-        const baseClasses = 'inline-block py-2 px-4 text-sm transition-all duration-300 text-base custom-xs:text-lg md:text-sm lg:text-base';
+        const baseClasses = 'inline-block py-2 px-4 text-sm transition-all duration-300 text-base custom-xs:text-lg';
         const activeClasses = 'bg-light-blue-2 text-light-blue';
         const inactiveClasses = 'text-gray-800 hover:text-gray-700';
         const roundedClass = index === 0 ? 'rounded-tl-lg ' : '';

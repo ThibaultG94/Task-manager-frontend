@@ -15,7 +15,7 @@ const useOpenConversation = () => {
     const markAsRead = async (conversationId) => {
         const userId = await getUserId();
         dispatch(markConversationAsRead({ conversationId, userId }));
-		socket.emit('read_message', { conversationId, userId });
+		    socket?.emit('read_message', { conversationId, userId });
     };
 
     const openConversation = (e, contact) => {

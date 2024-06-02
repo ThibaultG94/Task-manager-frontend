@@ -60,9 +60,9 @@ const SendInviteForm = ({ userId }) => {
 			<form
 				className="w-5/6 mx-auto mb-9 flex flex-col"
 				onSubmit={handleSubmit}>
-				<div className="flex flex-col md:flex-row mb-2 sm:mb-4 md:mb-5">
-					<div className="flex flex-col md:w-1/2 sm:pr-1 md:pr-2">
-						<div className="mb-2 sm:mb-4 md:mb-5">
+				<div className="flex flex-col mb-2 sm:mb-4">
+					<div className="flex flex-col">
+						<div className="mb-2 sm:mb-4">
 							<input
 								className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 focus:outline-none focus:shadow-outline leading-tight p-2 rounded shadow w-full"
 								maxLength="50"
@@ -78,7 +78,7 @@ const SendInviteForm = ({ userId }) => {
 							</span>
 						</div>
 					</div>
-					<div className="flex flex-col flex-grow justify-between w-full md:w-1/2 pl-0 md:pl-2">
+					<div className="flex flex-col flex-grow justify-between w-full pl-0">
 						<textarea
 							className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 flex-grow focus:outline-none focus:shadow-outline leading-tight p-2 resize-none rounded shadow w-full"
 							cols="30"

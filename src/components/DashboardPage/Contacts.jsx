@@ -108,8 +108,8 @@ const Contacts = ({ userId }) => {
 									</div>
 									<div className='flex justify-between items-center px-3 cursor-pointer'>
 										<button className='relative h-4 group text-lg' onClick={(e) => openInviteModal(e, contact.id)}>
-											<i className="fa-solid fa-circle-plus block absolute z-50 top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
-											<i className="fa-solid fa-plus hidden absolute z-50 top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>
+											<i className="fa-solid fa-circle-plus block absolute top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
+											<i className="fa-solid fa-plus hidden absolute top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>
 										</button>
 									</div>
 								</li>
