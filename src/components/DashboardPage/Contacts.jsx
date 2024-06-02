@@ -62,7 +62,7 @@ const Contacts = ({ userId }) => {
 
 	return (
 		<div className="coworkers-container dashboard-card relative">
-			<div className="flex justify-between">
+			<div className="flex justify-between px-1">
 				<h4 className="pl-2">Contacts</h4>
 				<div
 				className='cursor-pointer text-xl pr-2'
@@ -86,7 +86,7 @@ const Contacts = ({ userId }) => {
 													openModal(e);
 													setSelectedContact(contact)
 												}}>
-											<div className="mr-2 md:mr-3 text-dark-blue text-sm sm:text-base md:text-lg">
+											<div className="mr-2 md:mr-3 pl-2 text-dark-blue text-sm sm:text-base md:text-lg">
 												<i className="fa-solid fa-user"></i>
 											</div>
 											<div className="flex items-center">
@@ -106,7 +106,7 @@ const Contacts = ({ userId }) => {
 											</div>
 										</div>
 									</div>
-									<div className='flex justify-between items-center px-3 cursor-pointer'>
+									<div className='flex justify-between items-center pr-4 cursor-pointer'>
 										<button className='relative h-4 group text-lg' onClick={(e) => openInviteModal(e, contact.id)}>
 											<i className="fa-solid fa-circle-plus block absolute top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
 											<i className="fa-solid fa-plus hidden absolute top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>
