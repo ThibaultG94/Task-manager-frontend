@@ -3,14 +3,14 @@ import { useDispatch } from 'react-redux';
 import { setUserContacts } from '../../store/feature/users.slice';
 import { useErrorApi } from '../../utils/useErrorApi';
 
-const useDeleteContact = () => {
+const useBlockContact = () => {
     const dispatch = useDispatch();
 	const errorApi = useErrorApi();
 
-    const deleteContact = async (contactId) => {
+    const blockContact = async (contactId) => {
         try {
             const API_URL = process.env.REACT_APP_API_URL;
-            const res = await axios.delete(`${API_URL}/users/${contactId}/delete`, {
+            const res = await axios.delete(`${API_URL}/users/${contactId}/block`, {
                 withCredentials: true,
             });
             dispatch(setUserContacts(res.data.userContacts));
@@ -19,7 +19,7 @@ const useDeleteContact = () => {
         }
     }
 
-    return deleteContact;
+    return blockContact;
 };
 
-export default useDeleteContact;
+export default useBlockContact;
