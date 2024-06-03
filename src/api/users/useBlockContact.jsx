@@ -10,7 +10,7 @@ const useBlockContact = () => {
     const blockContact = async (contactId) => {
         try {
             const API_URL = process.env.REACT_APP_API_URL;
-            const res = await axios.delete(`${API_URL}/users/${contactId}/block`, {
+            const res = await axios.delete(`${API_URL}/users/${contactId}/block-contact`, {
                 withCredentials: true,
             });
             dispatch(setUserContacts(res.data.userContacts));
