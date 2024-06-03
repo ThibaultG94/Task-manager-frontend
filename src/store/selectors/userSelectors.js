@@ -27,7 +27,17 @@ export const selectUserContacts = createSelector(
   (users) => users.userContacts
 );
 
+export const selectUserBlockedContacts = createSelector(
+  [selectUsersState],
+  (users) => users.userBlockedContacts
+);
+
 export const selectIsUserContactsLoaded = createSelector(
   [selectUsersState],
   (users) => users.isUserContactsLoaded
+);
+
+export const selectIsUserBlockedContactsLoaded = createSelector(
+  [selectUsersState],
+  (users) => users.isUserBlockedContactsLoaded
 );

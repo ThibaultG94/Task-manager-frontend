@@ -31,6 +31,7 @@ import { useGetNextMonthTasks } from '../api/tasks/useGetNextMonthTasks';
 import { useGetThisYearTasks } from '../api/tasks/useGetThisYearTasks';
 import { useGetNextYearTasks } from '../api/tasks/useGetNextYearTasks';
 import { useGetBecomingTasks } from '../api/tasks/useGetBecomingTasks';
+import { useGetBlockedContacts } from '../api/users/useGetBlockedContacts';
 
 const DashboardPage = () => {
 	const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const DashboardPage = () => {
 	const getUrgentTasks = useGetUrgentTasks();
 	const getWorkspaces = useGetWorkspaces();
 	const getContacts = useGetContacts();
+	const getBlockedContacts = useGetBlockedContacts();
 	const getNotifications = useGetNotifications();
 	const getOverdueTasks = useGetOverdueTasks();
 	const getTodayTasks = useGetTodayTasks();
@@ -87,6 +89,7 @@ const DashboardPage = () => {
 				await getWorkspaces(userId);
 				await getContacts(userId);
 				await getNotifications(userId);
+				await getBlockedContacts(userId);
 				if (!isOverdueTasksLoaded) await getOverdueTasks(userId);
 				if (!isTodayTasksLoaded) await getTodayTasks(userId);
 				if (!isTomorrowTasksLoaded) await getTomorrowTasks(userId);

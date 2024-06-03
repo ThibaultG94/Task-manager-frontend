@@ -423,6 +423,24 @@ body {
 	}
 }
 
+.blocked {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 2px 0;
+	position: relative;
+	transition: 0.1s ease;
+
+	&:hover,
+	&:focus {
+		background: #F9F871;
+	}
+
+	&-list {
+		cursor: pointer;
+	}
+}
+
 // INVITATIONS
 
 .invitation-list {

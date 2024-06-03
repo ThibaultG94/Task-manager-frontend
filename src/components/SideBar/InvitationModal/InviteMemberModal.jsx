@@ -4,6 +4,7 @@ import SendInviteForm from './SendInviteForm';
 import SentOutInvitations from './SentOutInvitations';
 import ReceivedInvitesList from './ReceivedInvitesList';
 import ListContacts from './ListContacts';
+import ListBlockedContacts from './ListBlockedContact';
 
 const InviteMemberModal = ({ userId, setIsInvitationModalOpen, tab }) => {
 	const modalInvitRef = useRef(null);
@@ -35,6 +36,12 @@ const InviteMemberModal = ({ userId, setIsInvitationModalOpen, tab }) => {
 			label: 'Invitations Reçues',
 			icon: 'fas fa-envelope-open',
 			component: <ReceivedInvitesList userId={userId} />,
+		},
+		{
+			id: 'tab5',
+			label: 'Liste des contacts bloqués',
+			icon: 'fa-solid fa-user-slash',
+			component: <ListBlockedContacts userId={userId} />,
 		},
 	];
 
