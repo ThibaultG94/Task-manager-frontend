@@ -9,6 +9,13 @@ const HandleDeleteContact = ({ closeModal, selectedContact }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleRemoveContact = async () => {
+		const confirmation = window.confirm(
+			'Etes-vous sûr de vouloir supprimer ce contact ?'
+		);
+
+		if (!confirmation) {
+			return;
+		}
 		try {
 			setIsLoading(true);
 			await deleteContact(selectedContact.id);
