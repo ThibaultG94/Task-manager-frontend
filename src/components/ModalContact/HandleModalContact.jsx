@@ -7,7 +7,7 @@ import DeleteContact from './HandleDeleteContact';
 import useOpenConversation from '../../hooks/useOpenConversation';
 import { selectBecomingTasks, selectNextMonthTasks, selectNextWeekTasks, selectNextYearTasks, selectOverdueTasks, selectThisMonthTasks, selectThisWeekTasks, selectThisYearTasks, selectTodayTasks, selectTomorrowTasks } from '../../store/selectors/taskSelectors';
 
-const HandleModalContact = ({ closeModal, selectedContact }) => {
+const HandleModalContact = ({ closeModal, selectedContact, blocked }) => {
     const userWorkspaces = useSelector(selectWorkspaces);
     const overdueTasks = useSelector(selectOverdueTasks);
     const todayTasks = useSelector(selectTodayTasks);
@@ -23,10 +23,18 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
     const [workspaces, setWorkspaces] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [isClosing, setIsClosing] = useState(false);
+    const [isBlocked, setIsBlocked] = useState(false);
 
     const modalRef = useRef(null);
 
     const openConversation = useOpenConversation();
+
+    const closeHandler = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            closeModal();
+        }, 300);
+    };
 
     useEffect(() => {
         const filterWorkspaces = () => {
@@ -39,12 +47,9 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
         filterWorkspaces();
     }, [userWorkspaces, selectedContact.id]);
 
-    const closeHandler = () => {
-        setIsClosing(true);
-        setTimeout(() => {
-            closeModal();
-        }, 300);
-    };
+    useEffect(() => {
+       if (blocked) setIsBlocked(true);
+    }, [blocked]);
 
     useEffect(() => {
         const currentModal = modalRef.current;
@@ -136,15 +141,15 @@ const HandleModalContact = ({ closeModal, selectedContact }) => {
 
                 <div className="absolute left-0 top-0 p-4">
                     <div className="w-10 flex justify-between items-center">
-                        <BlockContact closeModal={closeModal} selectedContact={selectedContact} />
+                       {!isBlocked && <BlockContact closeModal={closeModal} selectedContact={selectedContact} />}
                         <DeleteContact closeModal={closeModal} selectedContact={selectedContact} />
                     </div>
                 </div>
 
                 <div className="absolute right-4 bottom-0 p-4">
-                    <button className="text-light-blue-2 hover:text-dark-blue" onClick={(e) => openConversation(e, selectedContact)}>
+                    {!isBlocked ? <button className="text-light-blue-2 hover:text-dark-blue" onClick={(e) => openConversation(e, selectedContact)}>
                         Envoyer un message <i className="fa-solid fa-paper-plane ml-2"></i>
-                    </button>
+                    </button> : <p>Vous avez bloqué ce contact</p>}
 				</div>
 			</div>
 		</section>

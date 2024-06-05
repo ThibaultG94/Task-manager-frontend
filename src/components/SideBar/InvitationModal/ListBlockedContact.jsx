@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectIsUserBlockedContactsLoaded, selectUserBlockedContacts } from '../../../store/selectors/userSelectors';
+import useUnblockContact from '../../../api/users/useUnblockContact';
 import LoadingComponent from '../../Buttons/LoadingComponent';
 import HandleModalContact from '../../ModalContact/HandleModalContact';
-import useOpenConversation from '../../../hooks/useOpenConversation';
 
 const ListBlockedContacts = () => {
 	const blockedContacts = useSelector(selectUserBlockedContacts);
 	const isUserBlockedContactsLoaded = useSelector(selectIsUserBlockedContactsLoaded);
 
-	const openConversation = useOpenConversation();
+	const unblockContact = useUnblockContact();
 
 	const [userBlockedContacts, setUserBlockedContacts] = useState();
 	const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,9 @@ const ListBlockedContacts = () => {
 		setIsModalOpen(false);
 	};
 
-    const handleUnblockContact = async (e, contactId) => {};
+    const handleUnblockContact = async (contactId) => {
+		await unblockContact(contactId);
+	};
 
 	useEffect(() => {
 		if (!isUserBlockedContactsLoaded) setIsLoading(true);
@@ -77,10 +79,9 @@ const ListBlockedContacts = () => {
 											</div>
 										</div>
 									</div>
-									<button className='mr-3 relative h-4 group text-lg' onClick={(e) => handleUnblockContact(e, contact.id)}>
-                                        // UNBLOCK BUTTON
-										<i className="fa-solid fa-circle-plus block absolute top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
-										<i className="fa-solid fa-plus hidden absolute top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>
+									<button className='mr-3 relative h-4 group text-lg' onClick={() => handleUnblockContact(contact.id)}>
+										<i className="fas fa-user-slash block absolute top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
+										<i className="fas fa-user hidden absolute top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>
 									</button>						
 								</li>
 							))}
@@ -96,7 +97,7 @@ const ListBlockedContacts = () => {
 			}
 
             {isModalOpen && (
-				<HandleModalContact closeModal={closeModal} selectedContact={selectedBlockedContact} />
+				<HandleModalContact closeModal={closeModal} selectedContact={selectedBlockedContact} blocked={true} />
 			)}	
 		</div>
 	);
