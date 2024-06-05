@@ -6,6 +6,7 @@ import BlockContact from './BlockContact';
 import DeleteContact from './HandleDeleteContact';
 import useOpenConversation from '../../hooks/useOpenConversation';
 import { selectBecomingTasks, selectNextMonthTasks, selectNextWeekTasks, selectNextYearTasks, selectOverdueTasks, selectThisMonthTasks, selectThisWeekTasks, selectThisYearTasks, selectTodayTasks, selectTomorrowTasks } from '../../store/selectors/taskSelectors';
+import useUnblockContact from '../../api/users/useUnblockContact';
 
 const HandleModalContact = ({ closeModal, selectedContact, blocked }) => {
     const userWorkspaces = useSelector(selectWorkspaces);
@@ -28,6 +29,7 @@ const HandleModalContact = ({ closeModal, selectedContact, blocked }) => {
     const modalRef = useRef(null);
 
     const openConversation = useOpenConversation();
+    const unblockContact = useUnblockContact();
 
     const closeHandler = () => {
         setIsClosing(true);
@@ -35,6 +37,11 @@ const HandleModalContact = ({ closeModal, selectedContact, blocked }) => {
             closeModal();
         }, 300);
     };
+
+    const handleUnblockContact = async (contactId) => {
+		await unblockContact(contactId);
+        setIsBlocked(false);
+	};
 
     useEffect(() => {
         const filterWorkspaces = () => {
@@ -146,11 +153,20 @@ const HandleModalContact = ({ closeModal, selectedContact, blocked }) => {
                     </div>
                 </div>
 
-                <div className="absolute right-4 bottom-0 p-4">
-                    {!isBlocked ? <button className="text-light-blue-2 hover:text-dark-blue" onClick={(e) => openConversation(e, selectedContact)}>
-                        Envoyer un message <i className="fa-solid fa-paper-plane ml-2"></i>
-                    </button> : <p>Vous avez bloqué ce contact</p>}
-				</div>
+                {!isBlocked ? <div className="absolute right-4 bottom-0 p-4">
+                                <button className="text-light-blue-2 hover:text-dark-blue" onClick={(e) => openConversation(e, selectedContact)}>
+                                    Envoyer un message <i className="fa-solid fa-paper-plane ml-2"></i>
+                                </button> 
+                            </div>
+                : (
+                        <div className='flex justify-center'>
+                            <p className='mr-6 pb-2'>Vous avez bloqué ce contact</p>
+                            <button className='mr-3 relative h-4 group text-lg' onClick={() => handleUnblockContact(selectedContact.id)}>
+							    <i className="fas fa-user-slash block absolute top-0 right-0 group-hover:hidden transition-opacity duration-300 ease-in-out"></i>
+								<i className="fas fa-user hidden absolute top-0 right-0 group-hover:block transition-opacity duration-300 ease-in-out"></i>
+							</button>	
+                        </div>
+                )}
 			</div>
 		</section>
     );
