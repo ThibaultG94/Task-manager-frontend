@@ -80,9 +80,7 @@ const HeaderNotifications = ({ userId }) => {
 		selectedWorkspace,
 	});
 
-	const markAsViewed = async (notificationsIds) => {
-		console.log('markAsViewed', userId, notificationsIds);
-		
+	const markAsViewed = async (notificationsIds) => {		
 		await markNotificationsAsViewed(userId, notificationsIds);
 	};
 

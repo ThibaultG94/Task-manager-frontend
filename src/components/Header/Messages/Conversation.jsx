@@ -8,10 +8,11 @@ import getUserId from '../../../api/users/getUserId';
 import useOpenConversation from '../../../hooks/useOpenConversation';
 import { getCategoryDate } from '../../../utils/getCategoryDay';
 import CloseConversation from '../../Buttons/CloseConversation';
+import { addMessageToConversation } from '../../../store/feature/conversations.slice';
 
 const Conversation = ({ contact, index, isMinimized }) => {
   const dispatch = useDispatch();
-  const { socket } = useSocket();
+  const { messageSocket } = useSocket();
   const conversation = useSelector((state) => selectConversationByContactId(state, contact.id));
 
   const openConversation = useOpenConversation();
@@ -46,7 +47,8 @@ const Conversation = ({ contact, index, isMinimized }) => {
       message,
       conversationId: conversation._id
     };
-    socket.emit('send_message', msg);
+    messageSocket.emit('send_message', msg);
+    dispatch(addMessageToConversation({ conversationId: conversation._id, msg: { ...msg, createdAt: new Date().toISOString(), content: msg.message }}));
     setMessage('');
     scrollToBottom();
   };
@@ -82,8 +84,8 @@ const Conversation = ({ contact, index, isMinimized }) => {
   }, [isMinimized]);
 
   useEffect(() => {
-    if (socket) {
-      socket.on('receive_message', (msg) => {
+    if (messageSocket) { // Use messageSocket
+      messageSocket.on('receive_message', (msg) => {
         if (msg.conversationId === conversation._id) {
           setMessages((prevMessages) => [...prevMessages, msg]);
           scrollToBottom();
@@ -91,11 +93,11 @@ const Conversation = ({ contact, index, isMinimized }) => {
       });
     }
     return () => {
-      if (socket) {
-        socket.off('receive_message');
+      if (messageSocket) { // Use messageSocket
+        messageSocket.off('receive_message');
       }
     };
-  }, [socket, conversation]);
+  }, [messageSocket, conversation]); // Depend on messageSocket
 
   return (
     <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>

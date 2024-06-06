@@ -16,7 +16,7 @@ import getUserId from '../../api/users/getUserId';
 const Header = () => {
 	const dispatch = useDispatch();
 	const currentUser = useSelector(selectCurrentUser);
-	const { socket, notificationSocket } = useSocket();
+	const { socket, notificationSocket, messageSocket } = useSocket();
 	const getConversations = useGetConversations();
 
 	const [userId, setUserId] = useState(null);
@@ -36,21 +36,22 @@ const Header = () => {
     }, [userId]);
 
 	useEffect(() => {
-		if (socket) {
-		  socket.on('receive_message', (message) => {
+		if (messageSocket) {
+		  messageSocket.on('receive_message', (message) => {
+			console.log('Received message:', message); 
 			dispatch(addMessageToConversation({ conversationId: message.conversationId, msg: message }));
 		  });
 
-		  socket.on('message_read', ({ conversationId, userId }) => {
+		  messageSocket.on('message_read', ({ conversationId, userId }) => {
 			dispatch(markConversationAsRead({ conversationId, userId }));
 		  });
 	
 		  return () => {
-			socket.off('receive_message');
-			socket.off('message_read');
+			messageSocket.off('receive_message');
+			messageSocket.off('message_read');
 		  };
 		}
-	}, [socket]);
+	}, [messageSocket]);
 
 	useEffect(() => {
 		if (notificationSocket) {

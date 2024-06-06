@@ -17,6 +17,7 @@ const getCookie = (name) => {
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [notificationSocket, setNotificationSocket] = useState(null);
+  const [messageSocket, setMessageSocket] = useState(null);
 
   useEffect(() => {
     const token = getCookie('token');
@@ -37,15 +38,24 @@ export const SocketProvider = ({ children }) => {
       });
       setNotificationSocket(newNotificationSocket);
 
+      const newMessageSocket = io(`${API_URL}/messages`, {
+        auth: {
+          token: token
+        },
+        withCredentials: true
+      });
+      setMessageSocket(newMessageSocket);
+
       return () => {
         newSocket.close();
         newNotificationSocket.close();
+        newMessageSocket.close();
       };
     }
   }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, notificationSocket }}>
+    <SocketContext.Provider value={{ socket, notificationSocket, messageSocket }}>
       {children}
     </SocketContext.Provider>
   );

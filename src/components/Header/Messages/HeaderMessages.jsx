@@ -9,7 +9,7 @@ import { selectConversations } from '../../../store/selectors/conversationsSelec
 const HeaderMessages = ({ userId }) => {
     const dispatch = useDispatch();
     const conversations = useSelector(selectConversations);
-	const { socket } = useSocket();
+	const { messageSocket } = useSocket();
 
     const [showMessages, setShowMessages] = useState(false);
     const [sortedConversations, setSortedConversations] = useState([]);
@@ -28,7 +28,7 @@ const HeaderMessages = ({ userId }) => {
 
     const markAsRead = async (conversationId) => {
         dispatch(markConversationAsRead({ conversationId, userId }));
-		socket.emit('read_message', { conversationId, userId });
+		messageSocket.emit('read_message', { conversationId, userId });
     };
 
     const handleMessagesMenu = (event) => {

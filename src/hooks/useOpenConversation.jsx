@@ -10,12 +10,12 @@ const useOpenConversation = () => {
     const dispatch = useDispatch();
     const conversationWindows = useSelector(selectConversationWindows);
     const conversations = useSelector(selectConversations);
-    const { socket } = useSocket();
+    const { messageSocket } = useSocket();
 
     const markAsRead = async (conversationId) => {
         const userId = await getUserId();
         dispatch(markConversationAsRead({ conversationId, userId }));
-		    socket?.emit('read_message', { conversationId, userId });
+		messageSocket?.emit('read_message', { conversationId, userId });
     };
 
     const openConversation = (e, contact) => {
