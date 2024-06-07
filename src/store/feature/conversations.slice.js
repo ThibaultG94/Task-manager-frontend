@@ -22,7 +22,6 @@ export const conversationsSlice = createSlice({
         (conv) => conv._id === conversationId
       );
       if (!state.conversations[conversationIndex]) {
-        console.log("No conversation found");
         const senderUser = { _id: msg.senderId, username: msg.senderUsername };
         const guestUser = { _id: msg.guestId, username: msg.guestUsername };
         // create a new conversation
@@ -34,7 +33,6 @@ export const conversationsSlice = createSlice({
         };
         state.conversations.push(newConversation);
       } else {
-        console.log("Conversation found");
         if (conversationIndex !== -1) {
           state.conversations[conversationIndex].updatedAt =
             new Date().toISOString();

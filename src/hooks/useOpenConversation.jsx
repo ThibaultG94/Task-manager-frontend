@@ -2,21 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { minimizeWindow, openWindow } from "../store/feature/conversationWindows.slice";
 import { selectConversationWindows } from "../store/selectors/conversationWindowsSelectors";
 import { selectConversations } from "../store/selectors/conversationsSelectors";
-import { markConversationAsRead } from "../store/feature/conversations.slice";
-import { useSocket } from "../context/SocketContext";
-import getUserId from "../api/users/getUserId";
+import { useMarkConversationAsRead } from "../api/conversations/useMarkConversationAsRead";
 
 const useOpenConversation = () => {
     const dispatch = useDispatch();
     const conversationWindows = useSelector(selectConversationWindows);
     const conversations = useSelector(selectConversations);
-    const { messageSocket } = useSocket();
 
-    const markAsRead = async (conversationId) => {
-        const userId = await getUserId();
-        dispatch(markConversationAsRead({ conversationId, userId }));
-		messageSocket?.emit('read_message', { conversationId, userId });
-    };
+    const readConversation = useMarkConversationAsRead();
 
     const openConversation = (e, contact) => {
         e.stopPropagation();
@@ -33,7 +26,7 @@ const useOpenConversation = () => {
           });
         
           contactConversations.forEach((conv) => {
-            markAsRead(conv._id);
+            readConversation(conv._id);
           });
     };
 

@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSocket } from '../../../context/SocketContext';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeWindow, minimizeWindow } from '../../../store/feature/conversationWindows.slice';
 import { selectConversationByContactId } from '../../../store/selectors/conversationsSelectors';
+import { closeWindow, minimizeWindow } from '../../../store/feature/conversationWindows.slice';
+import { addMessageToConversation } from '../../../store/feature/conversations.slice';
 import { format, parseISO } from 'date-fns';
 import getUserId from '../../../api/users/getUserId';
+import { useSendMessage } from '../../../api/messages/useSendMessage';
+import { useMarkConversationAsRead } from '../../../api/conversations/useMarkConversationAsRead';
 import useOpenConversation from '../../../hooks/useOpenConversation';
 import { getCategoryDate } from '../../../utils/getCategoryDay';
 import CloseConversation from '../../Buttons/CloseConversation';
-import { addMessageToConversation } from '../../../store/feature/conversations.slice';
 
 const Conversation = ({ contact, index, isMinimized }) => {
   const dispatch = useDispatch();
@@ -16,6 +18,8 @@ const Conversation = ({ contact, index, isMinimized }) => {
   const conversation = useSelector((state) => selectConversationByContactId(state, contact.id));
 
   const openConversation = useOpenConversation();
+  const sendMessage = useSendMessage();
+  const readConversation = useMarkConversationAsRead();
   
   const [messages, setMessages] = useState(conversation?.messages || []);
   const [message, setMessage] = useState('');
@@ -39,23 +43,21 @@ const Conversation = ({ contact, index, isMinimized }) => {
     scrollToBottom();
   };
 
-  const sendMessage = async () => {
+  const handleSendMessage = async () => {
     const userId = await getUserId();
     const msg = {
       senderId: userId,
       guestId: contact.id,
       message,
-      conversationId: conversation._id
     };
-    messageSocket.emit('send_message', msg);
-    dispatch(addMessageToConversation({ conversationId: conversation._id, msg: { ...msg, createdAt: new Date().toISOString(), content: msg.message }}));
+    await sendMessage(msg, conversation._id);
     setMessage('');
     scrollToBottom();
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      sendMessage();
+      handleSendMessage();
     }
   };
   
@@ -84,20 +86,25 @@ const Conversation = ({ contact, index, isMinimized }) => {
   }, [isMinimized]);
 
   useEffect(() => {
-    if (messageSocket) { // Use messageSocket
+    if (messageSocket) {
       messageSocket.on('receive_message', (msg) => {
         if (msg.conversationId === conversation._id) {
           setMessages((prevMessages) => [...prevMessages, msg]);
+          dispatch(addMessageToConversation({ conversationId: msg.conversationId, msg }));
           scrollToBottom();
+          if (!isMinimized) {
+            readConversation(conversation._id);
+          }
         }
       });
     }
+
     return () => {
-      if (messageSocket) { // Use messageSocket
+      if (messageSocket) {
         messageSocket.off('receive_message');
       }
     };
-  }, [messageSocket, conversation]); // Depend on messageSocket
+  }, [messageSocket, conversation]);
 
   return (
     <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>
@@ -154,7 +161,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
               placeholder="Tapez votre message..."
               className="flex-grow p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button onClick={sendMessage} className="p-2 px-4 bg-blue-500 text-white rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button onClick={handleSendMessage} className="p-2 px-4 bg-blue-500 text-white rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
               <i className="fa-solid fa-paper-plane"></i>
             </button>
           </div>

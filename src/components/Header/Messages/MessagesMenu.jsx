@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import { useMarkConversationAsRead } from '../../../api/conversations/useMarkConversationAsRead';
 import useOpenConversation from '../../../hooks/useOpenConversation';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
-const MessagesMenu = ({ modalRef, conversations, onRead, userId, isClosing }) => {
+const MessagesMenu = ({ modalRef, conversations, userId, isClosing }) => {
     const openConversation = useOpenConversation();
+    const readConversation = useMarkConversationAsRead();
 
     const formatDateToNow = (dateString) => {
         return formatDistanceToNow(parseISO(dateString), {
@@ -13,8 +15,8 @@ const MessagesMenu = ({ modalRef, conversations, onRead, userId, isClosing }) =>
         });
     };
 
-    const processConversation = (e, conv) => {
-        onRead(conv._id);
+    const processConversation = async (e, conv) => {
+        await readConversation(conv._id);
         const user = conv.users.find(user => user._id !== userId);
         const contact = {
             ...user,
