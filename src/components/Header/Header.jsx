@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/selectors/userSelectors';
 import { useGetConversations } from '../../api/conversations/useGetConversations';
 import HeaderWelcome from './HeaderWelcome';
@@ -12,7 +12,6 @@ import useMessageSocket from '../../hooks/useMessageSocket';
 import useNotificationSocket from '../../hooks/useNotificationSocket';
 
 const Header = () => {
-  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const getConversations = useGetConversations();
 
@@ -31,7 +30,7 @@ const Header = () => {
     if (userId) {
       getConversations();
     }
-  }, [userId, getConversations]);
+  }, [userId]);
 
   useMessageSocket();
   const notifications = useNotificationSocket();

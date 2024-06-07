@@ -21,7 +21,15 @@ export const conversationsSlice = createSlice({
       const conversationIndex = state.conversations.findIndex(
         (conv) => conv._id === conversationId
       );
-      if (!state.conversations[conversationIndex]) {
+      if (conversationIndex !== -1) {
+        state.conversations[conversationIndex].updatedAt =
+          new Date().toISOString();
+        state.conversations[conversationIndex].messages = [
+          ...state.conversations[conversationIndex].messages,
+          msg,
+        ];
+      } else {
+        console.log(msg);
         const senderUser = { _id: msg.senderId, username: msg.senderUsername };
         const guestUser = { _id: msg.guestId, username: msg.guestUsername };
         // create a new conversation
@@ -30,17 +38,10 @@ export const conversationsSlice = createSlice({
           messages: [msg],
           updatedAt: new Date().toISOString(),
           users: [senderUser, guestUser],
+          lastMessage: msg._id,
         };
+        console.log(newConversation);
         state.conversations.push(newConversation);
-      } else {
-        if (conversationIndex !== -1) {
-          state.conversations[conversationIndex].updatedAt =
-            new Date().toISOString();
-          state.conversations[conversationIndex].messages = [
-            ...state.conversations[conversationIndex].messages,
-            msg,
-          ];
-        }
       }
     },
     markConversationAsRead: (state, action) => {

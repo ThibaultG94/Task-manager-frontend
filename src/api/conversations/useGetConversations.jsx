@@ -17,7 +17,7 @@ export const useGetConversations = () => {
             return res.data.userConversations;
         } catch (error) {
             errorApi(error);
-            throw new Error('Échec de la récupération des commentaires');
+            throw new Error('Échec de la récupération de la liste des conversations');
         }
     }
 
