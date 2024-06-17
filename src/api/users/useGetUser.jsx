@@ -12,6 +12,9 @@ export const useGetUser = () => {
 			const API_URL = process.env.REACT_APP_API_URL;
 			const res = await axios.get(`${API_URL}/users/${userId}/account`, {
 				withCredentials: true,
+				headers: {
+					"Content-type": "application/json; charset=UTF-8"
+				}
 			});
 			dispatch(setUserData(res.data.user));
 			return res.data.user;
