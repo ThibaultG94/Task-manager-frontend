@@ -22,6 +22,9 @@ FROM nginx:alpine
 # Copy build files from previous step
 COPY --from=build /usr/src/app/build /usr/share/nginx/html
 
+# Modify file permissions
+RUN chmod -R 777 /usr/share/nginx/html
+
 # Expose port 80
 EXPOSE 80
 
