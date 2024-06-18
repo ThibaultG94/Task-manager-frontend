@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const ErrorPage500 = () => {
+	const API_URL = process.env.REACT_APP_API_URL;
+
+	useEffect(() => {
+		console.log("API_URL", API_URL);
+	}, [API_URL]);
+
 	return (
 		<section className="bg-gray-100 flex items-center justify-center h-screen">
 			<div className="text-center">
