@@ -1,5 +1,5 @@
 # Using a Node.js image for the build phase
-FROM node:19.0.0-alpine
+FROM node:19.0.0-alpine as build
 
 # Define working directory
 WORKDIR /usr/src/app
