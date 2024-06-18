@@ -1,5 +1,5 @@
 {
     "schemaVersion": 2,
     "dockerfilePath": "./Dockerfile",
-    "publicDir": "/usr/src/app/build",
+    "publicDir": "/usr/src/app/build"
 }
