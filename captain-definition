@@ -1,5 +1,8 @@
 {
     "schemaVersion": 2,
     "dockerfilePath": "./Dockerfile",
-    "publicDir": "/usr/src/app/build"
+    "publicDir": "/usr/src/app/build",
+    "buildArgs": {
+        "REACT_APP_API_URL": "$$REACT_APP_API_URL"
+  }
 }
