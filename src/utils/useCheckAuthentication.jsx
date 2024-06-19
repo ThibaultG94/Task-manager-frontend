@@ -10,8 +10,8 @@ export const useCheckAuthentication = () => {
 
 	const checkAuthentication = async () => {
 		try {
-			const userId = await getUserId(API_URL);
 			const currentPath = location.pathname;
+			const userId = await getUserId(API_URL);
 
 			if (userId && currentPath === '/home') {
 				navigate('/pages/dashboard');
