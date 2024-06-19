@@ -10,7 +10,6 @@ const useMessageSocket = () => {
   useEffect(() => {
     if (messageSocket) {
       messageSocket.on('receive_message', (message) => {
-        console.log('Received message:', message); 
         dispatch(addMessageToConversation({ conversationId: message.conversationId, msg: message }));
       });
 

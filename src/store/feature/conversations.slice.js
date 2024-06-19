@@ -29,7 +29,6 @@ export const conversationsSlice = createSlice({
           msg,
         ];
       } else {
-        console.log(msg);
         const senderUser = { _id: msg.senderId, username: msg.senderUsername };
         const guestUser = { _id: msg.guestId, username: msg.guestUsername };
         // create a new conversation
