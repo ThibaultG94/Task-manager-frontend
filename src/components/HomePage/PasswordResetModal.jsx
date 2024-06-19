@@ -19,7 +19,7 @@ const PasswordResetModal = ({ isOpen, onClose, onReset }) => {
 
 	return (
 		<div
-			className="bg-black bg-opacity-50 fixed flex inset-0 items-center justify-center"
+			className="bg-black bg-opacity-50 fixed flex inset-0 items-center justify-center z-50"
 			id="modalBackdrop"
 			onClick={handleOutsideClick}>
 			<div
