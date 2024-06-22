@@ -2,7 +2,6 @@ import axios from "axios";
 import { useGetUserId } from "./useGetUserId";
 
 export const useLoginUser = () => {
-    const API_URL = process.env.REACT_APP_API_URL;
     const getUserId = useGetUserId();
 
     const login = async (API_URL, email, password) => {
@@ -22,8 +21,6 @@ export const useLoginUser = () => {
             const refreshToken = res.data.refreshToken;
             document.cookie = `token=${token}`;
             document.cookie = `refreshToken=${refreshToken}`;
-
-            console.log("loginUser -> res", res);
 
             await getUserId();
             return res;
