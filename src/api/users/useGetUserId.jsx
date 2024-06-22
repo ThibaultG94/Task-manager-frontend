@@ -17,6 +17,9 @@ export const useGetUserId = () => {
             const res = await axios.get(`${API_URL}/users/my-account`, {
                 withCredentials: true,
             });
+            if (res.status !== 200) {
+                throw new Error(res.data);
+            }
             userId = res.data.user._id;
             dispatch(setUserId(res.data.user._id));
             return res.data.user._id;
