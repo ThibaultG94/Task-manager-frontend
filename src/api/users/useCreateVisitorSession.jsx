@@ -10,11 +10,7 @@ export const useCreateVisitorSession = () => {
     const createVisitorSession = async () => {
         try {
             const API_URL = process.env.REACT_APP_API_URL;
-            const res = await axios.post(`${API_URL}/users/visitor`, 
-            {},
-            {
-                withCredentials: true,
-            });
+            const res = await axios.post(`${API_URL}/users/visitor`);
             const token = res.data.token;
             document.cookie = `token=${token}`;
             dispatch(setUserId(res.data.tempUser._id));
