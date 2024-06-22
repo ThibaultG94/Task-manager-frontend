@@ -6,8 +6,8 @@ import {
 	selectNotifications,
 	selectTotalNumberOfNotifications,
 } from '../../../store/selectors/notificationSelectors';
+import { useGetUserId } from '../../../api/users/useGetUserId';     
 import { useGetAllNotifications } from '../../../api/notifications/useGetAllNotifications';
-import getUserId from '../../../api/users/getUserId';
 import Pagination from '../../../utils/Pagination';
 
 const NotificationsModal = ({
@@ -23,6 +23,7 @@ const NotificationsModal = ({
 	const totalNumberOfNotifications = useSelector(selectTotalNumberOfNotifications);
 	
 	const getAllNotifications = useGetAllNotifications();
+	const getUserId = useGetUserId();
 
 	const modalRef = useRef(null);
 	

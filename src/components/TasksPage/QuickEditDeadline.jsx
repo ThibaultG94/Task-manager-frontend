@@ -10,9 +10,9 @@ import {
 	setExclusiveEditingField,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { useGetUserId } from '../../api/users/useGetUserId';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
-import getUserId from '../../api/users/getUserId';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import useWindowSize from '../../utils/useWindowSize';
 import { inverseDateFormat, formatDateForResponsive, formatDateArchived } from '../../utils/dateFormatTools';
@@ -26,6 +26,7 @@ const QuickEditDeadline = ({ task, setSelectedTask, isDeadlineCanBeEdited, isAct
 	const editedTask = useSelector(selectEditedTask);
 	
 	const editTask = useEditTask();
+	const getUserId = useGetUserId();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
 	

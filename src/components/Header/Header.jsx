@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/selectors/userSelectors';
+import { useGetUserId } from '../../api/users/useGetUserId';
 import { useGetConversations } from '../../api/conversations/useGetConversations';
 import HeaderWelcome from './HeaderWelcome';
 import HeaderNav from './HeaderNav';
 import HeaderNotifications from './Notifications/HeaderNotifications';
 import HeaderAvatar from './HeaderAvatar';
 import HeaderMessages from './Messages/HeaderMessages';
-import getUserId from '../../api/users/getUserId';
 import useMessageSocket from '../../hooks/useMessageSocket';
 import useNotificationSocket from '../../hooks/useNotificationSocket';
 
 const Header = () => {
   const currentUser = useSelector(selectCurrentUser);
   const getConversations = useGetConversations();
+  const getUserId = useGetUserId();
 
   const [userId, setUserId] = useState(null);
 

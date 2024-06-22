@@ -8,7 +8,7 @@ import {
 } from '../../store/selectors/taskSelectors';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { useGetArchivedTasks } from '../../api/tasks/useGetArchivedTasks';
-import getUserId from '../../api/users/getUserId';
+import { useGetUserId } from '../../api/users/useGetUserId';
 import { updateDisplayTasks } from '../../utils/updateDisplayTasks';
 import Pagination from '../../utils/Pagination';
 import HeaderBlock from './HeaderBlock';
@@ -23,6 +23,7 @@ const DisplayArchivedTasks = ({ setSelectedTask, openModal }) => {
 	const isArchivedTasksLoaded = useSelector(selectIsArchivedTasksLoaded);
 
 	const getArchivedTasks = useGetArchivedTasks();
+	const getUserId = useGetUserId();
 
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);

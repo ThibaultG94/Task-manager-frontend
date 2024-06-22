@@ -8,9 +8,9 @@ import {
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { setEditedTask } from '../../store/feature/tasks.slice';
+import { useGetUserId } from '../../api/users/useGetUserId';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
-import getUserId from '../../api/users/getUserId';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import ArrowDown from '../Buttons/ArrowDown';
@@ -22,6 +22,7 @@ const QuickEditStatus = ({ task, setSelectedTask, isStatusCanBeEdited }) => {
 	const isEditingField = useSelector(selectIsEditingField);
 	const editedTask = useSelector(selectEditedTask);
 
+	const getUserId = useGetUserId();
 	const editTask = useEditTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();

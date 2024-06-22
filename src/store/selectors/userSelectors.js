@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-const selectUsersState = (state) => state.users;
+const selectUsersState = (state) => state?.users;
 
 export const selectUsers = createSelector(
   [selectUsersState],
@@ -40,4 +40,9 @@ export const selectIsUserContactsLoaded = createSelector(
 export const selectIsUserBlockedContactsLoaded = createSelector(
   [selectUsersState],
   (users) => users.isUserBlockedContactsLoaded
+);
+
+export const selectUserId = createSelector(
+  [selectUsersState],
+  (users) => users?.userId
 );

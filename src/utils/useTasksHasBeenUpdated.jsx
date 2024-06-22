@@ -16,11 +16,12 @@ import {
 import { formatDateForDisplay } from './formatDateForDisplay';
 import { getCategoryDay } from './getCategoryDay';
 import { useGetNotifications } from '../api/notifications/useGetNotifications';
-import getUserId from '../api/users/getUserId';
+import { useGetUserId } from '../api/users/useGetUserId';
 
 export const useTasksHasBeenUpdated = () => {
 	const dispatch = useDispatch();
 
+	const getUserId = useGetUserId();
 	const getNotifications = useGetNotifications();
 
 	const updateCategory = (category) => {

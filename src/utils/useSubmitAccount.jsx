@@ -1,7 +1,8 @@
 import { toast } from 'react-toastify';
 import { useRegisterUser } from '../api/users/useRegisterUser';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../api/users/loginUser';
+// import { login } from '../api/users/loginUser';
+import { useLoginUser } from '../api/users/useLoginUser';
 
 export const useSubmitForSignupAccount = ({
 	inputsFormErrors,
@@ -49,6 +50,7 @@ export const useSubmitForSignupAccount = ({
 export const useSubmitForLoginAccount = ({ inputsFormValues, setErrorWithLogin }) => {
 	const API_URL = process.env.REACT_APP_API_URL;
 	const navigate = useNavigate();
+	const login = useLoginUser();
 
 	const submitForLoginAccount = async (e) => {
 		e.preventDefault();

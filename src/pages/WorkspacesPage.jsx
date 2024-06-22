@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useGetUserId } from '../api/users/useGetUserId';
+import { useCheckAuthentication } from '../utils/useCheckAuthentication';
+import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
 import SideBar from '../components/SideBar/SideBar';
 import Header from '../components/Header/Header';
-import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
-import getUserId from '../api/users/getUserId';
-import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 
 const WorkspacesPage = () => {
 	const checkAuthentication = useCheckAuthentication();
+	const getUserId = useGetUserId();
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
 	useUpdateTasksInStore();

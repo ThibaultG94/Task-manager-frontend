@@ -5,7 +5,7 @@ import { selectConversationByContactId } from '../../../store/selectors/conversa
 import { closeWindow, minimizeWindow } from '../../../store/feature/conversationWindows.slice';
 import { addMessageToConversation } from '../../../store/feature/conversations.slice';
 import { format, parseISO } from 'date-fns';
-import getUserId from '../../../api/users/getUserId';
+import { useGetUserId } from '../../../api/users/useGetUserId';
 import { useSendMessage } from '../../../api/messages/useSendMessage';
 import { useMarkConversationAsRead } from '../../../api/conversations/useMarkConversationAsRead';
 import useOpenConversation from '../../../hooks/useOpenConversation';
@@ -17,6 +17,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
   const { messageSocket } = useSocket();
   const conversation = useSelector((state) => selectConversationByContactId(state, contact.id));
 
+  const getUserId = useGetUserId();
   const openConversation = useOpenConversation();
   const sendMessage = useSendMessage();
   const readConversation = useMarkConversationAsRead();

@@ -1,12 +1,13 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import getUserId from '../api/users/getUserId';
 import { useErrorApi } from './useErrorApi';
+import { useGetUserId } from '../api/users/useGetUserId';
 
 export const useCheckAuthentication = () => {
 	const API_URL = process.env.REACT_APP_API_URL;
 	const navigate = useNavigate();
 	const location = useLocation();
 	const errorApi = useErrorApi();
+	const getUserId = useGetUserId();
 
 	const checkAuthentication = async () => {
 		try {

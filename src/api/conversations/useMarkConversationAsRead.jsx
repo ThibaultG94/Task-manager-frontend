@@ -2,11 +2,12 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useErrorApi } from '../../utils/useErrorApi';
 import { markConversationAsRead } from '../../store/feature/conversations.slice';
-import getUserId from '../users/getUserId';
+import { useGetUserId } from '../users/useGetUserId';
 
 export const useMarkConversationAsRead = () => {
     const dispatch = useDispatch();
     const errorApi = useErrorApi();
+    const getUserId = useGetUserId();
 
     const readConversation = async (conversationId) => {
         try {
