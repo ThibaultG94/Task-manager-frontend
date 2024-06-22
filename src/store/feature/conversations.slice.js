@@ -39,7 +39,6 @@ export const conversationsSlice = createSlice({
           users: [senderUser, guestUser],
           lastMessage: msg._id,
         };
-        console.log(newConversation);
         state.conversations.push(newConversation);
       }
     },

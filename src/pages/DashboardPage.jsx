@@ -84,7 +84,6 @@ const DashboardPage = () => {
 	useEffect(() => {
 		const getData = async () => {
 			if (userId) {
-				console.log('userId', userId);
 				await getUser(userId);
 				await getUrgentTasks(userId);
 				await getWorkspaces(userId);

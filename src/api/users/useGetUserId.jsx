@@ -11,7 +11,6 @@ export const useGetUserId = () => {
     const getUserId = async () => {
         let userId;
         if (selectedUserId) {
-            console.log("selectedUserId", selectedUserId);
             userId = selectedUserId;
             return selectedUserId;
         } else {
