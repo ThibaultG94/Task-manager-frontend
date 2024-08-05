@@ -31,6 +31,7 @@ const AvatarUploader = ({ user, inputFileRef }) => {
         formData.append('api_key', API_KEY);
         formData.append('timestamp', timestamp);
         formData.append('signature', signature);
+        formData.append('transformation', 'c_fill,g_auto,h_150,w_150');
 
         const uploadResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
             method: 'POST',
@@ -47,7 +48,7 @@ const AvatarUploader = ({ user, inputFileRef }) => {
     useEffect(() => {
         if (user && user.avatar) {
             setHasAvatarImage(true);
-            setImageUrl(user.avatar);
+            if (imageUrl !== user.avatar) setImageUrl(user.avatar);
         }
     }, [user]);
 
