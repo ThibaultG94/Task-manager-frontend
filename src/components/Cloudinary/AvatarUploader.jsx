@@ -52,6 +52,7 @@ const AvatarUploader = ({ user, inputFileRef }) => {
 
     useEffect(() => {
         if (imageUrl) {
+            const CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
             const cld = new Cloudinary({ cloud: { cloudName: CLOUD_NAME } });
             const image = cld.image(imageUrl).format('auto').quality('auto').resize(auto().gravity(autoGravity()).width(150).height(150));
             setImg(image);
