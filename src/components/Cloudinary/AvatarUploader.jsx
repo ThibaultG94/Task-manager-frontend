@@ -64,7 +64,7 @@ const AvatarUploader = ({ user, inputFileRef }) => {
                 <span
                     id="avatarLetter"
                     className="text-light-blue text-2xl sm:text-3xl md:text-4xl">
-                    {user.username[0]}
+                    {user?.username[0]}
                 </span>
            )}
             <input type="file" ref={inputFileRef} onChange={handleFileUpload} style={{ display: 'none' }} id="fileInput" />
