@@ -22,6 +22,10 @@ const AvatarUploader = ({ user, inputFileRef }) => {
     const updateUserAvatar = useUpdateUserAvatar();
 
     useEffect(() => {
+        if (!img.publicId) setImg(false);
+    }, []);
+
+    useEffect(() => {
         if (user && user.avatar) {
             setAvatarUrl(user.avatar);
         }
