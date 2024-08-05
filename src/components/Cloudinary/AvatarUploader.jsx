@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
-import { auto, fill } from '@cloudinary/url-gen/actions/resize';
+import { auto } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { useUpdateUserAvatar } from '../../api/users/useUpdateUserAvatar';
 import axios from 'axios';
@@ -9,7 +9,6 @@ import axios from 'axios';
 const AvatarUploader = ({ user, inputFileRef }) => {
     const CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
     const API_KEY = process.env.REACT_APP_CLOUDINARY_API_KEY;
-    const cld = new Cloudinary({ cloud: { cloudName: CLOUD_NAME } });
     const [imageUrl, setImageUrl] = useState(null);
     const [img, setImg] = useState(null);
     const [hasAvatarImage, setHasAvatarImage] = useState(false);
@@ -53,6 +52,7 @@ const AvatarUploader = ({ user, inputFileRef }) => {
 
     useEffect(() => {
         if (imageUrl) {
+            const cld = new Cloudinary({ cloud: { cloudName: CLOUD_NAME } });
             const image = cld.image(imageUrl).format('auto').quality('auto').resize(auto().gravity(autoGravity()).width(150).height(150));
             setImg(image);
         }

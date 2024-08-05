@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import AvatarUploader from '../Cloudinary/AvatarUploader';
 
 const HeaderAvatar = ({ currentUser }) => {
