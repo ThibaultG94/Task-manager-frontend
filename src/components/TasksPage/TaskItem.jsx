@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import getUserId from '../../api/users/getUserId';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	resetEditState,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
+import { useGetUserId } from '../../api/users/useGetUserId';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
 import { useDeleteTask } from '../../api/tasks/useDeleteTask';
@@ -22,6 +22,7 @@ import ButtonToEditTaskInModal from '../Buttons/ButtonToEditTaskInModal';
 
 const TaskItem = ({ task, openModal, setSelectedTask }) => {
 	const dispatch = useDispatch();
+	const getUserId = useGetUserId();
 	const editTask = useEditTask();
 	const deleteTask = useDeleteTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();

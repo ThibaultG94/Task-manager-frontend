@@ -16,7 +16,7 @@ import { selectCurrentUser } from '../store/selectors/userSelectors';
 import { selectConversationWindows } from '../store/selectors/conversationWindowsSelectors';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
-import getUserId from '../api/users/getUserId';
+import { useGetUserId } from '../api/users/useGetUserId';
 import { useGetUser } from '../api/users/useGetUser';
 import { useGetWorkspaces } from '../api/workspaces/useGetWorkspaces';
 import { useGetOverdueTasks } from '../api/tasks/useGetOverdueTasks';
@@ -54,6 +54,7 @@ const TasksPage = () => {
 	const conversationWindows = useSelector(selectConversationWindows);
 
 	const checkAuthentication = useCheckAuthentication();
+	const getUserId = useGetUserId();
 
 	useUpdateTasksInStore();
 

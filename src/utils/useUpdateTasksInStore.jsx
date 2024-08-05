@@ -12,6 +12,7 @@ import {
 	selectTodayTasksHasBeenUpdated,
 	selectTomorrowTasksHasBeenUpdated,
 } from '../store/selectors/editStateSelectors';
+import { useGetUserId } from '../api/users/useGetUserId';
 import { useGetOverdueTasks } from '../api/tasks/useGetOverdueTasks';
 import { useGetTodayTasks } from '../api/tasks/useGetTodayTasks';
 import { useGetTomorrowTasks } from '../api/tasks/useGetTomorrowTasks';
@@ -37,7 +38,6 @@ import {
 	setTodayTasksHasBeenUpdated,
 	setTomorrowTasksHasBeenUpdated,
 } from '../store/feature/editState.slice';
-import getUserId from '../api/users/getUserId';
 import { selectCurrentArchivedPage } from '../store/selectors/pagesSelectors';
 
 export const useUpdateTasksInStore = () => {
@@ -80,6 +80,7 @@ export const useUpdateTasksInStore = () => {
 		selectArchivedTasksHasBeenUpdated
 	);
 
+	const getUserId = useGetUserId();
 	const getOverdueTasks = useGetOverdueTasks();
 	const getTodayTasks = useGetTodayTasks();
 	const getTomorrowTasks = useGetTomorrowTasks();

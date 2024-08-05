@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
+import { useGetUserId } from '../../api/users/useGetUserId';
+import { frenchFormattedDate } from '../../utils/dateFormatTools';
 import MemberSelect from '../ModalForm/MemberSelect';
 import DeadlineInput from '../ModalForm/DeadlineInput';
 import WorkspaceSelect from '../ModalForm/WorkspaceSelect';
 import ArrowDown from '../Buttons/ArrowDown';
-import getUserId from '../../api/users/getUserId';
-import { frenchFormattedDate } from '../../utils/dateFormatTools';
 
 const ModalEditTask = ({ taskData, setTaskData }) => {
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const editedTask = useSelector(selectEditedTask);
+
+	const getUserId = useGetUserId();
 
 	const [workspaceMembers, setWorkspaceMembers] = useState('');
 	const [selectedMember, setSelectedMember] = useState('default');

@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { selectEditedTask } from '../../store/selectors/taskSelectors';
+import { useGetUserId } from '../../api/users/useGetUserId';
 import CloseButton from '../Buttons/CloseButton';
 import ModalDisplayTask from './ModalDisplayTask';
 import ModalEditTask from './ModalEditTask';
 import DeleteTask from './DeleteTask';
 import SaveEditedTask from './SaveEditedTask';
-import getUserId from '../../api/users/getUserId';
 
 const HandleModalTask = ({
 	closeModal,
@@ -19,6 +19,8 @@ const HandleModalTask = ({
 	const editedTask = useSelector(selectEditedTask);
 
 	const modalRef = useRef(null);
+
+	const getUserId = useGetUserId();
 
 	const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 	const [isAdmin, setIsAdmin] = useState(false);

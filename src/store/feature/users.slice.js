@@ -3,6 +3,7 @@ import { resetStore } from "../actions/reset.actions";
 
 const initialState = {
   currentUser: null,
+  userId: null,
   userContacts: [],
   userBlockedContacts: [],
   isUserContactsLoaded: false,
@@ -29,6 +30,9 @@ export const usersSlice = createSlice({
       state.userBlockedContacts = action.payload;
       state.isUserBlockedContactsLoaded = true;
     },
+    setUserId: (state, action) => {
+      state.userId = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(resetStore, () => initialState);
@@ -40,5 +44,6 @@ export const {
   updateUserAction,
   setUserContacts,
   setUserBlockedContacts,
+  setUserId,
 } = usersSlice.actions;
 export default usersSlice.reducer;

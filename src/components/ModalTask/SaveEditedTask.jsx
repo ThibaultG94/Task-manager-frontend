@@ -4,11 +4,11 @@ import {
 	resetEditState,
 	setHasEdited,
 } from '../../store/feature/editState.slice';
+import { useGetUserId } from '../../api/users/useGetUserId';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
-import getUserId from '../../api/users/getUserId';
 import { selectUserContacts } from '../../store/selectors/userSelectors';
 import LoadingCreateComponent from '../Buttons/LoadingCreateComponent';
 
@@ -18,6 +18,7 @@ const SaveEditedTask = ({ setIsEditing, taskData, workspaceTask }) => {
 	const contacts = useSelector(selectUserContacts);
 
 	const editTask = useEditTask();
+	const getUserId = useGetUserId();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
 

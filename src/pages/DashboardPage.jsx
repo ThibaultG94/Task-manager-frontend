@@ -5,9 +5,9 @@ import { selectHasBeenUpdated } from '../store/selectors/editStateSelectors';
 import { selectConversationWindows } from '../store/selectors/conversationWindowsSelectors';
 import { setHasBeenUpdated } from '../store/feature/editState.slice';
 import { selectIsBecomingTasksLoaded, selectIsNextMonthTasksLoaded, selectIsNextWeekTasksLoaded, selectIsNextYearTasksLoaded, selectIsOverdueTasksLoaded, selectIsThisMonthTasksLoaded, selectIsThisWeekTasksLoaded, selectIsThisYearTasksLoaded, selectIsTodayTasksLoaded, selectIsTomorrowTasksLoaded } from '../store/selectors/taskSelectors';
-import getUserId from '../api/users/getUserId';
 import { useCheckAuthentication } from '../utils/useCheckAuthentication';
 import { useUpdateTasksInStore } from '../utils/useUpdateTasksInStore';
+import { useGetUserId } from '../api/users/useGetUserId';
 import { useGetUser } from '../api/users/useGetUser';
 import { useGetUrgentTasks } from '../api/tasks/useGetUrgentTasks';
 import { useGetWorkspaces } from '../api/workspaces/useGetWorkspaces';
@@ -53,6 +53,7 @@ const DashboardPage = () => {
 	
 	useUpdateTasksInStore();
 	const checkAuthentication = useCheckAuthentication();
+	const getUserId = useGetUserId();
 	const getUser = useGetUser();
 	const getUrgentTasks = useGetUrgentTasks();
 	const getWorkspaces = useGetWorkspaces();
@@ -71,8 +72,7 @@ const DashboardPage = () => {
 	const getBecomingTasks = useGetBecomingTasks();
 
 	const getId = async () => {
-		const id = await getUserId();
-		setUserId(id);
+		await getUserId().then((id) => setUserId(id));
 	};
 	
 	useEffect(() => {
@@ -83,7 +83,7 @@ const DashboardPage = () => {
 
 	useEffect(() => {
 		const getData = async () => {
-			if (userId !== null) {
+			if (userId) {
 				await getUser(userId);
 				await getUrgentTasks(userId);
 				await getWorkspaces(userId);

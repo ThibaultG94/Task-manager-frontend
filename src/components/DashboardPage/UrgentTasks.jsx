@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import getUserId from '../../api/users/getUserId';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectWorkspaces } from '../../store/selectors/workspaceSelectors';
 import { selectIsUrgentTasksLoaded, selectUrgentTasks } from '../../store/selectors/taskSelectors';
 import { setInitialEditedTask } from '../../store/feature/tasks.slice';
+import { useGetUserId } from '../../api/users/useGetUserId';
 import { useEditTask } from '../../api/tasks/useEditTask';
 import { useSetTaskNotification } from '../../api/notifications/useSetTaskNotification';
 import { useGetComments } from '../../api/comments/useGetComments';
@@ -27,6 +27,7 @@ const UrgentTasks = () => {
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const setTaskNotification = useSetTaskNotification();
 	const getComments = useGetComments();
+	const getUserId = useGetUserId();
 
 	const { notifyWithUndo } = useUndoActions();
 	
