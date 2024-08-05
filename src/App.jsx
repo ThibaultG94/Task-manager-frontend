@@ -10,25 +10,28 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 import TasksPage from './pages/TasksPage';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-tooltip/dist/react-tooltip.css';
+import { AvatarProvider } from './context/AvatarContext';
 
 const App = () => {
 	return (
 		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Navigate replace to="/home" />} />
-				<Route path="/home" element={<HomePage />} />
-				<Route path="*" element={<ErrorPage404 />} />
-				<Route path="/pages/error" element={<ErrorPage />} />
-				<Route path="/pages/error-404" element={<ErrorPage404 />} />
-				<Route path="/pages/error-500" element={<ErrorPage500 />} />
-				<Route
-					path="/pages/reset/:token"
-					element={<ResetPasswordPage />}
-				/>
-				<Route path="/pages/dashboard" element={<DashboardPage />} />
-				{/* <Route path="/pages/workspaces" element={<WorkspacesPage />} /> */}
-				<Route path="/pages/tasks" element={<TasksPage />} />
-			</Routes>
+			<AvatarProvider>
+				<Routes>
+					<Route path="/" element={<Navigate replace to="/home" />} />
+					<Route path="/home" element={<HomePage />} />
+					<Route path="*" element={<ErrorPage404 />} />
+					<Route path="/pages/error" element={<ErrorPage />} />
+					<Route path="/pages/error-404" element={<ErrorPage404 />} />
+					<Route path="/pages/error-500" element={<ErrorPage500 />} />
+					<Route
+						path="/pages/reset/:token"
+						element={<ResetPasswordPage />}
+						/>
+					<Route path="/pages/dashboard" element={<DashboardPage />} />
+					{/* <Route path="/pages/workspaces" element={<WorkspacesPage />} /> */}
+					<Route path="/pages/tasks" element={<TasksPage />} />
+				</Routes>
+			</AvatarProvider>
 		</BrowserRouter>
 	);
 };
