@@ -3,25 +3,45 @@ import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { useAvatar } from '../../context/AvatarContext';
 import { useUpdateUserAvatar } from '../../api/users/useUpdateUserAvatar';
 import axios from 'axios';
 
 const AvatarUploader = ({ user, inputFileRef }) => {
     const CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
     const API_KEY = process.env.REACT_APP_CLOUDINARY_API_KEY;
+    const { avatarUrl, setAvatarUrl } = useAvatar();
     const cld = new Cloudinary({ cloud: { cloudName: CLOUD_NAME } });
-    const [imageUrl, setImageUrl] = useState(null);
-    const [img, setImg] = useState(null);
-    const [hasAvatarImage, setHasAvatarImage] = useState(false);
+    const [img, setImg] = useState(
+        cld.image(avatarUrl)
+            .format('auto')
+            .quality('auto')
+            .resize(auto().gravity(autoGravity()).width(150).height(150))
+    );
 
     const updateUserAvatar = useUpdateUserAvatar();
 
+    useEffect(() => {
+        if (user && user.avatar) {
+            setAvatarUrl(user.avatar);
+        }
+    }, [user, setAvatarUrl]);
+
+    useEffect(() => {
+        if (avatarUrl) {
+            const image = cld.image(avatarUrl)
+                .format('auto')
+                .quality('auto')
+                .resize(auto().gravity(autoGravity()).width(150).height(150));
+            setImg(image);
+        }
+    }, [avatarUrl, cld]);
+
     const handleFileUpload = async (event) => {
-        const API_URL = process.env.REACT_APP_API_URL;
         const file = event.target.files[0];
         if (!file) return;
 
-        const response = await axios.get(`${API_URL}/avatars/signature`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/avatars/signature`, {
             withCredentials: true,
         });
         const { signature, timestamp } = response.data;
@@ -40,28 +60,14 @@ const AvatarUploader = ({ user, inputFileRef }) => {
 
         const uploadResult = await uploadResponse.json();
         if (uploadResult.secure_url) {
-            setImageUrl(uploadResult.public_id);
+            setAvatarUrl(uploadResult.public_id);
             updateUserAvatar(user._id, uploadResult.public_id);
         }
     };
 
-    useEffect(() => {
-        if (user && user.avatar) {
-            setHasAvatarImage(true);
-            if (imageUrl !== user.avatar) setImageUrl(user.avatar);
-        }
-    }, [user]);
-
-    useEffect(() => {
-        if (imageUrl) {
-            const image = cld.image(imageUrl).format('auto').quality('auto').resize(auto().gravity(autoGravity()).width(150).height(150));
-            setImg(image);
-        }
-    }, [imageUrl]);
-
     return (
         <div>
-           { hasAvatarImage ?  ( img && <AdvancedImage cldImg={img} />) : (
+           { img ? <AdvancedImage cldImg={img} /> : (
                 <span
                     id="avatarLetter"
                     className="text-light-blue text-2xl sm:text-3xl md:text-4xl">
