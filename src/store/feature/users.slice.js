@@ -6,6 +6,7 @@ const initialState = {
   userId: null,
   userContacts: [],
   userBlockedContacts: [],
+  checkAvatar: false,
   isUserContactsLoaded: false,
   isUserBlockedContactsLoaded: false,
   loading: false,
@@ -33,6 +34,9 @@ export const usersSlice = createSlice({
     setUserId: (state, action) => {
       state.userId = action.payload;
     },
+    setCheckAvatar: (state, action) => {
+      state.checkAvatar = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(resetStore, () => initialState);
@@ -45,5 +49,6 @@ export const {
   setUserContacts,
   setUserBlockedContacts,
   setUserId,
+  setCheckAvatar,
 } = usersSlice.actions;
 export default usersSlice.reducer;
