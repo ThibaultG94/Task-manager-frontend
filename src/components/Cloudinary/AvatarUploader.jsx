@@ -7,7 +7,7 @@ import { useAvatar } from '../../context/AvatarContext';
 import { useUpdateUserAvatar } from '../../api/users/useUpdateUserAvatar';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCheckAvatar } from '../../store/selectors/userSelectors';
+import { selectCheckAvatar, selectIsUserLoggedIn } from '../../store/selectors/userSelectors';
 import { setCheckAvatar } from '../../store/feature/users.slice';
 
 const AvatarUploader = ({ user, inputFileRef }) => {
@@ -19,6 +19,7 @@ const AvatarUploader = ({ user, inputFileRef }) => {
     const { avatarUrl, setAvatarUrl } = useAvatar();
     const updateUserAvatar = useUpdateUserAvatar();
     const checkAvatar = useSelector(selectCheckAvatar);
+    const isUserLoggedIn = useSelector(selectIsUserLoggedIn);
 
     const [img, setImg] = useState(cld
         .image(avatarUrl)
@@ -51,6 +52,13 @@ const AvatarUploader = ({ user, inputFileRef }) => {
             setImg(image);
         }
     }, [avatarUrl]);
+
+    useEffect(() => {
+        if (!isUserLoggedIn) {
+            setAvatarUrl(null);
+            setImg(false);
+        }
+    }, [isUserLoggedIn]);
 
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
