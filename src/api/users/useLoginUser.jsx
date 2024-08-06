@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useGetUserId } from "./useGetUserId";
+import { useDispatch } from "react-redux";
+import { setIsUserLoggedIn } from "../../store/feature/users.slice";
 
 export const useLoginUser = () => {
+    const dispatch = useDispatch();
     const getUserId = useGetUserId();
 
     const login = async (API_URL, email, password) => {
@@ -21,6 +24,8 @@ export const useLoginUser = () => {
             const refreshToken = res.data.refreshToken;
             document.cookie = `token=${token}`;
             document.cookie = `refreshToken=${refreshToken}`;
+
+            dispatch(setIsUserLoggedIn(true));
 
             await getUserId();
             return res;

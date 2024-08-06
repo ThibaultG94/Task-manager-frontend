@@ -51,3 +51,8 @@ export const selectCheckAvatar = createSelector(
   [selectUsersState],
   (users) => users.checkAvatar
 );
+
+export const selectIsUserLoggedIn = createSelector(
+  [selectUsersState],
+  (users) => users.isUserLoggedIn
+);
