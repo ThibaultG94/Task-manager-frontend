@@ -39,7 +39,7 @@ const AvatarUploader = ({ user, inputFileRef }) => {
                 .resize(auto().gravity(autoGravity()).width(150).height(150));
             setImg(image);
         }
-    }, [avatarUrl, cld]);
+    }, [avatarUrl]);
 
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
@@ -70,14 +70,14 @@ const AvatarUploader = ({ user, inputFileRef }) => {
     };
 
     return (
-        <div>
-           { img ? <AdvancedImage cldImg={img} /> : (
-                <span
-                    id="avatarLetter"
-                    className="text-light-blue text-2xl sm:text-3xl md:text-4xl">
-                    {user?.username[0]}
-                </span>
-           )}
+        <div className="relative w-full h-full flex items-center justify-center">
+           { img && <AdvancedImage cldImg={img} className="absolute z-10 w-full h-full object-cover rounded-full"
+ /> }
+           <span
+                className="absolute z-0 text-light-blue text-2xl sm:text-3xl md:text-4xl"
+            >
+                {user?.username[0]}
+            </span>
             <input type="file" ref={inputFileRef} onChange={handleFileUpload} style={{ display: 'none' }} id="fileInput" />
         </div>
     );
