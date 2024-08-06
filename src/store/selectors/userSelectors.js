@@ -46,3 +46,8 @@ export const selectUserId = createSelector(
   [selectUsersState],
   (users) => users?.userId
 );
+
+export const selectCheckAvatar = createSelector(
+  [selectUsersState],
+  (users) => users.checkAvatar
+);

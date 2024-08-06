@@ -6,34 +6,45 @@ import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { useAvatar } from '../../context/AvatarContext';
 import { useUpdateUserAvatar } from '../../api/users/useUpdateUserAvatar';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCheckAvatar } from '../../store/selectors/userSelectors';
+import { setCheckAvatar } from '../../store/feature/users.slice';
 
 const AvatarUploader = ({ user, inputFileRef }) => {
     const CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
     const API_KEY = process.env.REACT_APP_CLOUDINARY_API_KEY;
-    const { avatarUrl, setAvatarUrl } = useAvatar();
     const cld = new Cloudinary({ cloud: { cloudName: CLOUD_NAME } });
-    const [img, setImg] = useState(
-        cld.image(avatarUrl)
-            .format('auto')
-            .quality('auto')
-            .resize(auto().gravity(autoGravity()).width(150).height(150))
-    );
+    const dispatch = useDispatch();
 
+    const { avatarUrl, setAvatarUrl } = useAvatar();
     const updateUserAvatar = useUpdateUserAvatar();
+    const checkAvatar = useSelector(selectCheckAvatar);
+
+    const [img, setImg] = useState(cld
+        .image(avatarUrl)
+        .format('auto')
+        .quality('auto')
+        .resize(auto().gravity(autoGravity()).width(150).height(150)));
 
     useEffect(() => {
-        if (!img.publicId) setImg(false);
-    }, []);
-
-    useEffect(() => {
-        if (user && user.avatar) {
+        if (user?.avatar) {
             setAvatarUrl(user.avatar);
+        } else {
+            setImg(false);
         }
-    }, [user, setAvatarUrl]);
+    }, [user]);
+
+    useEffect(() => {
+        if (!checkAvatar && user?.avatar) {
+            setAvatarUrl(user.avatar);
+            dispatch(setCheckAvatar(true));
+        }
+    }, [checkAvatar]);
 
     useEffect(() => {
         if (avatarUrl) {
-            const image = cld.image(avatarUrl)
+            const image = cld
+                .image(avatarUrl)
                 .format('auto')
                 .quality('auto')
                 .resize(auto().gravity(autoGravity()).width(150).height(150));
@@ -45,9 +56,12 @@ const AvatarUploader = ({ user, inputFileRef }) => {
         const file = event.target.files[0];
         if (!file) return;
 
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/avatars/signature`, {
-            withCredentials: true,
-        });
+        const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/avatars/signature`,
+            {
+                withCredentials: true,
+            }
+        );
         const { signature, timestamp } = response.data;
 
         const formData = new FormData();
@@ -57,10 +71,13 @@ const AvatarUploader = ({ user, inputFileRef }) => {
         formData.append('signature', signature);
         formData.append('transformation', 'c_fill,g_auto,h_150,w_150');
 
-        const uploadResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-            method: 'POST',
-            body: formData
-        });
+        const uploadResponse = await fetch(
+            `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+            {
+                method: 'POST',
+                body: formData,
+            }
+        );
 
         const uploadResult = await uploadResponse.json();
         if (uploadResult.secure_url) {
@@ -71,14 +88,22 @@ const AvatarUploader = ({ user, inputFileRef }) => {
 
     return (
         <div className="relative w-full h-full flex items-center justify-center">
-           { img && <AdvancedImage cldImg={img} className="absolute z-10 w-full h-full object-cover rounded-full"
- /> }
-           <span
-                className="absolute z-0 text-light-blue text-2xl sm:text-3xl md:text-4xl"
-            >
+            {img && 
+                <AdvancedImage
+                    cldImg={img}
+                    className="absolute z-10 w-full h-full object-cover rounded-full"
+                />
+            }
+            <span className="absolute z-0 text-light-blue text-2xl sm:text-3xl md:text-4xl">
                 {user?.username[0]}
             </span>
-            <input type="file" ref={inputFileRef} onChange={handleFileUpload} style={{ display: 'none' }} id="fileInput" />
+            <input
+                type="file"
+                ref={inputFileRef}
+                onChange={handleFileUpload}
+                style={{ display: 'none' }}
+                id="fileInput"
+            />
         </div>
     );
 };
