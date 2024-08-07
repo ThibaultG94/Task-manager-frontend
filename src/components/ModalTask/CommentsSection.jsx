@@ -7,6 +7,7 @@ import { useAddCommentReply } from '../../api/comments/useAddCommentReply';
 import { useTasksHasBeenUpdated } from '../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import { selectComments } from '../../store/selectors/commentSelectors';
+import AvatarContact from '../Cloudinary/AvatarContact';
 
 const CommentsSection = ({ workspaceTask }) => {
     const dispatch = useDispatch();
@@ -78,7 +79,7 @@ const CommentsSection = ({ workspaceTask }) => {
             <div key={index} className="mb-4 p-2 border-b border-gray-200">
                 <div className="flex items-center mb-2">
                     <div className="h-8 w-8 rounded-full bg-dark-blue text-white flex items-center justify-center mr-2">
-                        {comment?.user.username.charAt(0).toUpperCase()}
+                        <AvatarContact user={comment?.user} />
                     </div>
                     <div>
                         <div className="text-sm text-gray-800 font-semibold">{comment?.user.username}</div>
