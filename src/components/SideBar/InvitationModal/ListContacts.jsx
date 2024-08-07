@@ -8,6 +8,7 @@ import LoadingComponent from '../../Buttons/LoadingComponent';
 import WorkspaceInviteModal from '../../ModalWorkspace/WorkspaceInviteModal';
 import HandleModalContact from '../../ModalContact/HandleModalContact';
 import useOpenConversation from '../../../hooks/useOpenConversation';
+import AvatarContact from '../../Cloudinary/AvatarContact';
 
 const ListContacts = ({ userId }) => {
 	const contacts = useSelector(selectUserContacts);
@@ -90,10 +91,8 @@ const ListContacts = ({ userId }) => {
 												<i className="fa-solid fa-user"></i>
 											</div>
 											<div className="flex items-center">
-												<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden p-1.5 px-2.5 relative rounded-full text-left w-8">
-													<span className="avatarLetterAssigned">
-														{contact?.username?.[0]}
-													</span>
+												<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden relative rounded-full text-left w-8">
+													<AvatarContact user={contact} />
 												</div>
 											</div>
 											<div className="text-sm md:text-base ml-2 ellipsis">
