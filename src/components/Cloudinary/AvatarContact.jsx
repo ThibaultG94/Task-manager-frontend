@@ -35,10 +35,12 @@ const AvatarContact = ({ user }) => {
         }, [avatarUrl]);
 
     return (
-            <AdvancedImage
+        <div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden relative rounded-full w-8">
+            {img && <AdvancedImage
                 cldImg={img}
                 className="w-full h-full object-cover rounded-full"
-            />            
+            /> }           
+        </div>
     );
 };
 

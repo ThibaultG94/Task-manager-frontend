@@ -91,9 +91,7 @@ const Contacts = ({ userId }) => {
 												<i className="fa-solid fa-user"></i>
 											</div>
 											<div className="flex items-center">
-												<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden relative rounded-full w-8">
-													<AvatarContact user={contact} />
-												</div>
+												<AvatarContact user={contact} />
 											</div>
 											<div className="text-sm md:text-base ml-2 ellipsis">
 												<span className="mr-1">
