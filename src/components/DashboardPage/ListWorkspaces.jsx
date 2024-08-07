@@ -8,6 +8,7 @@ import { TaskStatusIcon } from '../ModalTask/TaskStatusIcon';
 import { FaUser } from 'react-icons/fa';
 import HandleModalWorkspace from '../ModalWorkspace/HandleModalWorkspace';
 import LoadingComponent from '../Buttons/LoadingComponent';
+import AvatarContact from '../Cloudinary/AvatarContact';
 
 const ListWorkspaces = ({ userId }) => {
 	const isTabletOrLaptop = useMediaQuery({ maxWidth: 1024 });
@@ -75,17 +76,15 @@ const ListWorkspaces = ({ userId }) => {
 		if (allWorkspaces) updateDisplayWorkspaces();
 	}, [allWorkspaces]);
 
-	const renderMembers = (membersName) => {
+	const renderMembers = (members) => {
 		const maxMembersToShow = 3;
-		const extraMembers = membersName.length - maxMembersToShow;
+		const extraMembers = members.length - maxMembersToShow;
 
 		return (
 			<div className="sm:flex items-center hidden">
-				{membersName.slice(0, maxMembersToShow).map((member, index) => (
-					<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2" key={index}>
-						<span className="avatarLetterAssigned">
-							{member && member[0]}
-						</span>
+				{members.slice(0, maxMembersToShow).map((member, index) => (
+					<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto relative rounded-full text-left w-8 mr-2" key={index}>
+						<AvatarContact user={member} />
 					</div>
 				))}
 				{extraMembers > 0 && (
@@ -151,7 +150,7 @@ const ListWorkspaces = ({ userId }) => {
 									</div>
 								) : (
 									<div className="flex items-center">
-										{renderMembers(workspace?.membersName)}
+										{renderMembers(workspace?.members)}
 										<div className="ml-2">
 											<span className="bg-light-blue mr-2 px-2.5 py-1 rounded text-xs">
 												{workspace?.members.length}{' '}

@@ -29,7 +29,7 @@ const AvatarContact = ({ user }) => {
                     .image(avatarUrl)
                     .format('auto')
                     .quality('auto')
-                    .resize(auto().gravity(autoGravity()).width(150).height(150));
+                    .resize(auto().gravity(autoGravity()).width(200).height(200));
                 setImg(image);
             }
         }, [avatarUrl]);

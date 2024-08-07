@@ -25,7 +25,7 @@ const AvatarUploader = ({ user, inputFileRef }) => {
         .image(avatarUrl)
         .format('auto')
         .quality('auto')
-        .resize(auto().gravity(autoGravity()).width(150).height(150)));
+        .resize(auto().gravity(autoGravity()).width(200).height(200)));
 
     useEffect(() => {
         if (user?.avatar) {
@@ -48,7 +48,7 @@ const AvatarUploader = ({ user, inputFileRef }) => {
                 .image(avatarUrl)
                 .format('auto')
                 .quality('auto')
-                .resize(auto().gravity(autoGravity()).width(150).height(150));
+                .resize(auto().gravity(autoGravity()).width(200).height(200));
             setImg(image);
         }
     }, [avatarUrl]);
@@ -77,7 +77,7 @@ const AvatarUploader = ({ user, inputFileRef }) => {
         formData.append('api_key', API_KEY);
         formData.append('timestamp', timestamp);
         formData.append('signature', signature);
-        formData.append('transformation', 'c_fill,g_auto,h_150,w_150');
+        formData.append('transformation', 'c_fill,g_auto,h_200,w_200');
 
         const uploadResponse = await fetch(
             `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
