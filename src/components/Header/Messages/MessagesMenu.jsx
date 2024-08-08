@@ -3,6 +3,7 @@ import { useMarkConversationAsRead } from '../../../api/conversations/useMarkCon
 import useOpenConversation from '../../../hooks/useOpenConversation';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import AvatarContact from '../../Cloudinary/AvatarContact';
 
 const MessagesMenu = ({ modalRef, conversations, userId, isClosing }) => {
     const openConversation = useOpenConversation();
@@ -63,12 +64,8 @@ const MessagesMenu = ({ modalRef, conversations, userId, isClosing }) => {
                                     }`}
                                     onClick={(e) => processConversation(e, conv)}>
                                     <div className="flex flex-1 items-center space-x-2 ellipsis relative">
-                                        <div className="bg-dark-blue flex h-10 items-center justify-center mx-auto overflow-hidden p-2 relative rounded-full w-10">
-                                            <span
-                                                id="avatarLetterNotif"
-                                                className="text-lg text-white">
-                                                {otherUser?.username[0]}
-                                            </span>
+                                        <div className="bg-dark-blue-2 flex h-9 items-center justify-center mx-auto overflow-hidden relative rounded-full w-9">
+                                            <AvatarContact user={otherUser} />
                                         </div>
                                         <div className="flex-1 overflow-hidden">
                                             <span className="block truncate">
