@@ -83,12 +83,12 @@ const ListWorkspaces = ({ userId }) => {
 		return (
 			<div className="sm:flex items-center hidden">
 				{members.slice(0, maxMembersToShow).map((member, index) => (
-					<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto relative rounded-full text-left w-8 mr-2" key={index}>
+					<div className="bg-dark-blue-2 h-9 w-9 flex items-center justify-center mx-auto relative rounded-full text-left mr-2" key={index}>
 						<AvatarContact user={member} />
 					</div>
 				))}
 				{extraMembers > 0 && (
-					<div className="bg-light-blue flex h-8 items-center justify-center mx-auto p-1.5 px-2.5 relative rounded-full text-left w-8 mr-2">
+					<div className="bg-light-blue flex h-9 items-center justify-center mx-auto p-1.5 px-2.5 relative rounded-full text-left w-9 mr-2">
 						<span className="text-blue-950">
 							+{extraMembers}
 						</span>
@@ -108,7 +108,7 @@ const ListWorkspaces = ({ userId }) => {
 					{displayWorkspaces &&
 						displayWorkspaces.map((workspace, index) => (
 							<div
-								className="workspace p-1 md:p-2"
+								className="workspace p-0.5 md:p-1.5"
 								key={index + 1465565}
 								onClick={(e) => {
 									openModalWorkspace(e);

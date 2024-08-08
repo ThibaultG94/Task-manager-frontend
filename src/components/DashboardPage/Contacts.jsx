@@ -80,9 +80,9 @@ const Contacts = ({ userId }) => {
 							{userContacts.slice(0, 4).map((contact) => (
 								<li className='contact' key={contact.id} onClick={(e) => openConversation(e, contact)}>		
 									<div
-										className="flex items-center justify-start py-1 md:py-1.5 px-2 relative transition duration-100 ease-in-out ellipsis"
+										className="flex items-center justify-start py-0.5 md:py-1 px-2 relative transition duration-100 ease-in-out ellipsis"
 										key={contact.id}>
-										<div className="flex h-8 items-center ellipsis cursor-pointer" onClick={(e) => {
+										<div className="flex h-9 items-center ellipsis cursor-pointer" onClick={(e) => {
 													e.stopPropagation();
 													openModal(e);
 													setSelectedContact(contact)
@@ -90,7 +90,7 @@ const Contacts = ({ userId }) => {
 											<div className="mr-2 md:mr-3 pl-2 text-dark-blue text-sm sm:text-base md:text-lg">
 												<i className="fa-solid fa-user"></i>
 											</div>
-											<div className="flex items-center">
+											<div className="bg-dark-blue-2 h-9 w-9 flex items-center justify-center rounded-full">
 												<AvatarContact user={contact} />
 											</div>
 											<div className="text-sm md:text-base ml-2 ellipsis">

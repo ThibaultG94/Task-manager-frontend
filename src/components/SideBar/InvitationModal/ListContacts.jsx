@@ -82,7 +82,7 @@ const ListContacts = ({ userId }) => {
 									<div
 										className="flex items-center justify-start p-1 md:p-2 py-2.5 relative transition duration-100 ease-in-out"
 										key={contact.id}>
-										<div className="flex h-8 items-center ellipsis cursor-pointer" onClick={(e) => {
+										<div className="flex h-9 items-center ellipsis cursor-pointer" onClick={(e) => {
 												e.stopPropagation();
 												openModal(e);
 												setSelectedContact(contact)
@@ -91,7 +91,7 @@ const ListContacts = ({ userId }) => {
 												<i className="fa-solid fa-user"></i>
 											</div>
 											<div className="flex items-center">
-												<div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden relative rounded-full text-left w-8">
+												<div className="bg-dark-blue-2 flex h-9 items-center justify-center overflow-hidden relative rounded-full text-left w-9">
 													<AvatarContact user={contact} />
 												</div>
 											</div>

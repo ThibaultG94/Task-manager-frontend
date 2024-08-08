@@ -99,7 +99,7 @@ const HandleModalContact = ({ closeModal, selectedContact, blocked }) => {
 					/>
                     <div className="max-w-lg mx-auto px-6 rounded-lg">
                         <div className="flex justify-center items-center pt-4 px-6 mb-4">
-                            <div>
+                            <div className="bg-dark-blue-2 h-9 w-9 flex items-center justify-center rounded-full">
                                 <AvatarContact user={selectedContact} />
                             </div>
                             <h5 className="text-gray-900 text-lg md:text-xl leading-tight font-medium px-2">
