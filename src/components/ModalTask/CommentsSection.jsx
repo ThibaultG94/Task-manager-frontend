@@ -78,7 +78,7 @@ const CommentsSection = ({ workspaceTask }) => {
         return comments && comments.map((comment, index) => (
             <div key={index} className="mb-4 p-2 border-b border-gray-200">
                 <div className="flex items-center mb-2">
-                    <div className="h-8 w-8 rounded-full bg-dark-blue text-white flex items-center justify-center mr-2">
+                    <div className="h-9 w-9 rounded-full bg-dark-blue-2 text-white flex items-center justify-center mr-2">
                         <AvatarContact user={comment?.user} />
                     </div>
                     <div>

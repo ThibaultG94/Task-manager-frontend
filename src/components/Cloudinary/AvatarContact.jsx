@@ -3,7 +3,6 @@ import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage } from '@cloudinary/react';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
-import { useAvatar } from '../../context/AvatarContext';
 
 const AvatarContact = ({ user }) => {
     const CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
@@ -35,7 +34,7 @@ const AvatarContact = ({ user }) => {
         }, [avatarUrl]);
 
     return (
-        <div className="bg-dark-blue cursor-auto flex h-8 items-center justify-center mx-auto overflow-hidden relative rounded-full w-8">
+        <div className="h-8 w-8">
             {img && <AdvancedImage
                 cldImg={img}
                 className="w-full h-full object-cover rounded-full"
