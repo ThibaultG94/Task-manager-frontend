@@ -11,6 +11,7 @@ import { useMarkConversationAsRead } from '../../../api/conversations/useMarkCon
 import useOpenConversation from '../../../hooks/useOpenConversation';
 import { getCategoryDate } from '../../../utils/getCategoryDay';
 import CloseConversation from '../../Buttons/CloseConversation';
+import AvatarContact from '../../Cloudinary/AvatarContact';
 
 const Conversation = ({ contact, index, isMinimized }) => {
   const dispatch = useDispatch();
@@ -110,7 +111,12 @@ const Conversation = ({ contact, index, isMinimized }) => {
   return (
     <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>
       <div className="flex items-center justify-between bg-blue-500 text-white rounded-t-lg cursor-pointer relative" onClick={(e) => minimizeConversation(e, contact)}>
-        <span className='p-2'>{contact.username}</span>
+        <div className='flex justify-center items-center'>
+          <div className='p-2'>
+            <AvatarContact user={contact} />
+          </div>
+          <span className='p-0.5'>{contact.username}</span>
+        </div>
         {unreadCount > 0 && <span className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">{unreadCount}</span>}
         <div className='flex w-8 h-8 md:w-10 md:h-10 items-center justify-center'>
           <CloseConversation onClose={() => closeConversation(contact.id)} />

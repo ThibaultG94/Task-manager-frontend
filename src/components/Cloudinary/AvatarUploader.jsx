@@ -94,11 +94,11 @@ const AvatarUploader = ({ user, inputFileRef }) => {
         }
     };
 
-    return (
-        <div className="relative w-full h-full flex items-center justify-center">
+    return (    
+        <div className="relative border-r-0 w-full h-full flex items-center justify-center shadow-2xl">
             {img && <AdvancedImage
                 cldImg={img}
-                className="absolute z-10 w-full h-full object-cover rounded-full"
+                className="absolute z-10 w-full h-full object-cover shadow-lg"
             />}
             <input
                 type="file"
