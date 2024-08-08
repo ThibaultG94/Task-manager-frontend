@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import { fr, is } from 'date-fns/locale';
+import { fr } from 'date-fns/locale';
 import NotificationsModal from './NotificationsModal';
+import AvatarContact from '../../Cloudinary/AvatarContact';
 
 const NotificationsMenu = ({
 	unreadNotifications,
@@ -85,15 +86,8 @@ const NotificationsMenu = ({
 								}`}
 								onClick={() => onRead(notification)}>
 									<div className="flex flex-1 items-center space-x-2 ellipsis">
-										<div className="bg-dark-blue flex h-10 items-center justify-center mx-auto overflow-hidden p-2 rounded-full w-10">
-											<span
-												id="avatarLetterNotif"
-												className="text-lg text-white">
-												{
-													notification
-													.creatorUsername[0]
-												}
-											</span>
+										<div className="bg-dark-blue-2 flex h-9 items-center justify-center mx-auto overflow-hidden rounded-full w-9">
+											<AvatarContact user={notification} />
 										</div>
 										<div className="flex-1 overflow-hidden">
 											<span className="block truncate">
@@ -133,15 +127,8 @@ const NotificationsMenu = ({
 											onRead(notification)
 										}>
 											<div className="flex flex-1 items-center space-x-2 ellipsis">
-												<div className="bg-dark-blue flex h-10 items-center justify-center mx-auto overflow-hidden p-2 rounded-full w-10">
-													<span
-														id="avatarLetterNotif"
-														className="text-lg text-white">
-														{
-															notification
-															.creatorUsername[0]
-														}
-													</span>
+												<div className="bg-dark-blue-2 flex h-9 items-center justify-center mx-auto overflow-hidden rounded-full w-9">
+													<AvatarContact user={notification} />
 												</div>
 												<div className="flex-1 overflow-hidden">
 													<span className="block truncate">

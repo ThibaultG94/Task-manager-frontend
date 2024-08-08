@@ -9,6 +9,7 @@ import {
 import { useGetUserId } from '../../../api/users/useGetUserId';     
 import { useGetAllNotifications } from '../../../api/notifications/useGetAllNotifications';
 import Pagination from '../../../utils/Pagination';
+import AvatarContact from '../../Cloudinary/AvatarContact';
 
 const NotificationsModal = ({
 	formatDateToNow,
@@ -115,15 +116,8 @@ const NotificationsModal = ({
 										}`}
 										onClick={() => onRead(notification)}>
 										<div className="flex flex-1 items-start space-x-2">
-											<div className="bg-dark-blue flex h-10 items-center justify-center mx-auto overflow-hidden p-2 relative rounded-full w-10">
-												<span
-													id="avatarLetterNotif"
-													className="text-lg text-white">
-													{
-														notification
-															.creatorUsername[0]
-													}
-												</span>
+											<div className="bg-dark-blue-2 flex h-9 items-center justify-center mx-auto overflow-hidden relative rounded-full w-9">
+												<AvatarContact user={notification} />
 											</div>
 											<div className="flex-1">
 												<span className="block">
