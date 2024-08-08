@@ -112,7 +112,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
     <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>
       <div className="flex items-center justify-between bg-blue-500 text-white rounded-t-lg cursor-pointer relative" onClick={(e) => minimizeConversation(e, contact)}>
         <div className='flex justify-center items-center'>
-          <div className='p-2'>
+          <div className='px-2'>
             <AvatarContact user={contact} />
           </div>
           <span className='p-0.5'>{contact.username}</span>
@@ -124,7 +124,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
       </div>  
       {!isMinimized && (
         <div className="flex flex-col h-full">
-          <div className="flex-grow overflow-y-auto p-2 mb-2 space-y-2" ref={messagesContainerRef}>
+          <div className="flex-grow overflow-y-auto p-2 mb-2 space-y-1" ref={messagesContainerRef}>
             {messages && messages.length === 0 ? (
               <div className="text-center text-gray-500 mt-4">Aucun message pour l'instant</div>
             ) : (
