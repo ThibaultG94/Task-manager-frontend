@@ -110,7 +110,7 @@ const Conversation = ({ contact, index, isMinimized }) => {
 
   return (
     <div className={`fixed z-50 bottom-0 w-80 bg-white shadow-lg rounded-t-lg ${isMinimized ? 'h-12' : 'h-96'}`} style={{ right: `${(index % maxConversations) * 330 + 10}px`, bottom: isMinimized ? '-8px' : '40px' }}>
-      <div className="flex items-center justify-between bg-blue-500 text-white rounded-t-lg cursor-pointer relative" onClick={(e) => minimizeConversation(e, contact)}>
+      <div className="flex items-center justify-between bg-dark-blue-2 text-white rounded-t-lg cursor-pointer relative" onClick={(e) => minimizeConversation(e, contact)}>
         <div className='flex justify-center items-center'>
           <div className='bg-dark-blue-2 h-9 w-9 flex items-center justify-center rounded-full mx-2'>
             <AvatarContact user={contact} />
