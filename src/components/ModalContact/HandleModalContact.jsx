@@ -7,6 +7,7 @@ import DeleteContact from './HandleDeleteContact';
 import useOpenConversation from '../../hooks/useOpenConversation';
 import { selectBecomingTasks, selectNextMonthTasks, selectNextWeekTasks, selectNextYearTasks, selectOverdueTasks, selectThisMonthTasks, selectThisWeekTasks, selectThisYearTasks, selectTodayTasks, selectTomorrowTasks } from '../../store/selectors/taskSelectors';
 import useUnblockContact from '../../api/users/useUnblockContact';
+import AvatarContact from '../Cloudinary/AvatarContact';
 
 const HandleModalContact = ({ closeModal, selectedContact, blocked }) => {
     const userWorkspaces = useSelector(selectWorkspaces);
@@ -97,8 +98,11 @@ const HandleModalContact = ({ closeModal, selectedContact, blocked }) => {
 						modalTabs={false}
 					/>
                     <div className="max-w-lg mx-auto px-6 rounded-lg">
-                        <div className="text-center pt-4 px-6 mb-4">
-                            <h5 className="text-gray-900 text-lg md:text-xl leading-tight font-medium mb-2">
+                        <div className="flex justify-center items-center pt-4 px-6 mb-4">
+                            <div>
+                                <AvatarContact user={selectedContact} />
+                            </div>
+                            <h5 className="text-gray-900 text-lg md:text-xl leading-tight font-medium px-2">
                                 {selectedContact?.username}
                             </h5>
                         </div>
