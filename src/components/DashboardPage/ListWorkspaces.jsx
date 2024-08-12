@@ -125,7 +125,7 @@ const ListWorkspaces = ({ userId }) => {
 								</div>
 								{isTabletOrLaptop ? (
 									<div className="flex items-center">
-										{renderMembers(workspace?.membersName)}
+										{renderMembers(workspace?.members)}
 										<div className="ml-2 mr-2 hidden sm:block">
 											<FaUser
 												title={`${workspace?.members.length} membre(s)`}
