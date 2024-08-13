@@ -48,7 +48,7 @@ const HomePage = () => {
 					<LoginForm setShowLoginForm={setShowLoginForm} />
 				</div>
 			</main>
-			<div className="absolute">
+			<div className="relative md:absolute">
                 <button onClick={handleVisitorLogin} className="visitor-button">
 					{isLoading ? (
 						<LoadingComponent />
