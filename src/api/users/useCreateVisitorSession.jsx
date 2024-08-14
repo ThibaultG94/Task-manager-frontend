@@ -18,8 +18,9 @@ export const useCreateVisitorSession = () => {
             document.cookie = `token=${token}`;
             dispatch(setUserId(res.data.tempUser._id));
             dispatch(setIsUserLoggedIn(true));
+            console.log(document.cookie);
 
-            await getUserId();
+            // await getUserId();
             return res;
         } catch (error) {
             errorApi(error);
