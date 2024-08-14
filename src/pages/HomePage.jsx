@@ -21,6 +21,7 @@ const HomePage = () => {
 		setIsLoading(true);
 		const res = await createVisitorSession();
 		if (res.status === 200) {
+			console.log(res);
 			const userId = await res.data.tempUser.id;
 			sessionStorage.setItem('userId', userId);
 			navigate('/pages/dashboard');
