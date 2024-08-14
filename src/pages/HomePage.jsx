@@ -19,11 +19,19 @@ const HomePage = () => {
 
 	const handleVisitorLogin = async () => {
 		setIsLoading(true);
-		const user = await createVisitorSession();
-		setIsLoading(false);
-		const userId = user?.id;
-		sessionStorage.setItem('userId', userId);
-		navigate('/pages/dashboard');
+		const res = await createVisitorSession();
+		if (res.status === 200) {
+			const userId = await res.data.tempUser.id;
+			sessionStorage.setItem('userId', userId);
+			navigate('/pages/dashboard');
+			setIsLoading(false);
+		} else {
+			// setErrorWithLogin(res);
+			setIsLoading(false);
+		}
+		// const userId = user?.id;
+		// sessionStorage.setItem('userId', userId);
+		// navigate('/pages/dashboard');
 	};
 
 	useEffect(() => {
