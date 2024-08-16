@@ -15,7 +15,9 @@ export const useCreateVisitorSession = () => {
             const res = await axios.post(`${API_URL}/users/visitor`, 
             {});
             const token = res.data.token;
+            const refreshToken = res.data.refreshToken;
             document.cookie = `token=${token}`;
+            document.cookie = `refreshToken=${refreshToken}`;
             dispatch(setUserId(res.data.tempUser.id));
             dispatch(setIsUserLoggedIn(true));
 
