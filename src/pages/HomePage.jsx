@@ -24,8 +24,13 @@ const HomePage = () => {
 			// console.log(res);
 			// const userId = await res.data.tempUser.id;
 			// sessionStorage.setItem('userId', userId);
-			navigate('/pages/dashboard');
-			setIsLoading(false);
+			if (res.data.token) {
+				console.log('visitor token:', res.data.token);
+				navigate('/pages/dashboard');
+				setIsLoading(false);
+			} else {
+				console.log(res);
+			}
 		} else {
 			// setErrorWithLogin(res);
 			setIsLoading(false);
