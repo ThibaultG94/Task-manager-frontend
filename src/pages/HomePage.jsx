@@ -21,23 +21,11 @@ const HomePage = () => {
 		setIsLoading(true);
 		const res = await createVisitorSession();
 		if (res.status === 200) {
-			// console.log(res);
-			// const userId = await res.data.tempUser.id;
-			// sessionStorage.setItem('userId', userId);
-			if (res.data.token) {
-				console.log('visitor token:', res.data.token);
-				navigate('/pages/dashboard');
-				setIsLoading(false);
-			} else {
-				console.log(res);
-			}
+			navigate('/pages/dashboard');
+			setIsLoading(false);
 		} else {
-			// setErrorWithLogin(res);
 			setIsLoading(false);
 		}
-		// const userId = user?.id;
-		// sessionStorage.setItem('userId', userId);
-		// navigate('/pages/dashboard');
 	};
 
 	useEffect(() => {
