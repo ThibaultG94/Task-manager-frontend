@@ -14,7 +14,7 @@ const HomePage = () => {
 	const createVisitorSession = useCreateVisitorSession();
 
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
-	const [showLoginForm, setShowLoginForm] = useState(false);
+	const [showLoginForm, setShowLoginForm] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleVisitorLogin = async () => {
