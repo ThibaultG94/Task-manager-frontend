@@ -10,8 +10,9 @@ export const useLogoutUser = () => {
 	const errorApi = useErrorApi();
 	const API_URL = process.env.REACT_APP_API_URL;
 
-	const deleteCookie = (name) => {
+	const deleteCookie = async (name) => {
         document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
+		console.log('Cookie deleted');
 	};
 
 	const logoutUser = async () => {
@@ -22,10 +23,10 @@ export const useLogoutUser = () => {
 				{ withCredentials: true }
 			);
 
-			deleteCookie('token');
-			deleteCookie('refreshToken');
+			await deleteCookie('token');
+			await deleteCookie('refreshToken');
 
-			sessionStorage.removeItem('redirectAfterLogin');
+			// sessionStorage.removeItem('redirectAfterLogin');
 			sessionStorage.removeItem('userId');
 
 			dispatch(resetStore());
