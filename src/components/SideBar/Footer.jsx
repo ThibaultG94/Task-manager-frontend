@@ -1,8 +1,18 @@
 import React from 'react';
 import { useLogoutUser } from '../../api/users/useLogoutUser';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
 	const logoutUser = useLogoutUser();
+	const navigate = useNavigate();
+
+	const disconnectUser = () => {
+		const res = logoutUser();
+
+		if (res && res.status === 200) {
+			navigate('/home');
+		}
+	};
 
 	return (
 		<ul className="flex flex-row xl:flex-col justify-between self-center xl:self-end xl:w-full">
@@ -16,7 +26,7 @@ const Footer = () => {
 			<li
 				className="cursor-pointer text-xl"
 				id="logoutLink"
-				onClick={logoutUser}>
+				onClick={disconnectUser}>
 				<i className="fas fa-sign-out-alt mr-1"></i>
 			</li>
 		</ul>

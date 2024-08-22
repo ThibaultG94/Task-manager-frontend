@@ -31,9 +31,9 @@ export const useLogoutUser = () => {
 
 			dispatch(resetStore());
 
-			navigate('/home');
+			// navigate('/home');
 
-			return res.data.message;
+			return res;
 		} catch (error) {
 			errorApi(error);
 		}
