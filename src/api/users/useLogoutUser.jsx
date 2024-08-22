@@ -9,6 +9,7 @@ export const useLogoutUser = () => {
 	const navigate = useNavigate();
 	const errorApi = useErrorApi();
 	const API_URL = process.env.REACT_APP_API_URL;
+	const APP_ENV = process.env.REACT_APP_ENV;
 
 	const deleteCookie = async (name) => {
         document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
@@ -22,8 +23,10 @@ export const useLogoutUser = () => {
 				{ withCredentials: true }
 			);
 
-			await deleteCookie('token');
-			await deleteCookie('refreshToken');
+			if (APP_ENV === "development") {
+				await deleteCookie('token');
+				await deleteCookie('refreshToken');
+            }
 
 			sessionStorage.removeItem('redirectAfterLogin');
 			sessionStorage.removeItem('userId');

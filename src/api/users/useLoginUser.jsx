@@ -6,6 +6,7 @@ import { setIsUserLoggedIn } from "../../store/feature/users.slice";
 export const useLoginUser = () => {
     const dispatch = useDispatch();
     const getUserId = useGetUserId();
+    const APP_ENV = process.env.REACT_APP_ENV;
 
     const login = async (API_URL, email, password) => {
         try {
@@ -19,11 +20,13 @@ export const useLoginUser = () => {
                     withCredentials: true,
                 }
             );
-    
-            const token = res.data.token;
-            const refreshToken = res.data.refreshToken;
-            document.cookie = `token=${token}`;
-            document.cookie = `refreshToken=${refreshToken}`;
+
+            if (APP_ENV === "development") {
+                const token = res.data.token;
+                const refreshToken = res.data.refreshToken;
+                document.cookie = `token=${token}`;
+                document.cookie = `refreshToken=${refreshToken}`;
+            }
 
             dispatch(setIsUserLoggedIn(true));
 

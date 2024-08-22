@@ -8,10 +8,11 @@ const Footer = () => {
 
 	const disconnectUser = () => {
 		const res = logoutUser();
+		console.log(res);
 
-		if (res && res.status === 200) {
-			navigate('/home');
-		}
+		// if (res && res.status === 200) {
+		// 	navigate('/home');
+		// }
 	};
 
 	return (
