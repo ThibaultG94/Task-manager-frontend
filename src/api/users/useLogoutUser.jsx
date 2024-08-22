@@ -12,7 +12,6 @@ export const useLogoutUser = () => {
 
 	const deleteCookie = async (name) => {
         document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
-		console.log('Cookie deleted');
 	};
 
 	const logoutUser = async () => {
@@ -26,12 +25,12 @@ export const useLogoutUser = () => {
 			await deleteCookie('token');
 			await deleteCookie('refreshToken');
 
-			// sessionStorage.removeItem('redirectAfterLogin');
+			sessionStorage.removeItem('redirectAfterLogin');
 			sessionStorage.removeItem('userId');
 
 			dispatch(resetStore());
 
-			// navigate('/home');
+			navigate('/home');
 
 			return res;
 		} catch (error) {
