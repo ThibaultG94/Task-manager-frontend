@@ -3,6 +3,7 @@ import { useRegisterUser } from '../api/users/useRegisterUser';
 import { useNavigate } from 'react-router-dom';
 // import { login } from '../api/users/loginUser';
 import { useLoginUser } from '../api/users/useLoginUser';
+import { useErrorApi } from './useErrorApi';
 
 export const useSubmitForSignupAccount = ({
 	inputsFormErrors,
@@ -12,6 +13,8 @@ export const useSubmitForSignupAccount = ({
 	setProgressBar,
 }) => {
 	const registerUser = useRegisterUser();
+	const navigate = useNavigate();
+	const errorApi = useErrorApi();
 
 	const submitForSignupAccount = async (e) => {
 		e.preventDefault();
@@ -25,20 +28,27 @@ export const useSubmitForSignupAccount = ({
 			!inputsFormErrors.confirmPassword
 		) {
 			setIsSubmitting(true);
-			await registerUser(
+			const res = await registerUser(
 				inputsFormValues.username,
 				inputsFormValues.email,
 				inputsFormValues.password
 			);
-			setInputsFormValues({
-				username: '',
-				email: '',
-				password: '',
-				confirmPassword: '',
-			});
-			setProgressBar('');
-			toast.success('Votre compte a été créé avec succès !');
-			setIsSubmitting(false);
+			if (res.status === 200) {
+				setInputsFormValues({
+					username: '',
+					email: '',
+					password: '',
+					confirmPassword: '',
+				});
+				setProgressBar('');
+				toast.success('Votre compte a été créé avec succès !');
+				setIsSubmitting(false);
+				const userId = await res.data.user.id;
+				sessionStorage.setItem('userId', userId);
+				navigate('/pages/dashboard');
+			} else {
+				errorApi(res.status);
+			}
 		} else {
 			alert('Veuillez remplir correctement les champs');
 		}
