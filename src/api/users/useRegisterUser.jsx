@@ -12,11 +12,14 @@ export const useRegisterUser = () => {
 				email: email,
 				password: password,
 				role: 'user',
-			});
-			const token = res.data.token;
-            const refreshToken = res.data.refreshToken;
-            document.cookie = `token=${token}`;
-            document.cookie = `refreshToken=${refreshToken}`;
+			},
+            {
+                withCredentials: true,
+            });
+			// const token = res.data.token;
+            // const refreshToken = res.data.refreshToken;
+            // document.cookie = `token=${token}`;
+            // document.cookie = `refreshToken=${refreshToken}`;
 			return res;
 		} catch (error) {
 			errorApi(error);
