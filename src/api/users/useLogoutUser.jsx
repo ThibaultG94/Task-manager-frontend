@@ -32,9 +32,7 @@ export const useLogoutUser = () => {
 
 			dispatch(resetStore());
 
-			sessionStorage.setItem('redirectAfterLogin', '/pages/dashboard');
-
-			navigate('/home');
+			// navigate('/home');
 
 			return res;
 		} catch (error) {

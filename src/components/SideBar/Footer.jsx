@@ -6,13 +6,14 @@ const Footer = () => {
 	const logoutUser = useLogoutUser();
 	const navigate = useNavigate();
 
-	const disconnectUser = () => {
-		const res = logoutUser();
+	const disconnectUser = async () => {
+		const res = await logoutUser();
 		console.log(res);
 
-		// if (res && res.status === 200) {
-		// 	navigate('/home');
-		// }
+		if (res && res.status === 200) {
+			console.log(res);
+			navigate('/home');
+		}
 	};
 
 	return (
