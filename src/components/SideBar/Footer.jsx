@@ -8,10 +8,8 @@ const Footer = () => {
 
 	const disconnectUser = async () => {
 		const res = await logoutUser();
-		console.log(res);
 
 		if (res && res.status === 200) {
-			console.log(res);
 			navigate('/home');
 		}
 	};
