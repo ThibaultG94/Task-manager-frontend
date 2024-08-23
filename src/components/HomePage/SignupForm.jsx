@@ -9,8 +9,9 @@ import {
 	validateConfirmPasswordOnTyping,
 } from '../../utils/signupFormValidation';
 import { useSubmitForSignupAccount } from '../../utils/useSubmitAccount';
+import LoadingComponent from '../Buttons/LoadingComponent';
 
-const SignupForm = ({ setShowLoginForm }) => {
+const SignupForm = ({ setShowLoginForm, isLoading, handleVisitorLogin }) => {
 	const [inputsFormErrors, setInputsFormErrors] = useState({
 		username: null,
 		email: null,
@@ -126,6 +127,19 @@ const SignupForm = ({ setShowLoginForm }) => {
 							disabled={isSubmitting}
 							type="submit">
 							{isSubmitting ? 'En cours...' : "S'inscrire"}
+						</button>
+					</div>
+					<div className="flex justify-center w-full md:hidden mt-12">
+						<button onClick={handleVisitorLogin} className="visitor-button">
+							{isLoading ? (
+								<LoadingComponent />
+							) : (
+								<span>
+									Tester en un clic
+								<br />
+								{/* <i className="fas fa-play play-icon"></i> */}
+								</span>  
+							)}
 						</button>
 					</div>
 				</form>

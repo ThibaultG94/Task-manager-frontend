@@ -41,16 +41,16 @@ const HomePage = () => {
 					className={`${
 						showLoginForm ? 'hidden' : 'block'
 					} md:block`}>
-					<SignupForm setShowLoginForm={setShowLoginForm} />
+					<SignupForm setShowLoginForm={setShowLoginForm} isLoading={isLoading} handleVisitorLogin={handleVisitorLogin} />
 				</div>
 				<div
 					className={`${
 						showLoginForm ? 'block' : 'hidden'
 					} md:block`}>
-					<LoginForm setShowLoginForm={setShowLoginForm} />
+					<LoginForm setShowLoginForm={setShowLoginForm} isLoading={isLoading} handleVisitorLogin={handleVisitorLogin} />
 				</div>
 			</main>
-			<div className="relative md:absolute">
+			<div className="hidden absolute md:block">
                 <button onClick={handleVisitorLogin} className="visitor-button">
 					{isLoading ? (
 						<LoadingComponent />

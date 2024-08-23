@@ -6,8 +6,9 @@ import { useSubmitForLoginAccount } from '../../utils/useSubmitAccount';
 import useErrorLogin from '../../utils/useErrorLogin';
 import PasswordResetModal from './PasswordResetModal';
 import { useForgotPassword } from '../../api/users/useForgotPassword';
+import LoadingComponent from '../Buttons/LoadingComponent';
 
-const LoginForm = ({ setShowLoginForm }) => {
+const LoginForm = ({ setShowLoginForm, isLoading, handleVisitorLogin }) => {
 	const [errorWithLogin, setErrorWithLogin] = useState(null);
 	const [isModalResetPasswordOpen, setIsModalResetPasswordOpen] =
 		useState(false);
@@ -78,6 +79,19 @@ const LoginForm = ({ setShowLoginForm }) => {
 							type="submit"
 							disabled={isDelayActive}>
 								Se connecter
+						</button>
+					</div>
+					<div className="flex justify-center w-full md:hidden mt-20">
+						<button onClick={handleVisitorLogin} className="visitor-button">
+							{isLoading ? (
+								<LoadingComponent />
+							) : (
+								<span>
+									Tester en un clic
+								<br />
+								{/* <i className="fas fa-play play-icon"></i> */}
+								</span>  
+							)}
 						</button>
 					</div>
 				</form>
