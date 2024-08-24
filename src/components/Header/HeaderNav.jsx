@@ -22,7 +22,7 @@ const HeaderNav = () => {
 					nav.isActive ? 'font-bold text-orange-primary mr-6' : 'mr-6'
 				}>
 				<li className="cursor-pointer">
-					<h3 className="text-[1.3rem]">Tasks</h3>
+					<h3 className="text-[1.3rem]">Tâches</h3>
 				</li>
 			</NavLink>
 
