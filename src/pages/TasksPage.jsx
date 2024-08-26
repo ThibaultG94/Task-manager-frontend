@@ -61,11 +61,6 @@ const TasksPage = () => {
 	const [redirectAfterLogin, setRedirectAfterLogin] = useState(false);
 	const [userId, setUserId] = useState(null);
 
-	const getId = async () => {
-		const id = await getUserId();
-		setUserId(id);
-	};
-
 	const getUser = useGetUser();
 	const getWorkspaces = useGetWorkspaces();
 	const getOverdueTasks = useGetOverdueTasks();
@@ -81,10 +76,14 @@ const TasksPage = () => {
 	const getNotifications = useGetNotifications();
 	const getTips = useGetTips();
 
+	const getIdAndAuth = async () => {
+		await getUserId().then((id) => setUserId(id));
+		await checkAuthentication();
+	};
+
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
-		getId();
-		checkAuthentication();
+		getIdAndAuth();
 	}, [redirectAfterLogin]);
 
 	useEffect(() => {

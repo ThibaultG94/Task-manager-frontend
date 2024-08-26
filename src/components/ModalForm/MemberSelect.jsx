@@ -13,7 +13,7 @@ const MemberSelect = ({
 	}, [workspaceMembers]);
 
 	return (
-		<div className="relative w-full md:w-1/2">
+		<div className="relative md:mr-2 md:mb-0 w-full md:w-1/2">
 			<select
 				className="appearance-none bg-white block border border-gray-300 hover:border-gray-500 cursor-pointer focus:outline-none focus:shadow-outline leading-tight pr-8 px-4 py-2 rounded shadow w-full"
 				id="assignedTo"

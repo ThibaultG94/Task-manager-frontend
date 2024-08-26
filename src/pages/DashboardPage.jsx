@@ -71,14 +71,14 @@ const DashboardPage = () => {
 	const getNextYearTasks = useGetNextYearTasks();
 	const getBecomingTasks = useGetBecomingTasks();
 
-	const getId = async () => {
+	const getIdAndAuth = async () => {
 		await getUserId().then((id) => setUserId(id));
+		await checkAuthentication();
 	};
 	
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
-		getId();
-		checkAuthentication();
+		getIdAndAuth();
 	}, [redirectAfterLogin]);
 
 	useEffect(() => {

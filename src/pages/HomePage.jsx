@@ -28,9 +28,13 @@ const HomePage = () => {
 		}
 	};
 
+	const auth = async () => {
+		await checkAuthentication();
+	};
+
 	useEffect(() => {
 		setRedirectAfterLogin(sessionStorage.getItem('redirectAfterLogin'));
-		checkAuthentication();
+		auth();
 	}, [redirectAfterLogin]);
 
 	return (
