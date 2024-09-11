@@ -11,6 +11,13 @@ const CreateTaskAndWorkspace = ({
 
 	const [activeTab, setActiveTab] = useState('tab1');
 	const [isClosing, setIsClosing] = useState(false);
+	const [formState, setFormState] = useState(() => {
+		const savedState = localStorage.getItem('createFormState');
+		return savedState ? JSON.parse(savedState) : {
+			taskForm: {},
+			workspaceForm: {},
+		};
+	});
 	const tabData = [
 		{
 			id: 'tab1',
@@ -20,6 +27,8 @@ const CreateTaskAndWorkspace = ({
 				<CreateTaskForm
 					userId={userId}
 					setIsModalOpen={setIsCreateTaskOrWorkspaceModalOpen}
+					initialState={formState.taskForm}
+					updateFormState={(state) => updateFormState('taskForm', state)}
 				/>
 			),
 		},
@@ -33,10 +42,23 @@ const CreateTaskAndWorkspace = ({
 					setIsModalOpen={
 						setIsCreateTaskOrWorkspaceModalOpen
 					}
+					initialState={formState.workspaceForm}
+					updateFormState={(state) => updateFormState('workspaceForm', state)}
 				/>
 			),
 		},
 	];
+
+	const updateFormState = (formType, newState) => {
+		setFormState(prevState => ({
+			...prevState,
+			[formType]: newState
+		}));
+	};
+
+	useEffect(() => {
+		localStorage.setItem('createFormState', JSON.stringify(formState));
+	}, [formState]);
 
 	const closeModal = () => {
 		setIsCreateTaskOrWorkspaceModalOpen(false);

@@ -13,19 +13,19 @@ import { useTasksHasBeenUpdated } from '../../../utils/useTasksHasBeenUpdated';
 import { toast } from 'react-toastify';
 import LoadingCreateComponent from '../../Buttons/LoadingCreateComponent';
 
-const CreateTaskForm = ({ userId, setIsModalOpen }) => {
+const CreateTaskForm = ({ userId, setIsModalOpen, initialState, updateFormState }) => {
 	const createTask = useCreateTask();
 	const tasksHasBeenUpdated = useTasksHasBeenUpdated();
 	const userWorkspaces = useSelector(selectWorkspaces);
 	const [filteredWorkspaces, setFilteredWorkspaces] = useState([]);
-	const [taskTitle, setTaskTitle] = useState('');
-	const [taskStatus, setTaskStatus] = useState('Pending');
-	const [taskPriority, setTaskPriority] = useState('Medium');
-	const [taskDeadline, setTaskDeadline] = useState('');
-	const [taskDescription, setTaskDescription] = useState('');
-	const [selectedWorkspace, setSelectedWorkspace] = useState('default');
-	const [workspaceMembers, setWorkspaceMembers] = useState('');
-	const [selectedMember, setSelectedMember] = useState('default');
+	const [taskTitle, setTaskTitle] = useState(initialState.taskTitle || '');
+	const [taskStatus, setTaskStatus] = useState(initialState.taskStatus || 'Pending');
+	const [taskPriority, setTaskPriority] = useState(initialState.taskPriority || 'Medium');
+	const [taskDeadline, setTaskDeadline] = useState(initialState.taskDeadline || '');
+	const [taskDescription, setTaskDescription] = useState(initialState.taskDescription || '');
+	const [selectedWorkspace, setSelectedWorkspace] = useState(initialState.selectedWorkspace || 'default');
+	const [workspaceMembers, setWorkspaceMembers] = useState(initialState.workspaceMembers || '');
+	const [selectedMember, setSelectedMember] = useState(initialState.selectedMember || 'default');
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
@@ -47,6 +47,19 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 			setFilteredWorkspaces(filter);
 		}
 	}, [userWorkspaces]);
+
+	useEffect(() => {
+		updateFormState({
+			taskTitle,
+			taskStatus,
+			taskPriority,
+			taskDeadline,
+			taskDescription,
+			selectedWorkspace,
+			workspaceMembers,
+			selectedMember,
+		});
+	}, [taskTitle, taskStatus, taskPriority, taskDeadline, taskDescription, selectedWorkspace, workspaceMembers, selectedMember]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -83,6 +96,17 @@ const CreateTaskForm = ({ userId, setIsModalOpen }) => {
 			setIsLoading(false);
 			toast.success('Tâche créée avec succès !');
 			setIsModalOpen(false);
+
+			updateFormState({
+				taskTitle: '',
+				taskStatus: 'Pending',
+				taskPriority: 'Medium',
+				taskDeadline: '',
+				taskDescription: '',
+				selectedWorkspace: 'default',
+				workspaceMembers: '',
+				selectedMember: 'default',
+			});
 		} catch (error) {
 			toast.error('Échec de la création de la tâche.');
 			setIsLoading(false);

@@ -10,19 +10,28 @@ import { useSendInvitationWorkspace } from '../../../api/workspaceInvitations/us
 import { toast } from 'react-toastify';
 import LoadingCreateComponent from '../../Buttons/LoadingCreateComponent';
 
-const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
+const CreateWorkspaceForm = ({ userId, setIsModalOpen, initialState, updateFormState }) => {
 	const createWorkspace = useCreateWorkspace();
 	const sendInvitationWorkspace = useSendInvitationWorkspace();
 	const userContacts = useSelector(selectUserContacts);
-	const [workspaceTitle, setWorkspaceTitle] = useState('');
-	const [workspaceDescription, setWorkspaceDescription] = useState('');
-	const [contacts, setContacts] = useState([]);
-	const [selectedMembers, setSelectedMembers] = useState([]);
+	const [workspaceTitle, setWorkspaceTitle] = useState(initialState.workspaceTitle || '');
+	const [workspaceDescription, setWorkspaceDescription] = useState(initialState.workspaceDescription || '');
+	const [contacts, setContacts] = useState(initialState.contacts || []);
+	const [selectedMembers, setSelectedMembers] = useState(initialState.selectedMembers || []);
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		if (userContacts) setContacts(userContacts);
 	}, [userContacts]);
+
+	useEffect(() => {
+		updateFormState({
+			workspaceTitle,
+			workspaceDescription,
+			contacts,
+			selectedMembers,
+		});
+	}, [workspaceTitle, workspaceDescription, contacts, selectedMembers]);
 
 	const handleChange = (selectedOptions) => {
 		setSelectedMembers(
@@ -63,6 +72,13 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen }) => {
 			await Promise.all(
 				membersArray.map((member) => sendInvitationWorkspace(member))
 			);
+
+			updateFormState({
+				workspaceTitle: '',
+				workspaceDescription: '',
+				contacts: [],
+				selectedMembers: [],
+			});
 
 			toast.success('Workspace créé !');
 			setIsLoading(false);
