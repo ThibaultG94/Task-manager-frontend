@@ -73,7 +73,7 @@ const CreateWorkspaceForm = ({ userId, setIsModalOpen, initialState, updateFormS
 				membersArray.map((member) => sendInvitationWorkspace(member))
 			);
 
-			updateFormState({
+			await updateFormState({
 				workspaceTitle: '',
 				workspaceDescription: '',
 				contacts: [],

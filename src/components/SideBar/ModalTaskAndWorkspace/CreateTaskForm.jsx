@@ -92,12 +92,21 @@ const CreateTaskForm = ({ userId, setIsModalOpen, initialState, updateFormState 
 		try {
 			await createTask(task);
 			await tasksHasBeenUpdated(task);
+
+			setTaskTitle('');
+			setTaskStatus('Pending');
+			setTaskPriority('Medium');
+			setTaskDeadline('');
+			setTaskDescription('');
+			setSelectedWorkspace('default');
+			setWorkspaceMembers('');
+			setSelectedMember('default');
 			
 			setIsLoading(false);
 			toast.success('Tâche créée avec succès !');
 			setIsModalOpen(false);
 
-			updateFormState({
+			await updateFormState({
 				taskTitle: '',
 				taskStatus: 'Pending',
 				taskPriority: 'Medium',

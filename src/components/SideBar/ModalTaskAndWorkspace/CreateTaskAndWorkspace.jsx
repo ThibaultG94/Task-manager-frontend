@@ -50,10 +50,12 @@ const CreateTaskAndWorkspace = ({
 	];
 
 	const updateFormState = (formType, newState) => {
-		setFormState(prevState => ({
-			...prevState,
+		const updatedState = {
+			...formState,
 			[formType]: newState
-		}));
+		};
+		setFormState(updatedState);
+		localStorage.setItem('createFormState', JSON.stringify(updatedState));
 	};
 
 	useEffect(() => {
